@@ -6,6 +6,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		include_once(APPLICATION_PATH.'/../library/CB/global_functions.php');
 	}
 
+	function _initCSBConfig(){
+		$config=new Zend_Config_Ini(APPLICATION_PATH.'/configs/csb.ini');
+		Zend_Registry::set('CsbConfig', $config);
+	}
+
 	function _initException(){
 		//error_reporting(E_ERROR | E_WARNING | E_NOTICE);
 		if(empty($_COOKIE['CSBDEV'])){
@@ -18,11 +23,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 	function _initCache(){
 		$options=$this->getOptions();
+		$sc=Zend_Registry::get('CsbConfig');
+		$opts=array_merge($options['cache'], $sc->get('cache')->toArray());
 		$manager=new Zend_Cache_Manager();
 		$cache=Zend_Cache::factory(
-						new CB_Resource_Cache($options['cache']),
+						new CB_Resource_Cache($opts),
 						new Zend_Cache_Backend_Libmemcached(),
-						$options['cache'],
+						$opts,
 						array('server'=>array($options['memcached'])));
 		$manager->setCache('general', $cache);
 		Zend_Registry::set('cache', $manager);
