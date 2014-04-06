@@ -1,0 +1,26 @@
+<? $tag=isset($this->tag) ? $this->tag : 'li';?>
+<<?=$tag;?>
+	class="product <?=(isset($this->back) && $this->back==false)?'noflip':'';?> <?=(!empty($this->extraClass)?$this->extraClass:'');?>
+	data-id="<?=$this->user->id;?>"
+	<?=(!empty($this->extraData)?$this->extraData:'');?>
+>
+	<div class="productInner">
+		<div class="flipper">
+
+
+			<? if(!isset($this->front) || $this->front==true){?>
+				<div class="front">
+					<div class="productImages">
+						<? if(is_array($this->user->avatar)){ $img=reset($this->user->avatar); ?>
+							<img src="<?=$img['small'];?>" alt="<?=$this->user->username;?>"/>
+						<? } ?>
+					</div>
+					<h3 class="productName">
+						<a href="<?=$this->url('profil').'/'.urlencode($this->user->username);?>" class="jump"><?=$this->user->username;?></a>
+					</h3>
+				</div>
+			<? } ?>
+
+		</div>
+	</div>
+</<?=$tag;?>>

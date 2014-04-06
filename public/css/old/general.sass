@@ -1,0 +1,425 @@
+@import "../compass"
+@import "mixins"
+
+html
+  height: 100%
+  line-height: 1.3em
+
+body
+  margin: 0px
+  padding: 0px
+  height: 100%
+  background-color: $blueBg
+  font-family: $defaultFont
+  line-height: 1.3em
+  font-size: 13px
+
+h1, h2, h3, legend
+  font-size: 25px
+  font-family: $hFont
+  line-height: 1.3em
+
+#container
+  width: 100%
+  background-image: $bgImage
+  background-position: 0px 150px
+  background-repeat: no-repeat
+  background-size: 100%
+
+strong
+  font-weight: bold
+
+a.button
+  padding: 5px
+  color: #FFFFFF
+  font-weight: bold
+  text-align: center
+  opacity: 0.8
+  width: 100px
+  display: block
+  margin: 5px
+  background-color: $darkBg
+
+div.text p
+  margin: 10px 0px
+
+form
+  li
+    width: 100%
+    margin: 10px 0px
+    text-align: right
+    &.hidden
+      display: none
+    &.field:after
+      content: ""
+      display: block
+      width: 100%
+      border-bottom: 1px dashed $darkBg
+      margin: 10px 0px
+    &.field:last-child:after
+      border: none
+    &.fieldset:after
+      border: none
+    &.submit
+      text-align: center
+      input
+        width: 170px
+    &.field ul.errors
+      color: #AA0000
+      font-weight: bold
+      width: 100%
+    &.captcha img
+      vertical-align: middle
+    &.textarea label, &.upload label
+      display: block
+      margin-left: 0px
+      margin-bottom: 5px
+      text-align: left
+      width: 100%
+    input, textarea, select
+      width: 250px
+      padding: 8px 15px
+      font-size: 16px
+      border: none
+      background-color: $darkBg
+      color: #FFFFFF
+      margin-left: 10px
+    input[type=submit]
+      cursor: pointer
+
+
+div.flash
+  border: 2px solid #FFFFFF
+  border-top-width: 0px
+  left: 50%
+  margin-left: -470px
+  position: fixed
+  text-align: center
+  top: 0
+  width: 750px
+  overflow: hidden
+  box-shadow: 0px 0px 10px $shadowsColor
+  margin-top: -100px
+  +opacity(0)
+  +border-bottom-radius(15px)
+  +transition(opacity 3s, margin-top 1s)
+  &.visible
+    margin-top: 0px
+    +opacity(0.6)
+    +transition(opacity 3s, margin-top 1s)
+  .close
+    color: #FFFFFF
+    font-weight: bold
+    border: 1px solid #FFFFFF
+    border-radius: 10px
+    height: 20px
+    padding: 1px 6px
+    position: absolute
+    right: 8px
+    top: 6px
+    width: 20px
+    cursor: pointer
+    +box-sizing(padding-box)
+  ul
+    width: 100%
+    height: 100%
+    padding: 10px
+    &.message
+      color: #FFFFFF
+      font-weight: bold
+      background-color: $messageBg
+    &.error
+      color: #FFFFFF
+      font-weight: bold
+      background-color: $errorBg
+
+
+div.header
+  //box-shadow: 0 -41px 10px -30px #8A6433 inset
+  //border-bottom: 1px solid #FFFFFF
+  height: 150px
+  position: relative
+  overflow: hidden
+  &:after
+    border-radius: 500px / 20px
+    bottom: -30px
+    box-shadow: 0 0 18px #8A6433
+    content: ""
+    height: 30px
+    left: 0
+    position: absolute
+    width: 100%
+    z-index: 1
+  .headerInner
+    width: 960px
+    margin: auto
+    position: relative
+  .logo
+    display: none
+    float: left
+    margin: 10px
+  h1
+    color: $lightColor
+    line-height: 95px
+
+
+ul.navigation
+  width: 960px
+  margin: auto
+  height: 35px
+  padding: 10px
+  +clearFix
+  li
+    float: left
+    text-align: center
+    position: relative
+    &.active
+      +afterArrowTriangle
+    a
+      width: 120px
+      display: block
+      padding: 7px 10px
+      font-family: $hFont
+      font-size: 20px
+      text-decoration: none
+      color: #4B7EA5
+      text-shadow: 1px 1px 1px #FFFFFF
+      &:hover
+        background-color: $grayOpBg
+        color: $lightColor
+
+
+div.subheader
+  border-bottom: 1px dashed #4B7EA5
+  border-top: 2px solid #FFFFFF
+  height: 50px
+  margin: -1px auto auto
+  width: 960px
+  +border-top-radius(10px)
+  ul.subnav li
+    &.active:after
+      bottom: -10px
+      left: 75px
+    a
+      width: auto
+      min-width: 140px
+      font-size: 16px
+
+
+div.content
+  width: 940px
+  padding: 10px 10px
+  margin: auto
+  &:after
+    clear: both
+    content: "."
+    display: block
+    height: 0
+    visibility: hidden
+
+
+div.usermenu
+  border: 2px solid #FFFFFF
+  border-top: none
+  right: 0px
+  margin-left: 260px
+  padding: 10px 10px 0px
+  position: absolute
+  top: 0
+  background-color: $darkBg
+  width: 200px
+  z-index: 10000
+  +border-bottom-radius(15px)
+  .loginreg
+    overflow: hidden
+    height: 0px
+    +transition(height 1s)
+  a
+    color: #FFFFFF
+    display: block
+    font-weight: bold
+    padding-bottom: 10px
+    text-align: center
+    text-decoration: none
+    &.account
+      text-align: left
+      margin-left: 10px
+    &.logout
+      background-image: url("/img/elements/logout.png")
+      background-size: cover
+      height: 20px
+      overflow: hidden
+      position: absolute
+      right: 10px
+      text-indent: -10000px
+      top: 8px
+      width: 20px
+      margin: 0px
+      padding: 0px
+    &.registration, &.forgotten
+      color: #FFFFFF
+      display: block
+      text-align: center
+      margin: 0px 9px
+      float: left
+      width: auto
+      font-size: 10px
+  .loginreg
+    form
+      width: 100%
+      margin: 0px
+      li
+        &.field
+          margin: 4px 0px
+          &:after
+            border-color: #FFFFFF
+            margin: 3px 0px
+        &.submit:after
+          border: none
+          margin: 0px
+        label
+          display: none
+        input
+          font-size: 12px
+          padding: 2px
+          width: 100%
+          background-color: #FFFFFF
+          margin: 0px
+          color: $darkBg
+  &.opened .loginreg
+    height: 111px
+    transition: height 1s
+
+
+
+div.search
+  position: absolute
+  bottom: 0px
+  right: 0px
+  width: 220px
+  ul
+    position: relative
+    li
+      input
+        width: 190px
+        margin: 0px
+      &:after
+        margin: 0px
+        border: none
+    li.submit
+      position: absolute
+      top: 0px
+      right: 0px
+      width: 24px
+      height: 24px
+      margin: 5px 5px 5px 0px
+      input
+        width: 100%
+        height: 100%
+        padding: 0px
+        margin: 0px
+        background-color: transparent
+        background-image: url(/img/elements/search.png)
+        color: transparent
+
+
+.fileUploadContainer
+  .fileinput-button
+    border: 3px dashed #FFFFFF
+    height: 60px
+    span
+      background-color: $darkBg
+      color: #FFFFFF
+      border: 1px solid #FFFFFF
+      display: block
+      margin: 10px auto
+      padding: 10px
+      text-align: center
+      width: 200px
+    input
+      height: 100%
+      width: 100%
+    &.in
+      background-color: #FFFFFF
+    &.hover
+      background: #FFFFFF
+  .template-upload, .template-download
+    display: none
+  .files, .fileupload-progress
+    .progress
+      height: 20px
+      width: 100%
+      border: 1px solid #FFFFFF
+      .progress-bar
+        background-color: $darkBg
+        height: 100%
+        width: 0px
+    .template-upload, .template-download
+      display: block
+      border: 1px solid #FFFFFF
+      border-radius: 10px
+      box-shadow: 0 0 5px $shadowsColor
+      margin: 5px
+      padding: 10px
+      height: 50px
+      position: relative
+    .template-upload
+      .size
+        float: right
+        margin-bottom: 10px
+      .filename
+        float: left
+        margin-bottom: 10px
+      .error
+        margin-top: 5px
+        &:before
+          clear: both
+          content: ""
+          display: block
+          float: none
+    .template-download
+      .delete
+        background-color: $lightColor
+        border-radius: 5px
+        color: #FFFFFF
+        cursor: pointer
+        font-size: 12px
+        height: 17px
+        line-height: 16px
+        padding: 0 5px
+        position: absolute
+        right: 10px
+        top: 10px
+        width: 8px
+      .previewImage
+        border-radius: 5px
+        float: left
+        height: 50px
+        margin: 0 10px 0 0
+        overflow: hidden
+        width: 50px
+      .filename
+        line-height: 50px
+      img
+        height: 100%
+        border-radius: 5px
+        +clearFix
+
+
+div.breadcrumb
+  margin-bottom: 20px
+  ul
+    li
+      display: inline-block
+
+.footer
+  clear: both
+
+div.tooltip
+  display: none
+
+.ui-tooltip
+  font-size: 10px
+  min-width: 200px
+
+

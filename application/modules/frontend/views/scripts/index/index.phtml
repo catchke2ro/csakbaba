@@ -1,0 +1,93 @@
+<div class="slider">
+  <div><img src="/img/slider/s10.jpg" alt="csakbaba.hu" /></div>
+</div>
+
+<div class="mainBoxes">
+	<div class="mainBox mainAbout">
+		<div class="stat">
+			<h1> Üdvözlünk a csakbaba.hu oldalon! </h1>
+
+			<p>Ha szereted a bababörzéket, akkor a legjobb helyen jársz.</p>
+			<p>Amennyiben szeretnéd megtekinteni a csakbaba.hu online börzéjét, kattints a bal oldali sötét sávra. Szeretnél belépni a csakbaba.hu világába? Regisztrálj ingyenesen a belépés menüben!</p>
+			<p>Jó böngészést!</p>
+		</div>
+		<div class="buttons">
+			<a href="javascript:void(0)" class="tutorial">Mit hol találok?</a>
+			<a href="<?=$this->url('regisztracio');?>" class="registration">Regisztráció</a>
+		</div>
+	</div>
+	<div class="mainBox mainBlog">
+		<div class="stat">
+			<img src="/img/elements/mainpage_blog.png" alt="Blog"/>
+			<h2><?=$this->latestPost->title;?></h2>
+			<p><?=$this->latestPost->teaser;?></p>
+		</div>
+	</div>
+</div>
+<div class="promoter">
+	<? foreach($this->categoryTree->_multiArray as $key=>$mainCat){?>
+		<? if(empty($this->promoteFirst[$key])) continue;?>
+		<h2><a href="<?=$this->url('kiemelt').'/'.$key;?>"> Kiemelések <?=$mainCat->promoteName;?> kategóriában </a></h2>
+		<?=$this->partial('index/promote_partial.phtml', array('products'=>$this->promoteFirst[$key], 'type'=>'first', 'categoryTree'=>$this->categoryTree, 'request'=>$this->request));?>
+	<? } ?>
+
+</div>
+
+
+
+<div class="lists">
+    <div class="listMenu">
+	<a href="javascript:void(0)" data-list="0">Legfrissebb</a>
+	<a href="javascript:void(0)" data-list="1">Legnépszerűbb</a>
+    </div>
+	<div class="listsInner">
+		<div class="fresh list">
+			<div class="productList">
+				<ul class="products">
+
+					<? foreach($this->fresh as $product){?>
+						<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
+					<? } ?>
+
+				</ul>
+			</div>
+		</div>
+
+		<div class="visited list">
+			<div class="productList">
+				<ul class="products">
+
+					<? foreach($this->visited as $product){?>
+						<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
+					<? } ?>
+
+				</ul>
+			</div>
+		</div>
+
+
+
+	</div>
+
+</div>
+
+
+
+<div class="lists">
+	<div class="listMenu">
+		<a href="javascript:void(0)" data-list="0">Kiemelt asztalok</a>
+		<a href="javascript:void(0)" data-list="1">Asztalok ahol éppen vásárlás történt</a>
+	</div>
+	<div class="listsInner">
+		<div class="promoter">
+			<?=$this->partial('index/promote_user_partial.phtml', array('users'=>$this->promotedUsers, 'type'=>'allfirst', 'request'=>$this->request));?>
+		</div>
+		<div class="promoter">
+			<?=$this->partial('index/promote_user_partial.phtml', array('users'=>$this->latestUsers, 'type'=>'latest', 'request'=>$this->request));?>
+		</div>
+	</div>
+</div>
+
+
+
+

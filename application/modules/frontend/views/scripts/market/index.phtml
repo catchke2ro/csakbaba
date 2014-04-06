@@ -1,0 +1,28 @@
+
+<div class="categoryNavigation"><h1 class="pageName"><?=$this->category ? $this->category->name : 'Börze';?></h1></div>
+
+
+<? if(!empty($this->children)) { ?>
+
+	<?=$this->partial('market/categories.phtml', array('categories'=>$this->children, 'request'=>$this->request));?>
+<? } ?>
+
+<? if(!empty($this->products)) { ?>
+
+	<?=$this->partial('market/products.phtml', array(
+		'products'=>$this->products,
+		'request'=>$this->request,
+		'categoryTree'=>$this->categoryTree));?>
+
+<? } ?>
+
+
+<? if(!empty($this->productTeaser)) { ?>
+	<hr />
+	<h2>Termékek a <?=$this->category->promoteName;?> kategóriában</h2>
+	<?=$this->partial('market/products.phtml', array(
+		'products'=>$this->productTeaser,
+		'request'=>$this->request,
+		'categoryTree'=>$this->categoryTree));?>
+
+<? } ?>

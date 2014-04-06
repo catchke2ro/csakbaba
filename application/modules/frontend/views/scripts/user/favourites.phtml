@@ -1,0 +1,11 @@
+<div class="favourites">
+	<div class="productList">
+		<ul class="products">
+
+			<? foreach($this->favourites as $product){?>
+				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'delFav'=>true)));?>
+			<? } ?>
+
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+<p>Kedves <strong><?=$this->data['user']->username;?></strong>!<br /></p>
+<br />
+<p>Értesítünk, hogy a csakbaba<span>.hu</span> oldalon üzeneted érkezett az alábbi felhasználótól: <strong><a href="<?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('profil').'/'.$this->data['comment']->user->username;?>"><?=$this->data['comment']->user->username;?></a></strong></p>
+<p>Üzenetedet a termékoldalon, azaz az alábbi linken keresztül:
+<a href="<?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?>"><?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?></a>
+</p>
+
+<br />
+<p>Üdvözlettel,<br />
+a csakbaba<span>.hu</span> csapata <br />
+<a href="<?='http://'.$_SERVER['HTTP_HOST'];?>"><?='http://'.$_SERVER['HTTP_HOST'];?></a></p>
+

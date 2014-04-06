@@ -1,0 +1,14 @@
+<div class="blogContent">
+	<article class="postItem">
+		<header>
+			<h2>
+				<a href="<?=$this->url('blog').'/'.$this->post->slug;?>"><?=$this->post->title;?></a>
+			</h2>
+		</header>
+		<time><?=$this->post->date->format('Y.m.d');?></time>
+		<div class="body">
+			<?=$this->post->body;?>
+		</div>
+	</article>
+
+</div>

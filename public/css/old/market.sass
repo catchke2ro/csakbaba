@@ -1,0 +1,410 @@
+@import "../compass"
+@import "mixins"
+
+div#container.piac
+  .subheader
+    padding: 10px 0px
+
+div.categorySelector
+  border: 1px solid $darkBg
+  width: 200px
+  line-height: 30px
+  display: block
+  background: rgba(255, 255, 255, 0.95)
+  position: absolute
+  z-index: 100
+  margin: 10px
+  float: left
+  li
+    padding-left: 10px
+  a
+    color: $darkBg
+    font-weight: bold
+    text-decoration: none
+    display: block
+    padding-left: 10px
+    font-size: 12px !important
+    width: auto
+    &:hover, &.active
+      background: #FFFFFF
+  & > a
+    +transition(width 0s 1s, height 0s 1s)
+    width: 0px
+    height: 0px
+    overflow: hidden
+  & > a.activeCategory
+    +transition(width 0s 1s, height 0s 1s)
+    width: 190px
+    height: 100%
+    overflow: hidden
+  & > ul
+    max-height: 0px
+    overflow: hidden
+    +transition(max-height 1s)
+  &:hover
+    & > ul
+      max-height: 400px
+      +transition(max-height 1s)
+    & > a
+      width: 190px
+      height: 100%
+      +transition(all 0s 0s)
+    & > a.activeCategory
+      width: 0px
+      height: 0px
+      +transition(all 0s 0s)
+
+div.subcategories
+  li
+    position: relative
+    width: 180px
+    margin: 4px
+    float: left
+    height: 220px
+    border-bottom: none
+    cursor: pointer
+    overflow: hidden
+    div
+      position: absolute
+      width: 180px
+      height: 220px
+      top: 0px
+      left: 0px
+      background-position: center center
+      background-size: cover
+      +transition(width 0.5s, height 0.5s, top 0.5s, left 0.5s)
+    a
+      position: absolute
+      bottom: 0px
+      left: 0px
+      display: block
+      width: 170px
+      color: $darkBg
+      font-size: 16px
+      text-align: center
+      vertical-align: bottom
+      font-weight: bold
+      text-decoration: none
+      padding: 10px 5px
+      line-height: 20px
+      background-color: rgba(255,255,255,0.5)
+    &:hover div
+      width: 216px
+      height: 264px
+      top: -20px
+      left: -16px
+      +transition(width 0.5s, height 0.5s, top 0.5s, left 0.5s)
+  ul
+    +clearFix()
+
+
+
+div.marketProducts
+  ul
+    li
+      position: relative
+      width: 160px
+      margin: 4px
+      float: left
+      height: 200px
+      border-bottom: none
+      cursor: pointer
+      padding: 10px 10px
+      +transition(background-color 0.3s)
+      &:hover, &.large
+        background-color: rgba(255,255,255,0.5)
+        +transition(background-color 0.3s)
+      .productType
+        position: absolute
+        right: 0px
+        top: 0px
+        width: 10px
+        height: 10px
+        &.fiu
+          background-color: #D3EAF8
+        &.lany
+          background-color: #F2CAD4
+        &.felnott
+          background-color: #C0D964
+        &.egyeb
+          background-color: #BBBBBB
+      .productInner
+        height: 100%
+      .productImages
+        margin: 0px 0px 10px
+        float: none
+        text-align: center
+        width: auto
+        height: 50%
+        & > div, div.slide
+          width: 100%
+          height: 100%
+        .bx-wrapper, .bx-viewport, .bx-viewport > div
+          height: 100% !important
+        &.images0, &.images1
+          .bx-controls
+            display: none
+        img
+          max-height: 100%
+          max-width: 100%
+      div.details
+        overflow: hidden
+        opacity: 0
+        & > div
+          width: calc(50% - 10px)
+          padding: 5px
+          float: left
+        div.productOptions span.option
+          font-size: 11px
+        div.productDesc
+          overflow: hidden
+        a.button
+          width: 150px
+          margin: 10px 90px 0
+          float: left
+      &.large div.details
+        opacity: 1
+        +transition(opacity 1s 0.7s ease)
+      h3.productName
+        font-size: 16px
+        float: left
+        width: 150px
+        a
+          color: $darkBg
+          text-decoration: none
+      .productPrice
+        +clearFixBefore
+      a.button.jump
+        float: right
+        width: 0px
+        margin-top: 0px
+        opacity: 0
+        white-space: nowrap
+        padding: 0px
+        overflow: hidden
+        +transition(opacity 0.5s ease 0.5s, width 0.5s ease 0.5s)
+      &.large a.button.jump
+        opacity: 1
+        width: 150px
+        padding: 5px
+        +transition(opacity 0.5s ease 0.5s, width 0.5s ease 0.5s)
+      div.productUser a
+        color: $darkBg
+        font-weight: bold
+        text-decoration: none
+
+
+
+
+
+form.categoryOptions
+  li
+    margin: 0px
+    width: auto
+    text-align: left
+    input
+      font-size: 12px
+      padding: 2px 2px
+      margin-left: 0px
+    input
+      width: 105px
+      margin-bottom: 5px
+      &[type="checkbox"]
+        width: auto
+      &.range
+        display: none
+
+
+div.filterSubmit
+  float: right
+  width: 70px
+  text-align: center
+  padding: 8px
+  margin: 10px
+  background-color: $darkBg
+  a
+    color: #FFFFFF
+    text-decoration: none
+    font-weight: bold
+
+div.categoryOptions
+  float: right
+  height: 50px
+  div.optionWrapper
+    float: left
+    position: relative
+    width: 130px
+    height: 30px
+    margin: 10px 5px
+    div.option
+      border: 1px solid $darkBg
+      line-height: 30px
+      display: block
+      background: rgba(255, 255, 255, 0.95)
+      position: absolute
+      top: 0px
+      left: 0px
+      z-index: 100
+      width: 100%
+      li
+        padding-left: 10px
+        div.ui-slider
+          margin: 20px 10px 5px
+          width: 85px
+        div.amount
+          margin: 0px 10px 5px
+          width: 85px
+          text-align: center
+          line-height: 16px
+      & > a
+        color: $darkBg
+        font-weight: bold
+        text-decoration: none
+        display: block
+        padding-left: 10px
+        font-size: 12px !important
+        width: auto
+        &:hover, &.active
+          background: #FFFFFF
+      & > ul
+        max-height: 0px
+        overflow: hidden
+        +transition(max-height 1s)
+      &:hover
+        & > ul
+          max-height: 400px
+          +transition(max-height 1s)
+
+
+.productImagesWrapper, .productImages
+  .bx-wrapper
+    position: relative
+    .bx-controls
+      position: absolute
+      top: 10px
+      background-color: rgba(255, 255, 255, 0.7)
+      border-radius: 10px
+      box-shadow: 0 0 5px #000000
+      height: 20px
+      left: 20px
+      width: 560px
+      text-align: center
+      .bx-pager
+        display: inline-block
+        .bx-pager-item
+          float: left
+          margin: 3px 5px 0px
+          font-weight: bold
+          text-indent: -10000px
+          height: 14px
+          width: 14px
+          border-radius: 7px
+          background-color: $darkBg
+          a.active
+            background-color: #FFFFFF
+            border-radius: 5px
+            display: block
+            height: 10px
+            margin: 2px
+            width: 10px
+      .bx-controls-direction
+        position: absolute
+        top: 0px
+        left: 0px
+        width: 100%
+        a
+          margin: 0px 10px
+          font-weight: bold
+          text-indent: -10000px
+          width: 0
+          height: 0
+          border-top: 10px solid transparent
+          border-bottom: 10px solid transparent
+          &.bx-next
+            float: right
+            border-left: 10px solid $darkBg
+          &.bx-prev
+            float: left
+            border-right: 10px solid $darkBg
+
+div.productDetails
+  .productImagesWrapper
+    width: 600px
+    float: left
+    margin-right: 30px
+  .productName
+    padding-top: 40px
+  .productOptions
+    +clearFix()
+  .productPrice
+    color: $lightColor
+    font-size: 20px
+    font-weight: bold
+    letter-spacing: 1px
+    text-shadow: 0 0 1px $darkBg
+    margin: 20px 0px
+  .addToCart
+    width: 100px
+    display: inline-block
+    text-align: center
+    padding: 5px
+    margin: 0px 0px 20px
+    background-color: $darkBg
+    a
+      color: #FFFFFF
+      text-decoration: none
+      font-weight: bold
+  .productDesc
+    margin-top: 30px
+    background-color: rgba(255,255,255,0.3)
+    padding: 30px
+  .productOptions span.option
+    background-color: $grayOpBg
+    display: inline-block
+    padding: 2px 5px
+    font-weight: bold
+    strong
+      color: $darkBg
+
+
+div.cassa
+  div.productDetails
+    background-color: rgba(255,255,255,0.3)
+    padding: 30px
+    .productImages
+      float: left
+      margin: 0px 30px 0px 0px
+    .productName
+      padding-top: 10px
+    .productUser
+      a
+        font-weight: bold
+        color: $darkBg
+        text-decoration: none
+  .cassaSubmit
+    width: 100%
+    text-align: right
+    margin: 10px 0px
+    .cassaSubmitButton
+      width: 100px
+      display: inline-block
+      text-align: center
+      padding: 5px
+      margin: 0px 0px 20px
+      background-color: $darkBg
+      input
+        background-color: transparent
+        border: none
+        color: #FFFFFF
+        text-decoration: none
+        font-weight: bold
+        font-family: inherit
+        font-size: 13px
+        display: inline
+        padding: 0px
+        cursor: pointer
+
+
+div.lists
+  & > a:last-child
+    +clearFix

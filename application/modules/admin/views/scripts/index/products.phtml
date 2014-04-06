@@ -1,0 +1,36 @@
+<h1>Felhasználók</h1>
+<div id="productList" class="extContent"></div>
+
+<script type="text/javascript">
+
+	<?
+	$obj=array();
+	$store=array();
+	foreach(Zend_Registry::get('statusCodes') as $id=>$text){
+		$obj[]=''.$id.':"'.$text.'"';
+		$store[]='['.$id.', "'.$text.'"]';
+	}
+ ?>
+	var statusCodes={<?=implode(',', $obj);?>};
+	var statusStore=[<?=implode(',', $store);?>];
+	Ext.onReady(function(){
+		var store=Ext.create('Products');
+		Ext.create(Ext.grid.Panel, {
+			renderTo: 'productList',	store: store, layout: 'auto', height: 600, width: '100%', selType: 'cellmodel',
+			plugins: [ Ext.create('Ext.grid.plugin.CellEditing', {	clicksToEdit: 2	}) ],
+			columns: [
+				{dataIndex: 'name', header: 'Név', flex: 3},
+				{dataIndex: 'category', header: 'Kategória', flex: 3},
+				{dataIndex: 'user', header: 'Felhasználó', flex: 2, renderer: function(value, o, record){
+					return value.username;
+				}},
+				{dataIndex: 'price', header: 'Ár', flex: 1},
+				{dataIndex: 'date_added', header: 'Hozzáadva', flex: 2},
+				{dataIndex: 'date_period', header: 'Periódus', flex: 2},
+				{dataIndex: 'status', header: 'Státusz', flex: 1, renderer: function(value, o, record){
+					return statusCodes[value];
+				}, editor: {xtype: 'combo', store: statusStore}}
+			]
+		});
+	});
+</script>

@@ -1,0 +1,95 @@
+<? if($this->product->status!=1){?>
+	<h3 class="productIsNotActive">A termék már nem aktív (eladták, vagy lejárt), ezért nem megvásárolható</h3>
+<? } ?>
+<div class="productDetails" data-id="<?=$this->product->id;?>" data-categoryid="<?=$this->product->category;?>"
+    data-href="<?=$this->request->getUri().'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" itemscope itemtype="http://schema.org/Product">
+	<div class="productImagesWrapper">
+		<div class="productImages">
+			<? $images=(is_array($this->product->images) && !empty($this->product->images)) ? $this->product->images : array(array('url'=>'/img/elements/defaultproduct.png'));?>
+			<? foreach($images as $image){?>
+				<div><img itemprop="image" src="<?=$image['url'];?>" alt="<?=$this->product->name;?>"/></div>
+			<? } ?>
+		</div>
+	</div>
+  <div class="productDetailsWrapper">
+		<h1 class="productName" itemprop="name"><?=$this->product->name;?></h1>
+	    <div class="productOptions">
+	      <? $catoptions=$this->categoryTree->getOptions($this->product->category);?>
+		    <? $genreTypes=Zend_Registry::get('genreTypes');?>
+		    <span class="option">
+			    <strong><?=$this->product->new ? 'Új' : 'Használt';?>, <?=$genreTypes[$this->product->type]?></strong>
+		    </span>
+		    <span class="option">
+			    <strong>Feltöltve</strong>: <?=$this->product->date_added->format('Y.m.d H:i');?>
+		    </span><br />
+		    <? if(is_array($this->product->options)){ foreach($this->product->options as $id=>$option){?>
+			    <? $c=$this->categoryTree->_props[$id];?>
+			    <span class="option"><strong><?=$c['name'];?></strong>: <?=empty($c['options'][$option]) ? $option : $c['options'][$option]['name'];?></span>
+			    <br />
+		    <? }} ?>
+		    <? if(!empty($this->product->deliveries)){?>
+		      <span class="option"><strong>Átvételi módok:</strong> <?=implode(', ', array_intersect_key($this->deliveryOptions, array_flip($this->product->deliveries)));?></span>
+		      <br />
+	      <? } ?>
+
+	    </div>
+		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="productPrice"><span itemprop="price"><?=$this->product->price;?> Ft.</span></div>
+	  <? if($this->product->status==1){?>
+		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->address['city'];?></span></div>
+		  <? if(!$this->user || ($this->user && $this->product->user->get()->id!=$this->user->id)){?>
+			  <? if($this->user){?>
+				  <div class="addToCart"><a href="javascript:void(0)">Megveszem</a></div>
+			  <? } else { ?>
+				  <div class="addToCart haveToLogin"><a href="javascript:void(0)">A vásárláshoz be kell jelentkezned</a></div>
+			  <? } ?>
+			  <? if($this->user) {?><div class="addToFavourites"><a href="<?=$this->url('kedvencek');?>?id=<?=$this->product->id;?>">Kedvencekhez</a></div><? } ?>
+		  <? } ?>
+
+		  <div class="cassa">
+			  <? if($this->user &&!$this->user->isValidToBuy()){?>
+				  A vásárláshoz meg kell adnod címedet, és minden kötelező adatot az <a href="<?=$this->url('adatmodositas');?>">adatmódosítás oldalon</a>.
+			  <? } else if($this->user) { ?>
+				  Ne felejtsd, a megveszem gomb megnyomásával szerződés jön létre közted és az eladó között, ennek értelmében a megvásárolt árut kötelességed átvenni!
+				  <div class="cassaSubmit">
+					  <form method="POST" action="<?=$this->url('vasarlas');?>">
+						  <input id="cassaAccept" type="hidden" value="<?=$this->product->id;?>" name="pid" />
+						  <!--<div class="cassaAccept">
+							  <input type="checkbox" value="1" required="required" name="accept" />
+							  <label for="cassaAccept">Elfogadom</label>
+						  </div>-->
+						  <div class="cassaSubmitButton"><input type="submit" value="Megerősítés" /></div>
+					  </form>
+				  </div>
+			  <? } ?>
+		  </div>
+	  <? } ?>
+
+
+  </div>
+  <div class="productDesc" itemprop="description"><?=$this->product->desc;?></div>
+
+
+
+
+
+	<h2 class="commentHeader">Kérdések az eladóhoz</h2>
+	<?=$this->partial('market/comments.phtml', $this->getVars());?>
+
+	<h2 class="commentHeader"><?=$this->product->user->username;?> legfrissebb értékelései</h2>
+	<?=$this->partial('user/ratings.phtml', $this->getVars());?>
+
+	<h2 class="userProductsHeader"><?=$this->product->user->username;?> asztaláról</h2>
+
+	<div class="productList">
+		<ul class="products">
+			<? foreach($this->userProducts as $product){?>
+				<? if(!($product->status==2 || $product->status==1)) continue;?>
+				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
+			<? } ?>
+		</ul>
+	</div>
+
+</div>
+
+
+<div class="buttonBack"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category);?>"> Tovább nézelődök </a></div>

@@ -1,0 +1,28 @@
+<p>Kedves <strong><?=$this->data['user']->username;?></strong>!<br /></p>
+<br />
+<p>Üdvözlünk a csakbaba<span>.hu</span>  oldalon!</p>
+<p>A mai napon az alábbi adatokkal regisztráltál oldalunkon:</p>
+<ul>
+	<li>Felhasználó név: <strong><?=$this->data['user']->username;?></strong></li>
+	<li>E-mail: <strong><a href="mailto:<?=$this->data['user']->email;?>"><?=$this->data['user']->email;?></a></strong></li>
+</ul>
+<br />
+<p><strong>Aktiváld regisztrációdat az alábbi linkre kattintva: </strong><br />
+<a href="<?=$this->data['activation_link'];?>"><?=$this->data['activation_link'];?></a>
+</p>
+<br />
+<p>Ne felejtsd, hogy regisztrálásoddal elfogadtad az oldal Általános szerződési feltételeit, kérjük, hogy a benne foglaltakat vedd figyelembe, amikor vásárolsz/eladsz a csakbaba<span>.hu</span> oldalon!</p>
+<p>Jelenleg csak vásárolni tudsz a csakbaba<span>.hu</span> oldalon. Amennyiben eladni is szeretnél, fel kell töltened eladói egyenlegedet.
+	<br />
+Az egyenleg feltöltés összege min. <?=Zend_Registry::get('minCharge');?> Ft., maximum összege tetszőleges.  Az összeg beérkezésekor 24 órán belül jóváírjuk egyenleged és kezdheted is az árusítást.</p>
+<br />
+<p>Díjtételeinket, a feltöltés összegét pedig itt találod: <a href="<?='http://'.$_SERVER['HTTP_HOST'];?>/<?=$this->url('rolunk');?>">Mi az a csakbaba?</a></p>
+
+Köszönjük, hogy igénybe vetted a csakbaba<span>.hu</span> szolgáltatásait!
+<br />
+<p>Üdvözlettel,<br />
+a csakbaba<span>.hu</span> csapata <br />
+<a href="<?='http://'.$_SERVER['HTTP_HOST'];?>"><?='http://'.$_SERVER['HTTP_HOST'];?></a></p>
+
+
+

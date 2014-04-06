@@ -1,0 +1,42 @@
+
+<div class="promoteAll">
+	<a href="javascript:void(0)" class="userPromoteAll hasTooltip">Asztalom kiemelése</a>
+	<? if(!empty($this->user->promotes)){?>
+		<div class="tooltip">
+			<? $promoteAllOptions=Zend_Registry::get('promoteAllOptions');?>
+			<? foreach((is_array($this->user->promotes) ? $this->user->promotes : array()) as $type=>$date){?>
+				<? if($date < time()) continue;?>
+				<p><strong><?=$promoteAllOptions[$type];?></strong>: <?=date('Y.m.d H:i', $date);?>-ig</p>
+			<? } ?>
+		</div>
+	<? } ?>
+	<div class="productEditAddForm"></div>
+</div>
+
+
+		<div class="productFilter">
+			<? if($this->user->balance<Zend_Registry::get('uploadPrice')){ ?>
+				<a href="<?=$this->url('egyenleg');?>" class="userAddProduct nobalance">Új áru hozzáadásához töltsd fel az egyenleged</a>
+			<? } else { ?>
+				<a href="javascript:void(0)" class="userAddProduct">Új termék hozzáadása</a>
+
+			<? } ?>
+			<? foreach($this->statusCodes as $status=>$text){?>
+				<? if($status==0) continue;?>
+				<a href="javascript:void(0)" data-status="<?=$status;?>"><?=$text;?> termékek</a>
+			<? } ?>
+		</div>
+		<div class="categorySelect" style="display:none;">
+		</div>
+		<div class="productEditAddForm add"></div>
+
+		<div class="productList user">
+			<ul class="products user">
+
+				<? foreach($this->products as $product){?>
+					<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'userfunctions'=>true, 'extraClass'=>'status'.$product->status)));?>
+					<div class="productEditAddForm"></div>
+				<? } ?>
+
+			</ul>
+		</div>

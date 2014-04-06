@@ -1,0 +1,915 @@
+
+
+body
+  background-image: url('../img/elements/bg.png')
+  background-repeat: repeat
+  background-attachment: fixed
+
+
+.menu
+  +box-sizing(border-box)
+  height: 100%
+  padding-bottom: 50px
+  padding-top: 120px
+  +mq3
+    padding-top: 100px
+  nav
+    height: 100%
+    overflow-y: auto
+    width: $sidebarWidth - 40px
+  nav > ul
+    list-style: none
+    margin-left: 0
+    padding-left: 0
+
+    > li
+      text-align: center
+      >a
+        width: 100%
+        margin-top: 0.5em
+        display: block
+        padding: 0.5em 0em
+        font-size: 1.7em
+        background-color: rgba(black,0.1)
+        color: mix($col1,white,5%)
+        +text-shadow(0px 0px 1px rgba(#333,0.3))
+        +transition(1s)
+        +mq('font-size', 1.7em, 1.5em, 1.3em, 1.1em)
+        &:hover
+          color: darken($col1,40%)
+          background-color: rgba(white,0.1)
+          +text-shadow(2px 2px 1px rgba($col1,0.3))
+          +transition(1s)
+      &.active > a
+        color: mix($col1,white,25%)
+        background-color: rgba(white,0.1)
+        +transition(1s)
+      ul
+        display: none
+      &.active ul
+        display: block
+        width: 100%
+        background-color: rgba(darken($col1,20%),0.5)
+        li a , a:visited
+          width: 100%
+          font-size: 1.5em
+          padding: 3%
+          display: block
+          color: mix($col1,white,25%)
+          +box-sizing(border-box)
+          +transition(0.6s)
+          +mq('font-size', 1.5em, 1.3em, 1.2em, 1em)
+          &:hover
+            background-color: rgba(darken($col1,20%),1)
+            +transition(0.6s)
+        li.active a
+          background-color: rgba(darken($col1,25%),1)
+
+.smallmenu
+  position: absolute
+  width: 85%
+  text-align: center
+  bottom: 20%
+  ul
+    list-style: none
+    margin-left: 0
+    padding-left: 0
+    > li
+      text-align: center
+      >a
+        width: 85%
+        margin-top: 0em
+        display: block
+        padding: 0.3em 0em
+        font-size: 1.7em
+        background-color: rgba(black,0.2)
+        color: mix($col1,white,5%)
+        +text-shadow(2px 2px 1px #333)
+        +transition(1s)
+        &:hover
+          color: darken($col1,40%)
+          background-color: rgba(white,0.2)
+          +text-shadow(2px 2px 1px $col1)
+          +transition(1s)
+      &.active > a
+        color: mix($col1,white,25%)
+        background-color: rgba(white,0.1)
+        +transition(1s)
+      ul
+        display: none
+      &.active ul
+        display: block
+        width: 85%
+        background-color: rgba(darken($col1,20%),0.5)
+        li a , a:visited
+          width: 100%
+          font-size: 1.5em
+          padding: 3%
+          display: block
+          color: mix($col1,white,25%)
+          +box-sizing(border-box)
+          +transition(0.6s)
+          &:hover
+            background-color: rgba(darken($col1,20%),1)
+            +transition(0.6s)
+        li.active a
+          background-color: rgba(darken($col1,25%),1)
+
+
+
+
+.sidebar
+  +background-image(linear-gradient(top, darken($col1,10%) 0%,lighten($col1,10%) 100%))
+  background-image: -ms-linear-gradient(top, darken($col1,10%) 0%,lighten($col1,10%) 100%)
+  .sidebarButtons
+    background-color: rgba(black,0.1)
+    height: 100%
+    position: absolute
+    right: 0
+    width: 40px
+    border-left: 2px solid $col1
+    border-right: 2px solid $col1
+    +box-shadow(0 0 5px black)
+    +box-sizing(border-box)
+    .hamburger_menu
+      height: 100%
+      a
+        +valign
+    .hamburger_menu a, .stick_it a
+      display: block
+      padding: 0.2em
+      img
+        opacity: 0.5
+        +transition(0.8s)
+      &:hover
+        img
+          opacity: 1
+          +transition(0.8s)
+    .stick_it
+      +mq3
+        display: none
+  &.stick
+    .sidebarButtons .stick_it a
+      height: 32px
+      width: 32px
+      margin:  0  0.1em 0.1em 0.1em
+      background-image: url('../img/elements/pin2.png')
+      img
+        display: none
+
+
+
+
+// style felülírások , kiegészítések
+
+#container header.sidebar a.logo
+  @include background-image(linear-gradient(top, rgba(darken($col1,20%),1) 0%,rgba($col1,0) 90%))
+  background-image: -ms-linear-gradient(top, rgba(darken($col1,20%),1) 0%,rgba($col1,0) 90%)
+  //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666', endColorstr='#222',GradientType=0 )
+
+
+#container.fooldal header.sidebar a.logo
+  @include background-image(linear-gradient(top, rgba($col1,1) 0%,rgba($col1,0) 100%))
+  background-image: -ms-linear-gradient(top, rgba($col1,1) 0%,rgba($col1,0) 100%)
+  //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666', endColorstr='#222',GradientType=0 )
+
+
+
+
+.fooldal .contentInner > .bx-wrapper
+  border-bottom: 4px solid rgba(darken($col1,20%),0.2)
+
+
+
+div.header .usermenu.opened div.loginLink
+  background-image: url('../img/elements/key.png')
+  background-repeat: no-repeat
+  background-position: left
+  background-size: contain
+
+div.categorySelector.opened div.title a
+  background-image: url('../img/elements/categories_icon.png')
+  background-repeat: no-repeat
+  background-position: left
+  background-size: contain
+
+.categoryNavigation
+  text-align: center
+
+.piac .logo
+  @include background-image(linear-gradient(top, rgba(darken($col1,20%),1) 0%,rgba($col1,0) 90%))
+  background-image: -ms-linear-gradient(top, rgba(darken($col1,20%),1) 0%,rgba($col1,0) 90%)
+
+
+
+.logout
+  width: 20%
+  overflow: hidden
+  background-color: rgba(black,0.5)
+  opacity: 0.6
+  +mq3
+    display: none
+  img
+    max-width: 40px
+    width: 95%
+    margin: auto
+    display: block
+    +transition(0.6s)
+  &:hover
+    background-color: $col7
+    opacity: 1
+    +transition(0.6s)
+
+.usermenu a.account
+  width: 80%
+  overflow: hidden
+  +mq3
+    width: 100%
+    color: transparent !important
+    font-size: 0px !important
+    background-image: url(/img/elements/account.png)
+    background-repeat: no-repeat
+    background-size: auto 70%
+    background-position: center center
+    opacity: 0.6
+    &:hover
+      opacity: 1
+
+
+
+.productImagesWrapper, .productImages
+  .bx-wrapper
+    position: relative
+    .bx-controls
+      position: absolute
+      top: 10px
+      background-color: rgba(white,0.75)
+      border-top: 1px solid $col1
+      border-bottom: 1px solid $col1
+      height: 20px
+      width: 100%
+      text-align: center
+      padding: 1% 0
+      .bx-pager
+        display: inline-block
+        position: relative
+        z-index: 200
+        .bx-pager-item
+          float: left
+          margin: 3px 5px 0px
+          font-weight: bold
+          height: 14px
+          width: 14px
+          border-radius: 7px
+          background-color: $col1
+          a
+            color: transparent
+          a.active
+            background-color: #FFFFFF
+            border-radius: 5px
+            display: block
+            height: 10px
+            margin: 2px
+            width: 10px
+
+      .bx-controls-direction
+        position: absolute
+        top: 20%
+        left: 0px
+        width: 100%
+        z-index: 100
+        a
+          margin: 0px 10px
+          font-weight: bold
+          text-indent: -10000px
+          width: 0
+          height: 0
+          border-top: 10px solid transparent
+          border-bottom: 10px solid transparent
+          &.bx-next
+            float: right
+            border-left: 10px solid $col1
+            background-image: none
+          &.bx-prev
+            float: left
+            border-right: 10px solid $col1
+            background-image: none
+
+div.productDetails
+  width: 80%
+  margin: 3% auto
+  background-color: rgba(white,0.2)
+  padding: 2%
+  +clearFix
+  +box-sizing(border-box)
+
+
+  .productImagesWrapper
+    width: 60%
+    float: left
+    margin-right: 5%
+    +box-sizing(border-box)
+    .productImages > div
+      height: 350px
+      background-color: #FFFFFF
+      position: relative
+    img
+      max-width: 100%
+      max-height: 100%
+      border: 1px solid #ffffff
+      +box-sizing(border-box)
+      left: 50%
+      position: absolute
+      top: 50%
+      +transform(translate(-50%, -50%))
+    +mq2
+      width: 100%
+
+  .productDetailsWrapper
+    float: left
+    width: 35%
+    +clearFix
+    +mq2
+      width: 100%
+    .productName
+      padding-top: 3%
+      float: left
+      width: 100%
+      text-align: center
+      font-size: 2.2em
+      font-weight: bold
+      color: darken($col1,20%)
+      +text-shadow(0 0 2px #fff)
+    .productOptions
+      float: left
+      width: 100%
+      padding: 1%
+      margin-top: 10%
+      background-color: rgba($col1,0.1)
+      +box-sizing(border-box)
+      span.option
+        padding: 1%
+        width: 100%
+        float: left
+        font-size: 1.2em
+        strong
+          font-weight: bold
+    .productPrice
+      color: $col2
+      font-size: 20px
+      font-weight: bold
+      letter-spacing: 1px
+      text-shadow: 0 0 1px $col1
+      margin: 20px 0px
+      float: left
+      width: 100%
+      text-align: right
+    .productUser
+      float: left
+      width: 100%
+      text-align: right
+      font-size: 1.4em
+      font-weight: bold
+      margin-bottom: 10%
+      a
+        color: $col1
+        +transition(0.6s)
+        &:hover
+          color: black
+          +transition(0.6s)
+
+
+    .addToCart
+      float: left
+      width: 50%
+      margin-top: 2%
+      +mq2
+        width: 100%
+      a
+        width: 100%
+        display: inline-block
+        text-align: center
+        padding: 5%
+        background-color: rgba($col2,0.4)
+        color: #000
+        text-decoration: none
+        font-weight: bold
+        float: left
+        font-size: 1.5em
+        +box-sizing(border-box)
+        +transition(0.6s)
+        &:hover
+          background-color: rgba(darken($col2,5%),1)
+          color: white
+          +transition(0.6s)
+
+    .addToFavourites
+      float: left
+      width: 50%
+      margin-top: 2%
+      a
+        width: 100%
+        display: inline-block
+        text-align: center
+        padding: 5%
+        background-color: rgba($col1,0.4)
+        float: left
+        font-size: 1.5em
+        color: #222
+        +box-sizing(border-box)
+        +transition(0.6s)
+        &:hover
+          background-color: rgba($col1,1)
+          color: white
+          +transition(0.6s)
+  .productDesc
+    margin-top: 3%
+    background-color: rgba(255,255,255,0.3)
+    padding: 3%
+    float: left
+    width: 100%
+    font-size: 1.3em
+    +box-sizing(border-box)
+
+
+.buttonBack a
+  display: block
+  width: 40%
+  text-align: center
+  background: rgba($col5,0.7)
+  margin: 0 auto
+  padding: 1%
+  font-size: 1.6em
+  color: #333
+  font-weight: bold
+  +box-sizing(border-box)
+  +transition(0.6s)
+  +mq3
+    width: 80%
+  &:hover
+    background-color: rgba($col5,1)
+    color: white
+    +transition(0.6s)
+
+
+
+.vasarlaskoszono
+  .cassaThanks
+    .thx
+      background-color: rgba(white,0.35)
+      width: 80%
+      padding: 3%
+      margin: 2em auto
+      +box-sizing(border-box)
+      > h2
+        font-size: 2em
+        line-height: 1.3em
+        text-align: center
+        padding-bottom: 1em
+      > p
+        font-size: 1.5em
+        line-height: 1.3em
+        text-align: center
+
+
+//
+//
+//
+
+.stat
+  width: 80%
+  margin: 10px auto
+  padding: 3%
+  background-color: rgba(255, 255, 255, 0.5)
+  +box-sizing(border-box)
+  a
+    font-weight: bold
+    color: $col2
+
+
+
+.blogContent
+  margin: 10px 5%
+  float: left
+  +box-sizing(border-box)
+  +clearFix
+
+  .postItem
+    padding: 3%
+    background-color: rgba(255, 255, 255, 0.5)
+    margin-bottom: 3%
+    +box-sizing(border-box)
+    +clearFix
+    h2 a
+      color: $col1
+      +transition(0.6s)
+      &:hover
+        color: darken($col1,35%)
+        +transition(0.6s)
+
+    time
+      float: right
+      width: 100%
+      font-style: italic
+      font-weight: bold
+      text-align: right
+      border-bottom: 2px solid $col1
+      padding-bottom: 1%
+    .body
+      float: left
+      width: 100%
+      padding-top: 2%
+    img
+      margin: 2%
+      +clearFix
+    em
+      font-style: italic
+
+.blogSidebar
+  float: left
+  width: 30%
+  padding: 3%
+  margin-top: 10px
+  background-color: rgba(255, 255, 255, 0.5)
+  +box-sizing(border-box)
+
+.stat , .blogContent
+  h1
+    font-size: 2.2em
+    text-align: center
+    padding-bottom: 3%
+    font-weight: bold
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  h2
+    font-size: 2em
+    text-align: center
+    padding-bottom: 2%
+    font-weight: bold
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  h3
+    font-size: 1.7em
+    text-align: left
+    padding-bottom: 1%
+    font-weight: bold
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  p
+    font-size: 1.4em
+    line-height: 1.5em
+    padding-bottom: 1%
+    text-align: justify
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+
+  ul
+    font-size: 1.4em
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+    li
+      background-image: url('../img/elements/ulbg.png')
+      background-repeat: no-repeat
+      background-size: auto
+      padding-left: 15px
+      margin-bottom: 1%
+
+  ol.standard
+    list-style: decimal
+    font-size: 1.4em
+    padding-left: 3%
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+    li
+      margin-bottom: 1%
+
+  p.warning
+    padding: 2%
+    background-color: rgba($col4,0.5)
+    border: 1px solid $col4
+    margin: 2% 0
+
+  p.info
+    padding: 2%
+    background-color: rgba($col5,0.5)
+    border: 1px solid $col5
+    margin: 2% 0
+
+  p.info2
+    padding: 2%
+    background-color: rgba($col6,0.5)
+    border: 1px solid $col6
+    margin: 2% 0
+
+  blockquote 
+    background: rgba($col1,0.4)
+    border-left: 10px solid rgba($col1,0.5)
+    margin: 1.5em 10px
+    padding: 0.5em 10px
+    quotes: "\201C""\201D""\2018""\2019"
+    font-size: 1.4em
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+    
+  blockquote:before 
+    color: $col1
+    content: open-quote
+    font-size: 4em
+    line-height: 0.1em
+    margin-right: 0.25em
+    vertical-align: -0.4em
+    
+  blockquote p 
+    display: inline
+
+  strong
+    font-weight: bold
+
+
+
+
+
+
+
+//************************************************
+//
+//      FANCY UL / OL stylolás linkekkel
+//
+//************************************************
+
+ol.classy
+  counter-reset: li /* Initiate a counter */
+  list-style: none /* Remove default numbering */
+  *list-style: decimal /* Keep using default numbering for IE6/7 */
+  font: 15px 'trebuchet MS', 'lucida sans'
+  padding: 0
+  margin-bottom: 4em
+  text-shadow: 0 1px 0 rgba(255,255,255,.5)
+
+
+ol.classy ol
+  margin: 0 0 0 2em /* Add some left margin for inner lists */
+
+.rectangle-list a
+  position: relative
+  display: block
+  padding: .4em .4em .4em .8em
+  *padding: .4em
+  margin: .5em 0 .5em 2.5em
+  background: rgba(lighten($col1,20%),0.75)
+  color: #444
+  text-decoration: none
+  transition: all .3s ease-out
+
+
+.rectangle-list a:hover
+  background: lighten($col1,10%)
+
+
+.rectangle-list a:before
+  content: counter(li)
+  counter-increment: li
+  position: absolute
+  left: -2.5em
+  top: 50%
+  margin-top: -1em
+  background: rgba($col2,0.4)
+  height: 2em
+  width: 2em
+  line-height: 2em
+  text-align: center
+  font-weight: bold
+
+
+.rectangle-list a:after
+  position: absolute
+  content: ''
+  border: .5em solid transparent
+  left: -1em
+  top: 50%
+  margin-top: -.5em
+  transition: all .3s ease-out
+
+
+.rectangle-list a:hover:after
+  left: -.5em
+  border-left-color: rgba($col2,0.4)
+
+
+
+
+//************************************************
+//
+//                FOOTER fromázások
+//
+//************************************************
+
+.footer
+  margin-top: 5%
+  width: 100%
+  background-color: rgba(darken($col1,30%),0.85)
+  border-top: 2px solid rgba(white,0.3)
+  //+background-image(linear-gradient(top, rgba($col2,0.65) 0%, rgba($col2,0.3) 100%))
+  +box-sizing(border-box)
+  .footerInner
+    padding: 5%
+    +clearFix
+    .fbLikeBox
+      float: left
+      width: 33%
+      padding: 10px
+      +box-sizing(border-box)
+      +mq1
+        width: 50%
+      +mq3
+        width: 100%
+        margin-top: 3%
+      h2
+        margin-bottom: 5px
+        text-align: center
+        color: rgba(#FFFFFF,0.75)
+        font-weight: bold
+
+      .fb-like-box, .fb-like-box span, .fb-like-box span iframe[style]
+        width: 100% !important
+        height:  200px
+        background-color: rgba(white,0.2)
+
+    .linksFooter
+      float: left
+      width: 33%
+      padding: 10px
+      +box-sizing(border-box)
+      +mq1
+        width: 50%
+      +mq3
+        width: 100%
+        margin-top: 3%
+      h2
+        margin-bottom: 5px
+        text-align: center
+        color: rgba(#FFFFFF,0.75)
+        font-weight: bold
+      .linksFooterContent
+        background-color: rgba(white,0.35)
+        padding: 3%
+        border: 1px solid rgba(#a1a1a1,1)
+        +box-sizing(border-box)
+        ul
+          font-size: 1.4em
+          li
+            background-image: url('../img/elements/ulbg2.png')
+            background-repeat: no-repeat
+            background-size: auto
+            padding-left: 22px
+            margin-bottom: 5%
+        a
+          color: black
+          text-align: left
+          +transition(0.8s)
+          &:hover
+            color: white
+            +transition(0.8s)
+    .contactFooter
+      float: left
+      width: 33%
+      padding: 10px
+      +box-sizing(border-box)
+      +mq1
+        width: 100%
+        margin-top: 3%
+      h2
+        margin-bottom: 5px
+        text-align: center
+        color: rgba(#FFFFFF,0.75)
+        font-weight: bold
+      form
+        +form
+        li.field
+          background-color: rgba(white,0.35)
+        li.field.textarea
+          max-height: 100px
+        li.textarea textarea:not(.ck)
+          height: 80px
+          background-color: rgba(black,0.1)
+        label
+          color: black
+        input
+          background-color: rgba(black,0.1)
+        li.field.submit input
+          background-color: rgba(white,0.35)
+          color: black
+        ul
+          li:nth-child(1)
+            border: 1px solid rgba(#a1a1a1,1)
+            border-bottom: none
+          li:nth-child(2) , li:nth-child(3)
+            border-left: 1px solid rgba(#a1a1a1,1)
+            border-right: 1px solid rgba(#a1a1a1,1)
+          li:nth-child(4)
+            border: 1px solid rgba(#a1a1a1,1)
+            border-top: none
+
+    .infos
+      clear: both
+      text-align: center
+      *
+        color: #FFFFFF
+
+
+// ROBOTOK ellen
+
+form 
+  li.field.w
+    height: 1px
+    input.w
+      opacity: 0
+      height: 1px
+      padding: 0
+
+
+
+
+//************************************************
+//
+//                Socail module
+//
+//************************************************
+
+
+.socialmenu
+  height: 100%
+  width: 140px
+  padding: 2px 10px
+  float: left
+  a
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: 85% auto
+    float: left
+    height: 100%
+    margin: 0 7px
+    width: 20%
+  a.fb
+    background-image: url(/img/elements/facebook.png)
+    background-color: #3B5998
+  a.gp
+    background-image: url(/img/elements/googleplus.png)
+    background-color: #D34836
+  a.email
+    background-image: url(/img/elements/email.png)
+    background-color: darken($col1, 20%)
+
+
+
+//************************************************
+//    telibekúrt internet exploreres gányolások
+//************************************************
+
+html.internetexplorer11, html.internetexplorer10, html.internetexplorer9, html.internetexplorer8, html.internetexplorer7, html.internetexplorer6
+  div.productList:not(.user) ul li.product:not(.noflip)
+    .productInner
+      .flipper
+        +transition(none)
+        +transform(none)
+        .front
+          height: 100%
+          overflow: hidden
+          +transition(height 0s ease 0s)
+        .back
+          height: 0
+          overflow: hidden
+          +transition(height 0s ease 0s)
+      &:hover
+        .flipper
+          +transform(none)
+          .front
+            height: 0
+            +transition(height 0s ease 1s)
+          .back
+            height: 100% !important
+            +transition(height 0s ease 1s)
+            +transform(none)
+            -ms-backface-visibility: normal
+
+
+
+
+
+//************************************************
+//    egyebek
+//************************************************
+
+.upLink
+  display: block
+  font-weight: bold
+  padding: 2%
+  margin-top: 5%
+  color: $col1
+  +transition(0.6s)
+  &:hover
+    color: $col2
+    +transition(0.6s)
+
+
+
+.contactForm
+  width: 80%
+  margin: auto
+  form
+    +form
+
+

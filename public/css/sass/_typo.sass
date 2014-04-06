@@ -1,0 +1,48 @@
+// Import typography //
+
+//@import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic&subset=latin-ext,latin)
+
+@font-face 
+  font-family: 'Noto Sans'
+  font-style: normal
+  font-weight: 400
+  src: local('Noto Sans'), local('NotoSans'), url(/fonts/NotoSans-Regular.ttf) format('woff')
+  
+@font-face 
+  font-family: 'Noto Sans'
+  font-style: normal
+  font-weight: 700
+  src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(/fonts/NotoSans-Bold.ttf) format('woff')
+  
+@font-face 
+  font-family: 'Noto Sans'
+  font-style: italic
+  font-weight: 400
+  src: local('Noto Sans Italic'), local('NotoSans-Italic'), url(/fonts/NotoSans-Italic.ttf) format('woff')
+  
+@font-face 
+  font-family: 'Noto Sans'
+  font-style: italic
+  font-weight: 700
+  src: local('Noto Sans Bold Italic'), local('NotoSans-BoldItalic'), url(/fonts/NotoSans-BoldItalic.ttf) format('woff')
+
+body
+  font-family: 'Noto Sans', sans-serif
+  color: black
+  font-weight: normal
+
+h1
+  font-size: 2em
+
+h2
+  font-size: 1.5em
+
+h3
+  font-size: 1.2em
+
+input, textarea
+  font-family: 'Noto Sans', sans-serif
+a
+  text-decoration: none
+  &:visited
+    color: lighten(black,10%)

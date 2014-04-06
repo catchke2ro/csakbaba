@@ -1,0 +1,26 @@
+<h1>Rendelések</h1>
+<div id="orderList" class="extContent"></div>
+
+<script type="text/javascript">
+
+	Ext.onReady(function(){
+		var store=Ext.create('Orders');
+		Ext.create(Ext.grid.Panel, {
+			renderTo: 'orderList',	store: store, layout: 'auto', height: 600, width: '100%', selType: 'cellmodel',
+			plugins: [ Ext.create('Ext.grid.plugin.CellEditing', {	clicksToEdit: 2	}) ],
+			columns: [
+				{dataIndex: 'id', header: 'ID', flex: 2},
+				{dataIndex: 'date', header: 'Dátum', flex: 2},
+				{dataIndex: 'product', header: 'Termék', flex: 2, renderer: function(value, o, record){
+					return value.name;
+				}},
+				{dataIndex: 'user', header: 'Vásárló', flex: 2, renderer: function(value, o, record){
+					return value.username;
+				}},
+				{dataIndex: 'shop_user', header: 'Eladó', flex: 2, renderer: function(value, o, record){
+					return value.username;
+				}}
+			]
+		});
+	});
+</script>

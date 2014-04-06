@@ -1,0 +1,29 @@
+<div class="orders userRatings">
+
+	<div class="productList user">
+
+		<ul>
+
+			<? foreach($this->userOrdersBuy as $o){?>
+				<? if($o->user_rating) $o->user_rating->get();?>
+				<? if($o->shop_user_rating) $o->shop_user_rating->get();?>
+
+				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(),
+								array('product'=>$o->product, 'categoryTree'=>$this->categoryTree, 'back'=>false, 'fix'=>false, 'userfunctions'=>false, 'o'=>$o, 'rating'=>true,
+												'extraClass'=>'order buy '.($o->user_rating ? '' : 'unrated'), 'extraData'=>'data-orderid="'.$o->id.'" data-seller="0"', 'seller'=>false, 'hideOwn'=>true)));?>
+			<? } ?>
+
+
+			<? foreach($this->userOrdersSell as $o){?>
+				<? if($o->user_rating) $o->user_rating->get();?>
+				<? if($o->shop_user_rating) $o->shop_user_rating->get();?>
+				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(),
+								array('product'=>$o->product, 'categoryTree'=>$this->categoryTree, 'back'=>false, 'fix'=>false, 'userfunctions'=>false, 'o'=>$o, 'rating'=>true,
+												'extraClass'=>'order sell '.($o->shop_user_rating ? '' : 'unrated'), 'extraData'=>'data-orderid="'.$o->id.'" data-seller="1"', 'seller'=>true, 'hideOwn'=>true)));?>
+			<? } ?>
+
+		</ul>
+
+	</div>
+
+</div>

@@ -1,0 +1,28 @@
+<header class="sidebar <?=((!empty($_COOKIE['stick']) && $_COOKIE['stick']=='true')?'stick':'');?>">
+		<div class="sidebarButtons animated fadeIn"><div class="stick_it"><a href="javascript:void(0)"><img src="/img/elements/pin.png" alt="pin_icon" title="stick"></a></div>
+			<div class="hamburger_menu"><a href="javascript:void(0)"><img src="/img/elements/hmenu_icon.png" alt="hamburger_icon" title="menu"></a></div>
+		</div>
+		<a href="/" class="logo animated flipInY"><img src="/img/elements/logoV3.png " title="logo" alt="logo"/></a>
+		<div class="menu">
+			<nav><?=$this->navigation($this->nav)->menu()->setMaxDepth(1);?></nav>
+		</div>
+
+		<div class="bottom">
+			<div class="colorChanger">
+				<ul>
+					<li data-col="brown" class="brown <?=($this->color=='brown') ? 'active' : '';?>"><a href="javascript:void(0);" title="Barna"></a></li>
+					<li data-col="green" class="green <?=($this->color=='green') ? 'active' : '';?>"><a href="javascript:void(0);" title="Zöld"></a></li>
+					<li data-col="blue" class="blue <?=($this->color=='blue') ? 'active' : '';?>"><a href="javascript:void(0);" title="Kék"></a></li>
+				</ul>
+			</div>
+
+			<div class="socialmenu">
+				<a href="https://www.facebook.com/csakbaba.hu" class="social fb"></a>
+				<a href="https://plus.google.com/110411126847173107547" class="social gp"></a>
+				<a href="<?=$this->url('contact');?>" class="social email"></a>
+			</div>
+		</div>
+
+
+
+</header>

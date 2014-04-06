@@ -1,0 +1,16 @@
+<div class="blogContent">
+	<? foreach($this->posts as $post){?>
+	<article class="postItem">
+		<header>
+			<h2>
+				<a href="<?=$this->url('blog').'/'.$post->slug;?>"><?=$post->title;?></a>
+			</h2>
+		</header>
+		<time><?=$post->date->format('Y.m.d');?></time>
+		<div class="body">
+			<?=$post->teaser;?>
+		</div>
+	</article>
+	<? } ?>
+
+</div>

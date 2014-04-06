@@ -1,0 +1,14 @@
+
+<div class="promote <?=$this->type;?>">
+    <div class="promoteSlider">
+			<div class="productList">
+				<ul class="products">
+
+					<? foreach($this->users as $user){?>
+						<?=$this->partial('market/user-partial.phtml', array_merge($this->getVars(), array('user'=>$user, 'back'=>false, 'fix'=>false)));?>
+					<? } ?>
+
+				</ul>
+			</div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<h1>Értékelések</h1>
+<div id="ratingsList" class="extContent"></div>
+
+<script type="text/javascript">
+
+	Ext.onReady(function(){
+		var store=Ext.create('Ratings');
+		Ext.create(Ext.grid.Panel, {
+			renderTo: 'ratingsList',	store: store, layout: 'auto', height: 600, width: '100%', selType: 'cellmodel',
+			plugins: [ Ext.create('Ext.grid.plugin.CellEditing', {	clicksToEdit: 2	}) ],
+			columns: [
+				{dataIndex: 'id', header: 'ID', flex: 2},
+				{dataIndex: 'date', header: 'Dátum', flex: 1},
+				{dataIndex: 'product', header: 'Termék', flex: 2, renderer: function(value, o, record){
+					if(!value) return '';
+					return value.name;
+				}},
+				{dataIndex: 'seller', xtype: 'checkcolumn', header: 'Eladó értékelt', flex: 1},
+				{dataIndex: 'success', xtype: 'checkcolumn', header: 'Sikeres rendelés', flex: 1},
+				{dataIndex: 'positive', xtype: 'checkcolumn', header: 'Pozitív értékelés', flex: 1},
+				{dataIndex: 'text', header: 'Szöveg', flex: 4}
+			]
+		});
+	});
+</script>

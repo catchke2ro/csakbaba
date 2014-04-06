@@ -1,0 +1,61 @@
+<div id="blog" class="extContent"></div>
+
+<script type="text/javascript">
+	Ext.onReady(function(){
+		var store=Ext.create('BlogPosts');
+		var editWindow=Ext.create(Ext.window.Window, {
+			autoShow: false, title: 'Bejegyzés szerkesztése', width: 800, height: 600, layout: 'fit',
+			buttons:[
+				{text: 'Mentés', handler: function(){
+					var win=this.up('window'), form=win.down('form').getForm(), values=form.getValues(), record=form.getRecord();
+					record.set(values);
+					win.hide();
+					return true;
+				}}
+			],
+			items:[
+				Ext.create(Ext.form.Panel, {
+					bodyPadding: 20, fieldDefaults: {width: 400}, autoScroll: true,
+					items: [
+						{xtype: 'textwslug', fieldLabel: 'Cím', name: 'title'},
+						{xtype: 'textfield', fieldLabel: 'Slug', name: 'slug'},
+						{xtype: 'textfield', fieldLabel: 'Dátum', name: 'date'},
+						{xtype: 'ckeditor', fieldLabel: 'Bevezető', name: 'teaser', width: 700, labelAlign: 'top'},
+						{xtype: 'ckeditor', fieldLabel: 'Szöveg', name: 'body', width: 700, labelAlign: 'top'}
+					]
+				})
+			]
+		});
+		Ext.create(Ext.grid.Panel, {
+			renderTo: 'blog',	store: store, layout: 'auto', height: 600, width: '100%',
+			tools: [
+				{type:'plus',	tooltip: 'Hozzáadás', handler: function(event, toolEl, panel){
+					var store=this.up('grid').store, date=Ext.Date.format(new Date(), 'Y-m-d H:i:s');
+					store.add({date: date});
+				}},
+				{type: 'minus', tooltip: 'Törlés', itemId: 'removePostButton', disabled: true, handler: function(){
+					var sm=this.up('grid').getSelectionModel();
+					Ext.Msg.confirm('Törlés', 'Biztosan törlöd a bejegyzést?', function(id){
+						if(id!='yes') return false;
+						var sm=this.up('gridpanel').getSelectionModel();
+						this.up('gridpanel').store.remove(sm.getSelection());
+						sm.deselectAll();
+					}, this);
+				}}
+			],
+			columns: [
+				{dataIndex: 'title', header: 'Cím', flex: 1},
+				{dataIndex: 'date', header: 'Dátum', flex: 1}
+			],
+			listeners: {
+				selectionchange: function(view, records) {
+					this.down('#removePostButton').setDisabled(!records.length);
+				},
+				itemdblclick: function(view, record){
+					editWindow.show();
+					editWindow.down('form').getForm().loadRecord(record);
+				}
+			}
+		});
+	});
+</script>

@@ -1,0 +1,25 @@
+<p>Kedves <strong><?=$this->data['user']->username;?></strong>!<br /></p>
+<br />
+<p>Kérjük értékeld az alábbi adás-vételt:</p>
+<ul>
+	<li>Adás vétel kódja: <strong><?=$this->data['order']->code;?></strong></li>
+	<li>Termék neve: <strong><?=$this->data['product']->name;?></strong></li>
+	<li>Termék kódja: <strong><?=$this->data['product']->code;?></strong></li>
+	<li>Termék linkje: <br /><a href="<?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?>"><?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?></a></li>
+</ul>
+
+<p>Ne feledd, az időben leadott értékelés mindannyiunk érdeke!</p>
+<p>Az egymással szembeni korrektség jegyében, kérjük, hogy értékelésedet a meghatározott időn belül add le. A tranzakció lebonyolítására <strong>14</strong> napod van, az értékelésre ehhez viszonyítva további <strong>5</strong> naptári nap.</p>
+
+<p>A gyors lebonyolítás érdekében, minél előbb vedd fel a kapcsolatot az eladóval. A tranzakció lebonyolítására 14 nap áll a rendelkezésedre. <br />
+Kérjük, ne felejtsd el értékelni az adás-vételt, mert az időben adott értékelés mindannyiunk érdeke! <br />
+Értékelésedet <a href="<?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('ertekelesek');?>">erre a linkre kattintva</a> ill. a csakbaba<span>.hu</span> felhasználói oldaladon a "Vásárolt termékeim" menüpontban adhatod le!</p>
+
+<p>Köszönjük az együttműködésedet és hogy igénybe vetted a csakbaba<span>.hu</span> szolgáltatásait!</p>
+
+<br />
+<p>
+Üdvözlettel,<br />
+a csakbaba<span>.hu</span> csapata <br />
+<a href="<?='http://'.$_SERVER['HTTP_HOST'];?>"><?='http://'.$_SERVER['HTTP_HOST'];?></a>
+</p>

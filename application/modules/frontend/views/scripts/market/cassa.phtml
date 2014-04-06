@@ -1,0 +1,20 @@
+<div class="cassa">
+
+	<div class="productDetails" data-id="<?=$this->product->id;?>" data-categoryid="<?=$this->product->category;?>"
+	     data-href="<?=$this->request->getUri().'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>">
+		<div class="productImages">
+			<? if(is_array($this->product->images)) {?>
+				<? $image=$this->product->images[0];?>
+				<img src="<?=$image['small'];?>" />
+			<? } ?>
+		</div>
+
+		<h3 class="productName"><?=$this->product->name;?></h3>
+		<div class="productPrice"><?=$this->product->price;?> Ft.</div>
+		<div class="productUser"><a href="<?=$this->url('profil').'/'.$this->product->user->get()->username;?>"><?=$this->product->user->username;?></a></div>
+
+	</div>
+
+
+
+</div>

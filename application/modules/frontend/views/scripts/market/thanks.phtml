@@ -1,0 +1,14 @@
+<div class="cassaThanks">
+    <div class="thx">
+			<h2>Gratulálunk, sikeresen megvásároltad a terméket! Az eladónak és Neked emailben elküldtük az általatok megadott elérhetőségeiteket, amely alapján felvehetitek egymással a kapcsolatot! Az adás-vétel után ne felejtsd el értékelni a tranzakciót!</h2>
+			<p>Köszönjük a vásárlást!</p>
+			<p>A csakbaba.hu csapata</p>
+		  <p> <a class="upLink" href="<?=$this->url('felhasznalotermekek');?>"> Tölts fel te is terméket. </a> </p>
+    </div>
+	<div class="promoter">
+		<h2> Folytasd a vásárlást! </h2>
+		<?=$this->partial('index/promote_partial.phtml', array('products'=>$this->promoted, 'type'=>'first', 'categoryTree'=>$this->categoryTree, 'request'=>$this->request));?>
+	</div>
+
+</div>
+

@@ -1,0 +1,15 @@
+
+<div class="promote <?=$this->type;?>">
+    <div class="promoteSlider">
+	<div class="productList">
+		<ul class="products">
+
+			<? foreach($this->products as $product){?>
+				<? if(empty($product->images)) continue;?>
+				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
+			<? } ?>
+
+		</ul>
+	</div>
+    </div>
+</div>

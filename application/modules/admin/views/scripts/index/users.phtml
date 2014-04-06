@@ -1,0 +1,69 @@
+<h1>Felhasználók</h1>
+<div id="userList" class="extContent"></div>
+
+<script type="text/javascript">
+	var chargeWindow=Ext.create(Ext.window.Window, {
+		autoShow: false, title: 'Feltöltés', width: 800, height: 600, layout: 'fit',
+		buttons:[
+			{text: 'Feltöltés', handler: function(){
+				var win=this.up('window'), form=win.down('form').getForm(), record=form.getRecord();
+				Ext.Ajax.request({
+					url: '/admin/index/charge',
+					params: form.getValues(),
+					method: 'POST',
+					success: function(){
+						Ext.getStore('Users').load();
+						form.reset();
+						win.close();
+					}
+				});
+				return true;
+			}}
+		],
+		items:[
+			Ext.create(Ext.form.Panel, {
+				bodyPadding: 20, fieldDefaults: {width: 400}, autoScroll: true,
+				items: [
+					{xtype: 'hidden', name: 'uid'},
+					{xtype: 'textfield', name: 'username', fieldLabel: 'Felhasználó', disabled: true},
+					{xtype: 'textfield', fieldLabel: 'Összeg', name: 'amount'},
+					{xtype: 'checkbox', fieldLabel: 'Számla', name: 'invoice', inputValue: true},
+					{xtype: 'combobox', fieldLabel: 'Befizetés típusa', name: 'type', store: [
+						['CREDIT_CARD','Bankkártya'],['BANK_TRANSFER','Átutalás']
+					]}
+				]
+			})
+		]
+	});
+
+	Ext.onReady(function(){
+		var store=Ext.create('Users');
+		Ext.create(Ext.grid.Panel, {
+			renderTo: 'userList',	store: store, layout: 'auto', height: 600, width: '100%', selType: 'cellmodel',
+			plugins: [ Ext.create('Ext.grid.plugin.CellEditing', {	clicksToEdit: 2	}) ],
+			columns: [
+				{dataIndex: 'username', header: 'Felhasználónév', flex: 2},
+				{dataIndex: 'email', header: 'E-mail', flex: 2},
+				{dataIndex: 'gender', header: 'Nem', flex: 1, renderer: function(value, o, record){
+					return (value=='female') ? 'nő' : 'férfi';
+				}},
+				{dataIndex: 'active', header: 'Aktívált', flex: 1, xtype: 'checkcolumn', tdCls: Ext.baseCSSPrefix + 'grid-cell-checkcolumn showOff', maxWidth: 60, listeners: {beforecheckchange: function(){ return false; }} },
+				{dataIndex: 'phone', header: 'Telefonszám', flex: 2},
+				{dataIndex: 'date_reg', header: 'Reg. dátum', flex: 2},
+				{dataIndex: 'date_last_login', header: 'Utolsó bejelentkezés', flex: 2},
+				{dataIndex: 'address', header: 'Cím', flex: 3, renderer: function(value, o, record){
+					if(!record.data.address) return '';
+					return record.data.address['name']+' - '+record.data.address['zip']+' '+record.data.address['city']+' '+record.data.address['street']
+				}},
+				{dataIndex: 'balance', header: 'Egyenleg', flex: 1, editor: {xtype: 'textfield'}},
+				{xtype: 'actioncolumn', items: [
+					{icon: '/img/fam/money.png', tooltip: 'Egyenleg feltöltés', handler: function(grid, rI, cI, item, e, record){
+						chargeWindow.show();
+						chargeWindow.down('form').getForm().findField('uid').setValue(record.get('id'));
+						chargeWindow.down('form').getForm().findField('username').setValue(record.get('username'));
+					}}
+				]}
+			]
+		});
+	});
+</script>

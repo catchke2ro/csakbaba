@@ -1,0 +1,31 @@
+<div class="profile">
+	<div class="userData">
+		<div class="avatar">
+			<? if($this->profilUser->avatar)?> <img src="<?=$this->profilUser->avatar[0]['url'];?>" alt="<?=$this->profilUser->username;?>"/>
+		</div>
+		<p class="username"><?=$this->profilUser->username;?></p>
+		<p class="gender"><?=$this->profilUser->gender=='female' ? 'Nő' : 'Férfi';?></p>
+		<p class="city"><strong>Város:</strong> <?=$this->profilUser->address['city'];?></p>
+		<p class="rating">
+			<strong>Értékelés:</strong>&nbsp;
+			<span><?=($rating=$this->profilUser->getRating())*5;?></span>
+			<div class="ratingContainer"><div class="ratingInner" style="width: <?=($rating*100);?>%;"></div></div></p>
+	</div>
+	<div class="marketProducts">
+        <div class="profileFilter">
+            <a href="javascript:void(0);" class="tab" data-div="status1">Aktív</a>
+            <a href="javascript:void(0);" class="tab" data-div="status2">Eladott</a>
+        </div>
+
+
+		<div class="productList">
+			<ul class="products">
+
+				<? foreach($this->userProducts as $product){?>
+					<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
+				<? } ?>
+
+			</ul>
+		</div>
+	</div>
+</div>

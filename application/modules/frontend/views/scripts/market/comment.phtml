@@ -1,0 +1,14 @@
+<li class="comment <?=(!empty($this->added) && $this->added) ? 'fresh' : '';?> <?=$this->product->user->id==$this->comment->user->get()->id ? 'owner' : '';?>">
+	<div class="text">
+		<?=strip_tags($this->comment->text);?>
+	</div>
+	<div class="user">
+		<? if(!empty($this->comment->user->avatar[0]['small'])){?>
+			<div class="avatar">
+				<img src="<?=$this->comment->user->avatar[0]['small'];?>" alt="<?=$this->comment->user->username;?>"/>
+			</div>
+		<? } ?>
+		<a href="<?=$this->url('profil').'/'.$this->comment->user->username;?>" class="username"><?=$this->comment->user->username;?></a>
+		<time><?=$this->comment->date->format('Y.m.d H:i:s');?></time>
+	</div>
+</li>

@@ -1,0 +1,24 @@
+<?=$this->doctype();?>
+<html>
+<head>
+	<?=$this->headTitle();?>
+	<?=$this->headMeta();?>
+	<?=$this->headStyle();?>
+	<?=$this->headLink();?>
+	<?=$this->headScript();?>
+</head>
+<body>
+	<div id="container">
+		<header>
+			<ul>
+				<li><a href="/admin/index/users">Felhasználók</a></li>
+				<li><a href="/admin/index/products">Termékek</a></li>
+				<li><a href="/admin/index/orders">Rendelések</a></li>
+				<li><a href="/admin/index/ratings">Értékelések</a></li>
+				<li><a href="/admin/blog/index">Blog</a></li>
+			</ul>
+		</header>
+		<?=$this->layout()->content;?>
+	</div>
+</body>
+</html>

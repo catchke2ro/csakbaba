@@ -1,0 +1,37 @@
+<? $uri='/';?>
+
+<div class="breadcrumb">
+	<div class="social">
+		<a class="fbshare" href="http://www.facebook.com/share.php?u=">like</a>
+		<a class="gpshare" href="https://plus.google.com/share?url=">+1</a>
+	</div>
+<ul>
+<li class="link"><a href="/">csakbaba.hu</a></li>
+<li class="separator">&nbsp;»&nbsp;</li>
+<? foreach($this->bc as $key=>$bc){?>
+	<? if(!$bc) continue;?>
+	<?
+	if($bc instanceof Zend_Navigation_Page_Uri) {
+		$uri=$bc->get('uri');
+		$name=$bc->get('label');
+	} else if(is_object($bc) && !empty($bc->slug)) {
+		$uri=$uri.='/'.$bc->slug;
+		$name=property_exists($bc, 'title') ? $bc->title : $bc->name;
+	} else if(is_object($bc)){
+		$name=property_exists($bc, 'title') ? $bc->title : $bc->name;
+	}
+	?>
+	<? if($key+1!=count($this->bc)){?>
+		<li class="link"><a href="<?=$uri;?>"><?=$name;?></a></li>
+	<? } else {?>
+		<li class="link last"><h1><?=$name;?></h1></li>
+	<? } ?>
+
+	<? if($key+1!=count($this->bc)) { ?>
+		<li class="separator">&nbsp;»&nbsp;</li>
+	<? } ?>
+<? } ?>
+</ul>
+
+
+</div>

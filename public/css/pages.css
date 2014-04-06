@@ -1,0 +1,28 @@
+/* line 5, sass/pages.sass */
+#container.fooldal .content { width: 960px; margin: auto; float: none; }
+/* line 9, sass/pages.sass */
+#container.fooldal .bx-wrapper { border-radius: 15px; overflow: hidden; }
+/* line 12, sass/pages.sass */
+#container.fooldal .bx-wrapper .slider { height: 300px; }
+/* line 14, sass/pages.sass */
+#container.fooldal .bx-wrapper .slider > div { height: 100%; overflow: hidden; width: 100%; }
+/* line 18, sass/pages.sass */
+#container.fooldal .bx-wrapper .slider > div img { width: 100%; }
+/* line 20, sass/pages.sass */
+#container.fooldal .mainBoxes { width: 960px; margin: 20px auto; }
+/* line 23, sass/pages.sass */
+#container.fooldal .mainBoxes .mainBox { width: 300px; float: left; margin-right: 30px; text-align: justify; }
+/* line 28, sass/pages.sass */
+#container.fooldal .mainBoxes .mainBox:last-child { margin-right: 0px; }
+/* line 30, sass/pages.sass */
+#container.fooldal .mainBoxes h2 { color: #ffa4a4; }
+
+/* line 35, sass/pages.sass */
+#container.bejelentkezes form, #container.bejelentkezes h2, #container.regisztracio form, #container.regisztracio h2 { width: 500px; margin: 20px auto; text-align: center; }
+
+/* line 42, sass/pages.sass */
+#container.adatmodositas li.fieldset, #container.felhasznaloszerkesztes li.fieldset { margin: 0px; padding: 30px; width: 50%; float: left; -webkit-box-sizing: padding-box; -moz-box-sizing: padding-box; box-sizing: padding-box; }
+/* line 19, sass/mixins.sass */
+#container.adatmodositas.submit:before, #container.felhasznaloszerkesztes.submit:before { content: ""; display: block; clear: both; float: none; }
+/* line 50, sass/pages.sass */
+#container.adatmodositas input, #container.felhasznaloszerkesztes input { width: 210px; }

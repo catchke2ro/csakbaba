@@ -1,0 +1,68 @@
+<div class="balance">
+
+	<h1>Egyenleg</h1>
+
+	<div class="now">
+		<? $avail=floor($this->user->balance/Zend_Registry::get('uploadPrice'));?>
+		<strong>Jelenlegi egyenleged: <?=$this->user->balance;?> Ft. </strong><br />
+		<?=($avail>0) ? 'Ez még '.$avail.' termék feltöltésére elegendő' : 'Termék eladásához töltsd fel az egyenleged!';?>
+	</div>
+
+	<h2>Egyenleg feltöltése</h2>
+	<? if(!$this->user->isValid()){?>
+		<h3>Egyenleg feltöltéséhez minden szükséges adatot meg kell adnod az <a href="<?=$this->url('adatmodositas');?>">adatmódosítás</a> oldalon</h3>
+	<? } else {?>
+		<div class="card stat">
+			<h3>Bankkártyás fizetéssel</h3>
+			<p>Írd be az összeget (min. <?=Zend_Registry::get('minCharge');?> Ft.), kattints a "Fizetés bankkártyával" gombra és fizess bankkártyáddal azonnal.</p>
+			<?=$this->form;?>
+			<p class="chargeAvail">Az összeg <span>0</span> termék feltöltésére elegendő</p>
+		</div>
+		<div class="transfer stat">
+			<h3>Átutalással</h3>
+			<p>Töltsd fel egyenleged minimum <?=Zend_Registry::get('minCharge');?> Ft-al az alábbi számlaszámra való utalással:</p>
+			<p>
+				<strong>Számlaszám:</strong> 11773425-00101210 <br />
+				<strong>Bank:</strong> OTP Bank <br />
+				<strong>Kedvezményezett neve:</strong> csakbaba.hu <br />
+				<strong>Közlemény:</strong> <?=strtoupper(substr($this->user->username, 0, 4).substr(md5($this->user->id), 0, 4));?>
+			</p>
+		</div>
+	<? } ?>
+
+
+
+</div>
+
+<div class="stat">
+
+	<h1>Számláim</h1>
+
+	<div class="payments">
+		<table>
+			<tr>
+				<th>Dátum</th>
+				<th>Összeg</th>
+				<th>Fizetés módja</th>
+				<th>Azonosító</th>
+				<th>Számla</th>
+			</tr>
+		<? foreach($this->payments as $payment){?>
+			<tr>
+				<td><?=$payment->date->format('Y.m.d H:i:s');?></td>
+				<td><?=$payment->amount;?> Ft.</td>
+				<td><?
+					switch($payment->type){
+						case 'CREDIT_CARD':  echo 'Bankkártya';break;
+						case 'BANK_TRANSFER':  echo 'Átutalás';break;
+						default: echo '';break;
+					};?></td>
+				<td><?=$payment->pid;?></td>
+				<td><a href="<?=$this->url('egyenleg').'?i=1&pid='.$payment->pid;?>" target="_blank"><?=$payment->invoice_data['invoice_number'];?></a></td>
+			</tr>
+		<? } ?>
+		</table>
+	</div>
+
+</div>
+

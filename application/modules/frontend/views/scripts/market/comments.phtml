@@ -1,0 +1,12 @@
+<div class="commentContainer">
+  <div class="comments">
+	  <ul>
+		  <? foreach($this->comments as $comment){?>
+				  <?=$this->partial('market/comment.phtml', array_merge($this->getVars(), array('comment'=>$comment)));?>
+		  <? } ?>
+	  </ul>
+  </div>
+	<div class="commentForm">
+		<?=$this->commentForm;?>
+	</div>
+</div>

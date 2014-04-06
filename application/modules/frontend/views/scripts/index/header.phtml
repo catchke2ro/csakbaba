@@ -1,0 +1,45 @@
+<?
+function recursiveUlLi($array, $uri='', $category){
+	$output="<ul>\n";
+	foreach($array as $item){
+		$output.="<li>";
+		$output.="<a href=\"/borze".$uri.'/'.$item->slug."\" class=\"".($category && $item->id==$category->id ? 'active' : '')."\"><span><span>".$item->name."</span></span></a>";
+		if(!empty($item->children)) $output.=recursiveUlLi($item->children, $uri.'/'.$item->slug, $category);
+		$output.="</li>\n";
+	}
+	$output.="</ul>\n";
+	return $output;
+}
+?>
+
+<div class="categorySelector">
+	<div class="title">
+		<a href="javascript:void(0)" class="title activeCategory"><span><span><?=(!empty($this->category) ? $this->category->name : 'Kategóriák');?></span></span></a>
+		<a href="javascript:void(0)" class="title"><span><span>Kategóriák</span></span></a>
+	</div>
+	<?=recursiveUlLi($this->catMultiArray, '', (!empty($this->category) ? $this->category : false));?>
+</div>
+
+<div class="search">
+	<?=$this->searchForm;?>
+</div>
+
+
+
+<div class="usermenu">
+	<? if($this->user){?>
+		<a href="<?=$this->url('felhasznalo');?>" class="account" title="Felhasználói oldal"><?=$this->user->username;?></a>
+	  <a href="<?=$this->url('kijelentkezes');?>" class="logout" title="Kijelentkezés"><img src="/img/elements/logout.png" title="logout" alt="logout"></a>
+	<? } else { ?>
+		<div class="loginLink"><a href="javascript:void(0)" class="login">Bejelentkezés</a></div>
+		<div class="loginreg">
+			<div class="socialLogin">
+				<a href="/slogin?s=fb&r=<?=urlencode(Zend_Controller_Front::getInstance()->getRequest()->getUri());?>" class="fb" title="Bejelentkezés Facebook fiókkal">Facebook</a>
+				<a href="/slogin?s=gp&r=<?=urlencode(Zend_Controller_Front::getInstance()->getRequest()->getUri());?>" class="gp" title="Bejelentkezés Goggle fiókkal">Google</a>
+			</div>
+			<?=$this->loginform;?>
+			<a href="<?=$this->url('elfelejtett');?>" class="forgotten">Elfelejtett jelszó</a>
+			<a href="<?=$this->url('regisztracio');?>" class="registration">Regisztráció</a>
+		</div>
+	<? } ?>
+</div>
