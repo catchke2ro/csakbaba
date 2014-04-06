@@ -37,8 +37,15 @@ class CB_Resource_Odm extends Zend_Application_Resource_ResourceAbstract {
 		$config->setMetadataDriverImpl($annotationDriver);
 		//$config->setMetadataDriverImpl($driverChain);
 
-		$config->setDefaultDB('test');
-		$dm = DocumentManager::create(new \Doctrine\MongoDB\Connection(new \Mongo('mongodb://csb_test:CsbMongo826@localhost:27017/test')), $config);
+
+		$sc=Zend_Registry::get('CsbConfig');
+		$config->setDefaultDB(($database=$sc->get('mongo')->get('defaultdb', 'csb')));
+		$username=$sc->get('mongo')->get('username');
+		$password=$sc->get('mongo')->get('password');
+		$host=$sc->get('mongo')->get('host', 'localhost');
+		$port=$sc->get('mongo')->get('port', '27017');
+
+		$dm = DocumentManager::create(new \Doctrine\MongoDB\Connection(new \Mongo('mongodb://'.$username.':'.$password.'@'.$host.':'.$port.'/'.$database)), $config);
 
 		//$dm->getEventManager()->addEventListener(array(\Doctrine\ODM\MongoDB\Events::preUpdate, \Doctrine\ODM\MongoDB\Events::prePersist), new \CB_Resource_Doctrine_Evm());
 
