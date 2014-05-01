@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cb40fc1b-048f-40f2-9509-08fc1ab2ceb3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+    </list>
+    <ignored path="csakbaba.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DatabaseView">
+    <flatten value="false" />
+    <groupTables value="false" />
+    <sortChildren value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="csakbaba">
+      <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts" module="csakbaba" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/shop" module="csakbaba" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/shop/useredit.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/shop/userindex.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/shop/userproducts.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/shop/userproducteditform.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user" module="csakbaba" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/edit.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/index.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/login.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/charge.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/orders.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/registration.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index" module="csakbaba" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/index.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/header.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/submenu.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/breadcrumb.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market" module="csakbaba" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/menu.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/cassa.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/index.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/thanks.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/product.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/products.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/categories.phtml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+      </favorite_root>
+      <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/forms" module="csakbaba" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/forms/Login.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/forms/ShopEdit.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/forms/UserEdit.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/forms/ProductEdit.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/forms/Registration.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+      </favorite_root>
+      <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/controllers" module="csakbaba" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/controllers/ShopController.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/controllers/UserController.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/controllers/IndexController.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/controllers/MarketController.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/application/modules/frontend/controllers/UploadController.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+      </favorite_root>
+    </favorites_list>
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/login.phtml" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/emails/charged.phtml" />
+        <option value="$PROJECT_DIR$/library/CB/Resource/Mail.php" />
+        <option value="$PROJECT_DIR$/public/cron.php" />
+        <option value="$PROJECT_DIR$/public/css/old/user.sass" />
+        <option value="$PROJECT_DIR$/library/CB/Resource/Payment.php" />
+        <option value="$PROJECT_DIR$/application/modules/admin/controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/application/modules/admin/views/scripts/index/users.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/controllers/ShopController.php" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/forms/Promote.php" />
+        <option value="$PROJECT_DIR$/application/models/CB/User.php" />
+        <option value="$PROJECT_DIR$/library/Zend/Form/Element/Date.php" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/forms/UserEdit.php" />
+        <option value="$PROJECT_DIR$/library/Zend/View/Helper/FormDate.php" />
+        <option value="$PROJECT_DIR$/library/Doctrine/ODM/MongoDB/Mapping/Types/DateType.php" />
+        <option value="$PROJECT_DIR$/application/layouts/default.phtml" />
+        <option value="$PROJECT_DIR$/library/CB/Resource/Auth.php" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/index/about.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/index/impresszum.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/forms/Registration.php" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/index/aszf.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/user/registration.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/index/footer.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/index/sidebar.phtml" />
+        <option value="$PROJECT_DIR$/public/css/sass/_layout.sass" />
+        <option value="$PROJECT_DIR$/public/css/animate.css" />
+        <option value="$PROJECT_DIR$/public/css/sass/_fooldal.sass" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/index/index.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/user/charge.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/index/promote_partial.phtml" />
+        <option value="$PROJECT_DIR$/public/css/ie10.css" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/controllers/MarketController.php" />
+        <option value="$PROJECT_DIR$/public/css/sass/_user.sass" />
+        <option value="$PROJECT_DIR$/library/CB/Controller/Action.php" />
+        <option value="$PROJECT_DIR$/library/CB/Resource/MobileDetect.php" />
+        <option value="$PROJECT_DIR$/library/CB/Controller/Frontend/Plugin/ACL.php" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/forms/Login.php" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/market/product.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/market/thanks.phtml" />
+        <option value="$PROJECT_DIR$/public/css/sass/_layout2.sass" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/scripts/shop/userrenew.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/controllers/UserController.php" />
+        <option value="$PROJECT_DIR$/public/css/sass/_products.sass" />
+        <option value="$PROJECT_DIR$/public/js/scripts.js" />
+        <option value="$PROJECT_DIR$/application/configs/application.ini" />
+        <option value="$PROJECT_DIR$/library/classmap.php" />
+        <option value="$PROJECT_DIR$/public/css/sass/email.sass" />
+        <option value="$PROJECT_DIR$/application/modules/frontend/views/emails/buyshopuser.phtml" />
+        <option value="$PROJECT_DIR$/../../Downloads/mongo-csb-20140406-173900.js" />
+        <option value="$PROJECT_DIR$/library/CB/Resource/Odm.php" />
+        <option value="$PROJECT_DIR$/application/Bootstrap.php" />
+        <option value="$PROJECT_DIR$/application/configs/csb.ini" />
+      </list>
+    </option>
+  </component>
+  <component name="NamedScopeManager">
+    <scope name="Saját" pattern="!file:library/Zend//*" />
+    <scope name="SASS" pattern="file:public/css/sass/*" />
+  </component>
+  <component name="PhpServers">
+    <option name="servers">
+      <server host="te" name="csb" use_path_mappings="true">
+        <path_mappings>
+          <path_mapping local_path="$PROJECT_DIR$" remote_path="/home/catchke2ro/domains/csb.miheztarto.hu/public_html" />
+        </path_mappings>
+      </server>
+      <server host="csakbaba.hu" name="csakbaba.hu" use_path_mappings="true">
+        <path_mappings>
+          <path_mapping local_path="$PROJECT_DIR$" remote_path="/home/csakbaba/public_html" />
+        </path_mappings>
+      </server>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="PhpXdebugProxy" ide_key="PHPSTORM2" host="csakbaba.hu" port="8999" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
+    <option name="width" value="1280" />
+    <option name="height" value="774" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>ActionScript specificJavaScript</id>
+          </State>
+          <State>
+            <id>Code StylePHP</id>
+          </State>
+          <State>
+            <id>Code quality toolsJavaScript</id>
+          </State>
+          <State>
+            <id>Code style issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>DOM issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Data flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Error handlingJavaScript</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>Internationalization issues</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript validity issuesJavaScript</id>
+          </State>
+          <State>
+            <id>PHP</id>
+          </State>
+          <State>
+            <id>Portability issues</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
+            <id>Probable bugsJavaScript</id>
+          </State>
+          <State>
+            <id>Probably bugPHP</id>
+          </State>
+          <State>
+            <id>SQL</id>
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+          <State>
+            <id>Type compatibilityPHP</id>
+          </State>
+          <State>
+            <id>UndefinedPHP</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>CoffeeScript</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents ProjectPane="true" />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csakbaba" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.jetbrains.php.config.PhpExternalLibrariesNodePatcher$PatchedExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csakbaba" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csakbaba" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csakbaba" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csakbaba" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csakbaba" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csakbaba" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="web-ide.project.structure" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../fatline" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="true" />
+    <property name="TODO_SCOPE" value="Saját" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="SearchEverywhereHistory" value="" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/library/Zend/View/Helper" />
+      <recent name="$PROJECT_DIR$/library/Zend/Form/Element" />
+      <recent name="$PROJECT_DIR$/application/modules/frontend/views/emails" />
+      <recent name="$PROJECT_DIR$/library/CB/View/Helper" />
+      <recent name="$PROJECT_DIR$/library/CB/Form/Element" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/js" />
+      <recent name="$PROJECT_DIR$/public/img/elements" />
+      <recent name="$PROJECT_DIR$/library" />
+      <recent name="$PROJECT_DIR$/public/js/ck/plugins" />
+      <recent name="$PROJECT_DIR$/public/css" />
+    </key>
+  </component>
+  <component name="RunManager" selected="PHP Web Application.csb">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="571b751e-1fbf-4e72-b82d-3463955aaf5c" server_name="megacp csakbaba">
+      <method />
+    </configuration>
+    <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
+      <option name="VM_PARAMETERS" value="" />
+      <option name="USER_CFG_CLASS" />
+      <option name="CONTEXT_PROVIDER" />
+      <method />
+    </configuration>
+    <configuration default="false" name="csb test" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="FIREFOX" server_name="test.csakbaba.hu">
+      <method />
+    </configuration>
+    <configuration default="false" name="csb" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="FIREFOX" server_name="csakbaba.hu">
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="PHP Web Application.csb test" />
+      <item index="1" class="java.lang.String" itemvalue="PHP Web Application.csb" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <recycled_changelist date="1396800490776">
+      <option name="PATH" value="$USER_HOME$/Library/Preferences/WebIde70/shelf/Merge_branch__master__into_dev_.patch" />
+      <option name="DESCRIPTION" value="Merge branch 'master' into dev " />
+    </recycled_changelist>
+    <recycled_changelist date="1396800656235">
+      <option name="PATH" value="$USER_HOME$/Library/Preferences/WebIde70/shelf/Merge_branch__master__into_dev_1.patch" />
+      <option name="DESCRIPTION" value="Merge branch 'master' into dev " />
+    </recycled_changelist>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value="SHOW_INHERITED,ALPHA_COMPARATOR" />
+  </component>
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cb40fc1b-048f-40f2-9509-08fc1ab2ceb3" name="Default" comment="" />
+      <changelist id="" name="Merge branch 'master' into dev " comment="" />
+      <created>1375126324196</created>
+      <updated>1375126324196</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Dev branch initial commit">
+      <created>1396794822620</created>
+      <updated>1396794822620</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Branch-dependent config">
+      <created>1396800118143</created>
+      <updated>1396800118143</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Merge branch 'master' into dev&#10;">
+      <created>1396800494691</created>
+      <updated>1396800494691</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Merge branch 'master' into dev&#10;">
+      <created>1396800656941</created>
+      <updated>1396800656941</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Merge branch 'master' into dev&#10;">
+      <created>1396800693826</created>
+      <updated>1396800693826</updated>
+    </task>
+    <task id="LOCAL-00006" summary="test config">
+      <created>1396800733881</created>
+      <updated>1396800733881</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TodoView" selected-index="2">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="22" width="1280" height="774" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30927834" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298969" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.113089" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2746365" sideWeight="0.5121145" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3976436" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32565445" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14014688" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32857144" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18437119" sideWeight="0.7345815" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14297253" sideWeight="0.6791209" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23390558" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37997055" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="CSS-X-Fire" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32903227" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32929516" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.rb" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <MESSAGE value="Dev branch initial commit" />
+    <MESSAGE value="Branch-dependent config" />
+    <MESSAGE value="Merge branch 'master' into dev&#10;" />
+    <MESSAGE value="test config" />
+    <option name="LAST_COMMIT_MESSAGE" value="test config" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="1513" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/library/CB/Resource/ModelItem.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="304" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/Doctrine/ODM/MongoDB/Mapping/Types/DateType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="41" selection-start="1438" selection-end="1438" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1024" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/Zend/View/Helper/FormDate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="84" selection-start="567" selection-end="567" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="704" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/about.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="251" column="105" selection-start="12851" selection-end="12851" vertical-scroll-proportion="0.49234137" vertical-offset="3566" max-vertical-offset="4480" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/registration.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="57" selection-start="213" selection-end="213" vertical-scroll-proportion="0.06903991" vertical-offset="0" max-vertical-offset="927" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/aszf.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="163" column="55" selection-start="16481" selection-end="16481" vertical-scroll-proportion="0.13894968" vertical-offset="2481" max-vertical-offset="5872" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/impresszum.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="117" selection-start="341" selection-end="341" vertical-scroll-proportion="0.08629989" vertical-offset="0" max-vertical-offset="927" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/forms/Registration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="47" selection-start="3054" selection-end="3054" vertical-scroll-proportion="0.7571116" vertical-offset="12" max-vertical-offset="928" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/sidebar.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="27" selection-start="450" selection-end="467" vertical-scroll-proportion="0.06903991" vertical-offset="0" max-vertical-offset="927" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/animate.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1800" column="18" selection-start="39911" selection-end="39911" vertical-scroll-proportion="0.45945945" vertical-offset="28392" max-vertical-offset="45024" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/footer.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="54" selection-start="800" selection-end="800" vertical-scroll-proportion="0.4832794" vertical-offset="0" max-vertical-offset="927" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="32" selection-start="53" selection-end="53" vertical-scroll-proportion="0.017259978" vertical-offset="0" max-vertical-offset="1584" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/sass/_fooldal.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="26" selection-start="2288" selection-end="2288" vertical-scroll-proportion="0.63754046" vertical-offset="1409" max-vertical-offset="3552" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/user/charge.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="134" selection-start="542" selection-end="542" vertical-scroll-proportion="0.206041" vertical-offset="1" max-vertical-offset="1184" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/index/promote_partial.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="6" selection-start="408" selection-end="408" vertical-scroll-proportion="0.4095064" vertical-offset="0" max-vertical-offset="547" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/ie10.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="190" selection-end="190" vertical-scroll-proportion="0.23400366" vertical-offset="0" max-vertical-offset="547" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/CB/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="29" selection-start="170" selection-end="170" vertical-scroll-proportion="-2.310786" vertical-offset="1360" max-vertical-offset="2304" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/ck/adapters/jquery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="400" selection-start="545" selection-end="545" vertical-scroll-proportion="0.02909091" vertical-offset="0" max-vertical-offset="550" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/layouts/default.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="31" selection-start="417" selection-end="417" vertical-scroll-proportion="0.25577265" vertical-offset="0" max-vertical-offset="928" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/Resource/MobileDetect.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="360" column="31" selection-start="33762" selection-end="33811" vertical-scroll-proportion="0.33206108" vertical-offset="4434" max-vertical-offset="15072" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/sass/_layout.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="642" column="16" selection-start="13463" selection-end="13463" vertical-scroll-proportion="0.61634105" vertical-offset="9925" max-vertical-offset="11696" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/sass/_variables.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="242" column="12" selection-start="4941" selection-end="4941" vertical-scroll-proportion="0.3321492" vertical-offset="3685" max-vertical-offset="9328" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/sass/_user.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="515" column="12" selection-start="10046" selection-end="10046" vertical-scroll-proportion="0.33333334" vertical-offset="8061" max-vertical-offset="9520" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/Controller/Action.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="150" column="71" selection-start="4319" selection-end="4319" vertical-scroll-proportion="0.5026643" vertical-offset="1925" max-vertical-offset="2832" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/Resource/ACL.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="928" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/Controller/Frontend/Plugin/CB.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1168" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/Controller/Frontend/Plugin/ACL.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="85" selection-start="1318" selection-end="1318" vertical-scroll-proportion="0.7879342" vertical-offset="257" max-vertical-offset="944" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/Resource/Auth.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="69" selection-start="883" selection-end="886" vertical-scroll-proportion="0.58449304" vertical-offset="154" max-vertical-offset="2176" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/forms/Login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="53" selection-start="645" selection-end="645" vertical-scroll-proportion="0.49725777" vertical-offset="0" max-vertical-offset="547" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/sass/_layout2.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="457" column="8" selection-start="10673" selection-end="10673" vertical-scroll-proportion="0.21898597" vertical-offset="7109" max-vertical-offset="14736" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/cassa.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="421" selection-end="421" vertical-scroll-proportion="0.13807982" vertical-offset="0" max-vertical-offset="927" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/product.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="46" selection-start="2677" selection-end="2677" vertical-scroll-proportion="0.21006565" vertical-offset="480" max-vertical-offset="1600" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/market/thanks.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="735" selection-end="735" vertical-scroll-proportion="0.24507658" vertical-offset="0" max-vertical-offset="914" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/controllers/MarketController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="240" column="68" selection-start="8338" selection-end="8338" vertical-scroll-proportion="0.4954955" vertical-offset="3304" max-vertical-offset="4480" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/scripts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="680" column="7" selection-start="21523" selection-end="21523" vertical-scroll-proportion="0.2972973" vertical-offset="9976" max-vertical-offset="12576" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/scripts/shop/userrenew.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="599" selection-end="599" vertical-scroll-proportion="0.2416397" vertical-offset="0" max-vertical-offset="927" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/Resource/Navigation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.08752735" vertical-offset="80" max-vertical-offset="1312" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/sass/_products.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="219" column="23" selection-start="5004" selection-end="5004" vertical-scroll-proportion="0.2880259" vertical-offset="3237" max-vertical-offset="7344" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="75" selection-start="1898" selection-end="1898" vertical-scroll-proportion="0.3249453" vertical-offset="695" max-vertical-offset="5552" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/controllers/ShopController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="29" selection-start="4294" selection-end="4294" vertical-scroll-proportion="0.20865704" vertical-offset="1620" max-vertical-offset="3840" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/global_functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="49" selection-start="600" selection-end="600" vertical-scroll-proportion="0.3423913" vertical-offset="322" max-vertical-offset="976" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/Zend/Config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.9416282" vertical-offset="1264" max-vertical-offset="4800" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/classmap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="45248">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/sass/email.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="32" selection-start="358" selection-end="358" vertical-scroll-proportion="0.41781875" vertical-offset="0" max-vertical-offset="800" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/emails/buyuser.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="638" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/frontend/views/emails/buyshopuser.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="39" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="638" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Downloads/mongo-csb-20140406-173900.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1679" column="11" selection-start="52571" selection-end="52574" vertical-scroll-proportion="-7.8461537" vertical-offset="26660" max-vertical-offset="29008" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/CB/Resource/Odm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="39" selection-start="1681" selection-end="1681" vertical-scroll-proportion="0.44927537" vertical-offset="438" max-vertical-offset="1680" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/configs/csb.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="23" selection-start="97" selection-end="97" vertical-scroll-proportion="0.09831029" vertical-offset="0" max-vertical-offset="651">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/Bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="41" selection-start="948" selection-end="948" vertical-scroll-proportion="-0.77742946" vertical-offset="960" max-vertical-offset="2112">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="47" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1184">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <last-edited>SASS</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+          <order>
+            <scope name="Saját" />
+            <scope name="SASS" />
+          </order>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+
