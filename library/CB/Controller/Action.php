@@ -42,7 +42,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		''=>'Egyéb'
 	);
 
-	public $deliveryOptions=array('personal'=>'Személyes átvétel','post'=>'Posta');
+	public $deliveryOptions;
 
 	function init(){
 		$this->mail=new CB_Resource_Mail('UTF-8');
@@ -56,6 +56,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		$this->nav=Zend_Registry::get('nav');
 
 		$this->statusCodes=Zend_Registry::get('statusCodes');
+		$this->deliveryOptions=Zend_Registry::get('deliveryOptions');
 
 		$contactForm=new Frontend_Form_Contact();
 		$this->view->assign(array('contactForm'=>$contactForm));
@@ -120,9 +121,10 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-ui.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-process.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-validate.js')
-						->appendFile('/js/jquery/shadowbox.min.js')
+						->appendFile('/js/jquery/shadowbox.js')
 						->appendFile('/js/jquery/jquery.bxslider.min.js')
 						->appendFile('/js/jquery/jquery.maskedinput.min.js')
+						->appendFile('/js/jquery/jquery.imgpreview.js')
 						->appendFile('/js/ckfrontend/ckeditor.min.js')
 						->appendFile('/js/ckfrontend/adapters/jquery.min.js')
 						->appendFile('/js/scripts.js')
@@ -130,6 +132,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		;
 		$this->view->headTitle()->setSeparator(' | ');
 		$this->view->headMeta()
+						->setName('description', 'A csakbaba.hu egy virtuális börze, vásár, amely összehozza az eladókat a vásárlókkal, és online „asztalt” biztosít a gondtalan adás-vételhez.')
 						->appendName('viewport', 'width=device-width, initial-scale=1');
 	}
 

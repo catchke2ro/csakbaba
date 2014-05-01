@@ -111,7 +111,7 @@ class UserController extends CB_Controller_Action {
 
 				CB_Resource_Functions::logEvent('userRegistrationEnded', array('user'=>$row));
 				$this->m('Sikeres regisztráció! Az aktiváláshoz szükséges linket elküldtük e-mailben a megadott címre.');
-				$this->redirect($this->url('bejelentkezes'));
+				$this->redirect($this->url('bejelentkezes').'?reg=1');
 			} else {
 				$this->m('Nem töltöttél ki megfelelően minden mezőt', 'error');
 			}

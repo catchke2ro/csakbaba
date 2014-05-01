@@ -26,7 +26,7 @@ class CB_Form_Form extends Zend_Form {
 				'Errors',
 				array('Label'),
 				array('Description', array('escape'=>false)),
-				array('HtmlTag', array('tag'=>'li', 'class'=>'field '.strtolower(end(explode('_', $element->getType()))).' '.($element->isRequired() ? 'req' : '')))
+				array('HtmlTag', array('tag'=>'li', 'class'=>'field '.strtolower(end(explode('_', $element->getType()))).' '.($element->isRequired() ? 'req' : '').' '.$element->getAttrib('class')))
 			));
 		}
 

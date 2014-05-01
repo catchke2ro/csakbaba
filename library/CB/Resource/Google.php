@@ -31,7 +31,7 @@ class CB_Resource_Google {
 		$this->_clientId='431753252279-drhq9ru6eqmo6v9qod6schtf1b6q8t9c.apps.googleusercontent.com';
 		$this->_clientSecret='HmKAvFKPops7mrAKwttXvEWN';
 		$this->_devKey='AIzaSyDDOLL7ZTZzYJo6M9VE15ZBr6cbnhZC3xU';
-		$this->_redirectUri='http://'.$_SERVER['HTTP_HOST'].'/slogin?s=gp';
+		$this->_redirectUri='https://'.$_SERVER['HTTP_HOST'].'/slogin?s=gp';
 		$this->_initClient();
 	}
 

@@ -167,6 +167,7 @@ div.categorySelect
     display: block
     margin: 2px 5px
     float: left
+    font-size: 1.3em
     +box-sizing(border-box)
     +mq3
       width: 100%
@@ -190,10 +191,11 @@ div.productEditAddForm
   padding: 0px 20px
   max-height: 0px
   overflow: hidden
+  clear: both
   +transition(max-height 1s linear)
   +form
   &.opened
-    max-height: 1050px
+    max-height: 1400px
   form
     background-color: rgba($col2, 0.1)
   form > ul
@@ -206,7 +208,32 @@ div.productEditAddForm
     +mq1
       width: 100%
   li.field.submit
-    clear: both
+    clear: left
+  li.field.priceInput
+    input
+      padding-right: 9%
+    &:before
+      color: #FFFFFF
+      content: "HUF"
+      font-size: 1.2em
+      font-weight: bold
+      height: 100%
+      padding-top: 15px
+      position: absolute
+      right: 5px
+      top: 0
+      width: 7%
+    &.errors
+      input
+        padding-right: 24%
+      &:before
+        width: 22%
+
+  form.baba, form.gyerek
+    li.field.radio.genre
+      label:nth-child(3)
+        display: none
+
 
   & > p
     background-color: rgba($col2, 0.1)
@@ -217,6 +244,16 @@ div.productEditAddForm
     line-height: 2em
     font-size: 1.4em
 
+  & > div.formErrors
+    background-color: rgba($col2, 0.1)
+    text-align: center
+    font-size: 1.4em
+    color: #FF0000
+
+  & > div.formLoad
+    background-color: rgba($col2, 0.1)
+    display: none
+    +loading
 
 
 div.userEditForm
@@ -481,6 +518,13 @@ div.userpromote, div.userrenew
     text-align: center
     background-color: $col2
 
+  div.radios label
+    width: 50%
+    font-size: 1.4em
+    &:after
+      width: 100%
+
+
 #container.bejelentkezes .content .loginForm
   +form
   form
@@ -585,5 +629,10 @@ div.payments
       background-color: lighten($col2, 80%)
     tr:nth-child(2n) td
       background-color: lighten($col2, 60%)
+
+
+
+
+
 
 

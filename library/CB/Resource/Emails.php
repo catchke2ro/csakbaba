@@ -114,7 +114,7 @@ class CB_Resource_Emails {
 	}
 
 	public function activation($data, $aktUrl){
-		$data['activation_link']='http://'.$_SERVER['HTTP_HOST'].$aktUrl.'/'.$data['user']->activation_code;
+		$data['activation_link']='https://'.$_SERVER['HTTP_HOST'].$aktUrl.'/'.$data['user']->activation_code;
 		$this->mail->s(array(
 			'to'=>array($data['user']->get()->username=>$data['user']->get()->email),
 			'template'=>'activation',
@@ -124,7 +124,7 @@ class CB_Resource_Emails {
 	}
 
 	public function reactivation($data, $aktUrl){
-		$data['activation_link']='http://'.$_SERVER['HTTP_HOST'].$aktUrl.'/'.$data['user']['activation_code'].'/1/'.$data['user']['email'];
+		$data['activation_link']='https://'.$_SERVER['HTTP_HOST'].$aktUrl.'/'.$data['user']['activation_code'].'/1/'.$data['user']['email'];
 		$this->mail->s(array(
 			'to'=>array($data['user']['username']=>$data['user']['email']),
 			'template'=>'reactivation',

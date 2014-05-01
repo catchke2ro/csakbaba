@@ -103,16 +103,16 @@ class Product extends \CB_Resource_Model{
 
 	public function getMostVisited(){
 		if(!($visited=$this->cache->load('mainVisited'))){
-			$visited=$this->find(array('conditions'=>array('status'=>1), 'order'=>'visitors desc', 'limit'=>10));
-			$this->cache->save($visited, 'mainVisited');
+			$visited=$this->find(array('conditions'=>array('status'=>1), 'order'=>'visitors desc', 'limit'=>12));
+			$this->cache->save($visited, 'mainVisited', array(), 120);
 		}
 		return $visited;
 	}
 
 	public function getFresh(){
 		if(!($fresh=$this->cache->load('mainFresh'))){
-			$fresh=$this->find(array('conditions'=>array('status'=>1), 'order'=>'date_added desc', 'limit'=>10));
-			$this->cache->save($fresh, 'mainFresh');
+			$fresh=$this->find(array('conditions'=>array('status'=>1), 'order'=>'date_added desc', 'limit'=>12));
+			$this->cache->save($fresh, 'mainFresh', array(), 120);
 		}
 		return $fresh;
 	}
@@ -141,7 +141,7 @@ class Product extends \CB_Resource_Model{
 			shuffle($products);
 			$products=$products ? $products : array();
 
-			$this->cache->save($products,'promoted_'.$type.'_'.($randomize?1:0).'_'.$key);
+			$this->cache->save($products,'promoted_'.$type.'_'.($randomize?1:0).'_'.$key, array(), 120);
 		}
 		return $products;
 	}

@@ -5,7 +5,7 @@ return array(
 
 	'baba'=>        array('name'=>'Baba',                                               'slug'=>'baba', 'promoteName'=>'baba', 'children'=>array(
 					'babaruha'=>    array('name'=>'Babaruházat',                                        'slug'=>'babaruhak', 'children'=>array(
-									'babacipo'=>    array('name'=>'Babacipő',                                           'slug'=>'babacipo', 'prop'=>array('babakor','cipomeret'), 'children'=>array(
+									'babacipo'=>    array('name'=>'Babacipő',                                           'slug'=>'babacipo', 'prop'=>array('babakor','babacipomeret'), 'children'=>array(
 													'felcipo'=>     array('name'=>'Baba félcipők',                                      'slug'=>'baba-felcipo'),
 													'szandal'=>     array('name'=>'Babaszandálok',                                      'slug'=>'babaszandal'),
 													'csizma'=>      array('name'=>'Babacsizmák és bakancsok',                           'slug'=>'babacsizma-es-bakancs'),
@@ -169,7 +169,7 @@ return array(
 	)),
 	'gyerek'=>      array('name'=>'Gyerek',                                             'slug'=>'gyerek', 'promoteName'=>'gyerek',  'children'=>array(
 					'gyerekruha'=>  array('name'=>'Gyerekruhák',                                        'slug'=>'gyerekruha', 'children'=>array(
-									'cipo'=>        array('name'=>'Gyerekcipok',                                        'slug'=>'gyerekcipo', 'prop'=>array('gyerekkor','cipomeret'), 'children'=>array(
+									'cipo'=>        array('name'=>'Gyerekcipok',                                        'slug'=>'gyerekcipo', 'prop'=>array('gyerekkor','gyerekcipomeret'), 'children'=>array(
 													'sport'=>       array('name'=>'Sportcipők',                                         'slug'=>'sportcipo', 'children'=>array(
 																	'foci'=>       array('name'=>'Focicipők, tornacipők',                               'slug'=>'focicipo-tornacipo'),
 																	'futo'=>       array('name'=>'Futócipők, teniszcipők',                              'slug'=>'futocipo-teniszcipo'),
@@ -423,11 +423,15 @@ return array(
 
 'PROP'=>array(
 	'babakor'=>array('slug'=>'kor', 'type'=>'select', 'name'=>'Kor', 'options'=>array(
-		'0-3'=>array('name'=>'0-3 hó',    'value'=>'0-3'),
+		'0-1'=>array('name'=>'újszülött',    'value'=>'0-1'),
+		'1-3'=>array('name'=>'1-3 hó',    'value'=>'1-3'),
+		'3-6'=>array('name'=>'3-6 hó',    'value'=>'3-6'),
 		'6-9'=>array('name'=>'6-9 hó',    'value'=>'6-9'),
+		'9-12'=>array('name'=>'9-12 hó',    'value'=>'9-12'),
 		'12-18'=>array('name'=>'12-18 hó',  'value'=>'12-18'),
+		'18-24'=>array('name'=>'18-24 hó',  'value'=>'18-24')
 	)),
-	'babameret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>50, 'max'=>86, 'name'=>'Méret'),
+	'babameret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>50, 'max'=>92, 'name'=>'Méret'),
 	'gyerekkor'=>array('slug'=>'kor', 'type'=>'select', 'name'=>'Kor', 'options'=>array(
 		'2-3'=>array('name'=>'2-3 év',    'value'=>'2-3'),
 		'4-5'=>array('name'=>'4-5 év',    'value'=>'4-5'),
@@ -437,7 +441,8 @@ return array(
 		'12-13'=>array('name'=>'12-13 év',  'value'=>'12-13')
 	)),
 	'gyerekmeret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>92, 'max'=>158, 'name'=>'Méret'),
-	'cipomeret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>23, 'max'=>46, 'step'=>0.5, 'name'=>'Méret'),
+	'babacipomeret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>14, 'max'=>23, 'step'=>0.5, 'name'=>'Méret'),
+	'gyerekcipomeret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>23, 'max'=>46, 'step'=>0.5, 'name'=>'Méret'),
 	'kismamameret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>32, 'max'=>66, 'step'=>2, 'name'=>'Méret'),
 	'melltartomeret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>65, 'max'=>125, 'step'=>5, 'name'=>'Méret'),
 	'harisnyameret'=>array('slug'=>'meret', 'type'=>'number', 'min'=>1, 'max'=>9, 'step'=>1, 'name'=>'Méret')

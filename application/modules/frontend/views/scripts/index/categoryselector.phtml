@@ -1,0 +1,21 @@
+<?
+function recursiveUlLi($array, $uri='', $category){
+	$output="<ul>\n";
+	foreach($array as $item){
+		$output.="<li>";
+		$output.="<div href=\"javascript:void(0)\" data-url=\"/borze".$uri.'/'.$item->slug."\" class=\"link ".($category && $item->id==$category->id ? 'active' : '')."\"><span><span>".$item->name."</span><span class=\"jump\" title=\"Összes ".$item->name."\"></span></span></div>";
+		if(!empty($item->children)) $output.=recursiveUlLi($item->children, $uri.'/'.$item->slug, $category);
+		$output.="</li>\n";
+	}
+	$output.="</ul>\n";
+	return $output;
+}
+?>
+
+<div class="categorySelector">
+	<div class="title">
+		<div href="javascript:void(0)" class="link title activeCategory"><span><span><?=(!empty($this->category) ? $this->category->name : 'Kategóriák');?></span></span></div>
+		<div href="javascript:void(0)" class="link title"><span><span>Kategóriák</span></span></div>
+	</div>
+	<?=recursiveUlLi($this->catMultiArray, '', (!empty($this->category) ? $this->category : false));?>
+</div>

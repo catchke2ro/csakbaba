@@ -24,7 +24,7 @@
 					<? if($option['type']=='number'){?>
 						<? $value=!empty($_GET[$option['slug']]) ? $_GET[$option['slug']] : $option['min'].'-'.$option['max'];?>
 						<ul>
-							<li><input class="range" type="text" name="<?=$option['slug'];?>" id="<?=$id;?>" data-min="<?=$option['min'];?>" data-range="true" data-step="<?=$option['step'];?>" data-max="<?=$option['max'];?>" value="<?=$value;?>" /></li>
+							<li><input class="range" type="text" name="<?=$option['slug'];?>" id="<?=$id;?>" data-min="<?=$option['min'];?>" data-range="true" data-step="<?=isset($option['step']) ? $option['step'] : 1;?>" data-max="<?=$option['max'];?>" value="<?=$value;?>" /></li>
 						</ul>
 					<? } ?>
 

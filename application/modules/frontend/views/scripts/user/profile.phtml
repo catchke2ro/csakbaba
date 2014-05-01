@@ -1,20 +1,30 @@
 <div class="profile">
 	<div class="userData">
-		<div class="avatar">
-			<? if($this->profilUser->avatar)?> <img src="<?=$this->profilUser->avatar[0]['url'];?>" alt="<?=$this->profilUser->username;?>"/>
+
+		<div class="avatarInfo">
+			<div class="avatar">
+				<? if($this->profilUser->avatar)?> <img src="<?=$this->profilUser->avatar[0]['url'];?>" alt="<?=$this->profilUser->username;?>"/>
+			</div>
+			<div class="info">
+				<p class="username"><?=$this->profilUser->username;?></p>
+				<p class="city"><strong>Város:</strong> <?=$this->profilUser->postaddress['city'];?></p>
+				<p class="regdate"><strong>Regisztrált:</strong> <?=$this->profilUser->date_reg->format('Y. m. d.');?></p>
+				<div class="rating">
+					<strong>Értékelés:</strong>&nbsp;
+					<span><?=($rating=$this->profilUser->getRating())*5;?></span>
+					<div class="ratingContainer"><div class="ratingInner" style="width: <?=($rating*100);?>%;"></div></div>
+				</div>
+			</div>
 		</div>
-		<p class="username"><?=$this->profilUser->username;?></p>
-		<p class="gender"><?=$this->profilUser->gender=='female' ? 'Nő' : 'Férfi';?></p>
-		<p class="city"><strong>Város:</strong> <?=$this->profilUser->address['city'];?></p>
-		<p class="rating">
-			<strong>Értékelés:</strong>&nbsp;
-			<span><?=($rating=$this->profilUser->getRating())*5;?></span>
-			<div class="ratingContainer"><div class="ratingInner" style="width: <?=($rating*100);?>%;"></div></div></p>
+
+		<div class="desc stat">
+			<?=$this->profilUser->desc;?>
+		</div>
 	</div>
 	<div class="marketProducts">
         <div class="profileFilter">
-            <a href="javascript:void(0);" class="tab" data-div="status1">Aktív</a>
-            <a href="javascript:void(0);" class="tab" data-div="status2">Eladott</a>
+            <a href="javascript:void(0);" class="tab" data-div="status1">Aktív termékek</a>
+            <a href="javascript:void(0);" class="tab" data-div="status2">Eladott termékek</a>
         </div>
 
 

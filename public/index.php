@@ -27,7 +27,7 @@ Zend_Loader_AutoloaderFactory::factory(
 												__DIR__.'/../library/classmap.php'
 								),
 								'Zend_Loader_StandardAutoloader' => array(
-												'prefixes' => array('Zend'=>APPLICATION_PATH.'/../library/Zend','Doctrine'=>APPLICATION_PATH.'/../library/Doctrine','CB'=>APPLICATION_PATH.'/../library/CB'),
+												'prefixes' => array('Zend'=>APPLICATION_PATH.'/../library/Zend','Doctrine'=>APPLICATION_PATH.'/../library/Doctrine','CB'=>APPLICATION_PATH.'/../library/CB','GoogleAnalytics'=>APPLICATION_PATH.'/../library/GoogleAnalytics'),
 												'fallback_autoloader' => true
 								)
 				)

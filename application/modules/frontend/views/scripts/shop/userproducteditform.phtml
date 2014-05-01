@@ -1,5 +1,9 @@
 <? if(empty($this->ok)){ ?>
 	<?=$this->form;?>
+	<div class="formLoad"><div></div><div></div><div></div><div></div><div></div></div>
+	<? if($this->form->hasErrors()){ ?>
+		<div class="formErrors">Az űrlap nem kitöltött kötelező mezőket, vagy hibásan megadott adatokat tartalmaz. Javítsd ezeket, és Ments újra!</div>
+	<? } ?>
 	<p class="description"><?=$this->form->getDescription();?></p>
 <? } ?>
 

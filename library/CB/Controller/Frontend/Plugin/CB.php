@@ -30,7 +30,10 @@ class CB_Controller_Frontend_Plugin_CB extends Zend_Controller_Plugin_Abstract {
 
 		if($this->_request->isDispatched()==true){
 			if(Zend_Registry::isRegistered('breadcrumb')) $this->view->placeholder('content')->prepend($this->view->partial('index/breadcrumb.phtml', array('bc'=>Zend_Registry::get('breadcrumb'))));
-			$this->view->headTitle()->append('csakbaba.hu');
+
+			$activePage=$this->nav->findBy('active', true) ? $this->nav->findBy('active', true) : false;
+			$appendTitle=$activePage ? !$activePage->get('titleOverwrite') : true;
+			if($appendTitle) $this->view->headTitle()->append('csakbaba.hu');
 		}
 
 

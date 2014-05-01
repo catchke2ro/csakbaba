@@ -82,8 +82,8 @@ div.flash
     height: 100%
     margin: 0 12.5%
     position: relative
-    padding: 10px
-    +box-sizing(border-box)
+    padding: 10px 30px
+    //+box-sizing(border-box)
     &.error
       background-color: rgba(red, 0.7)
     &.message
@@ -94,6 +94,7 @@ div.flash
       font-weight: bold
       color: #FFFFFF
       font-size: 1.3em
+      line-height: 1.3em
     li.close
       border: 2px solid #FFFFFF
       border-radius: 50%
@@ -342,7 +343,8 @@ div.categorySelector
   z-index: 100
   float: left
   height: 100%
-  a
+  div.link
+    cursor: pointer
     display: block
     color: #FFFFFF
     font-size: 1.2em
@@ -362,12 +364,12 @@ div.categorySelector
   div.title
     height: 100%
     width: 100%
-    a
+    div.link
       display: block
       width: 0px
       height: 0px
       overflow: hidden
-    a.activeCategory
+    div.link.activeCategory
       +transition(width 0s 1s, height 0s 1s)
       width: 100%
       height: 100%
@@ -387,10 +389,28 @@ div.categorySelector
       &:hover
         background-color: rgba(#FFFFFF, 0.07)
         +transition(0.5s)
-      a
+      div.link
         text-align: left
+        position: relative
         &:hover
           background-color: rgba($col2, 0.3)
+          span.jump
+            display: block
+
+
+        span:first-child
+          padding-right: 15px
+
+        span.jump
+          position: absolute
+          top: 8px
+          right: 5px
+          width: 10px
+          height: 10px
+          background-image: url(/img/elements/jump_url.png)
+          background-size: contain
+          display: none
+
 
       ul
         max-height: 0px
@@ -406,11 +426,11 @@ div.categorySelector
       overflow-y: auto
       border: 1px solid rgba(lighten($col1,20%),0.5)
       +transition(max-height 2s $anim 0.5s)
-    div.title a
+    div.title div.link
       width: 100%
       height: 100%
       +transition(all 0s 0s)
-    div.title a.activeCategory
+    div.title div.link.activeCategory
       width: 0px
       height: 0px
       +transition(all 0s 0s)
@@ -502,7 +522,7 @@ div.content
       a:hover
         color: $col2
         +transition(0.6s)
-      h1
+      h2
         font-size: 1em
         font-weight: bold
         color: $col2
@@ -550,6 +570,7 @@ div.social
   width: 144px
   margin-top: 4px
   overflow: hidden
+  +transition(width 0.5s)
   +mq2
     width: 40px
 
@@ -576,6 +597,13 @@ div.social
       background-image: url("/img/elements/googleplus.png") !important
       background-size: contain
       background-color: #D34836
+
+
+html.desktop div.social.fixed
+  position: fixed
+  top: 36px
+  width: 70px
+  +transition(width 0.5s)
 
 
 
@@ -724,3 +752,21 @@ div.tut
 div.usermenu.opened
   div.tut
     display: none
+
+
+
+#sb-container
+  z-index: 99999
+  #sb-nav-close
+    background-image: url("/img/shadowbox/close2.png")
+    background-size: contain
+    height: 15px
+    position: absolute
+    right: 3px
+    top: 3px
+    width: 15px
+    cursor: pointer
+
+div#container.ajax
+  div.content
+    padding: 10px !important

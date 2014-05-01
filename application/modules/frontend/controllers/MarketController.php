@@ -41,6 +41,11 @@ class MarketController extends CB_Controller_Action {
 		if($categoryPath) $bc=array_merge($bc, array_reverse($categoryPath));
 		Zend_Registry::set('breadcrumb', $bc);
 
+
+		$this->_meta($category);
+
+
+
 		if(!empty($extraParams) && new \MongoId($extraParams[1]) && !is_numeric($extraParams[0])){
 			$this->forward('product', 'market', 'index', $extraParams);
 			return;
@@ -130,6 +135,8 @@ class MarketController extends CB_Controller_Action {
 		$userOrdersBuy=$orderModel->find(array('conditions'=>array('user._id'=>new \MongoId($product->user->get()->id), 'user_rating.$id'=>array('exists'=>true)), 'limit'=>2, 'order'=>'date DESC'));
 		$userOrdersSell=$orderModel->find(array('conditions'=>array('shop_user._id'=>new \MongoId($product->user->get()->id), 'shop_user_rating.$id'=>array('exists'=>true)), 'limit'=>2, 'order'=>'date DESC'));
 
+		$this->view->headMeta()->setName('description', $product->name.' a csakbaba.hu börzén. '.substr(strip_tags($product->desc), 0, 100).'...');
+		if(!empty($product->images)) $this->view->headMeta()->setName('og:image', 'https://'.$_SERVER['HTTP_HOST'].$product->images[0]['url']);
 		$this->view->assign(array(
 			'product'=>$product,
 			'categoryTree'=>$categoryTree,
@@ -275,6 +282,28 @@ class MarketController extends CB_Controller_Action {
 		$productModel->save($product);
 		CB_Resource_Functions::logEvent('orderingEnded', array('order'=>$order));
 		return true;
+	}
+
+
+	private function _meta($category){
+		if($category){
+			if(strpos($category->id, 'baba')===0) $rootCat='baba';
+			if(strpos($category->id, 'gyerek')===0) $rootCat='gyerek';
+			if(strpos($category->id, 'kismama')===0) $rootCat='kismama';
+			switch($category->id){
+				case 'baba':
+					$meta='Minden, amire babádnak szüksége van, új és használt ruhák, játékok'; break;
+				case 'gyerek':
+					$meta='Minden, amire gyerekednek szüksége van, új és használt ruhák, játékok, egyebek'; break;
+				case 'kismama':
+					$meta='Minden, amire kezdő anyaként szükséges lehet, új és használt ruhák, kellékek'; break;
+				default: $meta=''; break;
+			}
+			if(!empty($meta) && $category->parent_id=='') $this->view->headMeta()->setName('description', $meta);
+			else $this->view->headMeta()->setName('description', 'Használt és új '.$category->name.' széles választéka a csakbaba.hu online bababörzén! Válogass a csakbaba eladóinak asztaláról kedvező áron!');
+		} else {
+			$this->view->headMeta()->setName('description', 'Közösségi vásártér, börze, ahol már kismamaként megtalálhatod babádnak, gyerekednek, vagy magadnak, amit keresel.');
+		}
 	}
 
 }

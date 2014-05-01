@@ -17,6 +17,9 @@ class CronController extends CB_Controller_Action {
 				CB_Resource_Functions::logEvent('productAutorenew', array('product'=>$pp));
 				if($pp->user && ($pp->user->balance > Zend_Registry::get('uploadPrice'))){
 					$pp->user->balance=$pp->user->balance - Zend_Registry::get('uploadPrice');
+
+					$this->_sendGAEvent();
+
 					if($pp->user->balance <= (2*Zend_Registry::get('uploadPrice'))) $this->emails->balanceLow(array('user'=>$pp->user));
 					$userModel->save($pp->user);
 					if($pp->autorenew=='once'){
@@ -86,10 +89,20 @@ class CronController extends CB_Controller_Action {
 
 	}
 
+	private function _sendGAEvent(){
+		$tracker = new \GoogleAnalytics\Tracker('UA-48324090-1', 'csakbaba.hu');
+		$visitor = new \GoogleAnalytics\Visitor();
+		$visitor->setIpAddress($_SERVER['REMOTE_ADDR']);
+		$visitor->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+		$visitor->setScreenResolution('1024x768');
+		$session = new GoogleAnalytics\Session();
+		$tracker->trackEvent(new \GoogleAnalytics\Event('product', 'autorenew'), $session, $visitor);
+	}
 
 	public function scriptAction(){
 		$this->getHelper('layout')->disableLayout();
 		$this->getHelper('viewRenderer')->setNoRender(true);
+
 
 
 		/**
@@ -189,7 +202,7 @@ class CronController extends CB_Controller_Action {
 
 
 
-		$categories=Zend_Registry::get('categories');
+		/*$categories=Zend_Registry::get('categories');
 		foreach($categories->_singleArray as $cat){
 			if(!empty($cat->children)) continue;
 			$path=$categories->getPath($cat->id);
@@ -198,7 +211,13 @@ class CronController extends CB_Controller_Action {
 			}
 			//pr(implode(' > ', $path));
 			pr($cat->id);
-		}
+		}*/
+
+
+
+
+
+		//$tracker->trackPageview($page, $session, $visitor);
 
 
 

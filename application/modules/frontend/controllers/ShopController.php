@@ -66,7 +66,7 @@ class ShopController extends CB_Controller_Action {
 
 		if(!$productid && !$this->_request->getPost('id')){
 			$form->removeElement('id');
-			$form->setDescription('Az áru feltöltése '.Zend_Registry::get('uploadPrice').' Ft-ot von le az egyenlegedről');
+			$form->setDescription('A termék feltöltésének díja '.Zend_Registry::get('uploadPrice').' Ft, amit az egyenlegedből vonunk le.');
 
 		}
 
@@ -87,6 +87,7 @@ class ShopController extends CB_Controller_Action {
 					$this->user->balance=intval($this->user->balance)-Zend_Registry::get('uploadPrice');
 					if($this->user->balance <= (2*Zend_Registry::get('uploadPrice'))) $this->emails->balanceLow(array('user'=>$this->user));
 					$this->userModel->save($this->user);
+					$this->m('Sikeresen feltöltötted a terméked a csakbaba.hu oldalon! A terméked hamarosan megjelenik a többi termék között és láthatod a főoldalon a legfrissebben feltöltött termékeknél! Köszönjük a feltöltést! További jó börzézést!', 'message');
 				}
 				$product=$this->productModel->save(isset($product) ? $product : $values);
 				CB_Resource_Functions::logEvent('userProductEditAddEnded', array('product'=>$product));
@@ -108,6 +109,36 @@ class ShopController extends CB_Controller_Action {
 			'form'=>$form
 		));
 	}
+
+
+	public function userproductpreviewAction(){
+		$categoryTree=Zend_Registry::get('categories');
+
+		if(!empty($_GET['images'])) $_GET['images']=json_decode($_GET['images'], true);
+		$form=new Frontend_Form_ProductEdit();
+		$values=$form->processData($_GET, $this);
+
+		$product=new \CB\Product();
+		$product->saveAll($values);
+		$product->date_added=new DateTime();
+		$product->name=$product->name ? $product->name : 'Termék neve';
+		$product->category=$_GET['category_id'];
+		$product->type=$product->type ? $product->type : 'egyeb';
+		$product->price=$product->price ? $product->price : 0;
+		$product->desc=$product->desc ? $product->desc : 'Leírás';
+
+
+
+		$this->view->assign(array(
+						'product'=>$product,
+						'categoryTree'=>$categoryTree,
+						'deliveryOptions'=>$this->deliveryOptions,
+		));
+		$this->getHelper('layout')->setLayout('ajax');
+		$this->getHelper('viewRenderer')->setNoController(true);
+		$this->_helper->viewRenderer('market/productpreview');
+	}
+
 
 	public function userproductdeleteAction(){
 		$this->getHelper('layout')->disableLayout();

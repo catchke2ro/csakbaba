@@ -32,6 +32,11 @@ class User extends \CB_Resource_ModelItem {
 	/**
 	 * @ODM\String
 	 */
+	public $desc;
+
+	/**
+	 * @ODM\String
+	 */
 	public $gender;
 
 	/**
@@ -157,7 +162,6 @@ class User extends \CB_Resource_ModelItem {
 						!empty($this->address['zip']) &&
 						!empty($this->address['city']) &&
 						!empty($this->address['street']) &&
-						!empty($this->address['address_banknum']) &&
 						!empty($this->email) &&
 						!empty($this->phone) &&
 						!empty($this->username) &&
