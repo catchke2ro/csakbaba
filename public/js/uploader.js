@@ -1,6 +1,7 @@
 function fileUploadInit(){
 	jQuery('.fileupload').each(function(index, e){
-
+		if($(e).data('initialized')==1) return;
+		$(e).data('initialized', 1);
 		jQuery(e).fileupload({
 			url: jQuery(this).data('url'),
 			dataType: 'json',
@@ -57,15 +58,17 @@ function fileUploadInit(){
 			}
 			jQuery(that).siblings('input.saveinput').val(JSON.stringify(jQuery(that).data('savevalues')));
 		}).on('fileuploaddestroyed', function(ev, data){
-			var that=this, filename=jQuery(data.context).find('.filename').html();
+			var that=this, filename=jQuery(data.context).find('.filename').html(), deleteIndex=false;
 			jQuery.each(jQuery(that).data('savevalues'), function(index, file){
-				if(file.name==filename) delete jQuery(that).data('savevalues')[index];
+				if(file.name==filename) deleteIndex=index;
 			});
+			if(deleteIndex) jQuery(that).data('savevalues').splice(deleteIndex, 1);
 			jQuery(that).siblings('input.saveinput').val(JSON.stringify(jQuery(that).data('savevalues')));
 		});
 
 		if(jQuery(e).siblings('input.saveinput').val()){
 			var val=JSON.parse(jQuery(e).siblings('input.saveinput').val()), that=jQuery(e);
+			//jQuery(e).closest('.fileUploadContainer').find('.files').find('div.delete').click();
 			jQuery(e).fileupload('option', 'done').call(that, null, {result: {files: val}});
 			jQuery(e).trigger('fileuploaddone', [{result: {files: val}}]);
 		}

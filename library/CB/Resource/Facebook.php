@@ -24,7 +24,7 @@ class CB_Resource_Facebook {
 		} else {
 			$loginUrl = $this->fb->getLoginUrl(array(
 				'scope'=>implode(', ', $this->scopes),
-				'redirectUri'=>'http://'.$_SERVER['HTTP_HOST'].'/slogin?s=fb'
+				'redirectUri'=>'https://'.$_SERVER['HTTP_HOST'].'/slogin?s=fb'
 			));
 		}
 

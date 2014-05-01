@@ -27,7 +27,7 @@ class Frontend_Form_Registration extends CB_Form_Form {
 		$captcha=new Zend_Form_Element_Captcha('captcha', array('captcha'=>new CB_Form_ImageCaptcha($captchaOptions)));
 		$captcha->setLabel('Írd be az ellenőrzőkódot')->setAttrib('required', 'required');
 		$aszf=new Zend_Form_Element_Checkbox('aszf');
-		$aszf->setLabel('Elfogadom az <a href="javascript:void(0)" class="sbLink" data-url="/index/aszf">ÁSZF</a>-et')->setRequired(true)->setUncheckedValue(null)->setAttrib('required', 'required');
+		$aszf->setLabel('Elfogadom az <a href="javascript:void(0)" class="sbLink" data-url="/aszf?sb=1">ÁSZF</a>-et')->setRequired(true)->setUncheckedValue(null)->setAttrib('required', 'required');
 		$newsletter=new Zend_Form_Element_Checkbox('newsletter');
 		$newsletter->setLabel('Feliratkozom a hírlevélre');
 		$submit=new Zend_Form_Element_Submit('Küldés');

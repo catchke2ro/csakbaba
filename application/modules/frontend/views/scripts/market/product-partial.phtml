@@ -17,8 +17,8 @@
 			<? if(!isset($this->front) || $this->front==true){?>
 				<div class="front">
 					<div class="productImages">
-						<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png'); ?>
-						<img src="<?=$img['small'];?>" alt="<?=$this->product->name;?>" />
+						<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
+						<img src="<?=$img['mid'];?>" alt="<?=$this->product->name;?>" data-mid="<?=$img['mid'];?>" />
 					</div>
 					<h3 class="productName">
 						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=$this->product->name;?></a>
@@ -61,7 +61,7 @@
 
 					<div class="productGallery">
 						<? if(is_array($this->product->images) && !empty($this->product->images)){ foreach($this->product->images as $image){?>
-							<div><img src="<?=$image['small'];?>" alt="<?=$this->product->name;?>" /></div>
+							<div><img src="<?=$image['small'];?>" data-mid="<?=$image['mid'];?>" alt="<?=$this->product->name;?>" /></div>
 						<? }} ?>
 					</div>
 				</div>

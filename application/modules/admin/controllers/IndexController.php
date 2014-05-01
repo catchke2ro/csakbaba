@@ -93,4 +93,113 @@ class Admin_IndexController extends CB_Controller_AdminAction {
 		return array($filenameroot, '.'.$extension);
 	}
 
+
+	public function batchuploadAction(){
+		$userModel=new \CB\Model\User();
+		$productModel=new \CB\Model\Product();
+		$file=fopen(APPLICATION_PATH.'/../tmp/batch3.csv', 'r');
+		$user=$userModel->findOneById('52a4bf170f435f574f8b4567');
+
+		setlocale(LC_ALL, 'hu_HU.UTF-8');
+		$this->_helper->layout()->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender();
+		$h=array('cat'=>0, 'name'=>1, 'desc'=>2, 'price'=>3, 'age'=>4, 'size'=>5, 'type'=>6, 'new'=>7, 'pic'=>8, 'catid'=>9, 'typeid'=>10, 'ageid'=>11 );
+		$dataArray=array();
+		while (($data = fgetcsv($file, 100000, ",")) !== FALSE) {
+			$dataArray[]=$data;
+		}
+		fclose($file);
+		unset($dataArray[0]);
+		$categories=new CB_Array_Categories();
+		$images=scandir(APPLICATION_PATH.'/../tmp/batchimg');
+		
+		foreach($dataArray as $row){
+			$ok=$this->_validate($row, $categories, $h);
+			if(!$ok){
+				continue;
+			}
+			$product=$this->_createProduct($row, $categories, $h, $user, $images);
+			//$productModel->save($product);
+		}
+	}
+
+	private function _validate($row, $categories, $h){
+		$ok=true;
+		$ok=$ok && array_key_exists($row[$h['catid']], $categories->_singleArray);
+		$ok=$ok && !empty($row[$h['name']]);
+		$ok=$ok && !empty($row[$h['desc']]);
+		$ok=$ok && $this->_fetchPrice($row[$h['price']]);
+		$ok=$ok && array_key_exists($row[$h['typeid']], Zend_Registry::get('genreTypes'));
+		$ok=$ok && !empty($row[$h['ageid']]);
+		$ok=$ok && in_array($row[$h['new']], array('új', 'használt'));
+		return $ok;
+	}
+
+	private function _fetchPrice($str){
+		$str=preg_replace('/[^0-9]/i', '', $str);
+		$int=intval($str);
+		return (is_int($int) && $int>0) ? $int : false;
+	}
+
+	private function _createProduct($row, $categories, $h, $user, $images){
+		$product=new \CB\Product();
+		$product->name=trim($row[$h['name']]);
+		$product->search_name=strtolower($product->name);
+		$product->desc=trim($row[$h['desc']]);
+		$product->category=$row[$h['catid']];
+		$product->user=$user;
+		$product->price=$this->_fetchPrice($row[$h['price']]);
+		$product->date_added=date('Y-m-d H:i:s');
+		$product->date_period=date('Y-m-d H:i:s');
+		$product->status=1;
+		$product->type=$row[$h['typeid']];
+		$product->new=$row[$h['new']]=='új' ? true : false;
+		$product->deliveries=array('personal', 'post');
+		$product->autorenew='never';
+		$product->code=uniqid('CSB');
+
+		$product->images=$this->_findImgs($row[$h['pic']], $images);
+
+		$category=$categories->_singleArray[$product->category];
+		$product->options=$this->_fetchOptions($row, $category, $h, $categories->_props);
+		return $product;
+	}
+
+	private function _findImgs($imgRoot, $images){
+		$imgClass=new CB_Resource_Image('/upload/product');
+		if(empty($imgRoot)) return array();
+		$imgs=array();
+		foreach($images as $img){
+			if(strpos($img, $imgRoot)===0){
+				$file=array('tmp_name'=>APPLICATION_PATH.'/../tmp/batchimg/'.$img, 'name'=>$img);
+				$imgs[]=$imgClass->handleImage($file);
+			}
+		}
+		return $imgs;
+	}
+
+	private function _fetchOptions($row, $category, $h, $props){
+		$options=array();
+		foreach($category->props as $propKey){
+			$value=false;
+			$prop=$props[$propKey];
+			if(strpos($propKey, 'meret')){
+				$value=$row[$h['size']];
+				$value=$this->_closest(range($prop['min'], $prop['max'], (isset($prop['step']) ? $prop['step'] : 1)), $value);
+			}
+			if(strpos($propKey, 'kor')){
+				$value=substr($row[$h['ageid']], 1);
+			}
+			$options[$propKey]=$value;
+		}
+		return $options;
+	}
+
+	private function _closest($array, $number){
+		sort($array);
+		foreach ($array as $a) {
+			if ($a >= $number) return $a;
+		}
+		return end($array);
+	}
 }

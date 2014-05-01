@@ -10,24 +10,19 @@
 			<p>Ha szereted a bababörzéket, akkor a legjobb helyen jársz.</p>
 			<p>Amennyiben szeretnéd megtekinteni a csakbaba.hu online börzéjét, kattints a bal oldali sötét sávra. Szeretnél belépni a csakbaba.hu világába? Regisztrálj ingyenesen a belépés menüben!</p>
 			<p>Jó böngészést!</p>
+			<p><a href="/blog/csakbaba-ajanlo-avagy-miert-a-csakbabahu-a-te-oldalad">Miért a csakbaba.hu a te oldalad? - Blog</a></p>
 		</div>
 		<div class="buttons">
-			<a href="javascript:void(0)" class="tutorial">Mit hol találok?</a>
+			<!--<a href="javascript:void(0)" class="tutorial">Mit hol találok?</a>-->
 			<a href="<?=$this->url('regisztracio');?>" class="registration">Regisztráció</a>
 		</div>
 	</div>
-	<div class="mainBox mainBlog">
-		<div class="stat">
-			<img src="/img/elements/mainpage_blog.png" alt="Blog"/>
-			<h2><?=$this->latestPost->title;?></h2>
-			<p><?=$this->latestPost->teaser;?></p>
-		</div>
-	</div>
+
 </div>
 <div class="promoter">
 	<? foreach($this->categoryTree->_multiArray as $key=>$mainCat){?>
 		<? if(empty($this->promoteFirst[$key])) continue;?>
-		<h2><a href="<?=$this->url('kiemelt').'/'.$key;?>"> Kiemelések <?=$mainCat->promoteName;?> kategóriában </a></h2>
+		<h2><a href="<?=$this->url('kiemelt').'/'.$key;?>"> Kiemelt termékek a <?=$mainCat->promoteName;?> kategóriában </a></h2>
 		<?=$this->partial('index/promote_partial.phtml', array('products'=>$this->promoteFirst[$key], 'type'=>'first', 'categoryTree'=>$this->categoryTree, 'request'=>$this->request));?>
 	<? } ?>
 

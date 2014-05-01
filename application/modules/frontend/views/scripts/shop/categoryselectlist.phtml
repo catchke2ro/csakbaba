@@ -4,6 +4,6 @@ foreach($this->selects as $name=>$options){
 	$element=new Zend_Form_Element_Select($name);
 	$element->setMultiOptions(array_merge(array(''=>'Válassz kategóriát'), $options))->setDecorators(array('ViewHelper'));
 	if(!empty($this->values[$name])) $element->setValue($this->values[$name]);
-	if(isset($this->selects['selcat'.($i+1)])!=false) $element->setAttrib('disabled', 'disabled');
+	//if(isset($this->selects['selcat'.($i+1)])!=false) $element->setAttrib('disabled', 'disabled');
 	echo $element;
 }

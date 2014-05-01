@@ -58,6 +58,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Zend_Registry::set('categories', $categories);
 		Zend_Registry::set('uploadPrice', 40);
 		Zend_Registry::set('minCharge', 320);
+		Zend_Registry::set('deliveryOptions', array('personal'=>'Személyes átvétel','post'=>'Posta', 'futar'=>'Futárszolgálat'));
 		Zend_Registry::set('autoRenewOptions', array('never'=>'Nem', 'once'=>'Egyszer', 'always'=>'Mindig'));
 		Zend_Registry::set('promoteOptions', array('first'=>'Főoldalon - 1 hét','list'=>'Listaoldalon első helyeken - 1 hét','frame'=>'Kiemelés kerettel - 1 hét'));
 		Zend_Registry::set('promoteOptionPrices', array('first'=>520,'list'=>160,'frame'=>120,'allfirst'=>960));

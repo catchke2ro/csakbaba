@@ -37,7 +37,7 @@ class CB_Resource_Payment {
 		$payment=new \CB\Payment();
 		$payment->saveAll($data);
 		if(!$payment->user) $payment->user=Zend_Registry::get('user');
-		$payment->date=date('Y-m-h H:i:s');
+		$payment->date=date('Y-m-d H:i:s');
 		$payment->pid=uniqid('CSB');
 		if(!$payment->status) $payment->status=1;
 		if(!$payment->type) $payment->type='CREDIT_CARD';
@@ -58,11 +58,7 @@ class CB_Resource_Payment {
 		$ok=$_GET['status']=='ACTIVE' ? true : false;
 		if($ok){
 			CB_Resource_Functions::logEvent('userChargeSuccess', array('payment'=>$this->payment));
-			$this->payment->status=2;
-			$this->paymentModel->save($this->payment, true);
-			$this->_userBalance();
-			$this->controller->emails->charged(array('user'=>$this->payment->user, 'payment'=>$this->payment));
-			$this->controller->m('Sikeres fizetés! Számládat megtekintheted lejjebb, valamint kiküldjük e-mailben', 'success');
+			$this->controller->m('A fizetés sikeres volt. Az egyenlegeden pillanatokon belül látható lesz az összeg. Számládat hamarosan megtekintheted lejjebb, valamint kiküldjük e-mailben', 'message');
 			$this->controller->redirect($this->controller->url('egyenleg'));
 		} else {
 			CB_Resource_Functions::logEvent('userChargeFailed', array('payment'=>$this->payment));
@@ -88,8 +84,13 @@ class CB_Resource_Payment {
 			$ipn = new Fandepay\Api\Webhooks\Ipn();
 			echo 'SUCCESS '.$ipn->getToken();
 			$invoiceData=array('invoice_number'=>$ipn->getInvoiceNumber(), 'invoice_type'=>$ipn->getInvoiceType(), 'payment_status'=>$ipn->getInvoice()->getPaymentStatus(), 'pdf_url'=>$ipn->getPdfUrl() );
+			$this->payment->status=2;
 			$this->payment->invoice_data=$invoiceData;
 			$this->paymentModel->save($this->payment, true);
+			$this->_setInvoiceStatus(2);
+			$this->_userBalance();
+			$this->controller->emails->charged(array('user'=>$this->payment->user, 'payment'=>$this->payment));
+
 		}
 
 		$client=new Zend_Http_Client($ipn->getPdfUrl());
@@ -132,7 +133,7 @@ class CB_Resource_Payment {
 		$customer->addAddress($szamladdr);
 
 		$invoice = new Fandepay\Api\Model\Invoice();
-		$invoice->setType('INVOICE');
+		$invoice->setType('PREINVOICE');
 		$invoice->setDate(date('Y-m-d'));
 		$invoice->setFulfillmentDate(date('Y-m-d'));
 		$invoice->setPaymentDeadline(date('Y-m-d'));
@@ -171,11 +172,9 @@ class CB_Resource_Payment {
 
 	private function _setInvoiceStatus($status){
 		$invoice = new Fandepay\Api\Model\Invoice(array(
-			'type' => Fandepay\Api\Enum\InvoiceType::INVOICE,
-			'payment_id' => $this->order->payment_id
+			'type' => Fandepay\Api\Enum\InvoiceType::PREINVOICE,
+			'payment_id' => $this->payment->id
 		));
-		$this->order->invoice_data['payment_status']=$status;
-		$this->orderModel->save($this->order);
 		$endpoint = new Fandepay\Api\Endpoints\InvoiceSearch($invoice);
 		$result = $endpoint->getResult();
 		if($result['result']=='ok'){

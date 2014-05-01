@@ -1,23 +1,7 @@
-<?
-function recursiveUlLi($array, $uri='', $category){
-	$output="<ul>\n";
-	foreach($array as $item){
-		$output.="<li>";
-		$output.="<a href=\"/borze".$uri.'/'.$item->slug."\" class=\"".($category && $item->id==$category->id ? 'active' : '')."\"><span><span>".$item->name."</span></span></a>";
-		if(!empty($item->children)) $output.=recursiveUlLi($item->children, $uri.'/'.$item->slug, $category);
-		$output.="</li>\n";
-	}
-	$output.="</ul>\n";
-	return $output;
-}
-?>
+
 
 <div class="categorySelector">
-	<div class="title">
-		<a href="javascript:void(0)" class="title activeCategory"><span><span><?=(!empty($this->category) ? $this->category->name : 'Kategóriák');?></span></span></a>
-		<a href="javascript:void(0)" class="title"><span><span>Kategóriák</span></span></a>
-	</div>
-	<?=recursiveUlLi($this->catMultiArray, '', (!empty($this->category) ? $this->category : false));?>
+
 </div>
 
 <div class="search">

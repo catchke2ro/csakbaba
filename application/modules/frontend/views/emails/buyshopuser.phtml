@@ -5,12 +5,12 @@
 	<li>Termék neve: <strong><?=$this->data['product']->name;?></strong></li>
 	<li>Termék kódja: <strong><?=$this->data['product']->code;?></strong></li>
 	<li>Termék ára: <strong><?=$this->data['product']->price;?> Ft.</strong></li>
-	<li>Termék linkje: <br /><a href="<?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?>"><?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?></a></li>
+	<li>Termék linkje: <br /><a href="<?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?>"><?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?></a></li>
 </ul>
 
 <p><strong>A vásárló adatai:</strong></p>
 <ul>
-	<li>Felhasználó neve: <strong><a href="<?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('profil').'/'.$this->data['user']->username;?>"><?=$this->data['user']->username;?></a></strong></li>
+	<li>Felhasználó neve: <strong><a href="<?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('profil').'/'.$this->data['user']->username;?>"><?=$this->data['user']->username;?></a></strong></li>
 	<li>Név: <strong><?=$this->data['user']->postaddress['name'];?></strong></li>
 	<li>E-mail: <strong><a href="mailto:<?=$this->data['user']->email;?>"><?=$this->data['user']->email;?></a></strong></li>
 	<li>Telefonszáma: <strong><?=str_replace('-', '<span>-</span>', $this->data['user']->phone);?></strong></li>
@@ -20,7 +20,7 @@
 
 <p>A gyors lebonyolítás érdekében, minél előbb vedd fel a kapcsolatot az eladóval. A tranzakció lebonyolítására 14 nap áll a rendelkezésedre. <br />
 Kérjük, ne felejtsd el értékelni az adás-vételt! <br />
-Ezt az <a href="<?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('ertekelesek');?>">alábbi linken keresztül</a> ill. a csakbaba<span>.hu</span> felhasználói oldaladon a "Vásárolt termékeim" menüpontban megteheted!</p>
+Ezt az <a href="<?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('ertekelesek');?>">alábbi linken keresztül</a> ill. a csakbaba<span>.hu</span> felhasználói oldaladon a "Vásárolt termékeim" menüpontban megteheted!</p>
 
 <p>Köszönjük, hogy igénybe vetted a csakbaba<span>.hu</span> szolgáltatásait!</p>
 
@@ -28,5 +28,5 @@ Ezt az <a href="<?='http://'.$_SERVER['HTTP_HOST'];?><?=$this->url('ertekelesek'
 <p>
 Üdvözlettel,<br />
 a csakbaba<span>.hu</span> csapata <br />
-<a href="<?='http://'.$_SERVER['HTTP_HOST'];?>"><?='http://'.$_SERVER['HTTP_HOST'];?></a>
+<a href="<?='https://'.$_SERVER['HTTP_HOST'];?>"><?='https://'.$_SERVER['HTTP_HOST'];?></a>
 </p>

@@ -1,0 +1,9 @@
+.idea
+.DS_Store
+application/models/cache
+public/upload
+public/tmp
+public/ai-cache
+public/css/sass/.sass-cache
+public/css/sass/compass
+tmp

@@ -18,13 +18,14 @@
 			<?=$this->form;?>
 			<p class="chargeAvail">Az összeg <span>0</span> termék feltöltésére elegendő</p>
 		</div>
+
 		<div class="transfer stat">
 			<h3>Átutalással</h3>
 			<p>Töltsd fel egyenleged minimum <?=Zend_Registry::get('minCharge');?> Ft-al az alábbi számlaszámra való utalással:</p>
 			<p>
-				<strong>Számlaszám:</strong> 11773425-00101210 <br />
+				<strong>Számlaszám:</strong> 11715007-20473233 <br />
 				<strong>Bank:</strong> OTP Bank <br />
-				<strong>Kedvezményezett neve:</strong> csakbaba.hu <br />
+				<strong>Kedvezményezett neve:</strong> Csakbaba.hu Kft. <br />
 				<strong>Közlemény:</strong> <?=strtoupper(substr($this->user->username, 0, 4).substr(md5($this->user->id), 0, 4));?>
 			</p>
 		</div>
@@ -48,6 +49,7 @@
 				<th>Számla</th>
 			</tr>
 		<? foreach($this->payments as $payment){?>
+			<? if($payment->status==1) continue;?>
 			<tr>
 				<td><?=$payment->date->format('Y.m.d H:i:s');?></td>
 				<td><?=$payment->amount;?> Ft.</td>

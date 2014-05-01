@@ -90,6 +90,8 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 			$user=$userModel->findOneBy($s.'id', $suser['id']);
 		}
 
+		$user->date_last_login=date('Y-m-d H:i:s');
+		$userModel->save($user);
 		$this->storeUser($user);
 	}
 

@@ -9,6 +9,8 @@ class IndexController extends CB_Controller_Action {
 		//$favourites=$productModel->getFavouriteLists();
 		$categoryTree=Zend_Registry::get('categories');
 
+		$this->view->headMeta()->setName('description', 'A csakbaba.hu egy online bababörze, ahol nem csak eladhatod használt vagy új baba, kismama és gyerekholmijaidat, hanem be is szerezheted mindazokat az eladók asztaláról.');
+
 		$promoteFirst=array();
 		foreach($categoryTree->_multiArray as $key=>$mainCat){
 			$promoteFirst[$key]=$productModel->getPromoted('first', true, $key);
@@ -41,14 +43,16 @@ class IndexController extends CB_Controller_Action {
 	}
 
 	public function aboutAction(){
-
+		$this->view->headMeta()->setName('description', 'Az oldal azért jött létre, hogy itt tényleg azt kapd, amit keresel, sőt, hogy itt csupán azt vedd meg, amiért eredetileg a gép elé ültél.');
 	}
 
 	public function blogAction(){
 		$postModel=new \CB\Model\BlogPost();
 
 		$ep=$this->_request->getExtraParams();
+		$this->view->headMeta()->setName('description', 'Hasznos cikkek információk a csakbaba.hu oldalról, és minden kismamának, szülőnek szóló témáról');
 		if(!empty($ep) && ($post=$postModel->findOneBy('slug', reset($ep)))){
+			$this->view->headMeta()->setName('description', substr(strip_tags($post->teaser), 0, 160).'...');
 			$this->view->assign(array('post'=>$post));
 			$this->_helper->viewRenderer('blogpost');
 			$this->view->headTitle()->prepend($post->title);
@@ -77,7 +81,12 @@ class IndexController extends CB_Controller_Action {
 		$this->getHelper('layout')->setLayout('default');
 	}
 
+	public function categoryselectorAction(){
+		$this->getHelper('layout')->disableLayout();
+	}
+
 	public function aszfAction(){
+		if(!empty($_GET['sb'])) $this->getHelper('layout')->setLayout('ajax');
 	}
 
 	public function impresszumAction(){

@@ -5,24 +5,29 @@
 	<?=$this->headMeta();?>
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="publisher" href="https://plus.google.com/110411126847173107547">
+	<meta name="google-site-verification" content="RZKHjoN5ku2n-thZpzudSjI9Da41R9BKk6PT57l_Pz0" />
 	<?=$this->headTitle();?>
 	<?=$this->headStyle();?>
 	<?=$this->minifyHeadLink();?>
 	<?=$this->minifyHeadScript();?>
 
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-48324090-1']);
-		_gaq.push(['_setCustomVar', 1, 'username', '<?=$this->user ? $this->user->username : 'notregistered';?>', 1]);
-		_gaq.push(['_setCustomVar', 2, 'gender', '<?=$this->user ? $this->user->gender : 'notset';?>', 1]);
-		_gaq.push(['_setCustomVar', 3, 'age', '<?=($this->user && is_object($this->user->birth_date)) ? $this->user->birth_date->diff(new DateTime())->y : 'notset';?>', 1]);
-		_gaq.push(['_trackPageview']);
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
+
+
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+						m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-48324090-1', 'csakbaba.hu');
+		ga('require', 'displayfeatures');
+		ga('set', 'dimension1', '<?=$this->user ? $this->user->username : 'notregistered';?>');
+		ga('set', 'dimension2', '<?=$this->user ? $this->user->gender : 'notset';?>');
+		ga('set', 'dimension3', '<?=($this->user && is_object($this->user->birth_date)) ? $this->user->birth_date->diff(new DateTime())->y : 'notset';?>');
+		ga('send', 'pageview');
+
 	</script>
+
 	<!--[if lt IE 11]><link rel="stylesheet" href="/css/ie10.css"/><![endif]-->
 	<!--[if lt IE 10]><script type="text/javascript" src="/js/jquery/jquery.placeholder.js"></script><![endif]-->
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><link rel="stylesheet" href="/css/ie8.css"/><![endif]-->

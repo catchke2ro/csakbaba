@@ -1,5 +1,22 @@
-
 RewriteEngine On
+
+
+
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www.csakbaba.hu$ [NC]
+RewriteRule ^(.*)$ https://csakbaba.hu/$1 [R=301,L]
+
+#RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+#RewriteCond %{HTTPS} off
+# First rewrite to HTTPS:
+# Don't put www. here. If it is already there it will be included, if not
+# the subsequent rule will catch it.
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+
 
 RewriteCond %{REQUEST_URI} !ai-cache
 RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php

@@ -12,21 +12,24 @@ class Frontend_Form_Promote extends CB_Form_Form {
 		$this->prices=Zend_Registry::get('promoteOptionPrices');
 		$opts=array();
 		foreach($this->options as $type=>$text){
-			$opts[$type]=$text.' ('.$this->prices[$type].')';
+			$opts[$type]=$text.' ('.$this->prices[$type].' HUF)';
 		}
 
 		$cb=new Zend_Form_Element_MultiCheckbox('types');
 		$cb->setLabel('Kiemelés típusa')->setRequired(true)->setMultiOptions($opts);
 
 		$view=Zend_Layout::getMvcInstance()->getView();
+
 		$submit=new Zend_Form_Element_Submit('Kiemelés');
 		$submit->removeDecorator('label');
+		$cancel=new Zend_Form_Element_Button('Mégse');
+		$cancel->removeDecorator('label')->setAttrib('class', 'cancelButton');
 
 		$hint=new Zend_Form_Element_Note('hint');
 		$hint->setValue('Nincs elég pénz az egyenlegeden. Előbb <a href="'.$view->url('egyenleg').'">töltsd fel</a>!');
 
 
-		$this->addElements(array($cb, $submit, $hint));
+		$this->addElements(array($cb, $submit, $cancel, $hint));
 		$this->setAttrib('data-prices', json_encode($this->prices));
 	}
 

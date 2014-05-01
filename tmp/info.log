@@ -1,2 +1,83 @@
 
-[2014-03-29 14:22:00]CRIT: Only variables should be passed by reference
+[2014-04-30 21:42:24]INFO: redirect: Array
+(
+    [get] => Array
+        (
+            [p] => fandepay
+            [status] => ACTIVE
+            [ref] => CSB536151ecdd57b
+        )
+
+    [post] => Array
+        (
+        )
+
+)
+
+[2014-04-30 21:44:10]INFO: hook: Array
+(
+    [get] => Array
+        (
+            [p] => fandepay
+            [type] => invoice
+        )
+
+    [post] => Array
+        (
+            [invoice_number] => I-31/2014
+            [invoice_type] => INVOICE
+            [payment_id] => CSB536151ecdd57b
+            [payment_status] => PAID
+            [pdf_url] => https://fandepay-invoice.s3.amazonaws.com/c4b93dacb1bda4793be4d206e0e9cc45f966beea/2014/04/invoice/I-31_2014_8313.pdf?response-content-disposition=attachment%3B%20filename%3D%22I-31_2014_8313.pdf%22&response-content-type=application%2Fpdf&AWSAccessKeyId=AKIAIXJZ4DLILHHUQB4A&Expires=2147468400&Signature=8wUhO6TNK1eWyITbDkZBKZ7E2HA%3D
+            [storno] => 0
+            [webhook_type] => invoice
+            [token] => c26eef8e0feb94bca813d61abc65d94e
+        )
+
+)
+
+[2014-04-30 21:44:10]INFO: INVOICEIPN
+[2014-04-30 21:44:10]INFO: hook: Array
+(
+    [get] => Array
+        (
+            [p] => fandepay
+            [type] => payment
+        )
+
+    [post] => Array
+        (
+            [payment_id] => CSB536151ecdd57b
+            [customer_id] => 2862
+            [status] => SUCCESS
+            [invoice_number] => I-31/2014
+            [invoice_type] => INVOICE
+            [pdf_url] => https://fandepay-invoice.s3.amazonaws.com/c4b93dacb1bda4793be4d206e0e9cc45f966beea/2014/04/invoice/I-31_2014_8313.pdf?response-content-disposition=attachment%3B%20filename%3D%22I-31_2014_8313.pdf%22&response-content-type=application%2Fpdf&AWSAccessKeyId=AKIAIXJZ4DLILHHUQB4A&Expires=2147468400&Signature=8wUhO6TNK1eWyITbDkZBKZ7E2HA%3D
+            [webhook_type] => payment
+            [token] => 14b034b1e3042752496d047ddb6f5bd6
+        )
+
+)
+
+[2014-04-30 21:44:10]INFO: IPN
+[2014-04-30 21:48:39]ERR: 		Exception: 
+		Code: 0
+		Message: script 'shop/userproductdelete.phtml' not found in path (/home/csakbaba/public_html/application/modules/frontend/views/scripts/)
+		File: /home/csakbaba/public_html/library/Zend/View/Abstract.php
+		Line: 988
+		Trace: #0 /home/csakbaba/public_html/library/Zend/View/Abstract.php(884): Zend_View_Abstract->_script('shop/userproduc...')
+				#1 /home/csakbaba/public_html/library/Zend/Controller/Action/Helper/ViewRenderer.php(900): Zend_View_Abstract->render('shop/userproduc...')
+				#2 /home/csakbaba/public_html/library/Zend/Controller/Action/Helper/ViewRenderer.php(921): Zend_Controller_Action_Helper_ViewRenderer->renderScript('shop/userproduc...', NULL)
+				#3 /home/csakbaba/public_html/library/Zend/Controller/Action/Helper/ViewRenderer.php(960): Zend_Controller_Action_Helper_ViewRenderer->render()
+				#4 /home/csakbaba/public_html/library/Zend/Controller/Action/HelperBroker.php(277): Zend_Controller_Action_Helper_ViewRenderer->postDispatch()
+				#5 /home/csakbaba/public_html/library/Zend/Controller/Action.php(527): Zend_Controller_Action_HelperBroker->notifyPostDispatch()
+				#6 /home/csakbaba/public_html/library/Zend/Controller/Dispatcher/Standard.php(308): Zend_Controller_Action->dispatch('userproductdele...')
+				#7 /home/csakbaba/public_html/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(CB_Resource_Request), Object(Zend_Controller_Response_Http))
+				#8 /home/csakbaba/public_html/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front->dispatch()
+				#9 /home/csakbaba/public_html/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap->run()
+				#10 /home/csakbaba/public_html/public/index.php(42): Zend_Application->run()
+				#11 {main}
+
+
+[2014-04-30 23:47:51]CRIT: Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini.
+[2014-04-30 23:48:57]CRIT: Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini.

@@ -13,6 +13,8 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 
 	public function initFields(){
 
+		$this->setAttrib('class', reset(explode('-', $this->category->id)));
+
 		$id=new Zend_Form_Element_Hidden('id');
 		$id->removeDecorator('label');
 		$userId=new Zend_Form_Element_Hidden('user_id');
@@ -24,7 +26,7 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 		$desc=new Zend_Form_Element_Textarea('desc');
 		$desc->setLabel('Leírás')->setRequired(true)->addValidators(array(array('NotEmpty',true)));
 		$price=new Zend_Form_Element_Text('price');
-		$price->setLabel('Ár')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Digits',true)));
+		$price->setLabel('Ár')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Digits',true)))->setAttrib('class', 'priceInput');
 		$image=new CB_Form_Element_Upload('images');
 		$image->setLabel('Kép feltöltése')->setTargetDir('/upload/product');
 		$type=new Zend_Form_Element_Radio('type');
@@ -33,9 +35,9 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 			$types=array_slice($types, 2, 1);
 			$type->setValue(key($types));
 		}
-		$type->setLabel('Típus')->setRequired(true)->setMultiOptions($types);
+		$type->setLabel('Típus')->setRequired(true)->setMultiOptions($types)->setAttrib('class', 'genre');
 		$new=new Zend_Form_Element_Radio('new');
-		$new->setLabel('Új')->setRequired(true)->setMultiOptions(array('0'=>'Használt', '1'=>'Új'));
+		$new->setLabel('Állapot')->setRequired(true)->setMultiOptions(array('0'=>'Használt', '1'=>'Új'));
 		$deliveries=new Zend_Form_Element_MultiCheckbox('deliveries');
 		$deliveries->setLabel('Szállítási módok')->setRequired(true)->setMultiOptions($this->deliveryOptions);
 		$autorenew=new Zend_Form_Element_Radio('autorenew');
@@ -48,7 +50,13 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 		$this->addDisplayGroup(array_merge($ids,array('deliveries','autorenew','images')),'others');
 
 		$submit=new Zend_Form_Element_Submit('Mentés');
+		$cancel=new Zend_Form_Element_Button('Mégse');
+		$cancel->setAttrib('class', 'cancelButton');
+		$preview=new Zend_Form_Element_Button('Előnézet');
+		$preview->setAttrib('class', 'previewButton');
 		$this->addElement($submit);
+		$this->addElement($preview);
+		$this->addElement($cancel);
 
 	}
 
@@ -98,7 +106,7 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 				unset($values[$fieldId]);
 			}
 		}
-		$values['images']=array_filter($values['images']);
+		$values['images']=is_array($values['images']) ? array_filter($values['images']) : array();
 		$values['user']=$controller->userModel->findOneById($values['user_id']);
 		$values['category']=$values['category_id'];
 		$values['search_name']=strtolower($values['name']);
