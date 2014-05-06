@@ -39,7 +39,7 @@
 	Ext.onReady(function(){
 		var store=Ext.create('Users');
 		Ext.create(Ext.grid.Panel, {
-			renderTo: 'userList',	store: store, layout: 'auto', height: 600, width: '100%', selType: 'cellmodel',
+			renderTo: 'userList',	store: store, layout: 'fit', height: 500, width: '100%', selType: 'cellmodel', autoScroll: true,
 			plugins: [ Ext.create('Ext.grid.plugin.CellEditing', {	clicksToEdit: 2	}) ],
 			columns: [
 				{dataIndex: 'username', header: 'Felhasználónév', flex: 2},
@@ -47,7 +47,8 @@
 				{dataIndex: 'gender', header: 'Nem', flex: 1, renderer: function(value, o, record){
 					return (value=='female') ? 'nő' : 'férfi';
 				}},
-				{dataIndex: 'active', header: 'Aktívált', flex: 1, xtype: 'checkcolumn', tdCls: Ext.baseCSSPrefix + 'grid-cell-checkcolumn showOff', maxWidth: 60, listeners: {beforecheckchange: function(){ return false; }} },
+				{dataIndex: 'active', header: 'Aktívált', flex: 1, xtype: 'checkcolumn', tdCls: Ext.baseCSSPrefix + 'grid-cell-checkcolumn showOff', maxWidth: 60, listeners: {beforecheckchange: function(){
+				}}},
 				{dataIndex: 'phone', header: 'Telefonszám', flex: 2},
 				{dataIndex: 'date_reg', header: 'Reg. dátum', flex: 2},
 				{dataIndex: 'date_last_login', header: 'Utolsó bejelentkezés', flex: 2},

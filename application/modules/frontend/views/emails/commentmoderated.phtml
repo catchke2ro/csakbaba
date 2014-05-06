@@ -1,0 +1,12 @@
+<p>Kedves <strong><?=$this->data['user']->username;?></strong>!<br /></p>
+<br />
+<p>Értesítünk, hogy a csakbaba<span>.hu</span> oldalon nemrég a "<strong><?=$this->data['product']->name;?></strong>" termékhez írt üzenetedet moderáltuk, mivel vétettél a szabályzat ellen.</p>
+<p>A termék linkje:
+<a href="<?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?>"><?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?></a>
+</p>
+
+<br />
+<p>Üdvözlettel,<br />
+a csakbaba<span>.hu</span> csapata <br />
+<a href="<?='https://'.$_SERVER['HTTP_HOST'];?>"><?='https://'.$_SERVER['HTTP_HOST'];?></a></p>
+

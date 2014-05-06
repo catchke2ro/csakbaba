@@ -10,17 +10,48 @@ function shorten(text, maxLength) {
 	return ret;
 }
 
+function productCountChange(){
+	var ul=$('ul.products'), loaded=ul.children('li').length, all=parseInt(ul.data('productscount')), moreProducts=$('div.moreProducts');
+	ul.siblings('p.count').find('span').text(all);
+	if(all-loaded<=0) moreProducts.hide();
+	else moreProducts.show();
+}
+
 function filter(data, categoryId, hash){
-	$('.content').find('ul.products').addClass('hidden');
+	var ul=$('div.productList').find('ul.products');
+	ul.addClass('hidden');
+	$('.productBeforeListLoad').show();
 	data.push({name: 'category_id', value: categoryId});
 	window.location.hash='#!filter:'+hash.join('+');
+	$('html, body').animate({ scrollTop: 0 });
 	$.ajax({
-		url: '/market/filter',
+		url: '/market/productsajax',
 		type: 'POST',
 		data: data,
 		complete: function(request){
-			$('div.productList').replaceWith(request.responseText);
-			$('.content').find('ul.products').removeClass('hidden');
+			$('.productBeforeListLoad').hide();
+			ul.html(request.responseText);
+			ul.removeClass('hidden');
+			ul.data('productscount', request.getResponseHeader('X-CSB-PRC'));
+			ul.data('page', 1);
+			productCountChange();
+		}
+	});
+}
+
+function infiniteScroll(){
+	var ul=$('div.productList').find('ul.products'), page=ul.data('page');
+	$('.productAfterListLoad').show();
+	$.ajax({
+		url: '/market/productsajax?page='+(parseInt(page)+1)+'&category_id='+ul.data('categoryid'),
+		type: 'POST',
+		data: $('form.filter').serialize(),
+		complete: function(request){
+			ul.append(request.responseText);
+			ul.data('page', (parseInt(page)+1));
+			ul.data('productscount', request.getResponseHeader('X-CSB-PRC'));
+			$('.productAfterListLoad').hide();
+			productCountChange();
 		}
 	});
 }
@@ -57,7 +88,9 @@ function productPromoteFormLoad(product_id, formDiv){
 			$(formDiv).html(request.responseText);
 			$(formDiv).addClass('opened');
 			$('html, body').animate({ scrollTop: formDiv.offset().top-100	}, 500);
-			if(!window.isMobile){ $(formDiv).find('textarea').ckeditor();}
+			if(!window.isMobile){
+				$(formDiv).find('textarea').ckeditor();
+			}
 		}
 	});
 }
@@ -143,6 +176,8 @@ $(document).ready(function(){
 		a.html(address);
 	});
 
+	imgPreview();
+
 	if(window.location.hash=='#t'){
 		$('html, body').scrollTop(0);
 	}
@@ -202,21 +237,23 @@ $(document).ready(function(){
 				var li=$(e);
 				li.children('div.link').click(function(ev){
 					var ul=li.children('ul');
-					if(ul.length==0 || $(ev.target).hasClass('jump')){
+					if($(ev.target).hasClass('open')){
+						if(!ul.hasClass('opened')){
+							var doo=true, parentLi=li;
+							while(doo){
+								if(parentLi.parent().parent('.categorySelector').length){ doo=false; }
+								parentLi.siblings().find('ul').removeClass('opened');
+								parentLi=parentLi.parent().closest('li');
+							}
+							ul.addClass('opened');
+						} else {
+							ul.removeClass('opened');
+						}
+					} else {
 						window.location=$(this).data('url');
 						return true;
 					}
-					if(!ul.hasClass('opened')){
-						var doo=true, parentLi=li;
-						while(doo){
-							if(parentLi.parent().parent('.categorySelector').length){ doo=false; }
-							parentLi.siblings().find('ul').removeClass('opened');
-							parentLi=parentLi.parent().closest('li');
-						}
-						ul.addClass('opened');
-					} else {
-						ul.removeClass('opened');
-					}
+
 					ev.preventDefault();
 					return false;
 				});
@@ -369,11 +406,23 @@ $(document).ready(function(){
 	$('div.productList .front .productName a').each(function(index, e){
 		$(e).text(shorten($(e).text(), 60));
 	});
-	jQuery('div.productGallery img').imgPreview({
-		imgCSS: { 'max-height': '250px' },
-		preloadImages: false,
-		srcAttr: 'data-mid'
-	});
+
+	productCountChange();
+	var moreProducts=$('div.moreProducts');
+	if(moreProducts.length){
+		var moreProductsTimeout;
+		moreProducts.hover(function(){
+			moreProductsTimeout=setTimeout(function(){
+				moreProducts.trigger('click');
+			}, 100);
+		}, function(){
+			clearTimeout(moreProductsTimeout);
+		});
+		moreProducts.click(function(){
+			infiniteScroll();
+		});
+	}
+
 
 
 
@@ -434,15 +483,14 @@ $(document).ready(function(){
 		});
 
 
-		jQuery('div.productList.user div.productImages img').imgPreview({
-			imgCSS: { width: '200px' },
-			preloadImages: false,
-			srcAttr: 'data-mid'
-		});
-
 		$(document).on('click', '.userEditProduct', function(){
 			var prodDiv=$(this).closest('li.product');
 			productEditFormLoad(prodDiv.data('categoryid'), prodDiv.data('id'), prodDiv.next());
+		});
+
+		$(document).on('click', '.userCopyProduct', function(){
+			var prodDiv=$(this).closest('li.product');
+			productEditFormLoad(prodDiv.data('categoryid'), 'COPY_'+prodDiv.data('id'), prodDiv.closest('.productList.user').siblings('.productEditAddForm.add'));
 		});
 
 		$(document).on('click', '.userPromoteProduct', function(){
@@ -504,7 +552,9 @@ $(document).ready(function(){
 						}
 					} else {
 						peadf.html(request.responseText);
-						if(!window.isMobile){ peadf.find('textarea').ckeditor(); }
+						if(!window.isMobile){
+							peadf.find('textarea').ckeditor();
+						}
 						initTooltip(peadf);
 						peadf.find('input.range').each(function(index, el){
 							initRange(el);
@@ -576,6 +626,23 @@ $(document).ready(function(){
 		});
 		$('.productFilter a[data-status=1]').trigger('click');
 
+
+		var textFilterTimeout;
+		$('.textFilter input').change(function(){
+			var input=$(this);
+			clearTimeout(textFilterTimeout);
+			textFilterTimeout=setTimeout(function(){
+				var products=input.closest('.productFilter').siblings('.productList').find('ul.products'), val=input.val(), show=false, patt=new RegExp('.*'+val+'.*', 'igm');
+				(val!='') ? input.addClass('notempty') : input.removeClass('notempty');
+				products.children('li').each(function(){
+					var li=$(this);
+					show=patt.test(li.find('h3.productName').text()) || patt.test(li.find('div.productPrice').text()) || patt.test(li.find('div.frontDesc').text());
+					show ? li.show() : li.hide();
+				});
+			}, 300);
+
+		});
+		$('.textFilter input').keyup(function(){$(this).trigger('change');});
 	}
 
 

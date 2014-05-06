@@ -6,7 +6,7 @@
 	Ext.onReady(function(){
 		var store=Ext.create('Ratings');
 		Ext.create(Ext.grid.Panel, {
-			renderTo: 'ratingsList',	store: store, layout: 'auto', height: 600, width: '100%', selType: 'cellmodel',
+			renderTo: 'ratingsList',	store: store, layout: 'fit', autoScroll: true, height: 600, width: '100%', selType: 'cellmodel',
 			plugins: [ Ext.create('Ext.grid.plugin.CellEditing', {	clicksToEdit: 2	}) ],
 			columns: [
 				{dataIndex: 'id', header: 'ID', flex: 2},

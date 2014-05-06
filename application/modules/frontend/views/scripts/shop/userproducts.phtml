@@ -25,6 +25,8 @@
 				<? if($status==0) continue;?>
 				<a href="javascript:void(0)" data-status="<?=$status;?>"><?=$text;?> termékek</a>
 			<? } ?>
+			<div class="textFilter"><input type="text" placeholder="szűrés név, leírás és ár alapján" /></div>
+
 		</div>
 		<div class="categorySelect" style="display:none;">
 		</div>
@@ -34,7 +36,7 @@
 			<ul class="products user">
 
 				<? foreach($this->products as $product){?>
-					<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'userfunctions'=>true, 'extraClass'=>'status'.$product->status)));?>
+					<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'userfunctions'=>true, 'frontDesc'=>true, 'previewImg'=>true, 'extraClass'=>'status'.$product->status)));?>
 					<div class="productEditAddForm"></div>
 				<? } ?>
 

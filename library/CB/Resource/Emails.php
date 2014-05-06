@@ -153,5 +153,16 @@ class CB_Resource_Emails {
 		));
 	}
 
+	public function commentModerated($data){
+		$categories=Zend_Registry::get('categories');
+		$data['productlink']=$categories->getUri($data['product']->category).'/'.$data['product']->id.'/'.$this->functions->slug($data['product']->name);
+		$this->mail->s(array(
+			'to'=>array($data['user']->get()->username=>$data['user']->get()->email),
+			'template'=>'commentmoderated',
+			'subject'=>'csakbaba.hu - Üzeneted moderálva lett',
+			'data'=>$data
+		));
+	}
+
 
 }

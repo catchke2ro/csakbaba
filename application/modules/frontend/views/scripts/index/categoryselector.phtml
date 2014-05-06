@@ -3,7 +3,7 @@ function recursiveUlLi($array, $uri='', $category){
 	$output="<ul>\n";
 	foreach($array as $item){
 		$output.="<li>";
-		$output.="<div href=\"javascript:void(0)\" data-url=\"/borze".$uri.'/'.$item->slug."\" class=\"link ".($category && $item->id==$category->id ? 'active' : '')."\"><span><span>".$item->name."</span><span class=\"jump\" title=\"Összes ".$item->name."\"></span></span></div>";
+		$output.="<div href=\"javascript:void(0)\" data-url=\"/borze".$uri.'/'.$item->slug."\" class=\"link ".($category && $item->id==$category->id ? 'active' : '')."\"><span><span>".$item->name."</span>".(!empty($item->children) ? "<span class=\"open\" title=\"Alkategóriák\"></span>" : '')."</span></div>";
 		if(!empty($item->children)) $output.=recursiveUlLi($item->children, $uri.'/'.$item->slug, $category);
 		$output.="</li>\n";
 	}
