@@ -57,16 +57,15 @@ class MarketController extends CB_Controller_Action {
 
 		$products=$category ? $this->productModel->findByCategory($category, $categoryTree) : array();
 
-		$productTeaser=array();
-		if(empty($products) && $category){
+		/*if(empty($products) && $category){
 			$this->productModel->initQb();
 			$this->productModel->qb->field('status')->equals(1);
 			$this->productModel->qb->field('category')->equals(false);
-			$this->productModel->qb->field('category')->equals(new MongoRegex('/^'.$category->id.'\-.*/i'));
+			$this->productModel->qb->field('category')->equals(new MongoRegex('/^'.$category->id.'\-.*'));
 			$productTeaser=$this->productModel->runQuery();
 			shuffle($productTeaser);
 			$productTeaser=array_slice($productTeaser, 0, 15);
-		}
+		}*/
 
 		$this->view->placeholder('subheader')->append($this->view->partial('market/menu.phtml', array(
 			'catMultiArray'=>$catMultiArray,
@@ -83,22 +82,24 @@ class MarketController extends CB_Controller_Action {
 			'categoryOptions'=>$categoryOptions,
 			'children'=>is_array($children) ? $children : $catMultiArray,
 			'products'=>$products,
-			'categoryTree'=>$categoryTree,
-			'productTeaser'=>$productTeaser
+			'categoryTree'=>$categoryTree
 		));
 	}
 
 
-	public function filterAction(){
+	public function productsajaxAction(){
 		$this->getHelper('layout')->disableLayout();
 		$categoryTree=Zend_Registry::get('categories');
 		$catMultiArray=$categoryTree->_multiArray;
 
-		if(!(!empty($_POST['category_id']) && (isset($categoryTree->_singleArray[$_POST['category_id']])))){
+		$categoryId='';
+		if(!empty($_GET['category_id'])) $categoryId=$_GET['category_id'];
+		if(!empty($_POST['category_id'])) $categoryId=$_POST['category_id'];
+		if(!(!empty($categoryId) && (isset($categoryTree->_singleArray[$categoryId])))){
 			$this->getHelper('viewRenderer')->setNoRender(true);
 			return false;
 		}
-		$category=$categoryTree->_singleArray[$_POST['category_id']];
+		$category=$categoryTree->_singleArray[$categoryId];
 
 		list($category, $categoryPath, $categoryOptions, $children, $extraParams)=$categoryTree->fetchCategory($category);
 

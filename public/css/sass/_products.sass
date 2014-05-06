@@ -1,4 +1,13 @@
 div.productList:not(.user)
+
+  p.count
+    font-size: 1.2em
+    font-weight: bold
+    padding: 10px 0px
+    text-align: center
+    color: $col2
+    +box-shadow(0 2px 2px rgba($col2, 0.5))
+
   & > ul
     opacity: 1
     +transition(opacity 0.5s)
@@ -79,6 +88,28 @@ div.productList:not(.user)
           min-height: 100%
           width: 100%
           +transform(translate(-50%, -50%))
+
+  .productBeforeListLoad, .productAfterListLoad
+    +loading
+    display: none
+    margin: 10px auto
+
+  div.moreProducts
+    background-color: $col2
+    color: #FFFFFF
+    height: 50px
+    line-height: 50px
+    margin: 10px auto
+    text-align: center
+    width: 50%
+    &:hover
+      background-color: lighten($col2, 10%)
+    a
+      width: 100%
+      height: 100%
+      display: block
+      font-size: 2em
+      color: #FFFFFF
 
 
 .products:not(.user) .product
@@ -264,6 +295,8 @@ div.commentContainer
     &.fresh
       padding: 0px 9px
       max-height: 0px
+    &.moderated
+      opacity: 0.5
     div.text
       background-color: rgba(lighten($col1, 20%), 0.8)
       width: 87.5%

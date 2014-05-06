@@ -62,6 +62,17 @@ Ext.define('Ratings', {
 	sorters: {property: 'date', direction: 'desc'}
 });
 
+Ext.define('Comments', {
+	extend: 'Ext.data.Store', autoLoad:true, autoSync:true, storeId: 'Comments',
+	fields: [{name: 'id'},{name: 'date'},{name: 'user'},{name: 'product_id'},{name: 'text'},{name: 'moderated', type: 'boolean'}],
+	proxy: {
+		type: 'ajax',
+		api: {create:'/ext/model/create/model/comment',read:'/ext/model/read/model/comment',update:'/ext/model/update/model/comment',destroy:'/ext/model/destroy/model/comment'},
+		reader: {type: 'json', root: 'comment', async: false, idProperty: 'id'}
+	},
+	sorters: {property: 'date', direction: 'desc'}
+});
+
 Ext.define('BlogPosts', {
 	extend: 'Ext.data.Store', autoLoad:true, autoSync:true, storeId: 'BlogPosts',
 	fields: [{name: 'id'},{name: 'date'},{name: 'title'},{name: 'slug'},{name: 'body'},{name: 'teaser'}],

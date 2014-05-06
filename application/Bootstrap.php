@@ -21,6 +21,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		register_shutdown_function('shutdown');
 	}
 
+	function _initLogger(){
+		$writer=new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../tmp/info.log');
+		$writer->setFormatter(new Zend_Log_Formatter_Simple("\n[%timestamp%]%priorityName%: %message%"));
+		$logger=new Zend_Log($writer);
+		Zend_Registry::set('logger', $logger);
+
+		$writer=new Zend_Log_Writer_Firebug();
+		$writer->setFormatter(new Zend_Log_Formatter_Simple("\n[%timestamp%]%priorityName%: %message%"));
+		$logger=new Zend_Log($writer);
+		Zend_Registry::set('FBlogger', $logger);
+	}
+
 	function _initCache(){
 		$options=$this->getOptions();
 		$sc=Zend_Registry::get('CsbConfig');
@@ -35,17 +47,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Zend_Registry::set('cache', $manager);
 	}
 
-	function _initLogger(){
-		$writer=new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../tmp/info.log');
-		$writer->setFormatter(new Zend_Log_Formatter_Simple("\n[%timestamp%]%priorityName%: %message%"));
-		$logger=new Zend_Log($writer);
-		Zend_Registry::set('logger', $logger);
 
-		$writer=new Zend_Log_Writer_Firebug();
-		$writer->setFormatter(new Zend_Log_Formatter_Simple("\n[%timestamp%]%priorityName%: %message%"));
-		$logger=new Zend_Log($writer);
-		Zend_Registry::set('FBlogger', $logger);
-	}
 
 	function _initGlobals(){
 		Zend_Registry::set('genreTypes', array('fiu'=>'Fiú', 'lany'=>'Lány', 'felnott'=>'Felnőtt', 'egyeb'=>'Unisex'));
@@ -64,6 +66,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Zend_Registry::set('promoteOptionPrices', array('first'=>520,'list'=>160,'frame'=>120,'allfirst'=>960));
 		Zend_Registry::set('promoteAllOptions', array('allfirst'=>'Kiemelem az asztalomat a főoldalon'));
 		Zend_Registry::set('statusCodes', array(0=>'Inaktív',	1=>'Aktív',	2=>'Eladott',	3=>'Lejárt'));
+		Zend_Registry::set('feedTypes', array(
+			'newComment'=>'Új hozzászólás érkezett egy termékedhez',
+			'newOrder'=>'Megvásárolták egy termékedet',
+			'newRating'=>'Új értékelés érkezett',
+			'productExpired'=>'Egy terméked lejárt',
+			'productRenewed'=>'Egy terméked automatikusan megújult',
+			'balanceCharged'=>'Egyenlegfeltöltés sikeres'
+		));
 	}
 
 	function _initRequest(){

@@ -1,4 +1,18 @@
+
+
 <div class="profile">
+	<div class="profilMenu">
+	<? if($this->user->id==$this->profilUser->id){?>
+		<? $pages=Zend_Registry::get('nav')->findBy('resource', 'felhasznalo')->getPages(); ?>
+			<ul>
+				<? foreach($pages as $page){?>
+					<li><a href="<?=$page->getUri();?>"><?=$page->getLabel();?></a></li>
+				<? } ?>
+			</ul>
+	<? } ?>
+	</div>
+
+
 	<div class="userData">
 
 		<div class="avatarInfo">

@@ -32,8 +32,15 @@ class CB_Resource_Functions extends Zend_Application_Resource_ResourceAbstract {
 		$log->get=$_GET;
 		$log->params=object_to_array($params);
 		$logModel->save($log);
+	}
 
-
+	static function addFeed($type, $user, $product=false){
+		$feedModel=new \CB\Model\Feed();
+		$feed=new \CB\Feed();
+		$feed->saveAll(array(
+			'date'=>date('Y-m-d H:i:s'), 'user'=>$user, 'product_id'=>($product ? $product->id : ''), 'type'=>$type, 'read'=>false
+		));
+		$feedModel->save($feed);
 	}
 
 }

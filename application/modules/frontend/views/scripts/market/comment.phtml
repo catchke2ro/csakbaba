@@ -1,6 +1,10 @@
-<li class="comment <?=(!empty($this->added) && $this->added) ? 'fresh' : '';?> <?=$this->product->user->id==$this->comment->user->get()->id ? 'owner' : '';?>">
+<li class="comment <?=(!empty($this->added) && $this->added) ? 'fresh' : '';?> <?=$this->product->user->id==$this->comment->user->get()->id ? 'owner' : '';?> <?=$this->comment->moderated ? 'moderated' : '';?>">
 	<div class="text">
-		<?=strip_tags($this->comment->text);?>
+		<? if($this->comment->moderated){?>
+			<strong>MODERÁLT ÜZENET</strong>
+		<? } else { ?>
+			<?=strip_tags($this->comment->text);?>
+		<? } ?>
 	</div>
 	<div class="user">
 		<? if(!empty($this->comment->user->avatar[0]['small'])){?>

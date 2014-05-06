@@ -17,6 +17,9 @@ class Admin_IndexController extends CB_Controller_AdminAction {
 	public function ratingsAction(){
 	}
 
+	public function commentsAction(){
+	}
+
 	public function chargeAction(){
 		$this->_helper->layout()->disableLayout();
 		$this->getHelper('viewRenderer')->setNoRender();
@@ -31,10 +34,29 @@ class Admin_IndexController extends CB_Controller_AdminAction {
 							'type'=>$_POST['type'],
 							'amount'=>$_POST['amount']
 			));
-			$payment->_invoice();
+			$payment->_invoice('INVOICE');
 			$payment->_userBalance();
 		}
 		echo json_encode(array('success'=>true));
+	}
+
+
+	public function moderateAction(){
+		$this->_helper->layout()->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender();
+		$commentId=$_POST['record'];
+		$checked=$_POST['checked'];
+		$commentModel=new \CB\Model\Comment();
+		$productModel=new \CB\Model\Product();
+		if(($comment=$commentModel->findOneById($commentId)) && ($product=$productModel->findOneById($comment->product_id))){
+			if($checked=='true'){
+				$emails=new CB_Resource_Emails(false);
+				$emails->commentModerated(array('product'=>$product, 'user'=>$comment->user, 'comment'=>$comment));
+			}
+			echo json_encode(array('success'=>true));
+		} else {
+			echo json_encode(array('success'=>false));
+		}
 	}
 
 	public function uploadAction(){

@@ -1,0 +1,42 @@
+<h1>Kommentek</h1>
+<div id="commentsList" class="extContent"></div>
+
+<script type="text/javascript">
+	var productStore=Ext.create('Products');
+
+	Ext.onReady(function(){
+		var store=Ext.create('Comments');
+		Ext.create(Ext.grid.Panel, {
+			renderTo: 'commentsList',	store: store, layout: 'fit', autoScroll: true, height: 600, width: '100%', selType: 'cellmodel',
+			//plugins: [ Ext.create('Ext.grid.plugin.CellEditing', {	clicksToEdit: 2	}) ],
+			columns: [
+				{dataIndex: 'date', header: 'Dátum', flex: 1},
+				{dataIndex: 'product_id', header: 'Termék', flex: 1, renderer: function(value, o, record){
+					if(!value) return '';
+					var product=productStore.findRecord('id', value);
+					return product ? product.get('name') : '';
+				}},
+				{dataIndex: 'user', header: 'Felhasználó', flex: 1, renderer: function(value, o, record){
+					if(!value) return '';
+					return value.username;
+				}},
+				{dataIndex: 'text', header: 'Szöveg', flex: 5},
+				{dataIndex: 'moderated', header: 'Moderált', flex: 1, xtype: 'checkcolumn', tdCls: Ext.baseCSSPrefix + 'grid-cell-checkcolumn showOff', maxWidth: 60, listeners: {beforecheckchange: function(col, rI, checked){
+					var record=col.up('grid').getView().getRecord(col.up('grid').getView().getNode(rI));
+					Ext.Ajax.request({
+						url: '/admin/index/moderate',
+						params: {	record: record.data.id,	checked: checked },
+						method: 'POST',
+						success: function(response){
+							var resp=Ext.JSON.decode(response.responseText);
+							if(resp.success){
+								record.set('moderated', checked);
+							}
+						}
+					});
+					return false;
+				}}}
+			]
+		});
+	});
+</script>

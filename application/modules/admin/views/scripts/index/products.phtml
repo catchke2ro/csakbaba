@@ -16,7 +16,7 @@
 	Ext.onReady(function(){
 		var store=Ext.create('Products');
 		Ext.create(Ext.grid.Panel, {
-			renderTo: 'productList',	store: store, layout: 'auto', height: 600, width: '100%', selType: 'cellmodel',autoScroll: true,
+			renderTo: 'productList',	store: store, layout: 'fit', autoScroll: true, height: 600, width: '100%', selType: 'cellmodel',
 			plugins: [ Ext.create('Ext.grid.plugin.CellEditing', {	clicksToEdit: 2	}) ],
 			columns: [
 				{dataIndex: 'name', header: 'Név', flex: 3},

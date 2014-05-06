@@ -112,7 +112,7 @@ class CB_Resource_Payment {
 	}
 
 
-	public function _invoice(){
+	public function _invoice($invoiceType='PREINVOICE'){
 		$data = array();
 
 		$customer = new Fandepay\Api\Model\Customer();
@@ -133,7 +133,7 @@ class CB_Resource_Payment {
 		$customer->addAddress($szamladdr);
 
 		$invoice = new Fandepay\Api\Model\Invoice();
-		$invoice->setType('PREINVOICE');
+		$invoice->setType($invoiceType);
 		$invoice->setDate(date('Y-m-d'));
 		$invoice->setFulfillmentDate(date('Y-m-d'));
 		$invoice->setPaymentDeadline(date('Y-m-d'));

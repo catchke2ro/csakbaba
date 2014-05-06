@@ -59,6 +59,13 @@ class ShopController extends CB_Controller_Action {
 
 		$productid=$this->getRequest()->get('product_id');
 		if($productid=='false') $productid=false;
+		if(strpos($productid, 'COPY_')!==false){
+			$product=$this->productModel->findOneById(str_replace('COPY_', '', $productid));
+			if($product) $form->populate(get_object_vars($product));
+			$form->getElement('id')->setValue('');
+			$form->getElement('images')->setValue('');
+			$productid=false;
+		}
 		if($productid){
 			$product=$this->productModel->findOneById($productid);
 			if($product) $form->populate(get_object_vars($product));

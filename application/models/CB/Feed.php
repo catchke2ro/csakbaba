@@ -4,9 +4,9 @@ namespace CB;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document(collection="comments")
+ * @ODM\Document(collection="feeds")
  */
-class Comment extends \CB_Resource_ModelItem {
+class Feed extends \CB_Resource_ModelItem {
 
 	/**
 	 * @ODM\Id
@@ -31,12 +31,12 @@ class Comment extends \CB_Resource_ModelItem {
 	/**
 	 * @ODM\String
 	 */
-	public $text;
+	public $type;
 
 	/**
 	 * @ODM\Boolean
 	 */
-	public $moderated;
+	public $read;
 
 
 

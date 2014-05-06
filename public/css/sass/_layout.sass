@@ -394,22 +394,25 @@ div.categorySelector
         position: relative
         &:hover
           background-color: rgba($col2, 0.3)
-          span.jump
+          span.open
             display: block
 
 
         span:first-child
           padding-right: 15px
 
-        span.jump
+        span.open
           position: absolute
           top: 8px
           right: 5px
-          width: 10px
-          height: 10px
-          background-image: url(/img/elements/jump_url.png)
-          background-size: contain
           display: none
+          width: 0px
+          height: 0px
+          border-style: solid
+          border-width: 10px 5px 0 5px
+          border-color: #FFFFFF transparent transparent transparent
+          opacity: 0.8
+
 
 
       ul

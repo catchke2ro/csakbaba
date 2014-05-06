@@ -30,6 +30,7 @@ class CB_View_Helper_FormUpload extends Zend_View_Helper_FormElement {
 						.'<div class="previewImage"><img class="preview" /></div>'
 						.'<div class="filename"></div>'
 						.'<div class="delete">X</div>'
+						.'<div class="move"></div>'
 						.'<div class="error"></div>'
 						.'</div>';
 

@@ -57,6 +57,22 @@ function fileUploadInit(){
 				});
 			}
 			jQuery(that).siblings('input.saveinput').val(JSON.stringify(jQuery(that).data('savevalues')));
+			var filesContainer=$(that).closest('.fileUploadContainer').find('div.files');
+			$(filesContainer).sortable({
+				items: '> div.template-download',
+				handle: '.move',
+				update: function(ev, ui){
+					var saveValues=jQuery(that).data('savevalues'), newSaveValues=[], files=filesContainer.find('div.template-download'), fileName='';
+					files.each(function(index, fileDiv){
+						fileName=$(fileDiv).find('.filename').text();
+						for(var j in saveValues){
+							if(saveValues[j].name==fileName) newSaveValues.push(saveValues[j]);
+						}
+					});
+					jQuery(that).data('savevalues', newSaveValues);
+					jQuery(that).siblings('input.saveinput').val(JSON.stringify(jQuery(that).data('savevalues')));
+				}
+			});
 		}).on('fileuploaddestroyed', function(ev, data){
 			var that=this, filename=jQuery(data.context).find('.filename').html(), deleteIndex=false;
 			jQuery.each(jQuery(that).data('savevalues'), function(index, file){

@@ -12,7 +12,7 @@
 
 <div class="usermenu">
 	<? if($this->user){?>
-		<a href="<?=$this->url('felhasznalo');?>" class="account" title="Felhasználói oldal"><?=$this->user->username;?></a>
+		<a href="<?=$this->url('profil').'/'.urlencode($this->user->username);?>" class="account" title="Profil"><?=$this->user->username;?></a>
 	  <a href="<?=$this->url('kijelentkezes');?>" class="logout" title="Kijelentkezés"><img src="/img/elements/logout.png" title="logout" alt="logout"></a>
 	<? } else { ?>
 		<div class="loginLink"><a href="javascript:void(0)" class="login">Bejelentkezés</a></div>

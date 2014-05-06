@@ -45,7 +45,7 @@ class Product extends \CB_Resource_Model{
 	function findByCategory($category, $tree){
 		if(!$category) return array();
 		$this->initQb();
-		$this->qb->field('category')->equals($category->id);
+		$this->qb->field('category')->equals(new \MongoRegex('/^'.$category->id.'\-.*/i'));
 		$this->qb->field('status')->equals(1);
 
 		$sort=!empty($_POST['sort']) ? explode('-', $_POST['sort']) : array('date_added', 'desc');
@@ -86,6 +86,12 @@ class Product extends \CB_Resource_Model{
 				if(array_key_exists($p->id, $results)) $results=array($p->id => $results[$p->id]) + $results;
 			}
 		}
+
+		$page=!empty($_GET['page']) ? $_GET['page'] : 1;
+		$pageSize=15;
+		header('X-CSB-PRC: '.count($results));
+		\Zend_Registry::set('productsCount', count($results));
+		$results=array_slice($results, ($page-1)*$pageSize, $pageSize);
 		return $results;
 	}
 
