@@ -305,9 +305,11 @@ class UserController extends CB_Controller_Action {
 			default: $this->redirect('/'); break;
 		}
 
-		$this->m('Sikeres bejelentkezés');
+
 		$authAdapter=new CB_Resource_Auth();
-		$authAdapter->slogin($s, $suser);
+		$result=$authAdapter->slogin($s, $suser);
+		if($result===false) $this->m('A fiókoddal nem lehet bejelentkezni (pl. nem megfelelő e-mail cím miatt). Ellenőrizd e-mail címed a fiókodban!');
+		else $this->m('Sikeres bejelentkezés');
 		$url=(!empty($sloginSession->r) ? $sloginSession->r : $this->url('adatmodositas'));
 		$this->redirect($url);
 	}

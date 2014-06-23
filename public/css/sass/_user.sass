@@ -321,6 +321,22 @@ div.userEditForm
       +mq3
         width: 100%
 
+  li.maskPhone
+    input
+      padding-left: 40px
+    &:before
+      color: #FFFFFF
+      content: "+36"
+      display: block
+      font-size: 1.6em
+      height: 30px
+      left: 25%
+      line-height: 1.9em
+      margin-left: 10px
+      padding-bottom: 1%
+      position: absolute
+      +bb
+
 
 
 .egyenleg div.balance
@@ -566,17 +582,30 @@ div.userpromote, div.userrenew
     margin: auto
     +mq3
       width: 90%
-  a.regLink
-    margin: auto
-    min-width: 200px
-    padding: 10px
-    width: 20%
-    background: rgba($col2, 0.5)
-    color: #FFFFFF
-    display: block
-    font-size: 1.3em
-    font-weight: bold
+  div.regForgotten
     text-align: center
+    a.regLink, a.forgotten
+      margin: 0px 20px
+      min-width: 200px
+      padding: 10px
+      width: 20%
+      background: rgba($col2, 0.5)
+      color: #FFFFFF
+      display: inline-block
+      font-size: 1.3em
+      font-weight: bold
+      text-align: center
+
+  li.field.submit
+    float: none
+
+  div.socialLogin
+    width: 50%
+    margin: auto
+
+  div.regForgotten
+    width: 50%
+    margin: auto
 
 #container.elfelejtett .content .forgotten
   +form

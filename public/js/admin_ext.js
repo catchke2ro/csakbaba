@@ -26,12 +26,12 @@ Ext.define('Users', {
 		api: {create:'/ext/model/create/model/user',read:'/ext/model/read/model/user',update:'/ext/model/update/model/user',destroy:'/ext/model/destroy/model/user'},
 		reader: {type: 'json', root: 'user', async: false, idProperty: 'id'}
 	},
-	sorters: {property: 'username', direction: 'asc'}
+	sorters: {property: 'date_reg', direction: 'desc'}
 });
 
 Ext.define('Products', {
 	extend: 'Ext.data.Store', autoLoad:true, autoSync:true, storeId: 'Products',
-	fields: [{name: 'id'},{name: 'name'},{name: 'category'},{name: 'user', type: 'auto'},{name: 'price'},{name: 'date_added'},{name: 'date_period'},{name: 'status', type: 'int'},{name: 'promotes', type: 'auto'},{name: 'autorenew'}],
+	fields: [{name: 'id'},{name: 'name'},{name: 'category'},{name: 'user', type: 'auto'},{name: 'price'},{name: 'date_added'},{name: 'date_period'},{name: 'visitors', type: 'int'},{name: 'status', type: 'int'},{name: 'promotes', type: 'auto'},{name: 'autorenew'}],
 	proxy: {
 		type: 'ajax',
 		api: {create:'/ext/model/create/model/product',read:'/ext/model/read/model/product',update:'/ext/model/update/model/product',destroy:'/ext/model/destroy/model/product'},

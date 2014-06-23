@@ -88,6 +88,7 @@ div.productList:not(.user)
           min-height: 100%
           width: 100%
           +transform(translate(-50%, -50%))
+          cursor: pointer
 
   .productBeforeListLoad, .productAfterListLoad
     +loading
@@ -159,6 +160,8 @@ div.productList:not(.user)
     .productName
       padding: 2%
       text-align: center
+      overflow: hidden
+      max-height: 2.2em
       a
         color: $col1
         font-size: 1.2em
@@ -235,6 +238,10 @@ h3.productIsNotActive
   color: #FFFFFF
   font-size: 2em
   padding: 10px
+  a
+    font-size: 0.8em
+    color: #FFFFFF
+    text-decoration: underline
 
 div.productDetails
   div.cassa
@@ -487,3 +494,18 @@ div.productDetails .productDesc
     margin-top: 3%
     padding-left: 2%
     list-style: disc
+
+
+
+
+#container.kereses
+  .contentInner
+    & > h2 em
+      font-style: italic
+    p.noResults
+      font-weight: bold
+      font-size: 1.6em
+      text-align: center
+
+
+

@@ -76,6 +76,7 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 	public function slogin($s, $suser){
 		$userModel=new \CB\Model\User();
 
+		if(empty($suser['email'])) return false;
 		if(($user=$userModel->findOneBy($s.'id', $suser['id']))){
 
 		} else if(($user=$userModel->findOneByEmail($suser['email']))) {
@@ -93,6 +94,7 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 		$user->date_last_login=date('Y-m-d H:i:s');
 		$userModel->save($user);
 		$this->storeUser($user);
+		return true;
 	}
 
 

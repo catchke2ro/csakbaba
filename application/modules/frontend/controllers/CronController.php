@@ -287,4 +287,19 @@ class CronController extends CB_Controller_Action {
 	}
 
 
+
+
+	public function phoneAction(){
+		$this->getHelper('layout')->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender(true);
+		$userModel=new \CB\Model\User();
+		$users=$userModel->find();
+		foreach($users as $user){
+			/*$user->phone=str_replace(array('(',')',' ','-'), '', $user->phone);
+			$userModel->save($user, true);*/
+			pr($user->phone);
+		}
+	}
+
+
 }

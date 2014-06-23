@@ -45,7 +45,11 @@ class Product extends \CB_Resource_Model{
 	function findByCategory($category, $tree){
 		if(!$category) return array();
 		$this->initQb();
-		$this->qb->field('category')->equals(new \MongoRegex('/^'.$category->id.'\-.*/i'));
+		if(!empty($category->children)){
+			$this->qb->field('category')->equals(new \MongoRegex('/^'.$category->id.'\-.*/i'));
+		} else {
+			$this->qb->field('category')->equals($category->id);
+		}
 		$this->qb->field('status')->equals(1);
 
 		$sort=!empty($_POST['sort']) ? explode('-', $_POST['sort']) : array('date_added', 'desc');

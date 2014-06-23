@@ -1,6 +1,14 @@
 <h2>Bejelentkezés</h2>
 <div class="loginForm">
+	<div class="socialLogin">
+		<a href="/slogin?s=fb" class="fb" title="Bejelentkezés Facebook fiókkal">Facebook</a>
+		<a href="/slogin?s=gp" class="gp" title="Bejelentkezés Google fiókkal">Google</a>
+	</div>
 	<?=$this->form;?>
-	<a href="/regisztracio" class="regLink">Új vásárló</a>
+	<div class="regForgotten">
+		<a href="<?=$this->url('elfelejtett');?>" class="forgotten">Elfelejtett jelszó</a>
+		<a href="/regisztracio" class="regLink">Új vásárló</a>
+	</div>
+
 </div>
 

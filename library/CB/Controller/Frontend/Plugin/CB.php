@@ -47,6 +47,9 @@ class CB_Controller_Frontend_Plugin_CB extends Zend_Controller_Plugin_Abstract {
 	}
 
 	private function _initPlaceholders(){
+		$mobileDetect=new CB_Resource_MobileDetect();
+		if(!isset($_COOKIE['stick']) && !($mobileDetect->isMobile() || $mobileDetect->isTablet())) $_COOKIE['stick']='true';
+
 		$sc=(!empty($_COOKIE['stick']) && $_COOKIE['stick']=='true') ? 'stick' : '';
 		$this->view->placeholder('header')->setPrefix('<div class="header"><div class="headerInner">')->setPostfix('</div></div>')->append(' ');
 

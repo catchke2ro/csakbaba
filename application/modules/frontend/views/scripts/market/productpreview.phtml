@@ -33,7 +33,7 @@
 	    </div>
 		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="productPrice"><span itemprop="price"><?=$this->product->price;?></span> Ft.<meta itemprop="pricecurrency" content="HUF" /></div>
 	  <? if($this->product->status==1){?>
-		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->address['city'];?></span></div>
+		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
 		  <? if(!$this->user || ($this->user && $this->product->user->get()->id!=$this->user->id)){?>
 			  <? if($this->user){?>
 				  <div class="addToCart"><a href="javascript:void(0)">Megveszem</a></div>

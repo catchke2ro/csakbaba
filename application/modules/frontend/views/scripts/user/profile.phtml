@@ -2,7 +2,7 @@
 
 <div class="profile">
 	<div class="profilMenu">
-	<? if($this->user->id==$this->profilUser->id){?>
+	<? if(($this->user) && $this->user->id==$this->profilUser->id){?>
 		<? $pages=Zend_Registry::get('nav')->findBy('resource', 'felhasznalo')->getPages(); ?>
 			<ul>
 				<? foreach($pages as $page){?>
@@ -17,11 +17,11 @@
 
 		<div class="avatarInfo">
 			<div class="avatar">
-				<? if($this->profilUser->avatar)?> <img src="<?=$this->profilUser->avatar[0]['url'];?>" alt="<?=$this->profilUser->username;?>"/>
+				<? if(is_array($this->profilUser->avatar) && !empty($this->profilUser->avatar)){?> <img src="<?=$this->profilUser->avatar[0]['url'];?>" alt="<?=$this->profilUser->username;?>"/><? } ?>
 			</div>
 			<div class="info">
 				<p class="username"><?=$this->profilUser->username;?></p>
-				<p class="city"><strong>Város:</strong> <?=$this->profilUser->postaddress['city'];?></p>
+				<p class="city"><strong>Város:</strong> <?=(!empty($this->profilUser->postaddress['city']) ? $this->profilUser->postaddress['city'] : '');?></p>
 				<p class="regdate"><strong>Regisztrált:</strong> <?=$this->profilUser->date_reg->format('Y. m. d.');?></p>
 				<div class="rating">
 					<strong>Értékelés:</strong>&nbsp;

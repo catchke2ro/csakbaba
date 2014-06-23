@@ -1,6 +1,11 @@
 <h2>Keresési találatok erre: <em><?=$this->q;?></em></h2>
 
+<? if(empty($this->results)){?>
+	<p class="noResults">Nincs találat</p>
+<? } ?>
+
 <div class="productList">
+
 	<ul class="products">
 
 		<? foreach($this->results as $result){?>

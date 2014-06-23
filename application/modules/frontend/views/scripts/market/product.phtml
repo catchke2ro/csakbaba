@@ -1,13 +1,16 @@
 <? if($this->product->status!=1){?>
-	<h3 class="productIsNotActive">A termék már nem aktív (eladták, vagy lejárt), ezért nem megvásárolható</h3>
+	<h3 class="productIsNotActive">
+		A termék már nem aktív (eladták, vagy lejárt)! <br />
+		<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category);?>">Nézz hasonló termékeket az oldalon</a>
+	</h3>
 <? } ?>
 <div class="productDetails" data-id="<?=$this->product->id;?>" data-categoryid="<?=$this->product->category;?>"
     data-href="<?=$this->request->getUri().'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" itemscope itemtype="http://schema.org/Product">
 	<div class="productImagesWrapper">
-		<div class="productImages">
+		<div class="productImages magnificParent">
 			<? $images=(is_array($this->product->images) && !empty($this->product->images)) ? $this->product->images : array(array('url'=>'/img/elements/defaultproduct.png'));?>
 			<? foreach($images as $image){?>
-				<div><img itemprop="image" src="<?=$image['url'];?>" alt="<?=$this->product->name;?>"/></div>
+				<div><img itemprop="image" src="<?=$image['url'];?>" alt="<?=$this->product->name;?>" data-mfp-src="<?=$image['url'];?>" class="magnificImage"/></div>
 			<? } ?>
 		</div>
 	</div>
@@ -37,7 +40,7 @@
 	    </div>
 		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="productPrice"><span itemprop="price"><?=$this->product->price;?></span> Ft.<meta itemprop="pricecurrency" content="HUF" /></div>
 	  <? if($this->product->status==1){?>
-		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->address['city'];?></span></div>
+		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
 		  <? if(!$this->user || ($this->user && $this->product->user->get()->id!=$this->user->id)){?>
 			  <? if($this->user){?>
 				  <div class="addToCart"><a href="javascript:void(0)">Megveszem</a></div>

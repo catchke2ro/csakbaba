@@ -119,6 +119,7 @@ class MarketController extends CB_Controller_Action {
 	public function productAction(){
 		$categoryTree=Zend_Registry::get('categories');
 		$product=$this->productModel->findOneById($this->getParam(1));
+		if($product===false) $this->redirect('/');
 		$product->visitors++;
 		$this->productModel->save($product);
 		$bc=Zend_Registry::get('breadcrumb');
@@ -137,7 +138,10 @@ class MarketController extends CB_Controller_Action {
 		$userOrdersSell=$orderModel->find(array('conditions'=>array('shop_user._id'=>new \MongoId($product->user->get()->id), 'shop_user_rating.$id'=>array('exists'=>true)), 'limit'=>2, 'order'=>'date DESC'));
 
 		$this->view->headMeta()->setName('description', $product->name.' a csakbaba.hu börzén. '.substr(strip_tags($product->desc), 0, 100).'...');
-		if(!empty($product->images)) $this->view->headMeta()->setName('og:image', 'https://'.$_SERVER['HTTP_HOST'].$product->images[0]['url']);
+		if(!empty($product->images)){
+			$firstImg=reset($product->images);
+			$this->view->headMeta()->setName('og:image', 'https://'.$_SERVER['HTTP_HOST'].$firstImg['url']);
+		}
 		$this->view->assign(array(
 			'product'=>$product,
 			'categoryTree'=>$categoryTree,
@@ -192,7 +196,8 @@ class MarketController extends CB_Controller_Action {
 	public function searchAction(){
 		$categoryTree=Zend_Registry::get('categories');
 		$searchSession=new Zend_Session_Namespace('search');
-		$products=array();
+		$products=$results=array();
+		$q='';
 		if(!empty($searchSession->q)){
 			$q=$searchSession->q;
 			$this->productModel->initQb();

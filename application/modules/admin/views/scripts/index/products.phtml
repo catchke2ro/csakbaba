@@ -27,6 +27,7 @@
 				{dataIndex: 'price', header: 'Ár', flex: 1},
 				{dataIndex: 'date_added', header: 'Hozzáadva', flex: 2},
 				{dataIndex: 'date_period', header: 'Periódus', flex: 2},
+				{dataIndex: 'visitors', header: 'Látogatók', flex: 1},
 				{dataIndex: 'status', header: 'Státusz', flex: 1, renderer: function(value, o, record){
 					return statusCodes[value];
 				}, editor: {xtype: 'combo', store: statusStore}}

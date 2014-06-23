@@ -33,6 +33,9 @@ $anim: cubic-bezier(.13,.94,.62,1.25)
     display: block
     padding-top: 110%
 
+@mixin bb
+  +box-sizing(border-box)
+
 @mixin longtext($lwidth)
   width: $lwidth
   white-space: nowrap

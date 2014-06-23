@@ -107,6 +107,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		$this->view->minifyHeadLink()
 						->appendStylesheet('/css/jquery/jquery.fileupload-ui.css')
 						->appendStylesheet('/css/jquery/shadowbox.css')
+						->appendStylesheet('/css/jquery/jquery.magnific.css')
 						->appendStylesheet('/css/jquery/jquery-ui.css')
 						->appendStylesheet('/css/animate.css')
 						->appendStylesheet('/css/global_'.$color.'.css');
@@ -116,6 +117,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 						->appendFile('/js/jquery/jquery-ui.touch.min.js')
 						->appendFile('/js/jquery/jquery.cookie.js')
 						->appendFile('/js/jquery/jquery.touchSwipe.min.js')
+						->appendFile('/js/jquery/jquery.magnific.min.js')
 						->appendFile('/js/jquery/fileupload/jquery.iframe-transport.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-ui.js')

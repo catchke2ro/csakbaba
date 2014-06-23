@@ -5,12 +5,12 @@
 <div class="mainBoxes">
 	<div class="mainBox mainAbout">
 		<div class="stat">
-			<h1> Üdvözlünk a csakbaba.hu oldalon! </h1>
+			<h1>Üdvözlünk a csakbaba.hu oldalon!</h1>
 
 			<p>Ha szereted a bababörzéket, akkor a legjobb helyen jársz.</p>
-			<p>Amennyiben szeretnéd megtekinteni a csakbaba.hu online börzéjét, kattints a bal oldali sötét sávra. Szeretnél belépni a csakbaba.hu világába? Regisztrálj ingyenesen a belépés menüben!</p>
+			<p>Amennyiben szeretnéd megtekinteni a csakbaba.hu online börzéjét, szeretnél új és használt babaholmit vásárolni, vagy eladni, kattints a bal oldali sötét sávra. Szeretnél belépni a csakbaba.hu világába? Regisztrálj ingyenesen a belépés menüben!</p>
 			<p>Jó böngészést!</p>
-			<p><a href="/blog/csakbaba-ajanlo-avagy-miert-a-csakbabahu-a-te-oldalad">Miért a csakbaba.hu a te oldalad? - Blog</a></p>
+			<p><h2><a href="/blog/csakbaba-ajanlo-avagy-miert-a-csakbabahu-a-te-oldalad">Miért a csakbaba.hu a te oldalad? - Blog</a></h2></p>
 		</div>
 		<div class="buttons">
 			<!--<a href="javascript:void(0)" class="tutorial">Mit hol találok?</a>-->
@@ -23,13 +23,13 @@
 	<? foreach($this->categoryTree->_multiArray as $key=>$mainCat){?>
 		<? if(empty($this->promoteFirst[$key])) continue;?>
 		<h2><a href="<?=$this->url('kiemelt').'/'.$key;?>"> Kiemelt termékek a <?=$mainCat->promoteName;?> kategóriában </a></h2>
-		<?=$this->partial('index/promote_partial.phtml', array('products'=>$this->promoteFirst[$key], 'type'=>'first', 'categoryTree'=>$this->categoryTree, 'request'=>$this->request));?>
+		<?=$this->partial('index/promote_partial.phtml', array('products'=>$this->promoteFirst[$key], 'type'=>'first', 'categoryTree'=>$this->categoryTree, 'request'=>$this->request, 'nameTag'=>'h4'));?>
 	<? } ?>
 
 </div>
 
 <div class="borzeButton">
-	<a href="<?=$this->url('borze');?>">tovább a börzére</a>
+	<a href="<?=$this->url('piac');?>">tovább a börzére</a>
 </div>
 
 <div class="lists">
@@ -43,7 +43,7 @@
 				<ul class="products">
 
 					<? foreach($this->fresh as $product){?>
-						<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
+						<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'nameTag'=>'h4')));?>
 					<? } ?>
 
 				</ul>
@@ -55,7 +55,7 @@
 				<ul class="products">
 
 					<? foreach($this->visited as $product){?>
-						<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
+						<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'nameTag'=>'h4')));?>
 					<? } ?>
 
 				</ul>

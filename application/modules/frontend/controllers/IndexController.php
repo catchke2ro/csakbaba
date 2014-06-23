@@ -10,6 +10,8 @@ class IndexController extends CB_Controller_Action {
 		$categoryTree=Zend_Registry::get('categories');
 
 		$this->view->headMeta()->setName('description', 'A csakbaba.hu egy online bababörze, ahol nem csak eladhatod használt vagy új baba, kismama és gyerekholmijaidat, hanem be is szerezheted mindazokat az eladók asztaláról.');
+		$this->view->headMeta()->setName('keywords', 'csakbaba, új, használt, baba, gyerek, kismama, ruha, börze');
+
 
 		$promoteFirst=array();
 		foreach($categoryTree->_multiArray as $key=>$mainCat){
@@ -61,7 +63,7 @@ class IndexController extends CB_Controller_Action {
 			Zend_Registry::set('breadcrumb', $bc);
 			return;
 		}
-		$posts=$postModel->find();
+		$posts=$postModel->find(array('order'=>'date desc'));
 		$this->view->assign(array(
 			'posts'=>$posts ? $posts : array()
 		));

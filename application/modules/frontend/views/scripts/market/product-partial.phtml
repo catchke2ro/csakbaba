@@ -1,6 +1,7 @@
 <? if(!empty($this->product)){?>
 
 <? $tag=isset($this->tag) ? $this->tag : 'li';?>
+<? $nameTag=isset($this->nameTag) ? $this->nameTag : 'h3';?>
 <<?=$tag;?>
 	class="product <?=$this->product->type;?> <?=(isset($this->back) && $this->back==false)?'noflip':'';?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->product->isPromoted('frame')?'promotedFrame':'');?> <?=($this->product->isPromoted('list')?'promotedList':'');?> status<?=$this->product->status;?>"
 	data-id="<?=$this->product->id;?>"
@@ -20,7 +21,7 @@
 						<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
 						<img src="<?=$img['mid'];?>" alt="<?=$this->product->name;?>" data-preview="<?=$img['mid'];?>" class="<?=!empty($this->previewImg) ? 'previewImg' : '';?>" />
 					</div>
-					<h3 class="productName">
+					<<?=$nameTag;?> class="productName">
 						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=$this->product->name;?></a>
 						<? if(!empty($this->o)){?>
 							<div class="productInfo">
@@ -29,7 +30,7 @@
 								<span>Kód: <strong><?=$this->o->code;?></strong></span>
 							</div>
 						<? } ?>
-					</h3>
+					</<?=$nameTag;?>>
 					<div class="productPrice"><span><?=$this->product->price;?> Ft.</span></div>
 					<? if(!empty($this->frontDesc)){?>
 					<div class="frontDesc"><?=$this->product->desc;?></div>
@@ -60,7 +61,7 @@
 						</div>
 					</div>
 					<div class="productPrice"><?=$this->product->price;?> Ft.</div>
-					<div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->address['city'];?></span></div>
+					<div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
 
 					<div class="productGallery">
 						<? if(is_array($this->product->images) && !empty($this->product->images)){ foreach($this->product->images as $image){?>

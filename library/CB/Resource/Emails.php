@@ -12,7 +12,7 @@ class CB_Resource_Emails {
 
 	public function __construct($user){
 		$this->mail=new CB_Resource_Mail('UTF-8');
-		$this->adminEmail=array('catchke2ro@miheztarto.hu');
+		$this->adminEmail=array('info@csakbaba.hu');
 		$this->user=$user;
 		$this->functions=new CB_Resource_Functions();
 	}

@@ -149,6 +149,7 @@ class ShopController extends CB_Controller_Action {
 
 	public function userproductdeleteAction(){
 		$this->getHelper('layout')->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender(true);
 		$id=$this->getRequest()->getParam('productid');
 		$product=$this->productModel->findOneById($id);
 		if($product){

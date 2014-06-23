@@ -78,7 +78,7 @@ function fileUploadInit(){
 			jQuery.each(jQuery(that).data('savevalues'), function(index, file){
 				if(file.name==filename) deleteIndex=index;
 			});
-			if(deleteIndex) jQuery(that).data('savevalues').splice(deleteIndex, 1);
+			if(deleteIndex!==false) jQuery(that).data('savevalues').splice(deleteIndex, 1);
 			jQuery(that).siblings('input.saveinput').val(JSON.stringify(jQuery(that).data('savevalues')));
 		});
 

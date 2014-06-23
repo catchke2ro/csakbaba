@@ -50,8 +50,8 @@ function infiniteScroll(){
 			ul.append(request.responseText);
 			ul.data('page', (parseInt(page)+1));
 			ul.data('productscount', request.getResponseHeader('X-CSB-PRC'));
-			$('.productAfterListLoad').hide();
 			productCountChange();
+			$('.productAfterListLoad').hide();
 		}
 	});
 }
@@ -156,6 +156,15 @@ function initRange(el){
 	return slider;
 }
 
+
+
+$.extend(true, $.magnificPopup.defaults, {
+	tClose: 'Bezárás (Esc)', tLoading: 'Töltés...',
+	gallery: { tPrev: 'Előző (balra nyíl billentyű)', tNext: 'Következő (jobbra nyíl billentyű)', tCounter: '%curr% / %total%' },
+	image: { tError: '<a href="%url%">A kép</a> nem betölthető.' },
+	ajax: {	tError: '<a href="%url%">A tartalom</a> nem betölthető.' }
+});
+
 $(document).ready(function(){
 
 
@@ -200,7 +209,7 @@ $(document).ready(function(){
 	/**
 	 * Telefon input
 	 */
-	$('li.maskPhone').find('input').mask('(9?9) 999-999?9');
+	$('li.maskPhone').find('input').mask('99999999?9');
 
 	/**
 	 * Dátum input
@@ -407,20 +416,31 @@ $(document).ready(function(){
 		$(e).text(shorten($(e).text(), 60));
 	});
 
+	$('div.productImages img').click(function(){
+		if($(this).css('cursor')=='pointer') window.location.href=$(this).closest('.front').find('.productName a').attr('href');
+	});
+
 	productCountChange();
 	var moreProducts=$('div.moreProducts');
 	if(moreProducts.length){
 		var moreProductsTimeout;
-		moreProducts.hover(function(){
-			moreProductsTimeout=setTimeout(function(){
-				moreProducts.trigger('click');
-			}, 100);
-		}, function(){
-			clearTimeout(moreProductsTimeout);
-		});
-		moreProducts.click(function(){
-			infiniteScroll();
-		});
+		if($('html').hasClass('desktop')){
+			moreProducts.hover(function(){
+				if($('.productAfterListLoad').css('display')!='none') return false;
+				moreProductsTimeout=setTimeout(function(){
+					infiniteScroll();
+				}, 100);
+			}, function(){
+				clearTimeout(moreProductsTimeout);
+			});
+		} else {
+			moreProducts.click(function(){
+				if($('.productAfterListLoad').css('display')!='none') return false;
+				infiniteScroll();
+			});
+		}
+
+
 	}
 
 
@@ -832,6 +852,17 @@ $(document).ready(function(){
 			});
 			ev.preventDefault();
 			return false;
+		});
+
+		$('.magnificParent').magnificPopup({
+			delegate: '.magnificImage',
+			type: 'image',
+			image: {
+				titleSrc: 'alt'
+			},
+			gallery:{
+				enabled:true
+			}
 		});
 
 	}
