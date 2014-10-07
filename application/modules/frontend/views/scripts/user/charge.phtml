@@ -3,9 +3,9 @@
 	<h1>Egyenleg</h1>
 
 	<div class="now">
-		<? $avail=floor($this->user->balance/Zend_Registry::get('uploadPrice'));?>
+		<? $avail=Zend_Registry::get('uploadPrice')==0 ? 'végtelen' : floor($this->user->balance/Zend_Registry::get('uploadPrice'));?>
 		<strong>Jelenlegi egyenleged: <?=$this->user->balance;?> Ft. </strong><br />
-		<?=($avail>0) ? 'Ez még '.$avail.' termék feltöltésére elegendő' : 'Termék eladásához töltsd fel az egyenleged!';?>
+		<?=($avail>0 || Zend_Registry::get('uploadPrice')==0) ? 'Ez még '.$avail.' termék feltöltésére elegendő' : 'Termék eladásához töltsd fel az egyenleged!';?>
 	</div>
 
 	<h2>Egyenleg feltöltése</h2>

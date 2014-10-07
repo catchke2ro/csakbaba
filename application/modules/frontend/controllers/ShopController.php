@@ -73,7 +73,11 @@ class ShopController extends CB_Controller_Action {
 
 		if(!$productid && !$this->_request->getPost('id')){
 			$form->removeElement('id');
-			$form->setDescription('A termék feltöltésének díja '.Zend_Registry::get('uploadPrice').' Ft, amit az egyenlegedből vonunk le.');
+			if(Zend_Registry::get('uploadPrice')==0){
+				$form->setDescription('A termék feltöltése most ingyenes!');
+			} else {
+				$form->setDescription('A termék feltöltésének díja '.Zend_Registry::get('uploadPrice').' Ft, amit az egyenlegedből vonunk le.');
+			}
 
 		}
 

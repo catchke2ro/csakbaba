@@ -8,7 +8,7 @@
       height: auto
 
   div.contentInner > div.slider
-    height: 300px
+    height: 400px
     border-bottom: 4px solid rgba(darken($col1,20%),0.2)
     div
       height: 100%
@@ -101,9 +101,8 @@
     +box-sizing(border-box)
     .stat
       padding: 1%
-      width: 70%
+      width: 100%
       margin: 0px
-      float: left
       h1
         padding-bottom: 1%
     img
@@ -124,7 +123,6 @@
     .buttons
       width: 30%
       padding: 0px 5%
-      float: left
       margin: 10px auto
       +box-sizing(border-box)
       +clearFix
@@ -212,7 +210,7 @@
 
 .promoter h2
   width: 100%
-  float: left
+  float: left 
   display: block
   text-align: center
   padding: 0.5%
@@ -255,3 +253,13 @@ div.borzeButton
     color: #FFFFFF
     &:hover
       background-color: lighten($col2, 10%)
+
+.promotePic
+  width: 60%
+  padding: 2%
+  margin: 0px auto
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  img
+    width: 100%

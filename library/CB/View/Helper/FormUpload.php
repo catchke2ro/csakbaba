@@ -23,6 +23,7 @@ class CB_View_Helper_FormUpload extends Zend_View_Helper_FormElement {
 						.'<div class="preview"></div>'
 						.'<div class="filename"></div>'
 						.'<div class="size"></div>'
+						.'<div class="cancel">X</div>'
 						.'<div class="error"></div>'
 						.'<div class="progress"><div class="progress-bar progress-bar-success"></div></div>'
 						.'</div>';

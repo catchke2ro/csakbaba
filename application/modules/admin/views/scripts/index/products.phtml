@@ -27,6 +27,11 @@
 				{dataIndex: 'price', header: 'Ár', flex: 1},
 				{dataIndex: 'date_added', header: 'Hozzáadva', flex: 2},
 				{dataIndex: 'date_period', header: 'Periódus', flex: 2},
+				{dataIndex: 'date_end', header: 'Lejárat', flex: 2, renderer: function(value, o, record){
+					var periodStart=new Date(record.get('date_period').replace(" ", "T"));
+					var pe=Ext.Date.add(periodStart, Ext.Date.DAY, 30);
+					return Ext.Date.format(pe, 'Y-m-d H:i:s');
+				}},
 				{dataIndex: 'visitors', header: 'Látogatók', flex: 1},
 				{dataIndex: 'status', header: 'Státusz', flex: 1, renderer: function(value, o, record){
 					return statusCodes[value];

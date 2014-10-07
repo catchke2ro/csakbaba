@@ -11,10 +11,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Zend_Registry::set('CsbConfig', $config);
 	}
 
-	function _initSession(){
-		Zend_Session::setOptions(array('cookie_lifetime' => 3600, 'gc_maxlifetime'  => 3600));
-	}
-
 	function _initException(){
 		//error_reporting(E_ERROR | E_WARNING | E_NOTICE);
 		if(empty($_COOKIE['CSBDEV'])){

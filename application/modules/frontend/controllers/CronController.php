@@ -220,6 +220,16 @@ class CronController extends CB_Controller_Action {
 		//$tracker->trackPageview($page, $session, $visitor);
 
 
+		$userModel=new \CB\Model\User();
+		$users=$userModel->find();
+		foreach($users as $user){
+			$name='';
+			if(!empty($user->username)) $name=$user->username;
+			if(!empty($user->address['name'])) $name=$user->address['name'];
+			if(!empty($user->postaddress['name'])) $name=$user->postaddress['name'];
+
+			echo $user->email."\t\"".$name."\"\n";
+		}
 
 
 		die();

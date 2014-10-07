@@ -49,6 +49,7 @@ div.productList:not(.user)
           +box-sizing(border-box)
           .front, .back
             +backface-visibility(hidden)
+            +transform-style(preserve-3d)
             position: absolute
             top: 0px
             left: 0px
@@ -58,9 +59,10 @@ div.productList:not(.user)
             background-image: -ms-linear-gradient(top, rgba(white,1) 0%,rgba(lighten($col1,45%),1) 90%)
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 )
           .back
-            +transform(rotateY(180deg))
+            +transform(rotateY(-180deg))
           .front
             z-index: 2
+            +transform(rotateY(0deg))
 
 
       &:not(.noflip)

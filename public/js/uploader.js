@@ -73,6 +73,12 @@ function fileUploadInit(){
 					jQuery(that).siblings('input.saveinput').val(JSON.stringify(jQuery(that).data('savevalues')));
 				}
 			});
+		}).on('fileuploadprocessfail', function(ev, data){
+			console.log('FAIL');
+
+		}).on('fileuploadadded', function(ev, data){
+			console.log('added');
+
 		}).on('fileuploaddestroyed', function(ev, data){
 			var that=this, filename=jQuery(data.context).find('.filename').html(), deleteIndex=false;
 			jQuery.each(jQuery(that).data('savevalues'), function(index, file){
