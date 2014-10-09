@@ -26,6 +26,9 @@ class ShopController extends CB_Controller_Action {
 			$this->redirect($this->url('adatmodositas'));
 		}
 		$products=$this->user->getProducts(false, 10, array(0,1,2,3));
+		$activeProducts=array_filter($products, function($item){
+			return $item->status==1;
+		});
 
 		$categoryTree=Zend_Registry::get('categories');
 		$categoryOptions=$categoryTree->getComboList();
@@ -37,6 +40,7 @@ class ShopController extends CB_Controller_Action {
 		$this->view->assign(array(
 			'statusCodes'=>$this->statusCodes,
 			'products'=>$products,
+			'activeProducts'=>$activeProducts,
 			'categorySelect'=>$categorySelect,
 			'categoryTree'=>$categoryTree,
 			'promoteOptions'=>Zend_Registry::get('promoteOptions'),
@@ -50,6 +54,7 @@ class ShopController extends CB_Controller_Action {
 		$categoryTree=Zend_Registry::get('categories');
 		$category=$categoryTree->_singleArray[$category_id];
 		$options=$category->props;
+		$userActiveProducts=$this->user->getProducts(false, 10000);
 
 		$form=new Frontend_Form_ProductEdit();
 		$form->category=$category;
@@ -75,6 +80,8 @@ class ShopController extends CB_Controller_Action {
 			$form->removeElement('id');
 			if(Zend_Registry::get('uploadPrice')==0){
 				$form->setDescription('A termék feltöltése most ingyenes!');
+			} else if(count($userActiveProducts) < Zend_Registry::get('freeUploadLimit')){
+				$form->setDescription(''.Zend_Registry::get('freeUploadLimit').' aktív termékig a feltöltés ingyenes!');
 			} else {
 				$form->setDescription('A termék feltöltésének díja '.Zend_Registry::get('uploadPrice').' Ft, amit az egyenlegedből vonunk le.');
 			}
@@ -95,8 +102,12 @@ class ShopController extends CB_Controller_Action {
 					CB_Resource_Functions::logEvent('userProductAddStarted');
 					$values['code']=uniqid('CSB');
 					$email=true;
-					$this->user->balance=intval($this->user->balance)-Zend_Registry::get('uploadPrice');
-					if($this->user->balance <= (2*Zend_Registry::get('uploadPrice'))) $this->emails->balanceLow(array('user'=>$this->user));
+
+					if(count($userActiveProducts) >= Zend_Registry::get('freeUploadLimit')){
+						$this->user->balance=intval($this->user->balance)-Zend_Registry::get('uploadPrice');
+						if($this->user->balance <= (2*Zend_Registry::get('uploadPrice'))) $this->emails->balanceLow(array('user'=>$this->user));
+					}
+
 					$this->userModel->save($this->user);
 					$this->m('Sikeresen feltöltötted a terméked a csakbaba.hu oldalon! A terméked hamarosan megjelenik a többi termék között és láthatod a főoldalon a legfrissebben feltöltött termékeknél! Köszönjük a feltöltést! További jó börzézést!', 'message');
 				}

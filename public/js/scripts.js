@@ -580,6 +580,12 @@ $(document).ready(function(){
 							initRange(el);
 						});
 					}
+
+					var productListUser=peadf.parent().find('.productList.user');
+					if(productListUser.find('li.active').length==productListUser.data('freeuploadlimit')){
+						window.location.reload(); window.location.hash='#t';
+					}
+
 				}
 			});
 			e.preventDefault();

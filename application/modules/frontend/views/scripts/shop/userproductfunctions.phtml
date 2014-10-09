@@ -21,7 +21,9 @@
 
 		<a href="javascript:void(0)" class="userDeleteProduct action">Törlés</a>
 		<a href="javascript:void(0)" class="userEditProduct action">Szerkesztés</a>
+		<? if(!($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit'))){?>
 		<a href="javascript:void(0)" class="userCopyProduct action">Másolás</a>
+		<? } ?>
 	</div>
 
 </div>
