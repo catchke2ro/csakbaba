@@ -224,4 +224,61 @@ class Admin_IndexController extends CB_Controller_AdminAction {
 		}
 		return end($array);
 	}
+
+	public function exportAction(){
+
+	}
+
+
+	public function csvAction(){
+		$this->getHelper('viewRenderer')->setNoRender(true);
+		$this->getHelper('layout')->disableLayout();
+		$modelName='\CB\Model\\'.$_GET['model'];
+		$model=new $modelName();
+		$docs=$model->find();
+		$csvData=array();
+		$props=array();
+		foreach($docs as $doc){
+			$row=array();
+			$docArray=object_to_array($doc, -1, true);
+			foreach($docArray as $prop=>$val){
+				if(is_object($val) && get_class($val)=='DateTime') $val=$val->format('Y-m-d H:i:s');
+				elseif(is_object($val) && method_exists($val, '__toString')) $val=$val->__toString();
+				elseif(is_array($val)){
+					$val=object_to_array($val, -1);
+					$val=implode(' ', $val);
+				}
+				$props[]=$prop;
+				$row[$prop]=strval($val);
+			}
+			$csvData[]=$row;
+		}
+		$props=array_unique($props);
+		$newCsvData=array();
+		$newCsvData[0]=$props;
+		foreach($csvData as $key=>$csvItem){
+			foreach($props as $prop){
+				$newCsvData[$key+1][]=isset($csvItem[$prop]) ? $csvItem[$prop] : '';
+			}
+		}
+
+		//pr($newCsvData);
+
+		$pe=new PHPExcel();
+		$pe->getProperties()->setCreator('csakbaba')->setTitle('csakbaba.hu '.$_GET['model'].' export');
+		$pe->setActiveSheetIndex(0);
+		$pe->getActiveSheet()->setTitle('Felhasználók')->fromArray($newCsvData);
+
+		$time=time();
+		$objWriter = PHPExcel_IOFactory::createWriter($pe, 'Excel2007');
+		$objWriter->save('php://output');
+
+
+		header('Content-Type: application/vnd.ms-excel; charset=utf-8');
+		header('Content-Disposition: attachment; filename=csakbaba_export_'.strtolower($_GET['model']).'_'.date('YmdHis').'.xls');  //File name extension was wrong
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Cache-Control: private', false);
+		die();
+	}
 }
