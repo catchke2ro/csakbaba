@@ -40,7 +40,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$manager=new Zend_Cache_Manager();
 		$cache=Zend_Cache::factory(
 						new CB_Resource_Cache($opts),
-						new Zend_Cache_Backend_Libmemcached(),
+						new Zend_Cache_Backend_File(),
 						$opts,
 						array('server'=>array($options['memcached'])));
 		$manager->setCache('general', $cache);
