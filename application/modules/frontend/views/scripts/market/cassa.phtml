@@ -9,7 +9,7 @@
 			<? } ?>
 		</div>
 
-		<h3 class="productName"><?=$this->product->name;?></h3>
+		<h3 class="productName"><?=htmlentities($this->product->name);?></h3>
 		<div class="productPrice"><?=$this->product->price;?> Ft.</div>
 		<div class="productUser"><a href="<?=$this->url('profil').'/'.$this->product->user->get()->username;?>"><?=$this->product->user->username;?></a></div>
 

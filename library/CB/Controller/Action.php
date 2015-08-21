@@ -58,8 +58,8 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		$this->statusCodes=Zend_Registry::get('statusCodes');
 		$this->deliveryOptions=Zend_Registry::get('deliveryOptions');
 
-		$contactForm=new Frontend_Form_Contact();
-		$this->view->assign(array('contactForm'=>$contactForm));
+		//$contactForm=new Frontend_Form_Contact();
+		//$this->view->assign(array('contactForm'=>$contactForm));
 
 
 		if($identity=Zend_Auth::getInstance()->getIdentity()){
@@ -102,15 +102,16 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 
 	private function _head(){
 		$color=!empty($_COOKIE['color']) ? $_COOKIE['color'] : 'brown';
+		if($color=='green') $color='brown';
 		$this->view->assign(array('color'=>$color));
 
 		$this->view->minifyHeadLink()
-						->appendStylesheet('/css/jquery/jquery.fileupload-ui.css')
-						->appendStylesheet('/css/jquery/shadowbox.css')
-						->appendStylesheet('/css/jquery/jquery.magnific.css')
-						->appendStylesheet('/css/jquery/jquery-ui.css')
-						->appendStylesheet('/css/animate.css')
-						->appendStylesheet('/css/global_'.$color.'.css');
+						->appendStylesheet('/stylesheets/css/jquery/jquery.fileupload-ui.css')
+						->appendStylesheet('/stylesheets/css/jquery/shadowbox.css')
+						->appendStylesheet('/stylesheets/css/jquery/jquery.magnific.css')
+						->appendStylesheet('/stylesheets/css/jquery/jquery-ui.css')
+						->appendStylesheet('/stylesheets/css/animate.css')
+						->appendStylesheet('/stylesheets/css/global_'.$color.'.css');
 		$this->view->minifyHeadScript()
 						->appendFile('/js/jquery/jquery.min.js')
 						->appendFile('/js/jquery/jquery-ui.min.js')
@@ -168,7 +169,8 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 			'request'=>$this->_request,
 			'types'=>$this->types,
 			'catMultiArray'=>$catMultiArray,
-			'htmlClass'=>$htmlClass
+			'htmlClass'=>$htmlClass,
+			'nav'=>Zend_Registry::get('nav')
 		));
 	}
 

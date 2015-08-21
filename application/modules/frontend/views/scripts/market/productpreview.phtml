@@ -3,12 +3,12 @@
 		<div class="productImages">
 			<? $images=(is_array($this->product->images) && !empty($this->product->images)) ? $this->product->images : array(array('url'=>'/img/elements/defaultproduct.png'));?>
 			<? foreach($images as $image){?>
-				<div><img src="<?=$image['url'];?>" alt="<?=$this->product->name;?>"/></div>
+				<div><img src="<?=$image['url'];?>" alt="<?=htmlentities($this->product->name);?>"/></div>
 			<? } ?>
 		</div>
 	</div>
   <div class="productDetailsWrapper">
-		<h1 class="productName"><?=$this->product->name;?></h1>
+		<h1 class="productName"><?=htmlentities($this->product->name);?></h1>
 	    <div class="productOptions">
 	      <? $catoptions=$this->categoryTree->getOptions($this->product->category);?>
 		    <? $genreTypes=Zend_Registry::get('genreTypes');?>

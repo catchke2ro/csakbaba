@@ -5,7 +5,8 @@
 	<div class="now">
 		<? $avail=Zend_Registry::get('uploadPrice')==0 ? 'végtelen' : floor($this->user->balance/Zend_Registry::get('uploadPrice'));?>
 		<strong>Jelenlegi egyenleged: <?=$this->user->balance;?> Ft. </strong><br />
-		<?=($avail>0 || Zend_Registry::get('uploadPrice')==0) ? 'Ez még '.$avail.' termék feltöltésére elegendő' : 'Termék eladásához töltsd fel az egyenleged!';?>
+		Ne feledd, 10 aktív termék erejéig a feltöltés ingyenes!<br />
+		<?=($avail>0 || Zend_Registry::get('uploadPrice')==0) ? 'Ez még '.$avail.' termék feltöltésére elegendő' : 'További termékek feltöltéséhez, egyéb szolgáltatásokhoz töltsd fel egyenleged!!';?>
 	</div>
 
 	<h2>Egyenleg feltöltése</h2>

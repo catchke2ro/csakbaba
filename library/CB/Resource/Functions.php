@@ -38,7 +38,7 @@ class CB_Resource_Functions extends Zend_Application_Resource_ResourceAbstract {
 		$feedModel=new \CB\Model\Feed();
 		$feed=new \CB\Feed();
 		$feed->saveAll(array(
-			'date'=>date('Y-m-d H:i:s'), 'user'=>$user, 'product_id'=>($product ? $product->id : ''), 'type'=>$type, 'read'=>false
+			'date'=>date('Y-m-d H:i:s'), 'user_id'=>$user->id, 'product_id'=>($product ? $product->id : ''), 'type'=>$type, 'read'=>false, 'product_name'=>($product ? $product->name : '')
 		));
 		$feedModel->save($feed);
 	}

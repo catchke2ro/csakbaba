@@ -1,0 +1,51 @@
+/////////////////////////////////////////////////////////
+//
+//      Email stílus
+//      Utoljára módosítva: 06.25
+//
+////////////////////////////////////////////////////////
+
+
+@import "compass"
+@import "general/colors_brown"
+@import "general/colordefs"
+@import "general/variables"
+@import "general/typo"
+
+div.container
+  background-color: $cEmailBg
+  color: #000000
+  line-height: 1.3em
+  font-size: 13px
+  background-image: url("http://csakbaba.hu/img/elements/bg.png")
+  background-repeat: repeat
+
+h1,h2,h3,h4,h5,h6,p
+  margin: 0px
+.header
+  height: 85px
+  background-image: url('http://csakbaba.hu/img/elements/logoemail.png')
+  background-repeat: no-repeat
+  background-position: left center
+  background-color: $cEmailHeaderBg
+  padding-left: 130px
+  line-height: 85px
+  font-size: 10px
+  color: #FFFFFF
+  border-bottom: 2px solid $cEmailHeaderBorder
+
+.content
+  padding: 15px
+  a, p, strong
+    font-size: 14px
+    line-height: 1.5em
+    color: $cEmailContentColor
+    margin: 0px
+  strong
+    font-weight: bold
+  a, a:visited
+    color: $cEmailContentLinkColor
+    text-decoration: none
+
+  h2
+    font-size: 12px

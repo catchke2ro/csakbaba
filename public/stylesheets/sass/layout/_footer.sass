@@ -1,0 +1,118 @@
+//***************************************************************
+//
+//           FOOTER
+//
+//***************************************************************
+
+.footer
+  margin-top: 5%
+  width: 100%
+  background-color: $cFooterBg
+  .footerInner
+    +clearFix
+    .fbLikeBox
+      float: left
+      width: percentage(1/3)
+      padding: 10px
+      +mq1
+        width: 50%
+      +mq5
+        width: 100%
+        margin-top: 3%
+      h2
+        margin-bottom: 10px
+        text-align: center
+        color: $cFooterColor
+        font-weight: bold
+
+      .fb-like-box, .fb-like-box span, .fb-like-box span iframe[style]
+        width: 100% !important
+        height:  152px !important
+
+
+    .linksFooter
+      float: left
+      width: percentage(1/3)
+      padding: 10px
+      +mq1
+        width: 50%
+      +mq5
+        width: 100%
+        margin-top: 3%
+      h2
+        margin-bottom: 2em
+        text-align: center
+        font-weight: bold
+        color: $cFooterColor
+      .linksFooterContent
+        padding: 3%
+        ul
+          font-size: 1.4em
+          li
+            background-image: url(/img/elements/ulbg3.png)
+            background-repeat: no-repeat
+            background-size: auto
+            padding-left: 22px
+            margin-bottom: 5px
+        a
+          color: $cFooterColor
+          text-align: left
+          font-size: 0.9em
+          &:hover
+            color: $cFooterColorHover
+    //.contactFooter
+      float: left
+      width: percentage(1/3)
+      padding: 2%
+      +mq1
+        width: 100%
+      h2
+        margin-bottom: 10px
+        text-align: center
+        color: $cFooterColor
+        font-weight: bold
+      form
+        +form
+        li.field
+          background-color: transparent
+        li.field.textarea
+          max-height: 100px
+        li.field.text.w
+          height: 2.9em
+        li.textarea textarea:not(.ck)
+          height: 80px
+          background-color: rgba(white,0.1)
+          color: $cFooterColor
+        label
+          color: $cFooterColor
+        input
+          background-color: rgba(white,0.1)
+          color: $cFooterColor
+          line-height: 2rem
+        li.field.submit input
+          background-color: rgba(white,0.35)
+
+    .infoLogos
+      float: left
+      width: percentage(1/3)
+      padding: 10px
+      +mq1
+        width: 100%
+      text-align: center
+      margin-top: 2em
+      img
+        width: 70px
+
+    .infos
+      clear: both
+      text-align: center
+      margin-top: 2em
+      background-color: rgba(black,0.1)
+      width: 100%
+      padding: 1em
+      *
+        color: #FFFFFF
+
+
+#container.piac .footer .footerInner .infos
+  padding-bottom: 50px

@@ -10,10 +10,10 @@ body
 	font-size: 12px;
 
 	/* Text color */
-	color: #333;
+	color: #8b7b6a;
 
 	/* Remove the background color to make it transparent */
-	background-color: #fff;
+	background-color: #F8F4EF;
 
 	margin: 20px;
 }
@@ -50,7 +50,7 @@ blockquote
 
 a
 {
-	color: #0782C1;
+	color: #8b7b6a;
 }
 
 ol,ul,dl

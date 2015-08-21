@@ -1,0 +1,124 @@
+//***************************************************************
+//
+//           CONTENT RÉGIÓ
+//
+//***************************************************************
+
+div.content
+  padding-top: 80px
+  max-width: 100%
+  min-height: 540px
+  overflow: hidden
+  .contentInner
+    & > h1, & > h2, & > h3
+      text-align: center
+      font-size: 2em
+      margin-bottom: 20px
+
+
+
+
+  //*************************************************
+  //   BREADCRUMB
+  //*************************************************
+  .breadcrumb
+    display: block
+    position: absolute
+    top: 40px
+    left: 0
+    height: 26px
+    z-index: 700
+    width: 100%
+    padding-left: $sidebarWidth
+
+    +mq3
+      left: 40px
+      padding-left: 0
+    ul
+      width: 100%
+      padding: 0.7em
+      float: left
+      line-height: 1.5em
+      padding-right: 180px
+      +mq2
+        padding-right: 45px
+      li
+        float: left
+        font-size: 1.2rem
+        a
+          color: $cBreadcrumbColor
+          +transition(0.6s)
+        h2
+          font-size: 1em
+          font-weight: bold
+          color: $cBreadcrumbActiveColor
+
+
+
+
+
+
+
+
+
+//*************************************************
+//   BREADCRUMB
+//*************************************************
+div.content div.social
+  position: absolute
+  right: 0
+  top: 0
+  width: 144px
+  margin-top: 4px
+  overflow: hidden
+  +transition(width 0.5s)
+  +mq2
+    width: 40px
+
+  a
+    margin: 0px
+    display: block
+    float: left
+    height: 20px
+    width: 70px
+    background-repeat: no-repeat
+    color: #FFFFFF
+    line-height: 20px
+    text-align: center
+    padding-right: 10px
+    +mq2
+      width: 20px
+    &:before
+      font-weight: normal
+      font-family: Flaticon
+      float: left
+      font-size: 1.5rem
+      margin-left: 3px
+    &.fbshare
+      background-color: #3B5998
+      &:before
+        content: $iconFb
+    &.gpshare
+      background-color: #D34836
+      &:before
+        content: $iconGp
+
+
+div#container.adatmodositas, div#container.felhasznalotermekek, div#container.ertekelesek, div#container.kedvencek, div#container.egyenleg
+  div.social
+    display: none
+
+
+html.desktop div.social.fixed
+  position: fixed
+  top: 36px
+  width: 70px
+  +transition(width 0.5s)
+
+
+
+
+.piac.details div.content .breadcrumb
+  top: 40px
+
+

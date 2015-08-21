@@ -118,6 +118,12 @@ class User extends \CB_Resource_ModelItem {
 	public $gpid;
 
 
+	/**
+	 * @ODM\Hash
+	 */
+	public $subscribed;
+
+
 	public function getRating($type='avg'){
 		$orderModel=new \CB\Model\Order();
 		$all=$positive=0;
@@ -158,10 +164,10 @@ class User extends \CB_Resource_ModelItem {
 	}
 
 	public function isValid(){
-		return (!empty($this->address['name']) &&
-						!empty($this->address['zip']) &&
-						!empty($this->address['city']) &&
-						!empty($this->address['street']) &&
+		return (//!empty($this->address['name']) &&
+						//!empty($this->address['zip']) &&
+						//!empty($this->address['city']) &&
+						//!empty($this->address['street']) &&
 						!empty($this->email) &&
 						!empty($this->phone) &&
 						!empty($this->username) &&

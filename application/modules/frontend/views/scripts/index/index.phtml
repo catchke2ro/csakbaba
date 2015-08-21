@@ -1,98 +1,107 @@
-<div class="slider">
-	<div><img src="/img/slider/s11.jpg" alt="csakbaba.hu" /></div>
-	<div><img src="/img/slider/s12.jpg" alt="csakbaba.hu" /></div>
-	<div><img src="/img/slider/s13.jpg" alt="csakbaba.hu" /></div>
-	<div><img src="/img/slider/s14.jpg" alt="csakbaba.hu" /></div>
+<div class="sliderContainer">
+	<div class="slider">
+		<div><img src="/img/slider/s11.jpg" alt="csakbaba.hu" /></div>
+		<div><img src="/img/slider/s12.jpg" alt="csakbaba.hu" /></div>
+		<div><img src="/img/slider/s13.jpg" alt="csakbaba.hu" /></div>
+		<div><img src="/img/slider/s14.jpg" alt="csakbaba.hu" /></div>
+	</div>
+	<div class="search">
+		<?
+			$searchFormClone=clone $this->searchForm;
+			$searchFormClone->getElement('q')->setAttrib('id', 'qs');
+			$searchFormClone->getElement('category_id')->setAttrib('id', 'category_idc');
+			$searchFormClone->getElement('Keresés')->setAttrib('id', 'Keresésc');
+		?>
+		<?=$searchFormClone;?>
+	</div>
 </div>
 
+<div class="mainContent">
 
-<!--<div class="promotePic"><img src="img/elements/csb2.png" title="Nyári akció" alt="Nyári akció"></div>-->
-
-
-<div class="mainBoxes">
-	<div class="mainBox mainAbout">
-		<div class="stat">
-			<!--<h1>Üdvözlünk a csakbaba.hu oldalon !</h1>
-
-			<p>Ha szereted a bababörzéket, akkor a legjobb helyen jársz.</p>
-			<p>Amennyiben szeretnéd megtekinteni a csakbaba.hu online börzéjét, szeretnél új és használt babaholmit vásárolni, vagy eladni, kattints a bal oldali sötét sávra. Szeretnél belépni a csakbaba.hu világába? Regisztrálj ingyenesen a belépés menüben!</p>
-			<p>Jó böngészést!</p>-->
-			<h1>Újdonság a csakbabán! Október 10-től 10 db termék feltöltése ingyen!</h1>
-			<p><h2><a href="/blog/csakbaba-ajanlo-avagy-miert-a-csakbabahu-a-te-oldalad">Miért a csakbaba.hu a te oldalad? - Blog</a></h2></p>
-		</div>
-		<div class="buttons">
-			<!--<a href="javascript:void(0)" class="tutorial">Mit hol találok?</a>-->
-			<a href="<?=$this->url('regisztracio');?>" class="registration">Regisztráció</a>
-		</div>
+	<div class="borzeIcons">
+		<div class="link"><a href="<?=$this->user ? $this->url('felhasznalotermekek') : $this->url('regisztracio');?>" class="upload link">ingyenes termékfeltöltés</a></div>
+		<div class="link"><a href="<?=$this->url('piac');?>" class="link">tovább a börzére</a></div>
+		<div class="link"><a href="<?=$this->url('regisztracio');?>" class="registration link">Regisztráció</a></div>
+		<div class="clear"></div>
+		<? foreach($this->catMultiArray as $mainCat){?>
+			<a href="<?=$this->url('piac').$mainCat->url;?>" class="<?=$mainCat->id;?>"><?=$mainCat->name;?></a>
+		<? } ?>
 	</div>
 
-</div>
-<div class="promoter">
-	<? foreach($this->categoryTree->_multiArray as $key=>$mainCat){?>
-		<? if(empty($this->promoteFirst[$key])) continue;?>
-		<h2><a href="<?=$this->url('kiemelt').'/'.$key;?>"> Kiemelt termékek a <?=$mainCat->promoteName;?> kategóriában </a></h2>
-		<?=$this->partial('index/promote_partial.phtml', array('products'=>$this->promoteFirst[$key], 'type'=>'first', 'categoryTree'=>$this->categoryTree, 'request'=>$this->request, 'nameTag'=>'h4'));?>
-	<? } ?>
 
-</div>
 
-<div class="borzeButton">
-	<a href="<?=$this->url('piac');?>">tovább a börzére</a>
-</div>
 
-<div class="lists">
-    <div class="listMenu">
-	<a href="javascript:void(0)" data-list="0">Legfrissebb</a>
-	<a href="javascript:void(0)" data-list="1">Legnépszerűbb</a>
-    </div>
-	<div class="listsInner">
-		<div class="fresh list">
-			<div class="productList">
-				<ul class="products">
+	<div class="promoter">
+		<? foreach($this->categoryTree->_multiArray as $key=>$mainCat){?>
+			<? if(empty($this->promoteFirst[$key])) continue;?>
+			<h2><a href="<?=$this->url('kiemelt').'/'.$key;?>"> Kiemelt termékek a <?=$mainCat->promoteName;?> kategóriában </a></h2>
+			<?=$this->partial('index/promote_partial.phtml', array('products'=>$this->promoteFirst[$key], 'type'=>'first', 'categoryTree'=>$this->categoryTree, 'request'=>$this->request, 'nameTag'=>'h4'));?>
+		<? } ?>
 
-					<? foreach($this->fresh as $product){?>
-						<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'nameTag'=>'h4')));?>
-					<? } ?>
+	</div>
 
-				</ul>
+	<div class="lists">
+		<div class="listMenu">
+			<div><a href="javascript:void(0)" data-list="0">Legfrissebb termékek</a></div>
+			<div><a href="javascript:void(0)" data-list="1">Legnépszerűbb termékek</a></div>
+			<span></span>
+		</div>
+		<div class="listsInner">
+			<div class="fresh list">
+				<div class="productList">
+					<ul class="products">
+
+						<? foreach($this->fresh as $product){?>
+							<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'nameTag'=>'h4')));?>
+						<? } ?>
+
+					</ul>
+				</div>
 			</div>
-		</div>
 
-		<div class="visited list">
-			<div class="productList">
-				<ul class="products">
+			<div class="visited list">
+				<div class="productList">
+					<ul class="products">
 
-					<? foreach($this->visited as $product){?>
-						<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'nameTag'=>'h4')));?>
-					<? } ?>
+						<? foreach($this->visited as $product){?>
+							<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'nameTag'=>'h4')));?>
+						<? } ?>
 
-				</ul>
+					</ul>
+				</div>
 			</div>
+
 		</div>
 
+	</div>
 
 
+	<div class="borzeIcons bottom">
+		<div class="link"><a href="<?=$this->url('piac');?>" class="link">tovább a börzére</a></div>
+	</div>
+
+
+	<div class="lists">
+		<div class="listMenu">
+			<? if($this->promotedUsers){?><div><a href="javascript:void(0)" data-list="0">Kiemelt asztalok</a></div><? } ?>
+			<? if($this->latestUsers){?><div><a href="javascript:void(0)" data-list="1">Asztalok ahol éppen vásárlás történt</a></div><? } ?>
+			<span></span>
+		</div>
+		<div class="listsInner">
+			<? if($this->promotedUsers){?>
+				<div class="promoter">
+					<?=$this->partial('index/promote_user_partial.phtml', array('users'=>$this->promotedUsers, 'type'=>'allfirst', 'request'=>$this->request));?>
+				</div>
+			<? } ?>
+			<? if($this->latestUsers){?>
+				<div class="promoter">
+					<?=$this->partial('index/promote_user_partial.phtml', array('users'=>$this->latestUsers, 'type'=>'latest', 'request'=>$this->request));?>
+				</div>
+			<? } ?>
+		</div>
 	</div>
 
 </div>
-
-
-
-<div class="lists">
-	<div class="listMenu">
-		<a href="javascript:void(0)" data-list="0">Kiemelt asztalok</a>
-		<a href="javascript:void(0)" data-list="1">Asztalok ahol éppen vásárlás történt</a>
-	</div>
-	<div class="listsInner">
-		<div class="promoter">
-			<?=$this->partial('index/promote_user_partial.phtml', array('users'=>$this->promotedUsers, 'type'=>'allfirst', 'request'=>$this->request));?>
-		</div>
-		<div class="promoter">
-			<?=$this->partial('index/promote_user_partial.phtml', array('users'=>$this->latestUsers, 'type'=>'latest', 'request'=>$this->request));?>
-		</div>
-	</div>
-</div>
-
 
 
 

@@ -29,6 +29,7 @@ class CronController extends CB_Controller_Action {
 				}
 			} else {
 				CB_Resource_Functions::logEvent('productDeactivated', array('product'=>$pp));
+				//CB_Resource_Functions::addFeed('productExpired', $pp->user->get(), $pp);
 				$pp->status=3;
 				$this->emails->productDeactivated(array('user'=>$pp->user, 'product'=>$pp));
 				$productModel->save($pp, true);

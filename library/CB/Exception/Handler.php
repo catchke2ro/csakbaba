@@ -52,8 +52,8 @@ class SRG_Exception_Handler{
         if(getenv('APPLICATION_ENVIRONMENT')=="development" || (!empty($_COOKIE['SRGCMSDEV']))){
             echo $this->logMessage;
         }else{
-	        l($this->logMessage, 'err', true);
-	        l($this->logRecord, 'err', true);
+	        l($this->logMessage, 'err', false);
+	        l($this->logRecord, 'err', false);
             //$GLOBALS['err'][] = $this->logMessage;
         }
         error_log($this->logRecord);

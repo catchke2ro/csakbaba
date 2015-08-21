@@ -17,6 +17,14 @@ class CB_Resource_Emails {
 		$this->functions=new CB_Resource_Functions();
 	}
 
+	public function test(){
+		$this->mail->s(array(
+			'to'=>'catchke2ro@miheztarto.hu',
+			'template'=>'test',
+			'subject'=>'csakbaba.hu - Test'
+		));
+	}
+
 	public function contactForm($values){
 		$this->mail->s(array(
 			'to'=>$this->adminEmail,
@@ -123,6 +131,16 @@ class CB_Resource_Emails {
 		));
 	}
 
+	public function activationreminder($data, $aktUrl){
+		$data['activation_link']='https://'.$_SERVER['HTTP_HOST'].$aktUrl.'/'.$data['user']->activation_code;
+		$this->mail->s(array(
+			'to'=>array($data['user']->get()->username=>$data['user']->get()->email),
+			'template'=>'activationreminder',
+			'subject'=>'csakbaba.hu - Aktiváld fiókodat',
+			'data'=>$data
+		));
+	}
+
 	public function reactivation($data, $aktUrl){
 		$data['activation_link']='https://'.$_SERVER['HTTP_HOST'].$aktUrl.'/'.$data['user']['activation_code'].'/1/'.$data['user']['email'];
 		$this->mail->s(array(
@@ -151,6 +169,34 @@ class CB_Resource_Emails {
 			'subject'=>'csakbaba.hu - Üzeneted érkezett',
 			'data'=>$data
 		));
+	}
+
+	public function commentSubscribedNotification($data){
+		$categories=Zend_Registry::get('categories');
+		$data['productlink']=$categories->getUri($data['product']->category).'/'.$data['product']->id.'/'.$this->functions->slug($data['product']->name);
+
+		$loggedInUser=$this->user;
+
+		$productId=$data['product']->id;
+		$userModel=new \CB\Model\User();
+		$userModel->initQb();
+		$userModel->qb->field('subscribed')->elemMatch($userModel->qb->expr()->in(array($productId)));
+		$subscribedUsers=$userModel->runQuery();
+		foreach($subscribedUsers as $user){
+			if($user->get()->id==$data['user']->get()->id || ($loggedInUser && $loggedInUser->get()->id==$user->get()->id)) continue;
+
+			$data['subscribedUser']=$user;
+
+			$this->mail->s(array(
+				'to'=>array($user->username=>$user->email),
+				'template'=>'commentsubscribeduser',
+				'subject'=>'csakbaba.hu - Új hozzászólás',
+				'data'=>$data
+			));
+		}
+
+
+
 	}
 
 	public function commentModerated($data){

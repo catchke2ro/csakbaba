@@ -2,9 +2,12 @@
 
 <div class="breadcrumb">
 	<div class="social">
-		<a class="fbshare" href="http://www.facebook.com/share.php?u=">like</a>
+		<a class="fbshare" href="http://www.facebook.com/share.php?u=">tetszik</a>
 		<a class="gpshare" href="https://plus.google.com/share?url=">+1</a>
 	</div>
+	<? if(count($this->bc)==1 && $this->bc[0]->getUri()=='/'){?>
+		<h1>Használt és új baba és gyerek ruházat, online bababörze</h1>
+	<? } ?>
 <ul>
 <li class="link"><a href="/">csakbaba.hu</a></li>
 <li class="separator">&nbsp;»&nbsp;</li>

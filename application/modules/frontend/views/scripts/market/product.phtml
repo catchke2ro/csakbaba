@@ -10,12 +10,12 @@
 		<div class="productImages magnificParent">
 			<? $images=(is_array($this->product->images) && !empty($this->product->images)) ? $this->product->images : array(array('url'=>'/img/elements/defaultproduct.png'));?>
 			<? foreach($images as $image){?>
-				<div><img itemprop="image" src="<?=$image['url'];?>" alt="<?=$this->product->name;?>" data-mfp-src="<?=$image['url'];?>" class="magnificImage"/></div>
+				<div><img itemprop="image" src="<?=$image['url'];?>" alt="<?=htmlentities($this->product->name);?>" data-mfp-src="<?=$image['url'];?>" class="magnificImage"/></div>
 			<? } ?>
 		</div>
 	</div>
   <div class="productDetailsWrapper">
-		<h1 class="productName" itemprop="name"><?=$this->product->name;?></h1>
+		<h1 class="productName" itemprop="name"><?=htmlentities($this->product->name);?></h1>
 	    <div class="productOptions">
 	      <? $catoptions=$this->categoryTree->getOptions($this->product->category);?>
 		    <? $genreTypes=Zend_Registry::get('genreTypes');?>
@@ -80,8 +80,11 @@
 	<h2 class="commentHeader">Kérdések az eladóhoz</h2>
 	<?=$this->partial('market/comments.phtml', $this->getVars());?>
 
-	<h2 class="commentHeader"><?=$this->product->user->username;?> legfrissebb értékelései</h2>
-	<?=$this->partial('user/ratings.phtml', $this->getVars());?>
+	<? if(!(empty($this->userOrdersBuy) && empty($this->userOrdersSell))){?>
+		<h2 class="commentHeader"><?=$this->product->user->username;?> legfrissebb értékelései</h2>
+		<?=$this->partial('user/ratings.phtml', $this->getVars());?>
+	<? } ?>
+
 
 	<h2 class="userProductsHeader"><?=$this->product->user->username;?> asztaláról</h2>
 

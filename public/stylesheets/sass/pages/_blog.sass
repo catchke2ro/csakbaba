@@ -1,0 +1,138 @@
+.blogContent
+  margin: 10px 5%
+  float: left
+  +clearFix
+
+  .postItem
+    padding: 3%
+    background-color: rgba(255, 255, 255, 0.5)
+    margin-bottom: 3%
+    +clearFix
+    h2 a
+      color: $cBlogHeaderColor
+      font-style: italic
+      +transition(0.6s)
+      &:hover
+        color: darken($cBlogHeaderColor,35%)
+        +transition(0.6s)
+
+    time
+      float: right
+      width: 100%
+      font-style: italic
+      font-weight: bold
+      text-align: right
+      border-bottom: 2px solid $cBlogHeaderBorder
+      padding-bottom: 1%
+    .body
+      float: left
+      width: 100%
+      padding-top: 2%
+    img
+      margin: 2%
+      +clearFix
+    em
+      font-style: italic
+
+.blogSidebar
+  float: left
+  width: 30%
+  padding: 3%
+  margin-top: 10px
+  background-color: rgba(255, 255, 255, 0.5)
+
+.stat , .blogContent
+  h1
+    font-size: 2.2em
+    text-align: center
+    padding-bottom: 3%
+    font-weight: bold
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  h2
+    font-size: 2em
+    text-align: center
+    padding-bottom: 2%
+    font-weight: bold
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  h3
+    font-size: 1.7em
+    text-align: left
+    padding-bottom: 1%
+    font-weight: bold
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  p, li
+    font-size: 1.4em
+    line-height: 1.5em
+    padding-bottom: 1%
+    text-align: justify
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+    *
+      font-size: 1em
+
+  ol
+    list-style: decimal
+    font-size: 1em
+    padding-left: 3%
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+    li
+      margin-bottom: 1%
+
+
+  ul
+    font-size: 1.4em
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+    li
+      background-image: url(/img/elements/ulbg.png)
+      background-repeat: no-repeat
+      background-size: auto
+      padding-left: 15px
+      margin-bottom: 1%
+
+  ol.standard
+    list-style: decimal
+    font-size: 1.4em
+    padding-left: 3%
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+    li
+      margin-bottom: 1%
+
+  //p.warning
+    padding: 2%
+    background-color: rgba($col4,0.5)
+    border: 1px solid $col4
+    margin: 2% 0
+
+  //p.info
+    padding: 2%
+    background-color: rgba($col5,0.5)
+    border: 1px solid $col5
+    margin: 2% 0
+
+  //p.info2
+    padding: 2%
+    background-color: rgba($col6,0.5)
+    border: 1px solid $col6
+    margin: 2% 0
+
+  blockquote
+    background: rgba($cBlogQuotes,0.4)
+    border-left: 10px solid rgba($cBlogQuotes,0.5)
+    margin: 1.5em 10px
+    padding: 0.5em 10px
+    quotes: "\201C""\201D""\2018""\2019"
+    font-size: 1.4em
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+
+  blockquote:before
+    color: $cBlogQuotes
+    content: open-quote
+    font-size: 4em
+    line-height: 0.1em
+    margin-right: 0.25em
+    vertical-align: -0.4em
+
+  blockquote p
+    display: inline
+
+  strong
+    font-weight: bold

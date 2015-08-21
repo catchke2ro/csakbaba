@@ -1,10 +1,15 @@
+<? if(!is_object($this->category)){?>
+	<? l(print_r($_SERVER, true), 'err', false);?>
+<? } ?>
+
 <div class="productList">
 	<!--<p class="count"><span><?=Zend_Registry::isRegistered('productsCount') ? Zend_Registry::get('productsCount') : 0;?></span> db termék</p>-->
 	<div class="productBeforeListLoad"><div></div><div></div><div></div><div></div><div></div></div>
-	<ul class="products" data-productscount="<?=Zend_Registry::isRegistered('productsCount') ? Zend_Registry::get('productsCount') : 0;?>" data-page="1" data-categoryid="<?=$this->category->id;?>">
+	<ul class="products" data-productscount="<?=Zend_Registry::isRegistered('productsCount') ? Zend_Registry::get('productsCount') : 0;?>" data-page="1" data-categoryid="<?=$this->category ? $this->category->id : '';?>">
 <?=$this->partial('market/product-list-partial.phtml', array_merge($this->getVars(), array()));?>
 	</ul>
 	<div class="productAfterListLoad"><div></div><div></div><div></div><div></div><div></div></div>
-	<div class="moreProducts"><a href="javascript:void(0);">további termékek</a></div>
+	<div class="moreProducts"><a href="javascript:void(0);">további termékek <span class="productsUntil"></span></a></div>
+	<div class="productUploadLink"><a href="<?=$this->url('felhasznalotermekek');?>">Feltöltök egy terméket én is!</a></div>
 
 </div>

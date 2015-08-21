@@ -32,7 +32,7 @@ function pd($class, $level=4){
 
 function l($message='', $type='info', $firebug=false){
 	$logger=$firebug ? 'FBlogger' : 'logger';
-	if(!Zend_Registry::isRegistered($logger)) die('No logger');
+	if(!Zend_Registry::isRegistered($logger)) return;
 	$logger=Zend_Registry::get($logger);
 	$message=strip_tags(str_replace(array("</p>", "<br/>"), "\n", $message));
 	$logger->log($message, constant('Zend_Log::'.strtoupper($type)), array('timestamp'=>date('Y-m-d H:i:s')));

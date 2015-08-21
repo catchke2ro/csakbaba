@@ -1,5 +1,9 @@
 <h2>Keresési találatok erre: <em><?=$this->q;?></em></h2>
 
+<script type="text/javascript">
+	ga('send', 'event', 'search', 'results', '<?=$this->q;?>');
+</script>
+
 <? if(empty($this->results)){?>
 	<p class="noResults">Nincs találat</p>
 <? } ?>

@@ -6,7 +6,7 @@
 		<? $pages=Zend_Registry::get('nav')->findBy('resource', 'felhasznalo')->getPages(); ?>
 			<ul>
 				<? foreach($pages as $page){?>
-					<li><a href="<?=$page->getUri();?>"><?=$page->getLabel();?></a></li>
+					<li><a href="<?=$page->getUri();?>"><span><?=$page->getLabel();?></span></a></li>
 				<? } ?>
 			</ul>
 	<? } ?>
@@ -17,7 +17,8 @@
 
 		<div class="avatarInfo">
 			<div class="avatar">
-				<? if(is_array($this->profilUser->avatar) && !empty($this->profilUser->avatar)){?> <img src="<?=$this->profilUser->avatar[0]['url'];?>" alt="<?=$this->profilUser->username;?>"/><? } ?>
+				<? $img=(is_array($this->profilUser->avatar) && !empty($this->profilUser->avatar)) ? $img=reset($this->profilUser->avatar) : array('url'=>'/img/elements/defaultproduct.png'); ?>
+				<img src="<?=$img['url'];?>" alt="<?=$this->profilUser->username;?>"/>
 			</div>
 			<div class="info">
 				<p class="username"><?=$this->profilUser->username;?></p>

@@ -25,6 +25,7 @@ class CB_Resource_ACL extends Zend_Acl {
 
 	private function _generateResourceList($nav, $parent=null){
 		foreach($nav->getPages() as $page){
+			if(empty($page->get('resource'))) continue;
 			$this->addResource($page->get('resource'), $parent);
 			if(!empty($page->_pages)) $this->_generateResourceList($page, $page->get('resource'));
 		}

@@ -56,7 +56,7 @@ class Frontend_Form_UserEdit extends CB_Form_Form {
 		$postaddressAddress=new Zend_Form_Element_Text('street');
 		$postaddressAddress->setLabel('Utca, házszám')->setRequired(true)->addValidators(array(array('NotEmpty', true)));
 
-		$addressSF=new CB_Form_SubForm(array('legend'=>'Számlázási cím'));
+		$addressSF=new CB_Form_SubForm(array('legend'=>'Számlázási cím (opcionális)'));
 		$addressSF->addElements(array($addressName,$addressZip,$addressCity,$addressAddress,$addressBankNumber));
 
 
@@ -71,8 +71,8 @@ class Frontend_Form_UserEdit extends CB_Form_Form {
 
 		$this->addDisplayGroup(array('avatar','desc'),'avatardesc',array('legend'=>'Általános tudnivalók'));
 		$this->addDisplayGroup(array('username','email','gender','birth_date','phone','has_new_password','new_password','passwordconfirm'),'base',array('legend'=>'Alapadatok'));
-		$this->addSubForm($addressSF, 'address', 2);
-		$this->addSubForm($postaddressSF, 'postaddress', 3);
+		$this->addSubForm($postaddressSF, 'postaddress', 2);
+		$this->addSubForm($addressSF, 'address', 3);
 
 		//$this->addDisplayGroup(array('addressname','addresszip','addresscity','addressaddress'),'address',array('legend'=>'Cím'));
 		$this->addElements(array($oldEmail,$submit)); //@TODO le kéne még biztosítani jelszóval az egészet

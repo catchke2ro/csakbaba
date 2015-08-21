@@ -1,29 +1,45 @@
 
 
 <div class="categorySelector">
+	<div class="borzeIcons">
+		<p>Kategóriák:</p>
+		<? foreach($this->catMultiArray as $mainCat){?>
+			<a href="javascript:void(0)" class="catSelMain <?=$mainCat->id;?>" data-id="<?=$mainCat->id;?>"></a>
+		<? } ?>
+	</div>
+	<div class="loading"><div></div></div>
+	<div class="dropdown">
 
+	</div>
 </div>
 
-<div class="search">
-	<?=$this->searchForm;?>
-</div>
+
 
 
 
 <div class="usermenu">
 	<? if($this->user){?>
+		<!--<a href="javascript:void(0)" class="feedIndicator" title="Értesítések"></a>
+		<div class="feeds">
+			<div class="feedsLoading"><div></div><div></div><div></div><div></div><div></div></div>
+			<div class="feedsInner"></div>
+		</div>-->
 		<a href="<?=$this->url('profil').'/'.urlencode($this->user->username);?>" class="account" title="Profil"><?=$this->user->username;?></a>
-	  <a href="<?=$this->url('kijelentkezes');?>" class="logout" title="Kijelentkezés"><img src="/img/elements/logout.png" title="logout" alt="logout"></a>
+	  <a href="<?=$this->url('kijelentkezes');?>" class="logout" title="Kijelentkezés"></a>
 	<? } else { ?>
 		<div class="loginLink"><a href="javascript:void(0)" class="login">Bejelentkezés</a></div>
 		<div class="loginreg">
 			<div class="socialLogin">
-				<a href="/slogin?s=fb&r=<?=urlencode(Zend_Controller_Front::getInstance()->getRequest()->getUri());?>" class="fb" title="Bejelentkezés Facebook fiókkal">Facebook</a>
-				<a href="/slogin?s=gp&r=<?=urlencode(Zend_Controller_Front::getInstance()->getRequest()->getUri());?>" class="gp" title="Bejelentkezés Goggle fiókkal">Google</a>
+				<a href="/slogin?s=fb&amp;r=<?=urlencode(Zend_Controller_Front::getInstance()->getRequest()->getUri());?>" class="fb" title="Bejelentkezés Facebook fiókkal">Facebook</a>
+				<a href="/slogin?s=gp&amp;r=<?=urlencode(Zend_Controller_Front::getInstance()->getRequest()->getUri());?>" class="gp" title="Bejelentkezés Goggle fiókkal">Google</a>
 			</div>
 			<?=$this->loginform;?>
-			<a href="<?=$this->url('elfelejtett');?>" class="forgotten">Elfelejtett jelszó</a>
 			<a href="<?=$this->url('regisztracio');?>" class="registration">Regisztráció</a>
+			<a href="<?=$this->url('elfelejtett');?>" class="forgotten">Elfelejtett jelszó</a>
 		</div>
 	<? } ?>
+</div>
+
+<div class="search">
+	<?=$this->searchForm;?>
 </div>

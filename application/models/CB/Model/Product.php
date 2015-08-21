@@ -43,9 +43,11 @@ class Product extends \CB_Resource_Model{
 	}
 
 	function findByCategory($category, $tree){
-		if(!$category) return array();
+		//if(!$category) return array();
 		$this->initQb();
-		if(!empty($category->children)){
+		if(!$category){
+
+		} else if(!empty($category->children)){
 			$this->qb->field('category')->equals(new \MongoRegex('/^'.$category->id.'\-.*/i'));
 		} else {
 			$this->qb->field('category')->equals($category->id);
@@ -93,6 +95,12 @@ class Product extends \CB_Resource_Model{
 
 		$page=!empty($_GET['page']) ? $_GET['page'] : 1;
 		$pageSize=15;
+		if(!empty($_COOKIE['resolution'])){
+			$res=$_COOKIE['resolution'];
+			foreach(self::$rowSizes as $limit=>$rs){
+				if($res >= $limit) $pageSize=3*$rs;
+			}
+		}
 		header('X-CSB-PRC: '.count($results));
 		\Zend_Registry::set('productsCount', count($results));
 		$results=array_slice($results, ($page-1)*$pageSize, $pageSize);
@@ -155,5 +163,53 @@ class Product extends \CB_Resource_Model{
 		}
 		return $products;
 	}
+
+
+	public function search($q='', $categoryId=false){
+		$this->initQb();
+		if($categoryId) $this->qb->field('category')->equals($categoryId);
+		foreach(explode(' ', $q) as $word){
+			$word=trim($word);
+			if(empty($word)) continue;
+			$this->qb->field('name')->equals(new \MongoRegex('/.*'.$word.'.*/iu'));
+		}
+		$this->qb->field('status')->equals(1);
+		$resultName=$this->runQuery();
+		$this->initQb();
+		foreach(explode(' ', $q) as $word){
+			$word=trim($word);
+			if(empty($word)) continue;
+			$this->qb->field('desc')->equals(new \MongoRegex('/.*'.htmlentities($word, ENT_COMPAT | 'ENT_HTML401', 'UTF-8').'.*/iu'));
+		}
+		$this->qb->field('status')->equals(1);
+		$resultDesc=$this->runQuery();
+
+		$results=array();
+		foreach($resultName as $rn){
+			$results[$rn->id]=array('point'=>5, 'product'=>$rn);
+		}
+		foreach($resultDesc as $rd){
+			if(!array_key_exists($rd->id, $results)){
+				$results[$rd->id]=array('point'=>1, 'product'=>$rd);
+			} else {
+				$results[$rd->id]['point']++;
+			}
+		}
+
+		usort($results, function($a,$b){
+			return $a['point']<$b['point'] ? 1 : -1;
+		});
+		return $results;
+	}
+
+
+	static $rowSizes=array(
+		0=>1,
+		401=>2,
+		801=>3,
+		961=>4,
+		1181=>5,
+		1601=>7
+	);
 
 }

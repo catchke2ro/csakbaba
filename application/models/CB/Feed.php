@@ -19,14 +19,19 @@ class Feed extends \CB_Resource_ModelItem {
 	public $date;
 
 	/**
-	 * @ODM\ReferenceOne(targetDocument="User", simple=true)
+	 * @ODM\String
 	 */
-	public $user;
+	public $user_id;
 
 	/**
 	 * @ODM\String
 	 */
 	public $product_id;
+
+	/**
+	 * @ODM\String
+	 */
+	public $product_name;
 
 	/**
 	 * @ODM\String

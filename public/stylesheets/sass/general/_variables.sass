@@ -1,0 +1,786 @@
+/////////////////////////////////////////////////////////
+//
+//      Változók, mixinek, fügvények
+//      Utoljára módosítva: 06.25
+//
+////////////////////////////////////////////////////////
+
+@import "compass"
+
+$colBrown: #8b7b6a //barna
+$colGreen: #6d8b6a //zöld
+$colBlue: #6a778b //kék
+$colPink: #c67d94 // pink
+
+
+$iconFb:        "\e000"
+$iconGp:        "\e001"
+$iconLogin:     "\e002"
+$iconLogout:    "\e003"
+$iconSearch:    "\e004"
+$iconProfile:   "\e005"
+
+
+
+$sidebarWidth: 280px
+$anim: cubic-bezier(.13,.94,.62,1.25)
+
+@mixin clearFix
+  &:after
+    content: ""
+    display: block 
+    clear: both
+    float: none
+@mixin clearFixBefore
+  &:before
+    content: ""
+    display: block
+    clear: both
+    float: none
+
+@mixin valign
+  position: relative
+  top: 50%
+  +transform(translateY(-50%))
+
+@mixin ratio1
+  position: relative
+  &:before
+    content: ""
+    display: block
+    padding-top: 110%
+
+@mixin longtext($lwidth)
+  width: $lwidth
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+@mixin mq-1
+  @media (min-width: 1600px)
+    @content
+
+@mixin mq0
+  @media (max-width: 1180px)
+    @content
+
+@mixin mq1
+  @media (max-width: 960px)
+    @content
+
+@mixin mq2
+  @media (max-width: 800px)
+    @content
+
+@mixin mq3
+  @media (max-width: 700px)
+    @content
+
+@mixin mq4
+  @media (max-width: 550px)
+    @content
+
+@mixin mq5
+  @media (max-width: 400px)
+    @content
+
+@mixin mqh1
+  @media (max-height: 800px)
+    @content
+
+@mixin mqh2
+  @media (max-height: 500px)
+    @content
+
+@mixin mqh3
+  @media (max-height: 400px)
+    @content
+
+@mixin mq($prop, $mq1: false, $mq2: false, $mq3: false, $mq4: false, $mq5: false)
+  @if $mq1
+    +mq1
+      #{$prop}: $mq1
+  @if $mq2
+    +mq2
+      #{$prop}: $mq2
+  @if $mq3
+    +mq3
+      #{$prop}: $mq3
+  @if $mq4
+    +mq4
+      #{$prop}: $mq4
+  @if $mq5
+    +mq5
+      #{$prop}: $mq5
+
+
+@mixin checkbox
+  +mq5
+    height: 55px
+  input
+    display: none
+    & + label
+      position: relative
+      cursor: pointer
+      display: block
+      margin: 5px 0px
+      &:after
+        content: ""
+        display: block
+        position: absolute
+        top: -10px
+        left: 100%
+        background-color: $cInputBg
+        height: 30px
+        width: 300%
+        background-repeat: no-repeat
+        background-position: 10px center
+        background-image: url(/img/elements/cb.png)
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+        +box-sizing(border-box)
+        +mq5
+          width: 90%
+          left: 5%
+          top: 14px
+          background-position: center center
+    &:checked + label:after
+      background-image: url(/img/elements/cb_active.png)
+
+@mixin radio
+  min-height: 30px
+  height: auto
+  padding-top: 20px
+  top: auto
+  +transform(none)
+  input
+    display: none
+  & > label
+    top: 0px
+    left: 0px
+    padding: 5px
+    +transform(none)
+  div.radios
+    position: relative
+    margin-top: 20px
+    +mq5
+      margin: 24px auto 0px
+      width: 90%
+    label
+      cursor: pointer
+      display: block
+      position: relative
+      margin: 20px 0px
+      font-weight: normal
+      +mq5
+        margin: 0px 5px
+        height: 25px
+      &:after
+        content: ""
+        display: block
+        position: absolute
+        top: -14px
+        left: 100%
+        width: 300%
+        height: 32px
+        background-color: $cInputBg
+        background-repeat: no-repeat
+        background-position: 10px center
+        background-image: url(/img/elements/radio.png)
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+        +box-sizing(border-box)
+        +mq5
+          height: 25px
+          top: -8px
+      &:first-child
+        margin-top: 0px
+      &:last-child
+        margin-bottom: 0px
+    label.checked:after
+      background-image: url(/img/elements/radio_active.png)
+
+@mixin multicheckbox
+  min-height: 30px
+  height: auto
+  padding-top: 15px
+  top: auto
+  +transform(none)
+  input
+    display: none
+  & > label
+    top: 0px
+    left: 0px
+    padding: 5px
+    +transform(none)
+  div.radios
+    position: relative
+    margin-top: 20px
+    +mq5
+      margin: 24px auto 0px
+      width: 90%
+    label
+      cursor: pointer
+      display: block
+      position: relative
+      margin: 20px 0px
+      font-weight: normal
+      +mq5
+        margin: 0px 5px
+        height: 25px
+      &:after
+        content: ""
+        display: block
+        position: absolute
+        top: -10px
+        left: 100%
+        width: 300%
+        height: 30px
+        background-color: $cInputBg
+        background-repeat: no-repeat
+        background-position: 10px center
+        background-image: url(/img/elements/cb.png)
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+        +mq5
+          height: 25px
+          top: -8px
+      &:first-child
+        margin-top: 0px
+      &:last-child
+        margin-bottom: 0px
+    label.checked:after
+      background-image: url(/img/elements/cb_active.png)
+
+
+
+
+
+@mixin form
+  ul
+    width: 100%
+  li.hidden
+    display: none
+  li.field
+    height: 32px
+    background-color: $cInputLiBg
+    width: 100%
+    position: relative
+    padding: 1px
+    +clearFix
+    +mq5
+      height: 45px
+    &.req input
+      border-left: 1px solid $cError
+  label
+    width: 25%
+    color: $cInputLabel
+    text-align: right
+    padding-right: 10px
+    display: block
+    font-size: 1.2rem
+    font-style: italic
+    +valign
+    position: absolute
+  li.field > label
+    +mq5
+      text-align: center
+      top: 5px
+      width: 100%
+  input, select, li.textarea > .cke, li.textarea textarea:not(.ck), button
+    border: medium none
+    font-size: 1.4em
+    padding: 0px 5px
+    line-height: 3rem
+    background-color: $cInputBg
+    color: $cInputColor
+    float: left
+    margin-left: 25%
+    width: 75%
+    height: 100%
+    +mq5
+      display: block
+      float: none
+      height: 25px
+      width: 95%
+      margin: 12px auto 0px
+    &.cke
+      +mq5
+      height: 100%
+    &:focus
+      +box-shadow(none)
+
+  input.range
+    display: none
+
+  li.textarea > .cke
+    padding: 0px
+
+  li.textarea
+    min-height: 30px
+    height: auto
+    textarea.ck
+      display: none
+
+  li.checkbox, li.radio, li.multicheckbox
+    &.req .radios label:after
+      border-left: 1px solid $cError
+
+
+  li.checkbox
+    +checkbox
+
+  li.radio
+    +radio
+
+  li.multicheckbox
+    +multicheckbox
+
+  li.field.upload
+    height: auto
+    min-height: 30px
+    label
+      display: none
+
+  li.field.submit, li.field.button
+    width: 20%
+    min-width: 200px
+    margin-left: auto
+    margin-right: auto
+    background: transparent
+    float: right
+    +mq5
+      float: none
+      height: 32px
+      input
+        height: 100%
+    label
+      display: none
+    input, button
+      cursor: pointer
+      margin: 0px
+      width: 100%
+      background-color: $cSubmitBg
+      color: $cSubmitColor
+      +box-shadow(0px -30px 3px -15px rgba($cSubmitColor, 0.1) inset)
+      opacity: 0.9
+      &:hover
+        +box-shadow(none)
+        opacity: 1
+
+  li.field.cancelButton
+    //height: 20px
+    //min-width: 150px
+    //padding-top: 15px
+    //width: 10%
+    button
+      background-color: $cCancelBg
+      //font-size: 1.2em
+      //padding: 2px
+    label
+      display: none
+
+  li.field.errors
+    box-shadow: 0px 0px 3px $cError inset
+    ul.errors
+      position: absolute
+      top: 0px
+      right: 0px
+      width: 100px
+      height: 100%
+      background: none repeat scroll 0 0 rgba($cInputBg, 0.5)
+      color: $cError
+      padding: 5px
+
+
+  li.field.captcha
+    height: 60px
+    img
+      float:  left
+      left: 0px
+      +valign
+      position: absolute
+      width: 25%
+      +mq5
+        margin-left: 5%
+        width: 40%
+
+    input
+      height: 30px
+      margin-top: 30px
+      +mq5
+        float: right
+        margin-right: 5%
+        width: 50%
+    label
+      height: 30px
+      left: 0
+      line-height: 30px
+      margin-left: 25%
+      top: 0
+      text-align: left
+      padding-left: 5px
+      width: 75%
+      +transform(none)
+      +mq5
+        left: auto
+        right: 0px
+        margin-right: 5%
+        width: 50%
+
+  li.field.maskPhone
+    input
+      padding-left: 27px
+    &:before
+      padding-left: 5px
+      display: block
+      content: "+36"
+      position: absolute
+      left: 25%
+      top: 0px
+      color: $cInputColor
+      font-size: 1.3rem
+      line-height: 31px
+
+
+  fieldset legend
+    padding: 5px 10px
+    background-color: $cLegendBg
+    color: $cLegendColor
+    font-size: 1.3em
+    display: block
+    width: 100%
+    font-weight: bold
+
+  .cke_wysiwyg_frame, .cke_wysiwyg_div, .cke_inner, .cke
+    background: transparent
+    box-shadow: none !important
+  .cke_top
+    background: none
+    border: none
+    box-shadow: none !important
+    background-color: $cCkToolbarBg
+  .cke_toolgroup
+    border-radius: 0px
+    border: none
+    box-shadow: none
+    background: none
+    background-color: $cInputBg
+
+  li.field.range
+    +mq5
+      padding-top: 20px
+
+  div.slider
+    width: 60%
+    margin-left: 27.5%
+    border-radius: 0px
+    border: 1px solid $cInputBg
+    background: none
+    margin-top: 9px
+    float: left
+    .ui-slider-range
+      background: none
+    a
+      border-radius: 0px
+      border: 1px solid $cInputBg
+      background: none
+      background-color: transparent
+      height: 16px
+      width: 16px
+      margin-left: -0.75em
+      top: -0.4em
+  div.amount
+    color: #FFFFFF
+    font-size: 1.5em
+    margin-top: 7px
+    margin-right: 25px
+    text-align: center
+    float: right
+
+  li.field.w
+    height: 1px
+    input.w
+      opacity: 0
+      height: 1px
+      padding: 0
+
+
+
+.fileUploadContainer
+  padding: 10px
+  .fileinput-button
+    border: 3px dashed $cInputBg
+    +transition(0.6s)
+    &:hover
+      background-color: rgba($cInputBg,0.5)
+      +box-shadow( 0 0 5px $cInputBg)
+      +transition(0.6s)
+    span
+      background-color: $cFileUploadButtonBg
+      color: $cFileUploadButton
+      border: 1px solid $cFileUploadButton
+      display: block
+      margin: 10px auto
+      padding: 10px
+      text-align: center
+      width: 200px
+    input
+      height: 100%
+      width: 100%
+    &.in
+      background-color: $cInputBg
+    &.hover
+      background: $cInputBg
+  .template-upload, .template-download
+    display: none
+  .files, .fileupload-progress
+    .progress
+      height: 10px
+      width: 90%
+      border: 1px solid $cInputBg
+      margin: auto
+      .progress-bar
+        background-color: $cInputColor
+        height: 100%
+        width: 0px
+    .error
+      color: $cError
+      padding: 1px 5px
+      font-weight: bold
+      font-size: 1em
+    .template-upload, .template-download
+      display: block
+      background-color: $cInputBg
+      margin: 5px 0.5%
+      position: relative
+      float: left
+      height: 130px
+      width: 19%
+    .template-upload
+      color: $cDarktext
+      .size
+        margin: 5px 5px 10px 0px
+        float: right
+      .filename
+        display: none
+      .cancel
+        background-color: $cFileUploadButtonBg
+        color: $cFileUploadButton
+        cursor: pointer
+        font-size: 1.2em
+        height: 17px
+        left: 0
+        line-height: 17px
+        padding: 0 5px
+        position: absolute
+        top: 0
+        width: 16px
+        opacity: 0.7
+        &:hover
+          opacity: 1
+      .error
+        margin-top: 5px
+        &:before
+          clear: both
+          content: ""
+          display: block
+          float: none
+    .template-download
+      .delete
+        background-color: $cFileUploadButtonBg
+        color: $cFileUploadButton
+        cursor: pointer
+        font-size: 1.2em
+        height: 17px
+        left: 0
+        line-height: 17px
+        padding: 0 5px
+        position: absolute
+        top: 0
+        width: 16px
+        opacity: 0.7
+        &:hover
+          opacity: 1
+      .move
+        background-color: $cFileUploadButtonBg
+        color: $cFileUploadButton
+        cursor: pointer
+        font-size: 1.2em
+        height: 17px
+        right: 0
+        line-height: 17px
+        padding: 0 5px
+        position: absolute
+        top: 0
+        width: 16px
+        opacity: 0.7
+        background-image: url(/img/elements/move.png)
+        background-position: center center
+        background-repeat: no-repeat
+        &:hover
+          opacity: 1
+      .previewImage
+        margin: 0 5px
+        overflow: hidden
+        height: 100%
+      .filename
+        display: none
+      img
+        width: 100%
+        max-height: 100%
+        position: relative
+        top: 50%
+        +transform(translateY(-50%))
+        +clearFix
+
+
+
+
+@mixin tab()
+  width: 100%
+  display: table
+  table-layout: fixed
+  background-color: $cTabsBg
+  border-top: 1px solid $cTabsBorders
+  border-bottom: 1px solid $cTabsBorders
+  & > span
+    display: none
+  & > div
+    display: table-cell
+    width: 100%
+    text-align: center
+  a
+    display: inline-block
+    line-height: 3rem
+    padding: 0px 20px
+    color: $cTabsTabColor
+    font-size: 1.3em
+    border: 1px solid $cTabsBorders
+    border-bottom: none
+    border-top: none
+    background-color: $cTabsTabBg
+    text-align: center
+    &:hover, &.active
+      color: $cTabsTabBg
+      background-color: $cTabsTabBgHover
+
+
+
+@mixin loading
+  width: 100%
+  height: 30px
+  text-align: center
+  font-size: 10px
+  div
+    background-color: $cLoadingBg
+    height: 100%
+    width: 6px
+    display: inline-block
+    margin: 0px 2px
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out
+    animation: stretchdelay 1.2s infinite ease-in-out
+
+  div:nth-child(2)
+    -webkit-animation-delay: -1.1s
+    animation-delay: -1.1s
+
+  div:nth-child(3)
+    -webkit-animation-delay: -1.0s
+    animation-delay: -1.0s
+
+  div:nth-child(4)
+    -webkit-animation-delay: -0.9s
+    animation-delay: -0.9s
+
+  div:nth-child(5)
+    -webkit-animation-delay: -0.8s
+    animation-delay: -0.8s
+
+
+
+
+@mixin loadingLine
+  width: 100%
+  height: 5px
+  overflow: hidden
+  background-color: #000000
+  div
+    background-color: #FFFFFF
+    margin-top: 0
+    margin-left: -256px
+    -webkit-animation-name: bounce_loadingProgressG
+    -webkit-animation-duration: 1.3s
+    -webkit-animation-iteration-count: infinite
+    -webkit-animation-timing-function: linear
+    animation-name: bounce_loadingProgressG
+    animation-duration: 1.3s
+    animation-iteration-count: infinite
+    animation-timing-function: linear
+    width: 100%
+    height: 100%
+
+
+@-webkit-keyframes bounce_loadingProgressG
+  0%
+    margin-left: -256px
+  100%
+    margin-left: 256px
+
+@keyframes bounce_loadingProgressG
+  0%
+    margin-left: -256px
+  100%
+    margin-left: 256px
+
+
+
+@-webkit-keyframes stretchdelay
+  0%, 40%, 100%
+    -webkit-transform: scaleY(0.4)
+  20%
+    -webkit-transform: scaleY(1.0)
+
+@keyframes stretchdelay
+  0%, 40%, 100%
+    transform: scaleY(0.4)
+    -webkit-transform: scaleY(0.4)
+  20%
+    transform: scaleY(1.0)
+    -webkit-transform: scaleY(1.0)
+
+
+
+
+@-webkit-keyframes rotatebounce
+  0%, 40%, 100%
+    -webkit-transform: rotateZ(0deg)
+  20%
+    -webkit-transform: rotateZ(10deg)
+  60%
+    -webkit-transform: rotateZ(-10deg)
+
+@keyframes rotatebounce
+  0%, 40%, 100%
+    transform: rotateZ(0deg)
+    -webkit-transform: rotateZ(0deg)
+  20%
+    transform: rotateZ(10deg)
+    -webkit-transform: rotateZ(10deg)
+  60%
+    transform: rotateZ(-10deg)
+    -webkit-transform: rotateZ(-10deg)
+
+
+
+
+

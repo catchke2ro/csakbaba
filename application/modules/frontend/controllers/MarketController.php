@@ -55,7 +55,7 @@ class MarketController extends CB_Controller_Action {
 			$this->view->headTitle()->prepend($category->name);
 		}
 
-		$products=$category ? $this->productModel->findByCategory($category, $categoryTree) : array();
+		$products=$this->productModel->findByCategory($category, $categoryTree);
 
 		/*if(empty($products) && $category){
 			$this->productModel->initQb();
@@ -67,14 +67,16 @@ class MarketController extends CB_Controller_Action {
 			$productTeaser=array_slice($productTeaser, 0, 15);
 		}*/
 
-		$this->view->placeholder('subheader')->append($this->view->partial('market/menu.phtml', array(
+		$subheader=$this->view->partial('market/menu.phtml', array(
 			'catMultiArray'=>$catMultiArray,
 			'category'=>$category,
 			'categoryPath'=>$categoryPath,
 			'categoryOptions'=>$categoryOptions,
 			'products'=>$products,
 			'hasChildren'=>(is_array($children) && !empty($children))
-		)));
+		));
+		//if(trim($subheader)=='') $this->view->placeholder('subheader')->setPrefix('<div class="subheader hidden"><div class="subheaderInner">');
+		$this->view->placeholder('subheader')->append($subheader);
 
 		$this->view->assign(array(
 			'category'=>$category,
@@ -96,14 +98,16 @@ class MarketController extends CB_Controller_Action {
 		if(!empty($_GET['category_id'])) $categoryId=$_GET['category_id'];
 		if(!empty($_POST['category_id'])) $categoryId=$_POST['category_id'];
 		if(!(!empty($categoryId) && (isset($categoryTree->_singleArray[$categoryId])))){
-			$this->getHelper('viewRenderer')->setNoRender(true);
-			return false;
+			//$this->getHelper('viewRenderer')->setNoRender(true);
+			//return false;
+			$category=false;
+		} else {
+			$category=$categoryTree->_singleArray[$categoryId];
 		}
-		$category=$categoryTree->_singleArray[$categoryId];
 
 		list($category, $categoryPath, $categoryOptions, $children, $extraParams)=$categoryTree->fetchCategory($category);
 
-		$products=$category ? $this->productModel->findByCategory($category, $categoryTree) : array();
+		$products=$this->productModel->findByCategory($category, $categoryTree);
 
 		$this->view->assign(array(
 						'category'=>$category,
@@ -187,55 +191,44 @@ class MarketController extends CB_Controller_Action {
 		$comment=$commentModel->save($comment);
 		CB_Resource_Functions::logEvent('commentAdded', array('comment'=>$comment));
 		$comment->date=new DateTime($comment->date);
-		$this->emails->commentProductUser(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
+		if($this->user->get()->id != $product->user->get()->id) $this->emails->commentProductUser(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
+
+		$this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
+
 		$this->view->assign(array('comment'=>$comment, 'added'=>true, 'product'=>$product));
 		$this->_helper->viewRenderer('comment');
+	}
+
+	public function commentsubscribeAction(){
+		$this->getHelper('layout')->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender(true);
+		$productModel=new \CB\Model\Product();
+		$productId=!empty($_GET['pid']) ? $_GET['pid'] : false;
+		if(!($this->user && ($product=$productModel->findOneById($productId)) && isset($_GET['checked']))) die();
+
+		$subscribed=$this->user->subscribed ? $this->user->subscribed : array();
+		if($_GET['checked']){
+			$subscribed[]=$productId;
+		} else {
+			$flipped=array_flip($subscribed);
+			unset($flipped[$productId]);
+			$subscribed=array_keys($flipped);
+		}
+
+		$this->user->subscribed=$subscribed;
+		$this->userModel->save($this->user);
 	}
 
 
 	public function searchAction(){
 		$categoryTree=Zend_Registry::get('categories');
 		$searchSession=new Zend_Session_Namespace('search');
-		$products=$results=array();
-		$q='';
-		if(!empty($searchSession->q)){
-			$q=$searchSession->q;
-			$this->productModel->initQb();
-			if($searchSession->category_id) $this->productModel->qb->field('category')->equals($searchSession->category_id);
-			foreach(explode(' ', $q) as $word){
-				$word=trim($word);
-				if(empty($word)) continue;
-				$this->productModel->qb->field('name')->equals(new MongoRegex('/.*'.$word.'.*/iu'));
-			}
-			$this->productModel->qb->field('status')->equals(1);
-			$resultName=$this->productModel->runQuery();
-			$this->productModel->initQb();
-			foreach(explode(' ', $q) as $word){
-				$word=trim($word);
-				if(empty($word)) continue;
-				$this->productModel->qb->field('desc')->equals(new MongoRegex('/.*'.htmlentities($word, ENT_COMPAT | 'ENT_HTML401', 'UTF-8').'.*/iu'));
-			}
-			$this->productModel->qb->field('status')->equals(1);
-			$resultDesc=$this->productModel->runQuery();
+		$results=array();
 
-			$results=array();
-			foreach($resultName as $rn){
-				$results[$rn->id]=array('point'=>5, 'product'=>$rn);
-			}
-			foreach($resultDesc as $rd){
-				if(!array_key_exists($rd->id, $results)){
-					$results[$rd->id]=array('point'=>1, 'product'=>$rd);
-				} else {
-					$results[$rd->id]['point']++;
-				}
-			}
+		if($searchSession->q) $results=$this->productModel->search($searchSession->q, ($searchSession->category_id ? $searchSession->category_id : false));
 
-			usort($results, function($a,$b){
-				return $a<$b ? 1 : -1;
-			});
-		}
 		$this->view->assign(array(
-			'q'=>$q,
+			'q'=>$searchSession->q ? $searchSession->q : '',
 			'results'=>$results,
 			'categoryTree'=>$categoryTree
 		));
@@ -286,6 +279,7 @@ class MarketController extends CB_Controller_Action {
 		$this->emails->buyShopUser(array('product'=>$product, 'user'=>$order->user, 'shop_user'=>$order->shop_user, 'order'=>$order));
 		$product->status=2;
 		$productModel->save($product);
+		//CB_Resource_Functions::addFeed('newOrder', $order->shop_user, $product);
 		CB_Resource_Functions::logEvent('orderingEnded', array('order'=>$order));
 		return true;
 	}

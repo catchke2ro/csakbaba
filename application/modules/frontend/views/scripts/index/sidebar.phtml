@@ -1,28 +1,35 @@
 <header class="sidebar <?=((!empty($_COOKIE['stick']) && $_COOKIE['stick']=='true')?'stick':'');?>">
-		<div class="sidebarButtons animated fadeIn"><div class="stick_it"><a href="javascript:void(0)"><img src="/img/elements/pin.png" alt="pin_icon" title="stick"></a></div>
-			<div class="hamburger_menu"><a href="javascript:void(0)"><img src="/img/elements/hmenu_icon.png" alt="hamburger_icon" title="menu"></a></div>
+    <div class="sidebarButtons"><div class="stick_it"><a href="javascript:void(0)"></a></div>
+        <div class="hamburger_menu"><a href="javascript:void(0)"></a></div>
+    </div>
+    <a href="/" class="logo"><img property="og:image" src="/img/elements/logo.png " title="logo" alt="logo"/></a>
+		<div class="borzeIcons">
+			<? foreach($this->catMultiArray as $mainCat){?>
+				<a href="<?=$this->url('piac').$mainCat->url;?>" class="<?=$mainCat->id;?>"><?=$mainCat->name;?></a>
+			<? } ?>
 		</div>
-		<a href="/" class="logo animated flipInY"><img src="/img/elements/logoV3.png " title="logo" alt="logo"/></a>
-		<div class="menu">
-			<nav><?=$this->navigation($this->nav)->menu()->setMaxDepth(1);?></nav>
-		</div>
+    <div class="menu">
+        <nav><?=$this->navigation($this->nav)->menu()->setMaxDepth(1);?></nav>
+    </div>
 
-		<div class="bottom">
-			<div class="colorChanger">
-				<ul>
-					<li data-col="brown" class="brown <?=($this->color=='brown') ? 'active' : '';?>"><a href="javascript:void(0);" title="Barna"></a></li>
-					<li data-col="green" class="green <?=($this->color=='green') ? 'active' : '';?>"><a href="javascript:void(0);" title="Zöld"></a></li>
-					<li data-col="blue" class="blue <?=($this->color=='blue') ? 'active' : '';?>"><a href="javascript:void(0);" title="Kék"></a></li>
-				</ul>
-			</div>
+    <div class="bottom">
+        <div class="colorChanger">
+            <ul>
+                <li data-col="brown" class="brown <?=($this->color=='brown') ? 'active' : '';?>"><a href="javascript:void(0);" title="Barna"></a></li>
+                <li data-col="blue" class="blue <?=($this->color=='blue') ? 'active' : '';?>"><a href="javascript:void(0);" title="Kék"></a></li>
+                <li data-col="pink" class="pink <?=($this->color=='pink') ? 'active' : '';?>"><a href="javascript:void(0);" title="Rózsaszín"></a></li>
+            </ul>
+        </div>
 
-			<div class="socialmenu">
-				<a href="https://www.facebook.com/csakbaba.hu" target="_blank" class="social fb"></a>
-				<a href="https://plus.google.com/110411126847173107547" target="_blank" class="social gp"></a>
-				<a href="http://www.pinterest.com/csakbaba/" target="_blank" class="social pr"></a>
-				<a href="<?=$this->url('contact');?>" class="social email"></a>
-			</div>
-		</div>
+        <div class="socialmenu">
+            <a href="https://www.facebook.com/csakbaba.hu" target="_blank" class="social fb"></a>
+            <a href="https://plus.google.com/110411126847173107547" target="_blank" class="social gp"></a>
+            <a href="http://www.pinterest.com/csakbaba/" target="_blank" class="social pr"></a>
+            <a href="<?=$this->url('contact');?>" class="social email"></a>
+        </div>
+
+	      <p class="copyright">© 2014 Csakbaba.hu Kft.</p>
+    </div>
 
 
 

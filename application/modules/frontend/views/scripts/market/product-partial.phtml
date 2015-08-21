@@ -3,7 +3,7 @@
 <? $tag=isset($this->tag) ? $this->tag : 'li';?>
 <? $nameTag=isset($this->nameTag) ? $this->nameTag : 'h3';?>
 <<?=$tag;?>
-	class="product <?=$this->product->type;?> <?=(isset($this->back) && $this->back==false)?'noflip':'';?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->product->isPromoted('frame')?'promotedFrame':'');?> <?=($this->product->isPromoted('list')?'promotedList':'');?> status<?=$this->product->status;?>"
+	class="product <?=$this->product->type;?> <?=((isset($this->back) && $this->back==false)?'noflip':'');?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->product->isPromoted('frame')?'promotedFrame':'');?> <?=($this->product->isPromoted('list')?'promotedList':'');?> status<?=$this->product->status;?>"
 	data-id="<?=$this->product->id;?>"
 	data-categoryid="<?=$this->product->category;?>"
 	<?=(!empty($this->extraData)?$this->extraData:'');?>
@@ -19,10 +19,10 @@
 				<div class="front">
 					<div class="productImages">
 						<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
-						<img src="<?=$img['mid'];?>" alt="<?=$this->product->name;?>" data-preview="<?=$img['mid'];?>" class="<?=!empty($this->previewImg) ? 'previewImg' : '';?>" />
+						<img src="<?=$img['mid'];?>" alt="<?=htmlentities($this->product->name);?>" data-preview="<?=$img['mid'];?>" class="<?=!empty($this->previewImg) ? 'previewImg' : '';?>" />
 					</div>
 					<<?=$nameTag;?> class="productName">
-						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=$this->product->name;?></a>
+						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=htmlentities($this->product->name);?></a>
 						<? if(!empty($this->o)){?>
 							<div class="productInfo">
 								<span>Vásárlás dátuma: <strong><?=$this->o->date->format('Y.m.d H:i');?></strong></span>
@@ -41,7 +41,7 @@
 
 			<? if(!isset($this->back) || $this->back==true){?>
 				<div class="back">
-					<h3 class="productName"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=$this->product->name;?></a></h3>
+					<h3 class="productName"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=htmlentities($this->product->name);?></a></h3>
 					<div class="details">
 						<!--<div class="productDesc"><?=implode(' ', array_slice(explode(' ', $this->product->desc), 0, 12)).' ...';?></div>-->
 						<div class="productOptions">
@@ -65,7 +65,7 @@
 
 					<div class="productGallery">
 						<? if(is_array($this->product->images) && !empty($this->product->images)){ foreach($this->product->images as $image){?>
-							<div><img src="<?=$image['small'];?>" data-preview="<?=$image['mid'];?>" alt="<?=$this->product->name;?>" class="previewImg"/></div>
+							<div><img src="<?=$image['small'];?>" data-preview="<?=$image['mid'];?>" alt="<?=htmlentities($this->product->name);?>" class="previewImg"/></div>
 						<? }} ?>
 					</div>
 				</div>

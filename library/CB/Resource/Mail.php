@@ -60,7 +60,7 @@ class CB_Resource_Mail extends Zend_Mail {
 		$html=$layout->render();
 
 		$html=mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
-		$ctis=new CB_Resource_CssToInlineStyles($html, file_get_contents(APPLICATION_PATH.'/../public/css/email.css'));
+		$ctis=new CB_Resource_CssToInlineStyles($html, file_get_contents(APPLICATION_PATH.'/../public/stylesheets/css/email.css'));
 		$html=$ctis->convert();
 
 		return $html;

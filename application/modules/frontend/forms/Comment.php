@@ -7,6 +7,7 @@ class Frontend_Form_Comment extends CB_Form_Form {
 	}
 
 	public function initFields(){
+		$this->setAction('#');
 		$user=Zend_Layout::getMvcInstance()->getView()->user;
 		$text=new Zend_Form_Element_Textarea('text');
 		$text->setAttrib('placeholder', 'üzenet')->removeDecorator('label')->setAttrib('required', 'required');

@@ -10,7 +10,7 @@ class IndexController extends CB_Controller_Action {
 		$categoryTree=Zend_Registry::get('categories');
 
 		$this->view->headMeta()->setName('description', 'A csakbaba.hu egy online bababörze, ahol nem csak eladhatod használt vagy új baba, kismama és gyerekholmijaidat, hanem be is szerezheted mindazokat az eladók asztaláról.');
-		$this->view->headMeta()->setName('keywords', 'csakbaba, új, használt, baba, gyerek, kismama, ruha, börze');
+		//$this->view->headMeta()->setName('keywords', 'csakbaba, új, használt, baba, gyerek, kismama, ruha, börze');
 
 
 		$promoteFirst=array();
@@ -80,6 +80,7 @@ class IndexController extends CB_Controller_Action {
 
 			}
 		}
+		$this->view->assign(array('contactForm'=>$form));
 		$this->getHelper('layout')->setLayout('default');
 	}
 
@@ -154,6 +155,13 @@ class IndexController extends CB_Controller_Action {
 		foreach($userModel->find() as $user){
 			$sites[]=array('url'=>$url.'/'.urlencode($user->username), 'freq'=>'daily');
 		}
+	}
+
+
+
+	public function emailtestAction(){
+		$this->emails->test();
+		die();
 	}
 
 

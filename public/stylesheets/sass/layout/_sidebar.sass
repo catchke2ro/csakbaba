@@ -1,0 +1,391 @@
+.sidebar
+  position: fixed
+  height: 100%
+  width: $sidebarWidth+40px
+  top: 0px
+  z-index: 90000
+  left: -$sidebarWidth
+  padding-left: 40px
+  background-color: $cSidebarBg
+  +transition(left 0.4s $anim 1s)
+  +mq2
+    +transition(left 0.4s $anim 0s)
+
+  &.stick
+    .sidebarButtons .stick_it a
+      background-image: url(/img/elements/pin2.png)
+
+
+
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // SIDEBAR "BORDER BAR"
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  .sidebarButtons
+    background-color: $cSidebarBorderBg
+    height: 100%
+    position: absolute
+    right: 0
+    width: 40px
+
+    .hamburger_menu
+      height: 100%
+      position: relative
+      z-index: 50
+      margin-top: -40px
+      a
+        background-image: url(/img/elements/hamburger.png)
+        background-size: 70% auto
+        background-position: center
+        background-repeat: no-repeat
+        width: 100%
+        height: 35px
+        +valign
+    .stick_it
+      position: relative
+      z-index: 100
+      +mq3
+        display: none
+      a
+        background-image: url(/img/elements/pin.png)
+        background-position: center
+        background-repeat: no-repeat
+        margin-top: 8px
+        height: 32px
+        width: 100%
+
+    .hamburger_menu a, .stick_it a
+      display: block
+      opacity: 0.7
+      +transition(0.3s)
+      &:hover
+        opacity: 1
+        +transition(0.3s)
+
+
+
+
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // LOGO
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  a.logo
+    position: fixed
+    left: 0px
+    top: 0px
+    height: 140px
+    width: $sidebarWidth - 40px
+    padding: 6px
+    margin-left: 40px
+    display: block
+    text-align: center
+    +background-image(linear-gradient($cSidebarBg 0%, rgba($cSidebarBg, 0) 70%))
+    +transition(width 0.4s $anim 1s, margin-left 0.4s $anim 1s, height 0.4s, padding 0.4s)
+    &.shrinked
+      padding: 1px
+      height: 40px
+    +mq2
+      +transition(width 0.4s $anim 0s, margin-left 0.4s $anim 0s)
+    +mq3
+      position: absolute
+      margin-left: 40px !important
+      padding-top: 45px
+    +mq5
+      height: 100px
+    +mqh2
+      height: 100px !important
+    +mqh3
+      height: 50px !important
+    img
+      height: 100%
+
+
+
+
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // BORZE CATEGORY ICONS
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  .borzeIcons
+    padding-top: 140px
+    width: $sidebarWidth - 40px
+    +mqh2
+      padding-top: 100px !important
+      height: 0px !important
+    +mqh3
+      padding-top: 50px !important
+    +mq2
+      height: 0px
+    +mq5
+      padding-top: 100px
+    +mq5
+      padding-top: 50px
+    a
+      height: 55px
+      width: 55px
+      margin: 10px
+
+
+
+
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // MAIN MENU
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  .menu
+    height: 100%
+    &.menuDropped
+      nav > ul > li > a
+        font-size: 1.4rem
+        line-height: 3rem
+        +mq2
+          font-size: 1.8rem
+          line-height: 4rem
+
+    nav
+      height: 100%
+      overflow-y: auto
+      width: $sidebarWidth - 40px
+    nav > ul
+      list-style: none
+      margin-left: 0
+      padding-left: 0
+      position: relative
+      +mq1
+        min-height: 250px
+      & > li
+        & > a
+          padding-left: 40px
+          width: 100%
+          display: block
+          font-size: 1.8rem
+          line-height: 4rem
+          background-color: $cSidebarMenuItemBg
+          color: $cSidebarMenuItemCol
+          font-style: italic
+          border-bottom: 1px solid $cSidebarMenuItemBgHover
+          border-top: 1px solid $cSidebarMenuItemBgHover
+          +transition(color 0.3s, background-color 0.3s, font-size 0.5s, line-height 0.5s)
+        &:hover > a, &.active > a
+          color: $cSidebarMenuItemColHover
+          background-color: $cSidebarMenuItemBgHover
+          border-bottom: 1px solid $cSidebarMenuItemBg
+          border-top: 1px solid $cSidebarMenuItemBg
+        +mq1
+          &.opened > a
+            background-image: url("/img/elements/menuback.png")
+            background-position: center center
+            background-repeat: no-repeat
+            background-size: contain
+            color: transparent
+            height: 100%
+            left: 0
+            padding: 0
+            position: absolute
+            top: 0
+            width: 15%
+        ul
+          max-height: 0px
+          overflow: hidden
+          +transition(max-height 0.3s)
+          width: 100%
+          background-color: $cSidebarMenuItemBg
+          padding-left: 50px
+          list-style-type: disc
+          color: $cWhite
+          +mq1
+            position: absolute
+            top: 0px
+            right: 0px
+            width: 85%
+            height: 100%
+            border-left: 2px solid $cSidebarBg
+            padding-left: 20px
+          li
+            font-size: 1.5rem
+            margin-left: -100%
+            +transition(margin-left 0.3s)
+            @for $i from 1 through 10
+              &:nth-child(#{$i})
+                +transition-delay($i * 0.05s)
+            a
+              width: 100%
+              font-size: 1.5rem
+              line-height: 2.3rem
+              font-style: italic
+              display: block
+              color: $cSidebarMenuItemCol
+              background-color: transparent
+              border: none
+              +mq1
+                font-size: 1.4rem
+                line-height: 3rem
+            &:hover a, &.active a
+              color: $cSidebarMenuItemColHover
+              background-color: transparent
+              +transition(color 0.3s)
+        &.active ul
+          max-height: 200px
+          +mq1
+            max-height: 1000px
+          li
+            margin-left: 0px
+
+
+
+
+
+  //::::::::::::::::::::::::::::::::::::::::
+  // SIDEBAR BOTTOM (Color changer, social, etc.)
+  //::::::::::::::::::::::::::::::::::::::::
+  div.bottom
+    height: 115px
+    position: absolute
+    bottom: 0px
+    width: $sidebarWidth - 40px
+    +clearFix
+    +mqh3
+      height: 70px
+
+
+
+    // COLOR CHANGER
+    div.colorChanger
+      background-image: url(/img/elements/flagrope.png)
+      width: 50%
+      margin: auto
+      background-position: center top
+      background-repeat: no-repeat
+      background-size: 100% auto
+      height: 45px
+      +mqh3
+        display: none
+      ul
+        position: relative
+        li
+          position: absolute
+          height: 30px
+          width: 27px
+          a
+            position: relative
+            display: block
+            height: 100%
+            width: 100%
+            &:after
+              content: ""
+              display: block
+              position: absolute
+              top: 0px
+              left: 0px
+              width: 0
+              height: 0
+              border-style: solid dotted dotted
+              border-width: 30px 13px 0 13px
+              border-color: $cBrowntext rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0)
+              z-index: 10
+            &:before
+              border-style: solid dotted dotted
+              border-width: 26px 11px 0
+              content: ""
+              display: block
+              height: 0
+              left: 2px
+              position: absolute
+              top: 1px
+              width: 0
+              z-index: 20
+              +transition(border-color 0.3s)
+          &.brown
+            left: 50%
+            margin-left: -52px
+            top: 8px
+            +transform(rotate(9deg))
+            a:before
+              border-color: $cSelBrown rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0)
+            &:hover a:before
+              border-color: darken($cSelBrown, 20%) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0)
+          &.blue
+            left: 50%
+            margin-left: -12px
+            top: 11px
+            a:before
+              border-color: $cSelBlue rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0)
+            &:hover a:before
+              border-color: darken($cSelBlue, 20%) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0)
+          &.pink
+            left: 50%
+            margin-left: 25px
+            top: 8px
+            +transform(rotate(-9deg))
+            a:before
+              border-color: $cSelPink rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0)
+            &:hover a:before
+              border-color: darken($cSelPink, 20%) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0)
+
+
+    //SOCIAL MENU
+    .socialmenu
+      height: 30px
+      width: 136px
+      margin: auto
+      margin-top: 10px
+      a
+        background-color: $cSidebarSocialBg
+        float: left
+        height: 100%
+        margin: 0 2px
+        width: 30px
+        background-position: center center
+        background-repeat: no-repeat
+        background-size: 80%
+        opacity: 0.7
+        +transition(opacity 0.3s)
+        &:hover
+          opacity: 1
+      a.fb
+        background-image: url(/img/elements/facebook.png)
+      a.gp
+        background-image: url(/img/elements/googleplus.png)
+      a.pr
+        background-image: url(/img/elements/pinterest.png)
+      a.email
+        background-image: url(/img/elements/email.png)
+
+
+    //COPYRIGHT
+    p.copyright
+      text-align: center
+      color: $cBrowntext
+      font-size: 1.4rem
+      margin-top: 10px
+
+
+
+//::::::::::::::::::::::::::::::::::::::::
+// SIDEBAR BEHAVIOR
+//::::::::::::::::::::::::::::::::::::::::
+html:not(.mobile)
+  header.sidebar:hover, header.sidebar.stick
+    left: -40px
+    +transition(left 0.4s $anim 0.2s)
+    a.logo
+      margin-left: 0px
+      width: $sidebarWidth - 40px
+      +mq('display', $mq3: block)
+      +transition(width 0.4s $anim 0.2s, margin-left 0.4s $anim 0.2s)
+
+html.mobile
+  header.sidebar.opened
+    left: -40px
+    +transition(left 0.4s $anim 0.2s)
+  header.sidebar a.logo
+    position: absolute
+    margin-left: 40px
+
+
+.sidebar.opened, .sidebar.stick, .sidebar:hover
+  a.logo.shrinked
+    height: 140px
+    padding: 6px
+
+

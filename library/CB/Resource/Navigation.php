@@ -20,7 +20,7 @@ class CB_Resource_Navigation extends Zend_Navigation {
 
 	function initNavigation(){
 		$this->addPages(array(
-			array('label'=>'Főoldal', 'title'=>'csakbaba.hu - Használt baba és gyerek ruházat, online bababörze', 'titleOverwrite'=>true, 'uri'=>'/', 'mvc'=>array('index','index'), 'resource'=>'fooldal'),
+			array('label'=>'Főoldal', 'title'=>'csakbaba.hu - Használt és új baba és gyerek ruházat, online bababörze', 'titleOverwrite'=>true, 'uri'=>'/', 'mvc'=>array('index','index'), 'resource'=>'fooldal'),
 			array('label'=>'Börze', 'uri'=>'/borze', 'mvc'=>array('market','index'), 'resource'=>'piac'),
 			array('label'=>'Kiemelt termékek', 'uri'=>'/kiemelt', 'mvc'=>array('market','promoted'), 'resource'=>'kiemelt', 'visible'=>false),
 			array('label'=>'Asztalom', 'notValid'=>array('label'=>'Oldalam'), 'class'=>'user', 'uri'=>'/felhasznalo', 'mvc'=>array('user', 'index'), 'resource'=>'felhasznalo', 'noindex'=>true, 'visible'=>true, 'pages'=>array(
@@ -31,6 +31,7 @@ class CB_Resource_Navigation extends Zend_Navigation {
 				array('label'=>'Egyenlegem, számláim', 'uri'=>'/felhasznalo/egyenleg', 'mvc'=>array('user','charge'), 'resource'=>'egyenleg', 'visible'=>true),
 				array('label'=>'Kijelentkezés', 'uri'=>'/felhasznalo/kijelentkezes', 'mvc'=>array('user','logout'), 'resource'=>'kijelentkezes', 'visible'=>true),
 			)),
+			array('label'=>'Termékfeltöltés', 'notValid'=>array('label'=>'Asztalnyitás', 'url'=>'/felhasznalo/adatmodositas?nyitas=1'), 'uri'=>'/felhasznalo/termekek', 'mvc'=>array('shop','userproducts'), 'visible'=>true),
 			array('label'=>'A csakbabáról', 'uri'=>'/rolunk', 'mvc'=>array('index','about'), 'resource'=>'rolunk'),
 			array('label'=>'Blog', 'uri'=>'/blog', 'mvc'=>array('index','blog'), 'resource'=>'blog'),
 

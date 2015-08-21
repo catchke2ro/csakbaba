@@ -390,6 +390,9 @@ return array(
 									'szekreny'=>    array('name'=>'Gyerekszekrények',                                   'slug'=>'gyerekszekreny'),
 									'kisbutor'=>    array('name'=>'Gyerek kisbútorok',                                  'slug'=>'gyerek-kisbutor')
 					)),
+					'biztonsag'=>   array('name'=>'Gyerekbiztonság',                                      'slug'=>'gyerekbiztonsag', 'children'=>array(
+									'autosules'=>   array('name'=>'Autósülés',                                          'slug'=>'autosules', 'prop'=>array('gyerekkor'))
+					))
 	)),
 	'kismama'=>     array('name'=>'Kismama',                                            'slug'=>'kismama-ruhazat', 'promoteName'=>'kismama', 'sex'=>false, 'children'=>array(
 					'fehernemu'=>   array('name'=>'Kismama fehérneműk',                                 'slug'=>'egyeb', 'children'=>array(

@@ -8,6 +8,7 @@ class Frontend_Form_Search extends CB_Form_Form {
 	}
 
 	public function initFields(){
+		$this->setAction('#');
 		$catid=new Zend_Form_Element_Hidden('category_id');
 		$catid->removeDecorator('label');
 		$q=new Zend_Form_Element_Text('q');

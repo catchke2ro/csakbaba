@@ -1,0 +1,131 @@
+//***************************************************************
+//
+//           Filter
+//
+//***************************************************************
+
+form.filter
+  height: 100%
+  position: relative
+  .categoryOptions
+    height: 100%
+    +clearFix
+    .optionWrapper
+      float: left
+      height: 100%
+      width: percentage(1/5)
+    .submit
+      width: percentage(1/5)
+      float: left
+      height: 100%
+      display: none
+      input
+        cursor: pointer
+        border: none
+        margin-top: 2px
+
+  .option
+    position: relative
+    & > a
+      height: 100%
+      display: block
+      line-height: 40px
+      text-align: center
+      font-size: 1.4em
+      text-transform: uppercase
+      font-style: italic
+      color: $cDarktext
+      +transition(0.8s)
+      +mq2
+        font-size: 1.2em
+      +mq5
+        font-size: 1em
+      &:hover
+        color: white
+        +transition(0.8s)
+    ul
+      bottom: 40px
+      +box-shadow(none)
+      position: absolute
+      width: 100%
+      max-height: 0px
+      background-color: $cFilterBg
+      overflow: hidden
+      padding: 0 5%
+      border-top: 0px
+      +transition(padding 0.5s $anim 1s, max-height 0.5s $anim 1s)
+      +mq2
+        +transition(padding 0s $anim 0s, max-height 0s $anim 0s)
+      li
+        margin: 3px 0px
+        position: relative
+        label
+          color: #FFFFFF
+  input
+    width: 100%
+    font-size: 1.6em
+    padding: 7px 10px
+    font-weight: bold
+    background-color: $cInputBg
+    color: $cInputColor
+
+  input[type=text]
+    border: 0px
+    text-transform: lowercase
+  li.checkbox
+    height: 25px
+    +checkbox
+    input + label:after
+      left: 45px
+  li.radio
+    height: 25px
+    +radio
+    padding-top: 1px
+    padding-bottom: 15px
+    div.radios
+      margin-top: 0px
+    .radios label:after
+      left: 45px !important
+
+  input.range
+    display: none
+
+  div.optionWrapper
+    div.slider
+      width: 90%
+      margin: auto
+      border-radius: 0px
+      border: 1px solid white
+      background: none
+      .ui-slider-range
+        background: none
+      a
+        border-radius: 0px
+        border: 1px solid white
+        background: none
+        background-color: $cInputBg
+        height: 16px
+        width: 16px
+        margin-left: -0.75em
+        top: -0.4em
+    div.amount
+      color: #FFFFFF
+      font-size: 1.5em
+      margin-top: 10px
+      text-align: center
+
+
+
+html:not(.mobile) form.filter .option:hover, html.mobile form.filter .option.opened
+  ul
+    +transition(padding 0.5s $anim, max-height 0.5s $anim)
+    padding: 5%
+    max-height: 100vh
+    +mq2
+      width: 100%
+      position: absolute
+      top: 40px
+      left: 0px
+    +mq5
+      width: 100%
+

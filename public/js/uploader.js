@@ -104,7 +104,7 @@ jQuery(function () {
 	});
 
 
-	if($('.dropZone').length){
+	if($('.dropzone').length){
 		jQuery(document).bind('dragover', function (ev) {
 			var dropZone = jQuery('.dropzone'),	timeout = window.dropZoneTimeout;
 			if (!timeout) {	dropZone.addClass('in'); }

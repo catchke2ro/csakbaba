@@ -1,0 +1,188 @@
+@import "compass"
+$brown: #8b7b6a
+$bgcol: adjust_color(lighten($brown, 40%), $green: -11, $blue: -22)
+$col2: adjust_color($brown, $red:-111, $green: -54, $blue: +8)
+
+@mixin mq-1
+  @media (min-width: 1600px)
+    @content
+
+@mixin mq0
+  @media (max-width: 1180px)
+    @content
+
+@mixin mq1
+  @media (max-width: 960px)
+    @content
+
+@mixin mq2
+  @media (max-width: 800px)
+    @content
+
+@mixin mq3
+  @media (max-width: 700px)
+    @content
+
+@mixin mq4
+  @media (max-width: 550px)
+    @content
+
+@mixin mq5
+  @media (max-width: 400px)
+    @content
+
+body
+  background-color: rgba(darken($brown,30%),0.95) !important
+
+@mixin clearFix
+  &:after
+    content: ""
+    display: block
+    clear: both
+    float: none
+
+.csbHeader
+  height: 40px
+  width: 100%
+  position: fixed
+  top: 0px
+  left: 0px
+  +box-sizing(border-box)
+  +mq5
+    height: 60px
+
+  .csbHeaderInner
+    background-color: darken($brown, 10%)
+    box-shadow: 5px 0 5px #000000
+    height: 100%
+    position: relative
+    padding-left: 220px
+    +mq2
+      padding-left: 0px
+
+
+    a.fandepay
+      position: absolute
+      right: 10px
+      height: 100%
+      +mq2
+        padding-top: 8px !important
+        width: 130px
+      +mq5
+        padding-top: 30px !important
+
+    p.csbTitle
+      background: darken($brown, 20%)
+      color: #FFFFFF
+      font-weight: bold
+      height: 100%
+      line-height: 38px
+      padding-left: 10px
+      +mq5
+        font-size: 11px
+
+    a.csbLogo
+      margin-top: 40px
+      @include background-image(linear-gradient(top, rgba($brown,1) 0%,rgba($brown,0) 100%))
+      background-image: -ms-linear-gradient(top, rgba($brown,1) 0%,rgba($brown,0) 100%)
+      -moz-box-sizing: border-box
+      display: block
+      height: 120px
+      left: 0
+      padding: 6px
+      position: fixed
+      text-align: center
+      top: 0
+      width: 220px
+      +mq2
+        height: 80px
+      +mq5
+        margin-top: 60px
+      +mq5
+        display: none
+      img
+        height: 100%
+
+
+.csbContent
+  margin-top: 40px
+  padding-top: 20px
+  background-color: $bgcol
+  background-attachment: fixed
+  background-image: url("http://csakbaba.hu/img/elements/bg.png")
+  background-repeat: repeat
+  +mq2
+    padding-top: 90px
+  +mq5
+    padding-top: 130px
+  +mq5
+    padding-top: 20px
+
+  .csbContentInner
+    padding: 10px
+    font-size: 14px
+    min-height: 100px
+    background-color: rgba(255, 255, 255, 0.5)
+    margin-left: 240px
+    margin-right: 20px
+    +clearFix
+    +mq2
+      margin-left: 20px
+    h3
+      margin: 0px
+
+    .csbInfo
+      +clearFix
+
+    .csbCustomer, .csbTetel
+      background-color: rgba(255, 255, 255, 0.5)
+      margin: 5%
+      width: 40%
+      float: left
+      height: 200px
+      padding: 10px 15px
+      +box-sizing(border-box)
+      +mq5
+        width: 100%
+        float: none
+        margin: 10px auto
+
+      h3
+        font-size: 20px
+        margin-top: 0px
+        border-bottom: 1px solid black
+
+.csbFormDiv
+  button.btn.blue
+    margin: auto
+    display: block
+    margin-bottom: 20px
+    background-color: $col2
+    font-size: 16px
+    &:hover
+      background-color: lighten($col2, 10%) !important
+
+div.footer
+  width: 100%
+  border-top: 2px solid rgba(white,0.3)
+  +box-sizing(border-box)
+
+  .logos
+    width: 50%
+    margin: auto
+    text-align: center
+    +mq2
+      width: 80%
+
+  .csbCeg
+    background-color: rgba(255, 255, 255, 0.2)
+    width: 30%
+    margin: auto
+    padding: 20px
+    margin-top: 20px
+    +mq2
+      width: 80%
+    *
+      color: #FFFFFF
+
+

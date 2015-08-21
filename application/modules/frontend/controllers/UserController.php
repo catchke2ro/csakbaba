@@ -275,6 +275,9 @@ class UserController extends CB_Controller_Action {
 				$order->$field=$rating;
 				$orderModel->save($order);
 				CB_Resource_Functions::logEvent('userRatingEnded', array('order'=>$order));
+
+				$notifyUser=$this->user->id==$order->user->id ? $order->shop_user : $order->user;
+				//CB_Resource_Functions::addFeed('newRating', $notifyUser->get(), $rating->product);
 				$this->getHelper('viewRenderer')->setNoRender(true);
 			}
 		}
@@ -339,6 +342,68 @@ class UserController extends CB_Controller_Action {
 		$payment=new CB_Resource_Payment($_POST['payment_id'], $this);
 		$payment->hook();
 	}
+
+
+
+
+	public function feedcountAction(){
+		$this->getHelper('layout')->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender();
+		if(!$this->user) return;
+
+		$feedModel=new \CB\Model\Feed();
+		$feeds=$feedModel->find(array('conditions'=>array('user_id'=>$this->user->id, 'read'=>false)));
+		echo count($feeds);
+	}
+
+
+	public function feedsAction(){
+		$this->getHelper('layout')->disableLayout();
+		if(!$this->user) return;
+
+		$feedModel=new \CB\Model\Feed();
+		$unreadFeeds=$feedModel->find(array('conditions'=>array('user_id'=>$this->user->id, 'read'=>false)));
+		$readFeeds=$feedModel->find(array('conditions'=>array('user_id'=>$this->user->id, 'read'=>true), 'limit'=>5));
+		$feeds=array_merge($unreadFeeds, $readFeeds);
+		usort($feeds, function($a, $b){
+			return $a->date->getTimestamp() < $b->date->getTimestamp() ? 1 : -1;
+		});
+		$this->view->assign(array(
+			'feeds'=>$feeds,
+			'feedTypes'=>Zend_Registry::get('feedTypes')
+		));
+	}
+
+	public function feedreadAction(){
+		$feedModel=new \CB\Model\Feed();
+		if(!($feed=$feedModel->findOneById($this->getParam('fid')))) exit();
+
+		$feed->read=true;
+		$feedModel->save($feed);
+		$this->forward('feeds');
+	}
+
+
+
+
+
+
+
+
+	/*public function activationreminderAction(){
+		$this->getHelper('layout')->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender();
+
+		$inactiveUsers=$this->userModel->find();
+		$inactiveUsers=array_filter($inactiveUsers, function($user){
+			if($user->active) return false;
+			return true;
+		});
+
+		foreach($inactiveUsers as $user){
+			$this->emails->activationreminder(array('user'=>$user), $this->url('aktivacio'));
+		}
+	}*/
 
 
 

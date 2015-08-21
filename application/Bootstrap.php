@@ -11,6 +11,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Zend_Registry::set('CsbConfig', $config);
 	}
 
+	function _initSession(){
+		Zend_Session::setOptions(array('cookie_lifetime' => 2592000, 'gc_maxlifetime'  => 2592000, 'remember_me_seconds'=>2592000));
+	}
+
 	function _initException(){
 		//error_reporting(E_ERROR | E_WARNING | E_NOTICE);
 		if(empty($_COOKIE['CSBDEV'])){
@@ -40,7 +44,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$manager=new Zend_Cache_Manager();
 		$cache=Zend_Cache::factory(
 						new CB_Resource_Cache($opts),
-						new Zend_Cache_Backend_File(),
+						new Zend_Cache_Backend_Libmemcached(),
 						$opts,
 						array('server'=>array($options['memcached'])));
 		$manager->setCache('general', $cache);
@@ -68,12 +72,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Zend_Registry::set('promoteAllOptions', array('allfirst'=>'Kiemelem az asztalomat a főoldalon'));
 		Zend_Registry::set('statusCodes', array(0=>'Inaktív',	1=>'Aktív',	2=>'Eladott',	3=>'Lejárt'));
 		Zend_Registry::set('feedTypes', array(
-			'newComment'=>'Új hozzászólás érkezett egy termékedhez',
-			'newOrder'=>'Megvásárolták egy termékedet',
-			'newRating'=>'Új értékelés érkezett',
-			'productExpired'=>'Egy terméked lejárt',
-			'productRenewed'=>'Egy terméked automatikusan megújult',
-			'balanceCharged'=>'Egyenlegfeltöltés sikeres'
+			'newComment'=>array('text'=>'Új hozzászólás érkezett egy termékedhez'),
+			'newOrder'=>array('text'=>'Megvásárolták egy termékedet: %s', 'url'=>array('ertekelesek', '#{productId}')),
+			'newRating'=>array('text'=>'Új értékelés érkezett: %s', 'url'=>array('ertekelesek', '#{productId}')),
+			'productExpired'=>array('text'=>'Egy terméked lejárt'),
+			'productRenewed'=>array('text'=>'Egy terméked automatikusan megújult'),
+			'balanceCharged'=>array('text'=>'Egyenlegfeltöltés sikeres')
 		));
 	}
 

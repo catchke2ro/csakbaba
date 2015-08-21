@@ -1,0 +1,332 @@
+// CSB 2014 - Útmutató a SASS fájlokhoz
+//
+//    Kommentelés: //**************************************************************
+//                 //
+//                 //  1. Régió neve ( Header , content , footer)
+//                 //
+//                 //**************************************************************
+//
+//                  //-------------------------------------------------------------
+//                  // 1.1 Nagyobb blokk, oldalelem neve ( pl.: Left sidebar )
+//                  //-------------------------------------------------------------
+//
+//                  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//                  // 1.1.1 Blokkhoz tartozó oldalelem  ( pl Left sidebar - LOGO ))
+//                  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+@import "compass"
+
+
+@import "filter"
+
+//************************************************
+//
+//  GLOBAL LAYOUT SETTINGS
+//
+//************************************************
+
+
+html
+  font-size: 62.5%
+
+body
+  width: 100%
+  margin: 0
+  padding: 0
+  background-color: $cBodyBg
+  overflow-x: hidden
+  background-image: url(/img/elements/bg.png)
+  background-repeat: repeat
+  background-attachment: fixed
+
+body *
+  +box-sizing(border-box)
+
+
+
+
+
+
+//************************************************
+//
+//  GLOBAL ITEMS
+//
+//************************************************
+
+div.tooltip
+  display: none
+
+
+.ui-tooltip
+  font-size: 10px
+  min-width: 200px
+
+
+.pageName
+  padding-bottom: 2%
+  text-align: center
+  color: $cDarktext
+  font-style: italic
+
+
+div.flash
+  position: fixed
+  top: 40px
+  width: 100%
+  padding-left: $sidebarWidth
+  z-index: 85000
+  opacity: 0
+  height: 0px
+  +transition(opacity 0.7s, height 0s linear 0.7s)
+  &.visible
+    opacity: 1
+    height: 40px
+  ul
+    height: 100%
+    position: relative
+    padding: 10px 30px
+    &.error
+      background-color: rgba(red, 0.7)
+    &.message
+      background-color: rgba(green, 0.7)
+    li
+      +valign
+      text-align: center
+      font-weight: bold
+      color: $cWhite
+      font-size: 1.3em
+      line-height: 1.3em
+    li.close
+      border: 2px solid $cWhite
+      border-radius: 50%
+      cursor: pointer
+      height: 25px
+      line-height: 2.1rem
+      opacity: 0.8
+      position: absolute
+      right: 10px
+      text-align: center
+      width: 25px
+      &:hover
+        opacity: 1
+
+
+
+div.socialLogin
+  +clearFix
+  a
+    width: 46% !important
+    margin: 2%
+    float: left
+    color: #FFFFFF
+    font-weight: bold
+    background-size: auto 90%
+    background-position: left center
+    background-repeat: no-repeat
+    line-height: 3rem
+    text-align: center
+    padding-right: 10px
+    &:hover
+      text-decoration: none
+    &:before
+      font-weight: normal
+      font-family: Flaticon
+      float: left
+      font-size: 2rem
+      margin-left: 3px
+  a.fb
+    background-color: #3B5998
+    margin-left: 0px
+    &:before
+      content: $iconFb
+  a.gp
+    background-color: #D34836
+    margin-right: 0px
+    &:before
+      content: $iconGp
+
+
+
+#sb-container
+  z-index: 99999
+  #sb-nav-close
+    background-image: url("/img/shadowbox/close2.png")
+    background-size: contain
+    height: 15px
+    position: absolute
+    right: 3px
+    top: 3px
+    width: 15px
+    cursor: pointer
+
+
+
+div#container.ajax
+  div.content
+    padding: 10px !important
+
+
+
+div.borzeIcons
+  text-align: center
+  font-size: 0px
+  overflow: hidden
+  a
+    display: inline-block
+    background-size: contain
+    background-repeat: no-repeat
+    color: transparent
+    &.baba
+      background-image: url(/img/elements/baba_logo_textured.png)
+    &.gyerek
+      background-image: url(/img/elements/gyerek_logo_textured.png)
+    &.kismama
+      background-image: url(/img/elements/kismama_logo_textured.png)
+
+
+
+.stat
+  width: 80%
+  margin: 10px auto
+  padding: 3%
+  background-color: rgba(255, 255, 255, 0.5)
+  a
+    font-weight: bold
+    color: $cDarktext
+
+
+
+.ui-autocomplete
+  z-index: 60000
+  background-color: $cMainSearchBg
+  border: 0px
+  max-height: 200px
+  overflow: auto
+  +box-shadow(0px 6px 5px $cBoxShadow)
+  li.ui-menu-item
+    cursor: pointer
+    font-size: 1.4em
+    padding: 5px
+    +clearFix
+    &.ui-state-focus
+      border: none
+      background-image: none
+    div.img
+      width: 20%
+      height: 50px
+      background-size: cover
+      float: left
+      margin-right: 10px
+    a
+      color: $cDarktext
+      font-weight: bold
+    span
+      display: block
+      white-space: nowrap
+      text-overflow: ellipsis
+      overflow: hidden
+
+//************************************************
+//
+//  SIDEBAR
+//
+//************************************************
+
+@import "sidebar"
+
+
+
+//************************************************
+//
+//  HEADER, SUBHEADER
+//
+//************************************************
+
+@import "header"
+
+
+
+
+//***************************************************************
+//
+//           3. CONTENT, FOOTER
+//
+//***************************************************************
+div.content, div.footer, div.subheader
+  padding-left: 40px
+  +transition(padding-left 0.4s $anim 1s)
+  +mq2
+    +transition(padding-left 0.4s $anim 0s)
+  &.slided, &.stick
+    padding-left: $sidebarWidth
+    +transition(padding-left 0.4s $anim 0.2s)
+
+  +mq2
+    div.contentInner, div.footerInner
+      min-width: 270px
+
+
+@import "content"
+@import "footer"
+
+
+
+
+//***************************************************************
+//
+//           SMALL PAGES
+//
+//***************************************************************
+
+div.stat.notfound
+  text-align: center
+  img
+    width: 200px
+
+div.stat.rolunk
+  img
+    float: right
+    margin: 0px 0px 10px 10px
+    width: 25%
+    min-width: 200px
+    +mq2
+      width: 100%
+      float: none
+
+
+
+//************************************************
+//    telibekúrt internet exploreres gányolások --- LOOOOL :)
+//************************************************
+
+html.internetexplorer11, html.internetexplorer10, html.internetexplorer9, html.internetexplorer8, html.internetexplorer7, html.internetexplorer6
+  div.productList:not(.user) ul li.product:not(.noflip)
+    .productInner
+      .flipper
+        +transition(none)
+        +transform(none)
+        .front
+          height: 100%
+          overflow: hidden
+          +transition(height 0s ease 0s)
+        .back
+          height: 0
+          overflow: hidden
+          +transition(height 0s ease 0s)
+      &:hover
+        .flipper
+          +transform(none)
+          .front
+            height: 0
+            +transition(height 0s ease 1s)
+          .back
+            height: 100% !important
+            +transition(height 0s ease 1s)
+            +transform(none)
+            -ms-backface-visibility: normal
+
+
+
+
+
+

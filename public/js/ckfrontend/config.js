@@ -11,7 +11,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 
 	// Let's have it basic on dialogs as well.
-	config.contentsCss=['/js/ck/contents.css', '/css/ck.css'];
+	config.contentsCss=['/js/ck/contents.css'];
 	config.removeDialogTabs = 'link:advanced';
 
 	//config.bodyId='ckeditorbody';

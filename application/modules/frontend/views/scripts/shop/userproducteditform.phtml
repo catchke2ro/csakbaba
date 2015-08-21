@@ -1,9 +1,19 @@
-<? if(empty($this->ok)){ ?>
-	<?=$this->form;?>
-	<div class="formLoad"><div></div><div></div><div></div><div></div><div></div></div>
-	<? if($this->form->hasErrors()){ ?>
-		<div class="formErrors">Az űrlap nem kitöltött kötelező mezőket, vagy hibásan megadott adatokat tartalmaz. Javítsd ezeket, és Ments újra!</div>
+<? if(!empty($this->noBalanceError)){?>
+
+	<div class="formErrors">További termékek feltöltéséhez kérjük töltsd fel csakbaba.hu egyenlegedet <a href="<?=$this->url('egyenleg');?>">itt</a>.</div>
+
+<? } else { ?>
+
+	<? if(empty($this->ok)){ ?>
+		<?=$this->form;?>
+		<div class="formLoad"><div></div><div></div><div></div><div></div><div></div></div>
+		<? if($this->form->hasErrors()){ ?>
+			<div class="formErrors">Az űrlap nem kitöltött kötelező mezőket, vagy hibásan megadott adatokat tartalmaz. Javítsd ezeket, és Ments újra!</div>
+		<? } ?>
+		<p class="description"><?=$this->form->getDescription();?></p>
 	<? } ?>
-	<p class="description"><?=$this->form->getDescription();?></p>
+
 <? } ?>
+
+
 

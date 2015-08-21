@@ -16,14 +16,14 @@
 
 		<div class="productFilter">
 			<? if($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit')){ ?>
-				<a href="<?=$this->url('egyenleg');?>" class="userAddProduct nobalance">Új áru hozzáadásához töltsd fel az egyenleged</a>
+				<div><a href="<?=$this->url('egyenleg');?>" class="userAddProduct nobalance">Új áru hozzáadásához töltsd fel az egyenleged</a></div>
 			<? } else { ?>
-				<a href="javascript:void(0)" class="userAddProduct">Új termék hozzáadása</a>
+				<div><a href="javascript:void(0)" class="userAddProduct">Új termék hozzáadása</a></div>
 
 			<? } ?>
 			<? foreach($this->statusCodes as $status=>$text){?>
 				<? if($status==0) continue;?>
-				<a href="javascript:void(0)" data-status="<?=$status;?>"><?=$text;?> termékek</a>
+				<div><a href="javascript:void(0)" data-status="<?=$status;?>"><?=$text;?> termékek</a></div>
 			<? } ?>
 			<div class="textFilter"><input type="text" placeholder="szűrés név, leírás és ár alapján" /></div>
 

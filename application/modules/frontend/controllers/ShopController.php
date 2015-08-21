@@ -82,6 +82,10 @@ class ShopController extends CB_Controller_Action {
 				$form->setDescription('A termék feltöltése most ingyenes!');
 			} else if(count($userActiveProducts) < Zend_Registry::get('freeUploadLimit')){
 				$form->setDescription(''.Zend_Registry::get('freeUploadLimit').' aktív termékig a feltöltés ingyenes!');
+			} else if($this->user->balance < Zend_Registry::get('uploadPrice')){
+				$this->view->assign(array(
+					'noBalanceError'=>true
+				));
 			} else {
 				$form->setDescription('A termék feltöltésének díja '.Zend_Registry::get('uploadPrice').' Ft, amit az egyenlegedből vonunk le.');
 			}
@@ -285,6 +289,26 @@ class ShopController extends CB_Controller_Action {
 			'selects'=>$selects,
 			'values'=>$values
 		));
+	}
+
+
+	public function autocompleteAction(){
+		$this->getHelper('layout')->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender(true);
+
+		$categoryTree=Zend_Registry::get('categories');
+
+		$q=!empty($_GET['term']) ? $_GET['term'] : '';
+		$results=$this->productModel->search($q);
+		$json=array();
+		foreach($results as $result){
+			$product=$result['product'];
+			$uri=$this->url('piac').$categoryTree->getUri($product->category).'/'.$product->id.'/'.$this->functions->slug($product->name);
+			$img=(is_array($product->images) && !empty($product->images)) ? $img=reset($product->images) : array('small'=>'/img/elements/defaultproduct.png');
+			$json[]=array('label'=>$product->name, 'value'=>$uri, 'image'=>$img['small'], 'price'=>$product->price.' Ft');
+		}
+		echo json_encode($json);
+		die();
 	}
 
 

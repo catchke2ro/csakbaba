@@ -54,7 +54,7 @@ class CB_Controller_Frontend_Plugin_CB extends Zend_Controller_Plugin_Abstract {
 		$this->view->placeholder('header')->setPrefix('<div class="header"><div class="headerInner">')->setPostfix('</div></div>')->append(' ');
 
 		$this->view->placeholder('subheader')->setPrefix('<div class="subheader"><div class="subheaderInner">')->setPostfix('</div></div>');
-		$this->view->placeholder('content')->setPrefix('<div class="content animated fadeInRight '.$sc.'"><div class="contentInner">')->setPostfix('</div></div>');
+		$this->view->placeholder('content')->setPrefix('<div class="content '.$sc.'"><div class="contentInner">')->setPostfix('</div></div>');
 		$this->view->placeholder('footer')->setPrefix('<div class="footer '.$sc.'"><div class="footerInner">')->setPostfix('</div></div>')->append(' ');
 
 	}
