@@ -19,7 +19,7 @@ class IndexController extends CB_Controller_Action {
 		}
 
 		$orderModel=new \CB\Model\Order();
-		$latestOrders=$orderModel->find(array('order'=>'date DESC', 'limit'=>10));
+		$latestOrders=$orderModel->find(array('conditions'=>array('user._id'=>array('notEqual'=>new \MongoId('528a82320f435fd2028b4568')), 'shop_user._id'=>array('notEqual'=>new \MongoId('528a82320f435fd2028b4568'))), 'order'=>'date DESC', 'limit'=>10));
 		$latestUsers=array();
 		foreach(($latestOrders ? $latestOrders : array()) as $latestOrder){
 			$latestUsers[$latestOrder->shop_user->id]=$latestOrder->shop_user;

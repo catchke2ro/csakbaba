@@ -7,13 +7,15 @@ class Product extends \CB_Resource_Model{
 	protected function _buildOptions($options){
 		parent::_buildOptions($options);
 
-		$this->qb->addOr($this->qb->expr()->field('deleted')->exists(false));
-		$this->qb->addOr($this->qb->expr()->field('deleted')->equals(false));
+		if(!$this->ext){
+			$this->qb->addOr($this->qb->expr()->field('deleted')->exists(false));
+			$this->qb->addOr($this->qb->expr()->field('deleted')->equals(false));
+		}
 	}
 
 	public function afterFind($items){
 		foreach((is_array($items) ? $items : array()) as $key=>$item){
-			if($item->deleted){
+			if($item->deleted && !$this->ext){
 				unset($items[$key]);
 			}
 		}
@@ -128,10 +130,15 @@ class Product extends \CB_Resource_Model{
 	}
 
 	public function getFresh(){
-		if(!($fresh=$this->cache->load('mainFresh'))){
-			$fresh=$this->find(array('conditions'=>array('status'=>1), 'order'=>'date_added desc', 'limit'=>12));
+		//if(!($fresh=$this->cache->load('mainFresh'))){
+			$fresh=$this->initQb();
+			$this->qb->field('status')->equals(1);
+			$this->qb->field('user')->notEqual(new \MongoId('528a82320f435fd2028b4568'));
+			$this->qb->sort('date_added', 'desc');
+			$this->qb->limit(12);
+			$fresh=$this->runQuery();
 			$this->cache->save($fresh, 'mainFresh', array(), 120);
-		}
+		//}
 		return $fresh;
 	}
 

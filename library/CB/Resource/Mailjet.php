@@ -4,7 +4,10 @@ class CB_Resource_Mailjet extends Zend_Mail_Transport_Smtp {
 
 	public function __construct($host = '127.0.0.1', Array $config = array()){
 		$config = array(
-						'ssl'=>'tls','port'=>'587','auth'=>'login',
+						//'ssl'=>'tls',
+						//'port'=>'587',
+						'port'=>'25',
+						'auth'=>'login',
 						'username' => 'd06cb8e360ee26230b0112ac63b270ba',
 						//'username' => 'catchke2ro@miheztarto.hu',
 						'password' => '3f1cfc2311249f5b07efe2d6889d6512');

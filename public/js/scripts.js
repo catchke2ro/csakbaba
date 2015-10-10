@@ -441,13 +441,13 @@ $(document).ready(function(){
 	/**
 	 * FLASH messages
 	 */
-	//setTimeout(function(){
-	//	$('div.flash.visible').removeClass('visible').delay(1000).remove();
-	//}, 10000);
+	setTimeout(function(){
+		$('div.flash.visible').removeClass('visible').delay(1000).remove();
+	}, 10000);
 	$(document).ajaxStop(function(){
-		//setTimeout(function(){
-		//	$('div.flash.visible').removeClass('visible').delay(1000).remove();
-		//}, 10000);
+		setTimeout(function(){
+			$('div.flash.visible').removeClass('visible').delay(1000).remove();
+		}, 10000);
 	});
 	$(document).on('click', 'div.flash .close', function(){
 		$(this).parent().removeClass('visible').delay(1000).remove();
@@ -687,8 +687,10 @@ $(document).ready(function(){
 		$(document).on('submit', 'div.productEditAddForm > form', function(e){
 			var form=this;
 			$('.formLoad').show();
+			$(form).find('input[type=submit]').prop('disabled', true);
 			$.ajax({
 				url: '/shop/userproducteditform', type: 'POST', data: $(form).serialize(), complete: function(request){
+					$(form).find('input[type=submit]').prop('disabled', false);
 					var peadf=$(form).closest('.productEditAddForm');
 					if(request.status!=400){
 						peadf.html('');

@@ -406,5 +406,24 @@ class UserController extends CB_Controller_Action {
 	}*/
 
 
+	public function resendactivationAction(){
+		$this->getHelper('layout')->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender();
+
+		$users=[];
+		//$users[]=$this->userModel->findOneByUsername('nyulpofi');
+		//$users[]=$this->userModel->findOneByUsername('smagdolna82');
+		$users[]=$this->userModel->findOneByUsername('catchke2ro');
+
+		foreach($users as $user){
+			$this->emails->activation(array('user'=>$user), $this->url('aktivacio'));
+			echo 'OK';
+		}
+
+
+		die();
+	}
+
+
 
 }

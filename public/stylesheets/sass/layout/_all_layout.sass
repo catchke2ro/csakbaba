@@ -72,8 +72,9 @@ div.tooltip
 div.flash
   position: fixed
   top: 40px
-  width: 100%
-  padding-left: $sidebarWidth
+  right: 0px
+  width: calc(100% - 280px)
+  //padding-left: $sidebarWidth
   z-index: 85000
   opacity: 0
   height: 0px
@@ -260,6 +261,10 @@ div.content, div.footer, div.subheader
   &.slided, &.stick
     padding-left: $sidebarWidth
     +transition(padding-left 0.4s $anim 0.2s)
+
+    div.flash
+      padding-left: 0px
+
 
   +mq2
     div.contentInner, div.footerInner

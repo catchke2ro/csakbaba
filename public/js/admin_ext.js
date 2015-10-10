@@ -31,7 +31,7 @@ Ext.define('Users', {
 
 Ext.define('Products', {
 	extend: 'Ext.data.Store', autoLoad:true, autoSync:true, storeId: 'Products',
-	fields: [{name: 'id'},{name: 'name'},{name: 'category'},{name: 'user', type: 'auto'},{name: 'price'},{name: 'date_added'},{name: 'date_period'},{name: 'visitors', type: 'int'},{name: 'status', type: 'int'},{name: 'promotes', type: 'auto'},{name: 'autorenew'}],
+	fields: [{name: 'id'},{name: 'name'},{name: 'category'},{name: 'user', type: 'auto'},{name: 'price'},{name: 'date_added'},{name: 'date_period'},{name: 'visitors', type: 'int'},{name: 'status', type: 'int'},{name: 'promotes', type: 'auto'},{name: 'autorenew'},{name: 'deleted', type: 'boolean'}],
 	proxy: {
 		type: 'ajax',
 		api: {create:'/ext/model/create/model/product',read:'/ext/model/read/model/product',update:'/ext/model/update/model/product',destroy:'/ext/model/destroy/model/product'},

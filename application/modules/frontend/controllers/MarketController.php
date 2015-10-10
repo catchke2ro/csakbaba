@@ -306,4 +306,22 @@ class MarketController extends CB_Controller_Action {
 		}
 	}
 
+
+
+
+
+
+	public function oldproductlejarAction(){
+		$this->getHelper('layout')->disableLayout();
+		$this->getHelper('viewRenderer')->setNoRender();
+
+		$products=$this->productModel->find(array('conditions'=>array(
+			'date_added'=>array('lte'=>new \DateTime('2014-12-31 23:59:59'))
+		)));
+		foreach($products as $p){
+			$p->status=3;
+			$this->productModel->save($p, true);
+		}
+	}
+
 }

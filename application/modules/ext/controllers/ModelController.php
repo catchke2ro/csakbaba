@@ -36,7 +36,8 @@ class Ext_ModelController extends CB_Controller_Ext_Action {
 	 */
 	public function readAction(){
 		$Model=new $this->modelName();
-		$items=$Model->find();
+		$Model->ext=true;
+		$items=$Model->find(array('withDeleted'=>true));
 		$items=array_values($items);
 		$items=$this->_callback('extAfterFind', $Model, $items); //Run callback
 		$this->returnArray[$this->modelKey]=$items; //Return items
@@ -49,6 +50,7 @@ class Ext_ModelController extends CB_Controller_Ext_Action {
 		if($this->_request->isPost()){
 			$post=$this->extPost; //Fetched POST
 			$Model=new $this->modelName();
+			$Model->ext=true;
 
 			/**
 			 * Handle multiple creations
@@ -87,6 +89,7 @@ class Ext_ModelController extends CB_Controller_Ext_Action {
 		if($this->_request->isPost()){
 			$post=$this->extPost; //Fetched POST
 			$Model=new $this->modelName();
+			$Model->ext=true;
 
 			/**
 			 * Handle multiple updates
@@ -127,6 +130,7 @@ class Ext_ModelController extends CB_Controller_Ext_Action {
 		if($this->_request->isPost()){
 			$post=$this->extPost; //Fetched POST
 			$Model=new $this->modelName();
+			$Model->ext=true;
 			$item=$Model->findOneById($post['id']); //Find Model item
 			if(!empty($item)){
 				$continue=$this->_callback('extBeforeDelete', $Model, $item, array('single'=>true)); //Run callback
@@ -145,6 +149,8 @@ class Ext_ModelController extends CB_Controller_Ext_Action {
 	 */
 	public function translateFieldsAction(){
 		$Model=new $this->modelName();
+		$Model->ext=true;
+
 		if(property_exists($Model, 'translateFields')){
 			$translateFields=$Model->translateFields;
 			$this->returnArray['translateFields']=$translateFields;

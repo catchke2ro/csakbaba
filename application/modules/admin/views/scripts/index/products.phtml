@@ -35,7 +35,9 @@
 				{dataIndex: 'visitors', header: 'Látogatók', flex: 1},
 				{dataIndex: 'status', header: 'Státusz', flex: 1, renderer: function(value, o, record){
 					return statusCodes[value];
-				}, editor: {xtype: 'combo', store: statusStore}}
+				}, editor: {xtype: 'combo', store: statusStore}},
+				{dataIndex: 'deleted', header: 'Törölt', flex: 1, xtype: 'checkcolumn', beforecheckchange: function(col, rI, checked){
+				}},
 			]
 		});
 	});

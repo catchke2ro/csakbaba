@@ -34,6 +34,8 @@ class CB_Resource_Model{
 	 */
 	public $qb='';
 
+	public $ext=false;
+
 	/**
 	 * Constructor for this resource
 	 */

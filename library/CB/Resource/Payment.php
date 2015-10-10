@@ -94,6 +94,7 @@ class CB_Resource_Payment {
 		}
 
 		$client=new Zend_Http_Client($ipn->getPdfUrl());
+		$client->setAdapter(new Zend_Http_Client_Adapter_Curl());
 		$response=$client->request();
 		if($response->isSuccessful() && $response->getBody()) file_put_contents(APPLICATION_PATH.'/../tmp/invoices/'.str_replace('/', '_', $ipn->getInvoiceNumber()).'.pdf', $response->getBody());
 

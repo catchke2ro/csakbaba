@@ -1,4 +1,5 @@
 <?php
+//memprof_enable();
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
@@ -40,3 +41,6 @@ $application = new Zend_Application(
 );
 $application->bootstrap()
             ->run();
+
+//memprof_dump_callgrind(fopen("../tmp/callgrind.out", "w"));
+//memprof_dump_pprof(fopen("../tmp/profile.heap", "w"));

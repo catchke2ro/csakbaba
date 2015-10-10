@@ -37,7 +37,7 @@ abstract class CB_Controller_AdminAction extends Zend_Controller_Action {
 		$config=array('accept_schemes'=>'basic', 'realm'=>'Admin', 'digest_domains'=>'/admin', 'nonce_timeout'=>86400);
 		$adapter=new Zend_Auth_Adapter_Http($config);
 		$adapter->setBasicResolver(new Zend_Auth_Adapter_Http_Resolver_File($pathbasic));
-		$adapter->setDigestResolver(new Zend_Auth_Adapter_Http_Resolver_File($path));
+		//$adapter->setDigestResolver(new Zend_Auth_Adapter_Http_Resolver_File($path));
 		$adapter->setRequest($this->_request);
 		$adapter->setResponse($this->_response);
 		$result=$adapter->authenticate();
