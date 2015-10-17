@@ -1,28 +1,44 @@
 <?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if(empty($_GET['31641'])) die();
+if(!empty($_GET['31641']) && $_GET['31641']==1){
+    $_SESSION['memcahedadmin']=1;
+}
+if(empty($_SESSION['memcahedadmin'])) die();
 
-$memcache = new Memcache();
+$memcache = new Memcached();
 
-$memcache->addServer('127.0.0.1'); // edit here if your memcached server differs from localhost
+$memcache->addServer('127.0.0.1', 11211); // edit here if your memcached server differs from localhost
 
 $list = array();
-$allSlabs = $memcache->getExtendedStats('slabs');
-$items = $memcache->getExtendedStats('items');
-foreach($allSlabs as $server => $slabs) {
-    foreach($slabs AS $slabId => $slabMeta) {
-        $cdump = $memcache->getExtendedStats('cachedump',(int)$slabId);
-        foreach($cdump AS $server => $entries) {
-            if($entries) {
-                foreach($entries AS $eName => $eData) {
-                    $list[$eName] = array(
-                        'key' => $eName,
-                        'value' => $memcache->get($eName)
-                    );
-                }
-            }
-        }
-    }
+//$allSlabs = $memcache->getExtendedStats('slabs');
+//$items = $memcache->getExtendedStats('items');
+//foreach($allSlabs as $server => $slabs) {
+//    foreach($slabs AS $slabId => $slabMeta) {
+//        $cdump = $memcache->getExtendedStats('cachedump',(int)$slabId);
+//        foreach($cdump AS $server => $entries) {
+//            if($entries) {
+//                foreach($entries AS $eName => $eData) {
+//                    $list[$eName] = array(
+//                        'key' => $eName,
+//                        'value' => $memcache->get($eName)
+//                    );
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+
+$keys=$memcache->getAllKeys();
+foreach($keys as $key){
+    $list[$key]=array(
+        'key'=>$key,
+        'value'=>$memcache->get($key)[0]
+    );
 }
 ksort($list);
 

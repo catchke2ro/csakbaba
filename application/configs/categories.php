@@ -228,6 +228,8 @@ return array(
 													'egyeb'=>       array('name'=>'Egyéb babák és kiegészítők',                 'slug'=>'egyeb-babak-es-kiegeszitok')
 									)),
 									'dia'=>         array('name'=>'Diavetítők, diafilmek',                      'slug'=>'diavetito-diafilm'),
+									'konyv'=>       array('name'=>'Könyvek',                                    'slug'=>'konyv'),
+
 									'epito'=>       array('name'=>'Építő- és szerelőjáték',                     'slug'=>'epito-es-szerelojatek', 'children'=>array(
 													'fakocka'=>     array('name'=>'Fakockák',                                   'slug'=>'fakocka'),
 													'muanyag'=>     array('name'=>'Műanyag építők',                             'slug'=>'muanyag-epito'),
@@ -419,6 +421,7 @@ return array(
 					'tunika'=>      array('name'=>'Kismama tunika',                             'slug'=>'kismama-tunika', 'prop'=>array('kismamameret')),
 					'pulover'=>     array('name'=>'Kismama pulóver, kardigán',                  'slug'=>'kismama-pulover-kardigan', 'prop'=>array('kismamameret')),
 					'furdoruha'=>   array('name'=>'Kismama fürdőruha',                          'slug'=>'kismama-furdoruha', 'prop'=>array('kismamameret')),
+					'konyv'=>       array('name'=>'Könyvek',                                    'slug'=>'konyv'),
 					'egyeb'=>       array('name'=>'Egyéb',                                      'slug'=>'egyeb', 'prop'=>array('kismamameret'))
 	))
 ),
