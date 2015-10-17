@@ -1,0 +1,59 @@
+@import "../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass"
+@import "../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset"
+@import "general/colors_brown"
+@import "general/variables"
+@import "general/typo"
+@import "layout/all_layout"
+@import "pages/products"
+@import "pages/fooldal"
+@import "pages/user"
+@import "pages/profile"
+
+
+//body
+  background-image: url('../img/elements/bg3v.png')
+
+//.sidebar
+  +background-image(linear-gradient(top, darken($col1,1%) 0%,lighten($col1,1%) 100%))
+  background-image: -ms-linear-gradient(top, darken($col1,1%) 0%,lighten($col1,1%) 100%)
+  &.stick
+    .sidebarButtons .stick_it a
+      background-image: url('../img/elements/pin2v2.png')
+
+  //.sidebarButtons
+    background-color: rgba(white,0.1)
+
+//div.colorChanger
+  border: 2px solid rgba(#333, 0.2)
+
+
+
+//#container header.sidebar a.logo
+  background-color: transparent
+
+//#container.fooldal header.sidebar a.logo
+  background-color: transparent
+
+
+//.menu nav ul  > li
+  > a
+    background-color: rgba(black,0.1)
+    color: black
+    &:hover
+      color: darken($col1,40%)
+      font-weight: bold
+      background-color: rgba(black,0.1)
+
+  //&.active > a
+    color: black
+    font-weight: bold
+    background-color: rgba(white,0.1)
+  //&.active ul
+    background-color: rgba(darken($col1,20%),0.5)
+    li a , a:visited
+      color: black
+      &:hover
+        background-color: rgba(black,0.1)
+        +transition(0.6s)
+    li.active a
+      background-color: rgba(darken($col1,25%),1)
