@@ -277,7 +277,7 @@ class UserController extends CB_Controller_Action {
 				CB_Resource_Functions::logEvent('userRatingEnded', array('order'=>$order));
 
 				$notifyUser=$this->user->id==$order->user->id ? $order->shop_user : $order->user;
-				//CB_Resource_Functions::addFeed('newRating', $notifyUser->get(), $rating->product);
+				CB_Resource_Functions::addFeed('newRating', $notifyUser->get(), $rating->product);
 				$this->getHelper('viewRenderer')->setNoRender(true);
 			}
 		}
@@ -323,11 +323,11 @@ class UserController extends CB_Controller_Action {
 		$this->getHelper('layout')->disableLayout();
 		$this->getHelper('viewRenderer')->setNoRender();
 		l('redirect: '.print_r(array('get'=>$_GET, 'post'=>$_POST), true));
-		if((empty($_GET['p']) || empty($_GET['ref']) || empty($_GET['status']))){
+		if((empty($_GET['paymentId']))){
 			header("HTTP/1.1 400 Bad Request");
 			exit();
 		}
-		$payment=new CB_Resource_Payment($_GET['ref'], $this);
+		$payment=new CB_Resource_Payment($_GET['paymentId'], $this);
 		$payment->redirect();
 	}
 
@@ -335,11 +335,12 @@ class UserController extends CB_Controller_Action {
 		$this->getHelper('layout')->disableLayout();
 		$this->getHelper('viewRenderer')->setNoRender();
 		l('hook: '.print_r(array('get'=>$_GET, 'post'=>$_POST), true));
-		if((empty($_GET['p']) || empty($_POST['payment_id']) || empty($_POST))){
+
+		if((empty($_GET['paymentId']))){
 			header("HTTP/1.1 400 Bad Request");
 			exit();
 		}
-		$payment=new CB_Resource_Payment($_POST['payment_id'], $this);
+		$payment=new CB_Resource_Payment($_GET['paymentId'], $this);
 		$payment->hook();
 	}
 
@@ -381,47 +382,6 @@ class UserController extends CB_Controller_Action {
 		$feed->read=true;
 		$feedModel->save($feed);
 		$this->forward('feeds');
-	}
-
-
-
-
-
-
-
-
-	/*public function activationreminderAction(){
-		$this->getHelper('layout')->disableLayout();
-		$this->getHelper('viewRenderer')->setNoRender();
-
-		$inactiveUsers=$this->userModel->find();
-		$inactiveUsers=array_filter($inactiveUsers, function($user){
-			if($user->active) return false;
-			return true;
-		});
-
-		foreach($inactiveUsers as $user){
-			$this->emails->activationreminder(array('user'=>$user), $this->url('aktivacio'));
-		}
-	}*/
-
-
-	public function resendactivationAction(){
-		$this->getHelper('layout')->disableLayout();
-		$this->getHelper('viewRenderer')->setNoRender();
-
-		$users=[];
-		//$users[]=$this->userModel->findOneByUsername('nyulpofi');
-		//$users[]=$this->userModel->findOneByUsername('smagdolna82');
-		$users[]=$this->userModel->findOneByUsername('catchke2ro');
-
-		foreach($users as $user){
-			$this->emails->activation(array('user'=>$user), $this->url('aktivacio'));
-			echo 'OK';
-		}
-
-
-		die();
 	}
 
 

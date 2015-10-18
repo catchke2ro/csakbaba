@@ -15,6 +15,8 @@ class CB_Resource_Payment {
 	 */
 	public $paymentModel;
 
+	private $_barionconfig;
+
 	static $statusCodes=array(
 		1=>'Fizetésre vár', 2=>'Fizetve', 3=>'Sikertelen fizetés'
 	);
@@ -27,9 +29,11 @@ class CB_Resource_Payment {
 	public function __construct($pid=null, $controller=null){
 		$this->paymentModel=new \CB\Model\Payment();
 		$this->controller=$controller;
-		if(!is_null($pid) && ($payment=$this->paymentModel->findOneBy('pid', $pid))){
+		if(!is_null($pid) && ($payment=$this->paymentModel->findOne(['conditions'=>['OR'=>['pid'=>$pid, 'bpid'=>$pid]]]))){
 			$this->payment=$payment;
 		}
+
+		$this->_barionconfig=Zend_Registry::get('CsbConfig')->get('barion');
 	}
 
 
@@ -46,7 +50,8 @@ class CB_Resource_Payment {
 
 
 	public function doPayment(){
-		$redirectUri=$this->_invoice();
+		//$redirectUri=$this->_invoice();
+		$redirectUri=$this->_start();
 
 		if($redirectUri){
 			$this->controller->redirect($redirectUri);
@@ -55,7 +60,8 @@ class CB_Resource_Payment {
 
 
 	public function redirect(){
-		$ok=$_GET['status']=='ACTIVE' ? true : false;
+		//$ok=$_GET['status']=='ACTIVE' ? true : false;
+		$ok=true;
 		if($ok){
 			CB_Resource_Functions::logEvent('userChargeSuccess', array('payment'=>$this->payment));
 			$this->controller->m('A fizetés sikeres volt. Az egyenlegeden pillanatokon belül látható lesz az összeg. Számládat hamarosan megtekintheted lejjebb, valamint kiküldjük e-mailben', 'message');
@@ -70,7 +76,7 @@ class CB_Resource_Payment {
 	}
 
 	public function hook(){
-		if($_GET['type']=='invoice'){
+		/*if($_GET['type']=='invoice'){
 			l('INVOICEIPN');
 			$ipn = new Fandepay\Api\Webhooks\Invoice();
 			echo 'SUCCESS '.$ipn->getToken();
@@ -96,7 +102,25 @@ class CB_Resource_Payment {
 		$client=new Zend_Http_Client($ipn->getPdfUrl());
 		$client->setAdapter(new Zend_Http_Client_Adapter_Curl());
 		$response=$client->request();
-		if($response->isSuccessful() && $response->getBody()) file_put_contents(APPLICATION_PATH.'/../tmp/invoices/'.str_replace('/', '_', $ipn->getInvoiceNumber()).'.pdf', $response->getBody());
+		if($response->isSuccessful() && $response->getBody()) file_put_contents(APPLICATION_PATH.'/../tmp/invoices/'.str_replace('/', '_', $ipn->getInvoiceNumber()).'.pdf', $response->getBody());*/
+
+		$barion=new \Barion\Barion($this->_barionconfig->get('posKey'));
+		$barion->setApiUrl('https://api.test.barion.com/v2');
+		$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
+
+
+		$payment=new \Barion\Payment\SimplePayment($barion, $this->payment->pid);
+		$paymentStateResponse=$payment->getPaymentState($this->payment->bpid);
+		$this->payment->barion_data=$paymentStateResponse->rawResponse;
+
+		if($paymentStateResponse->getStatus()=='Succeeded'){
+			$this->payment->status=2;
+			$this->_userBalance();
+			$this->controller->emails->charged(array('user'=>$this->payment->user, 'payment'=>$this->payment));
+		}
+		$this->paymentModel->save($this->payment);
+
+
 
 	}
 
@@ -110,6 +134,47 @@ class CB_Resource_Payment {
 			$userModel->save($user);
 		}
 
+	}
+
+	public function _start(){
+		$this->payment->barion_data=[];
+
+		$barion=new \Barion\Barion($this->_barionconfig->get('posKey'));
+		$barion->setApiUrl('https://api.test.barion.com/v2');
+		$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
+		$payment=new \Barion\Payment\SimplePayment($barion, $this->payment->pid);
+
+		$transaction=new \Barion\Payment\Transaction([
+			'TransactionId'=>$this->payment->pid,
+			'Payee'=>$this->_barionconfig->get('payeeEmail'),
+			'Total'=>round(intval($this->payment->amount)),
+			'Comment'=>'csakbaba.hu egyenleg feltöltés'
+		]);
+
+		$item=new \Barion\Payment\Item([
+			'Name'=>'csakbaba.hu egyenleg feltöltés',
+			'Description'=>'csakbaba.hu egyenleg feltöltés',
+			'Quantity'=>1,
+			'Unit'=>'db',
+			'UnitPrice'=>$this->payment->amount,
+			'ItemTotal'=>$this->payment->amount
+		]);
+		$transaction->addItem($item);
+		$startResponse=$payment->startPayment([$transaction]);
+
+		if(!$startResponse->isOK()){
+			CB_Resource_Functions::logEvent('barionError', array('errors'=>$startResponse->getErrors(), 'pid'=>$this->payment->pid));
+			return false;
+		}
+
+		$paymentStateResponse=$payment->getPaymentState($startResponse->getBarionPaymentId());
+
+		$this->payment->bpid=$startResponse->getBarionPaymentId();
+		$this->payment->barion_data=$paymentStateResponse->rawResponse;
+		$this->paymentModel->save($this->payment);
+
+
+		return $startResponse->getRedirectUrl($barion);
 	}
 
 

@@ -19,6 +19,11 @@ class Payment extends \CB_Resource_ModelItem {
 	public $pid;
 
 	/**
+	 * @ODM\String
+	 */
+	public $bpid;
+
+	/**
 	 * @ODM\EmbedOne(targetDocument="User")
 	 */
 	public $user;
@@ -42,6 +47,11 @@ class Payment extends \CB_Resource_ModelItem {
 	 * @ODM\Hash
 	 */
 	public $invoice_data;
+
+	/**
+	 * @var @ODM\Hash
+	 */
+	public $barion_data;
 
 	/**
 	 * @ODM\STRING
