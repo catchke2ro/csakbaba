@@ -6,6 +6,5 @@ public/tmp
 public/ai-cache
 public/css/sass/.sass-cache
 /library/classmap.php
-/application/configs/csb.ini
 public/css/sass/compass
 tmp
