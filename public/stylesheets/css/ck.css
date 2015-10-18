@@ -1,75 +1,75 @@
-/* line 504, ../sass/general/_variables.sass */
+/* line 519, ../sass/general/_variables.sass */
 .fileUploadContainer {
   padding: 10px;
 }
-/* line 506, ../sass/general/_variables.sass */
+/* line 521, ../sass/general/_variables.sass */
 .fileUploadContainer .fileinput-button {
   border: 3px dashed #f8f4ef;
-  -webkit-transition: 0.6s;
   -moz-transition: 0.6s;
   -o-transition: 0.6s;
+  -webkit-transition: 0.6s;
   transition: 0.6s;
 }
-/* line 509, ../sass/general/_variables.sass */
+/* line 524, ../sass/general/_variables.sass */
 .fileUploadContainer .fileinput-button:hover {
   background-color: rgba(248, 244, 239, 0.5);
-  -webkit-box-shadow: 0 0 5px #f8f4ef;
   -moz-box-shadow: 0 0 5px #f8f4ef;
+  -webkit-box-shadow: 0 0 5px #f8f4ef;
   box-shadow: 0 0 5px #f8f4ef;
-  -webkit-transition: 0.6s;
   -moz-transition: 0.6s;
   -o-transition: 0.6s;
+  -webkit-transition: 0.6s;
   transition: 0.6s;
 }
-/* line 513, ../sass/general/_variables.sass */
+/* line 528, ../sass/general/_variables.sass */
 .fileUploadContainer .fileinput-button span {
   background-color: #76a0ce;
-  color: white;
-  border: 1px solid white;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
   display: block;
   margin: 10px auto;
   padding: 10px;
   text-align: center;
   width: 200px;
 }
-/* line 522, ../sass/general/_variables.sass */
+/* line 537, ../sass/general/_variables.sass */
 .fileUploadContainer .fileinput-button input {
   height: 100%;
   width: 100%;
 }
-/* line 525, ../sass/general/_variables.sass */
+/* line 540, ../sass/general/_variables.sass */
 .fileUploadContainer .fileinput-button.in {
   background-color: #f8f4ef;
 }
-/* line 527, ../sass/general/_variables.sass */
+/* line 542, ../sass/general/_variables.sass */
 .fileUploadContainer .fileinput-button.hover {
   background: #f8f4ef;
 }
-/* line 529, ../sass/general/_variables.sass */
+/* line 544, ../sass/general/_variables.sass */
 .fileUploadContainer .template-upload, .fileUploadContainer .template-download {
   display: none;
 }
-/* line 532, ../sass/general/_variables.sass */
+/* line 547, ../sass/general/_variables.sass */
 .fileUploadContainer .files .progress, .fileUploadContainer .fileupload-progress .progress {
   height: 10px;
   width: 90%;
   border: 1px solid #f8f4ef;
   margin: auto;
 }
-/* line 537, ../sass/general/_variables.sass */
+/* line 552, ../sass/general/_variables.sass */
 .fileUploadContainer .files .progress .progress-bar, .fileUploadContainer .fileupload-progress .progress .progress-bar {
   background-color: #8b7b6a;
   height: 100%;
   width: 0px;
 }
-/* line 541, ../sass/general/_variables.sass */
+/* line 556, ../sass/general/_variables.sass */
 .fileUploadContainer .files .error, .fileUploadContainer .fileupload-progress .error {
   color: red;
   padding: 1px 5px;
   font-weight: bold;
   font-size: 1em;
 }
-/* line 546, ../sass/general/_variables.sass */
+/* line 561, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-upload, .fileUploadContainer .files .template-download, .fileUploadContainer .fileupload-progress .template-upload, .fileUploadContainer .fileupload-progress .template-download {
   display: block;
   background-color: #f8f4ef;
@@ -79,23 +79,23 @@
   height: 130px;
   width: 19%;
 }
-/* line 554, ../sass/general/_variables.sass */
+/* line 569, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-upload, .fileUploadContainer .fileupload-progress .template-upload {
   color: #2b2b2b;
 }
-/* line 556, ../sass/general/_variables.sass */
+/* line 571, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-upload .size, .fileUploadContainer .fileupload-progress .template-upload .size {
   margin: 5px 5px 10px 0px;
   float: right;
 }
-/* line 559, ../sass/general/_variables.sass */
+/* line 574, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-upload .filename, .fileUploadContainer .fileupload-progress .template-upload .filename {
   display: none;
 }
-/* line 561, ../sass/general/_variables.sass */
+/* line 576, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-upload .cancel, .fileUploadContainer .fileupload-progress .template-upload .cancel {
   background-color: #76a0ce;
-  color: white;
+  color: #FFFFFF;
   cursor: pointer;
   font-size: 1.2em;
   height: 17px;
@@ -107,25 +107,25 @@
   width: 16px;
   opacity: 0.7;
 }
-/* line 574, ../sass/general/_variables.sass */
+/* line 589, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-upload .cancel:hover, .fileUploadContainer .fileupload-progress .template-upload .cancel:hover {
   opacity: 1;
 }
-/* line 576, ../sass/general/_variables.sass */
+/* line 591, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-upload .error, .fileUploadContainer .fileupload-progress .template-upload .error {
   margin-top: 5px;
 }
-/* line 578, ../sass/general/_variables.sass */
+/* line 593, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-upload .error:before, .fileUploadContainer .fileupload-progress .template-upload .error:before {
   clear: both;
   content: "";
   display: block;
   float: none;
 }
-/* line 584, ../sass/general/_variables.sass */
+/* line 599, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-download .delete, .fileUploadContainer .fileupload-progress .template-download .delete {
   background-color: #76a0ce;
-  color: white;
+  color: #FFFFFF;
   cursor: pointer;
   font-size: 1.2em;
   height: 17px;
@@ -137,14 +137,14 @@
   width: 16px;
   opacity: 0.7;
 }
-/* line 597, ../sass/general/_variables.sass */
+/* line 612, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-download .delete:hover, .fileUploadContainer .fileupload-progress .template-download .delete:hover {
   opacity: 1;
 }
-/* line 599, ../sass/general/_variables.sass */
+/* line 614, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-download .move, .fileUploadContainer .fileupload-progress .template-download .move {
   background-color: #76a0ce;
-  color: white;
+  color: #FFFFFF;
   cursor: pointer;
   font-size: 1.2em;
   height: 17px;
@@ -159,30 +159,29 @@
   background-position: center center;
   background-repeat: no-repeat;
 }
-/* line 615, ../sass/general/_variables.sass */
+/* line 630, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-download .move:hover, .fileUploadContainer .fileupload-progress .template-download .move:hover {
   opacity: 1;
 }
-/* line 617, ../sass/general/_variables.sass */
+/* line 632, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-download .previewImage, .fileUploadContainer .fileupload-progress .template-download .previewImage {
   margin: 0 5px;
   overflow: hidden;
   height: 100%;
 }
-/* line 621, ../sass/general/_variables.sass */
+/* line 636, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-download .filename, .fileUploadContainer .fileupload-progress .template-download .filename {
   display: none;
 }
-/* line 623, ../sass/general/_variables.sass */
+/* line 638, ../sass/general/_variables.sass */
 .fileUploadContainer .files .template-download img, .fileUploadContainer .fileupload-progress .template-download img {
   width: 100%;
   max-height: 100%;
   position: relative;
   top: 50%;
-  -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 /* line 29, ../sass/general/_variables.sass */
@@ -194,92 +193,64 @@
 }
 
 @-webkit-keyframes bounce_loadingProgressG {
-  /* line 719, ../sass/general/_variables.sass */
   0% {
     margin-left: -256px;
   }
-
-  /* line 721, ../sass/general/_variables.sass */
   100% {
     margin-left: 256px;
   }
 }
-
 @keyframes bounce_loadingProgressG {
-  /* line 725, ../sass/general/_variables.sass */
   0% {
     margin-left: -256px;
   }
-
-  /* line 727, ../sass/general/_variables.sass */
   100% {
     margin-left: 256px;
   }
 }
-
 @-webkit-keyframes stretchdelay {
-  /* line 733, ../sass/general/_variables.sass */
   0%, 40%, 100% {
     -webkit-transform: scaleY(0.4);
   }
-
-  /* line 735, ../sass/general/_variables.sass */
   20% {
     -webkit-transform: scaleY(1);
   }
 }
-
 @keyframes stretchdelay {
-  /* line 739, ../sass/general/_variables.sass */
   0%, 40%, 100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
   }
-
-  /* line 742, ../sass/general/_variables.sass */
   20% {
     transform: scaleY(1);
     -webkit-transform: scaleY(1);
   }
 }
-
 @-webkit-keyframes rotatebounce {
-  /* line 750, ../sass/general/_variables.sass */
   0%, 40%, 100% {
     -webkit-transform: rotateZ(0deg);
   }
-
-  /* line 752, ../sass/general/_variables.sass */
   20% {
     -webkit-transform: rotateZ(10deg);
   }
-
-  /* line 754, ../sass/general/_variables.sass */
   60% {
     -webkit-transform: rotateZ(-10deg);
   }
 }
-
 @keyframes rotatebounce {
-  /* line 758, ../sass/general/_variables.sass */
   0%, 40%, 100% {
     transform: rotateZ(0deg);
     -webkit-transform: rotateZ(0deg);
   }
-
-  /* line 761, ../sass/general/_variables.sass */
   20% {
     transform: rotateZ(10deg);
     -webkit-transform: rotateZ(10deg);
   }
-
-  /* line 764, ../sass/general/_variables.sass */
   60% {
     transform: rotateZ(-10deg);
     -webkit-transform: rotateZ(-10deg);
   }
 }
-
 /* line 5, ../sass/ck.sass */
 body {
   font-family: "Noto Sans", sans-serif;

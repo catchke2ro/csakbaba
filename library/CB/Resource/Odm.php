@@ -45,7 +45,7 @@ class CB_Resource_Odm extends Zend_Application_Resource_ResourceAbstract {
 		$host=$sc->get('mongo')->get('host', 'localhost');
 		$port=$sc->get('mongo')->get('port', '27017');
 
-		$dm = DocumentManager::create(new \Doctrine\MongoDB\Connection(new \Mongo('mongodb://'.$username.':'.$password.'@'.$host.':'.$port.'/'.$database)), $config);
+		$dm = DocumentManager::create(new \Doctrine\MongoDB\Connection(new \Mongo('mongodb://'.$host.':'.$port.'/'.$database)), $config);
 
 		//$dm->getEventManager()->addEventListener(array(\Doctrine\ODM\MongoDB\Events::preUpdate, \Doctrine\ODM\MongoDB\Events::prePersist), new \CB_Resource_Doctrine_Evm());
 

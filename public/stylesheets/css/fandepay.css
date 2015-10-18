@@ -10,8 +10,8 @@ body {
   position: fixed;
   top: 0px;
   left: 0px;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 @media (max-width: 400px) {
@@ -23,7 +23,7 @@ body {
 /* line 54, ../sass/fandepay.sass */
 .csbHeader .csbHeaderInner {
   background-color: #6e6154;
-  box-shadow: 5px 0 5px black;
+  box-shadow: 5px 0 5px #000000;
   height: 100%;
   position: relative;
   padding-left: 220px;
@@ -56,7 +56,7 @@ body {
 /* line 74, ../sass/fandepay.sass */
 .csbHeader .csbHeaderInner p.csbTitle {
   background: #51483e;
-  color: white;
+  color: #FFFFFF;
   font-weight: bold;
   height: 100%;
   line-height: 38px;
@@ -71,11 +71,12 @@ body {
 /* line 84, ../sass/fandepay.sass */
 .csbHeader .csbHeaderInner a.csbLogo {
   margin-top: 40px;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzhiN2I2YSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzhiN2I2YSIgc3RvcC1vcGFjaXR5PSIwLjAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8b7b6a), color-stop(100%, rgba(139, 123, 106, 0)));
-  background-image: -webkit-linear-gradient(top, #8b7b6a 0%, rgba(139, 123, 106, 0) 100%);
   background-image: -moz-linear-gradient(top, #8b7b6a 0%, rgba(139, 123, 106, 0) 100%);
-  background-image: -o-linear-gradient(top, #8b7b6a 0%, rgba(139, 123, 106, 0) 100%);
-  background-image: linear-gradient(top, #8b7b6a 0%, rgba(139, 123, 106, 0) 100%);
+  background-image: -webkit-linear-gradient(top, #8b7b6a 0%, rgba(139, 123, 106, 0) 100%);
+  background-image: linear-gradient(to bottom, #8b7b6a 0%, rgba(139, 123, 106, 0) 100%);
   background-image: -ms-linear-gradient(top, #8b7b6a 0%, rgba(139, 123, 106, 0) 100%);
   -moz-box-sizing: border-box;
   display: block;
@@ -178,8 +179,8 @@ body {
   float: left;
   height: 200px;
   padding: 10px 15px;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 @media (max-width: 400px) {
@@ -214,8 +215,8 @@ body {
 div.footer {
   width: 100%;
   border-top: 2px solid rgba(255, 255, 255, 0.3);
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 /* line 170, ../sass/fandepay.sass */
@@ -246,5 +247,5 @@ div.footer .csbCeg {
 }
 /* line 185, ../sass/fandepay.sass */
 div.footer .csbCeg * {
-  color: white;
+  color: #FFFFFF;
 }
