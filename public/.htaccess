@@ -1,12 +1,10 @@
 php_flag opcache.enable Off
 
-
 RewriteEngine On
-
 
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-RewriteCond %{HTTP_HOST} !^test.csakbaba.hu$
+RewriteCond %{HTTP_HOST} !^dev.csakbaba.hu$
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www.csakbaba.hu$ [NC]
 RewriteRule ^(.*)$ https://csakbaba.hu/$1 [R=301,L]
@@ -30,6 +28,7 @@ RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ index.php [NC,L]
+
 
 
 
