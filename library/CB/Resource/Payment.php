@@ -17,6 +17,8 @@ class CB_Resource_Payment {
 
 	private $_barionconfig;
 
+	private $_billingoconfig;
+
 	static $statusCodes=array(
 		1=>'Fizetésre vár', 2=>'Fizetve', 3=>'Sikertelen fizetés'
 	);
@@ -34,6 +36,7 @@ class CB_Resource_Payment {
 		}
 
 		$this->_barionconfig=Zend_Registry::get('CsbConfig')->get('barion');
+		$this->_billingoconfig=Zend_Registry::get('CsbConfig')->get('billingo');
 	}
 
 
@@ -50,6 +53,8 @@ class CB_Resource_Payment {
 
 
 	public function doPayment(){
+		$this->_billingoInvoice();
+	die();
 		//$redirectUri=$this->_invoice();
 		$redirectUri=$this->_start();
 
@@ -116,6 +121,7 @@ class CB_Resource_Payment {
 		if($paymentStateResponse->getStatus()=='Succeeded'){
 			$this->payment->status=2;
 			$this->_userBalance();
+			$this->_billingoInvoice();
 			$this->controller->emails->charged(array('user'=>$this->payment->user, 'payment'=>$this->payment));
 		}
 		$this->paymentModel->save($this->payment);
@@ -177,6 +183,74 @@ class CB_Resource_Payment {
 		return $startResponse->getRedirectUrl($barion);
 	}
 
+
+	public function _billingoInvoice(){
+		define("PRIVATE_KEY", $this->_billingoconfig->get('privateKey'));
+		define("PUBLIC_KEY", $this->_billingoconfig->get('publicKey'));
+
+		$b = new \Billingo\Billingo();
+
+		$newClient = $b->addClient(array(
+			'name' => $this->payment->user->get()->address['name'],
+			'address_street' => $this->payment->user->address['street'],
+			'address_city' => $this->payment->user->address['city'],
+			'address_postcode' => $this->payment->user->address['zip'],
+			'address_country' => 'Magyarország',
+			'email' => $this->payment->user->email,
+			//'taxcode' => '12345678-2-00'
+		));
+		if(!empty($newClient->success) && $newClient->success==true){
+			$this->payment->user->billingoid=$newClient->clients_id;
+			$userModel=new \CB\Model\User();
+			$userModel->save($this->payment->user, true);
+		}
+
+
+		$clientId=$this->payment->user->billingoid;
+
+		//$paymentMethods=$b->getPaymentMethods('hu');
+
+		$price=floatval($this->payment->amount);
+		$vat=round(($price*0.27/(1.27)));
+
+		$product = array(
+			'clients_id' => $clientId,
+			'fulfillment_date' => date('Y-m-d'),
+			'due_date' => date('Y-m-d'),
+			'is_draft' => 1,
+			'payment_method' => 5,
+			'comment' => 'N/A',
+			'currency' => 'HUF',
+			'template' => 'billingo',
+			'template_lang_code' => 'hu',
+			'electronic_invoice' => 0,
+			'recurring_time' => 0,
+			'round_to'=>1,
+			'status'=>1,
+			'items' =>
+				array (
+					0 =>
+						array(
+							'description' => 'csakbaba.hu egyenleg feltöltés',
+							'net_unit_price' => ($price - $vat),
+							'qty' => 1,
+							'unit' => 'db',
+							'vat_id' => 1,
+						),
+				),
+		);
+
+		$invoice = $b->addInvoice($product);
+		if($invoice->success){
+			$invoiceData=array(
+				'invoice_number'=>$invoice->invoice_number,
+				'access_code'=>$invoice->access_code,
+				'pdf_url'=>'https://www.billingo.hu/access/c:'.$invoice->access_code.'/fdl:1'
+			);
+			$this->payment->invoice_data=$invoiceData;
+			$this->paymentModel->save($this->payment, true);
+		}
+	}
 
 	public function _invoice($invoiceType='PREINVOICE'){
 		$data = array();
