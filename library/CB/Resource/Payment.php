@@ -17,6 +17,8 @@ class CB_Resource_Payment {
 
 	private $_barionconfig;
 
+	private $_barionTest=false;
+
 	static $statusCodes=array(
 		1=>'Fizetésre vár', 2=>'Fizetve', 3=>'Sikertelen fizetés'
 	);
@@ -62,12 +64,15 @@ class CB_Resource_Payment {
 	public function redirect(){
 		//$ok=$_GET['status']=='ACTIVE' ? true : false;
 		$barion=new \Barion\Barion($this->_barionconfig->get('posKey'));
-		//$barion->setApiUrl('https://api.test.barion.com/v2');
-		//$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
+		if($this->_barionTest){
+			$barion->setApiUrl('https://api.test.barion.com/v2');
+			$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
+		}
+
 		$payment=new \Barion\Payment\SimplePayment($barion, $this->payment->pid);
 		$paymentStateResponse=$payment->getPaymentState($this->payment->bpid);
 
-		$ok=$paymentStateResponse->getStatus()=='Succeeded';
+		$ok=in_array($paymentStateResponse->getStatus(), ['Succeeded','Prepared']);
 		if($ok){
 			CB_Resource_Functions::logEvent('userChargeSuccess', array('payment'=>$this->payment));
 			$this->controller->m('A fizetés sikeres volt. Az egyenlegeden pillanatokon belül látható lesz az összeg. Számládat hamarosan megtekintheted lejjebb, valamint kiküldjük e-mailben', 'message');
@@ -111,8 +116,12 @@ class CB_Resource_Payment {
 		if($response->isSuccessful() && $response->getBody()) file_put_contents(APPLICATION_PATH.'/../tmp/invoices/'.str_replace('/', '_', $ipn->getInvoiceNumber()).'.pdf', $response->getBody());*/
 
 		$barion=new \Barion\Barion($this->_barionconfig->get('posKey'));
-		//$barion->setApiUrl('https://api.test.barion.com/v2');
-		//$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
+
+		if($this->_barionTest){
+			$barion->setApiUrl('https://api.test.barion.com/v2');
+			$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
+		}
+
 
 
 		$payment=new \Barion\Payment\SimplePayment($barion, $this->payment->pid);
@@ -146,8 +155,11 @@ class CB_Resource_Payment {
 		$this->payment->barion_data=[];
 
 		$barion=new \Barion\Barion($this->_barionconfig->get('posKey'));
-		//$barion->setApiUrl('https://api.test.barion.com/v2');
-		//$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
+		if($this->_barionTest){
+			$barion->setApiUrl('https://api.test.barion.com/v2');
+			$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
+		}
+
 		$payment=new \Barion\Payment\SimplePayment($barion, $this->payment->pid);
 
 		$transaction=new \Barion\Payment\Transaction([

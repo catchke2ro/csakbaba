@@ -12,7 +12,7 @@ class Frontend_Form_Charge extends CB_Form_Form {
 		$validator->setMessage('A minimum összeg '.Zend_Registry::get('minCharge').' Ft.');
 		$amount->addValidator($validator)->setAllowEmpty(false);
 		$submit=new Zend_Form_Element_Submit('paysubmit');
-		$submit->removeDecorator('label')->setLabel('Fizetés bankkártyával');
+		$submit->removeDecorator('label')->setLabel(html_entity_decode('Fizetés bankkártyával vagy Barionnal'));
 
 		$this->addElements(array($amount, $submit));
 	}

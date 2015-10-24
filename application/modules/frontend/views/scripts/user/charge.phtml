@@ -14,7 +14,7 @@
 		<h3>Egyenleg feltöltéséhez minden szükséges adatot meg kell adnod az <a href="<?=$this->url('adatmodositas');?>">adatmódosítás</a> oldalon</h3>
 	<? } else {?>
 		<div class="card stat">
-			<h3>Bankkártyás fizetéssel</h3>
+			<h3 class="cardBarionTitle">Fizetés bankkártyával vagy <img src="/img/elements/barion_icon.png" alt="Barion"/> - nal</h3>
 			<p>Írd be az összeget (min. <?=Zend_Registry::get('minCharge');?> Ft.), kattints a "Fizetés bankkártyával" gombra és fizess bankkártyáddal azonnal.</p>
 			<?=$this->form;?>
 			<p class="chargeAvail">Az összeg <span>0</span> termék feltöltésére elegendő</p>
