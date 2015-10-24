@@ -119,6 +119,12 @@ class User extends \CB_Resource_ModelItem {
 
 
 	/**
+	 * @ODM\String
+	 */
+	public $billingoid;
+
+
+	/**
 	 * @ODM\Hash
 	 */
 	public $subscribed;
