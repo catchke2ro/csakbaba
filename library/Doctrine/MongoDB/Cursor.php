@@ -270,11 +270,26 @@ class Cursor implements Iterator
         return $this;
     }
 
-    public function slaveOkay($okay = true)
+    public function slaveOkay($ok = true)
     {
-        $this->slaveOkay = $okay;
-        $this->mongoCursor->slaveOkay($okay);
-        return $this;
+        if (version_compare(phpversion('mongo'), '1.3.0', '<')) {
+            $this->mongoCursor->slaveOkay($ok);
+            return;
+        }
+        /* MongoCursor::setReadPreference() may not exist until 1.4.0. Although
+         * we could throw an exception here, it's more user-friendly to NOP.
+         */
+        if (!method_exists($this->mongoCursor, 'setReadPreference')) {
+            return;
+        }
+        if ($ok) {
+            // Preserve existing tags for non-primary read preferences
+            $readPref = $this->mongoCursor->getReadPreference();
+            $tags = !empty($readPref['tagsets']) ? ReadPreference::convertTagSets($readPref['tagsets']) : array();
+            $this->mongoCursor->setReadPreference(\MongoClient::RP_SECONDARY_PREFERRED, $tags);
+        } else {
+            $this->mongoCursor->setReadPreference(\MongoClient::RP_PRIMARY);
+        }
     }
 
     public function snapshot()

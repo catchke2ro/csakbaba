@@ -142,6 +142,23 @@ class Product extends \CB_Resource_Model{
 		return $fresh;
 	}
 
+	public function getRandom($count = 10){
+		//if(!($fresh=$this->cache->load('mainFresh'))){
+		$fields=array_keys($this->repository->getClassMetadata()->reflFields);
+		$random=$this->initQb();
+		$this->qb->field('status')->equals(1);
+		$this->qb->field('user')->notEqual(new \MongoId('528a82320f435fd2028b4568'));
+		$this->qb->addOr($this->qb->expr()->field('deleted')->exists(false));
+		$this->qb->addOr($this->qb->expr()->field('deleted')->equals(false));
+		$ascdesc=['desc', 'asc'];
+		$this->qb->sort($fields[array_rand($fields)], $ascdesc[array_rand($ascdesc)]);
+		$this->qb->limit($count);
+		$random=$this->runQuery();
+			//$this->cache->save($random, 'mainFresh', array(), 120);
+		//}
+		return $random;
+	}
+
 	public function getFavouriteLists(){
 		$userModel=new \CB\Model\User();
 		$userModel->initQb();

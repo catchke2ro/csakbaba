@@ -55,8 +55,8 @@ class CB_Resource_Payment {
 
 
 	public function doPayment(){
-		$this->_billingoInvoice();
-	die();
+		/*$this->_billingoInvoice();
+	die();*/
 		//$redirectUri=$this->_invoice();
 		$redirectUri=$this->_start();
 
@@ -229,19 +229,19 @@ class CB_Resource_Payment {
 		//$paymentMethods=$b->getPaymentMethods('hu');
 
 		$price=floatval($this->payment->amount);
-		$vat=round(($price*0.27/(1.27)));
+		$vat=($price*0.27/(1.27));
 
 		$product = array(
 			'clients_id' => $clientId,
 			'fulfillment_date' => date('Y-m-d'),
 			'due_date' => date('Y-m-d'),
-			'is_draft' => 1,
+			'is_draft' => 0,
 			'payment_method' => 5,
 			'comment' => 'N/A',
 			'currency' => 'HUF',
 			'template' => 'billingo',
 			'template_lang_code' => 'hu',
-			'electronic_invoice' => 0,
+			'electronic_invoice' => 1,
 			'recurring_time' => 0,
 			'round_to'=>1,
 			'status'=>1,
@@ -267,6 +267,12 @@ class CB_Resource_Payment {
 			);
 			$this->payment->invoice_data=$invoiceData;
 			$this->paymentModel->save($this->payment, true);
+
+			$client=new Zend_Http_Client('https://www.billingo.hu/access/c:'.$invoice->access_code.'/fdl:1');
+			$client->setAdapter(new Zend_Http_Client_Adapter_Curl());
+			$response=$client->request();
+			if($response->isSuccessful() && $response->getBody()) file_put_contents(APPLICATION_PATH.'/../tmp/invoices/'.str_replace('/', '_', $invoice->invoice_number).'.pdf', $response->getBody());
+
 		}
 	}
 

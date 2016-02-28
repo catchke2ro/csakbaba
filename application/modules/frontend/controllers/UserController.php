@@ -79,6 +79,12 @@ class UserController extends CB_Controller_Action {
 						$this->m('A felhasználónév vagy a jelszó nem megfelelő', 'error'); break;
 				}
 			}
+		} else {
+
+			if(!empty($_GET['r']) && $_GET['r'] == $this->url('felhasznalotermekek')){
+				$this->m('Termékfeltöltéshez lépj be felhasználói profilodba, ha még nem regisztráltál, regisztrálj oldalunkra, hogy megnyithasd virtuális asztalodat és feltölthesd holmijaidat a borzére.');
+			}
+
 		}
 	}
 

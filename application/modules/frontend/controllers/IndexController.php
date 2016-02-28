@@ -50,12 +50,15 @@ class IndexController extends CB_Controller_Action {
 
 	public function blogAction(){
 		$postModel=new \CB\Model\BlogPost();
+		$productModel = new \CB\Model\Product();
 
 		$ep=$this->_request->getExtraParams();
 		$this->view->headMeta()->setName('description', 'Hasznos cikkek információk a csakbaba.hu oldalról, és minden kismamának, szülőnek szóló témáról');
 		if(!empty($ep) && ($post=$postModel->findOneBy('slug', reset($ep)))){
+			$random=$productModel->getRandom(5);
 			$this->view->headMeta()->setName('description', substr(strip_tags($post->teaser), 0, 160).'...');
-			$this->view->assign(array('post'=>$post));
+			$categoryTree=Zend_Registry::get('categories');
+			$this->view->assign(array('post'=>$post, 'random'=>$random, 'categoryTree'=>$categoryTree));
 			$this->_helper->viewRenderer('blogpost');
 			$this->view->headTitle()->prepend($post->title);
 			$bc=Zend_Registry::get('breadcrumb');

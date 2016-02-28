@@ -18,14 +18,19 @@
 			<p>Írd be az összeget (min. <?=Zend_Registry::get('minCharge');?> Ft.), kattints a "Fizetés bankkártyával" gombra és fizess bankkártyáddal azonnal.</p>
 			<?=$this->form;?>
 			<p class="chargeAvail">Az összeg <span>0</span> termék feltöltésére elegendő</p>
+			<p class="barionInfo">
+				A kényelmes és biztonságos online fizetést a Barion Payment Zrt. biztosítja. Magyar Nemzeti Bank engedély száma: H-EN-I-1064/2013 <br/>
+				Bankkártya adatai áruházunkhoz nem jutnak el. <br />
+				<img src="/img/elements/barion_norton.png" alt="Norton secured"/>
+			</p>
 		</div>
 
 		<div class="transfer stat">
 			<h3>Átutalással</h3>
 			<p>Töltsd fel egyenleged minimum <?=Zend_Registry::get('minCharge');?> Ft-al az alábbi számlaszámra való utalással:</p>
 			<p>
-				<strong>Számlaszám:</strong> 11715007-20473233 <br />
-				<strong>Bank:</strong> OTP Bank <br />
+				<strong>Számlaszám:</strong> 10401804-50515548-53541005 <br />
+				<strong>Bank:</strong> K&H Bank <br />
 				<strong>Kedvezményezett neve:</strong> Csakbaba.hu Kft. <br />
 				<strong>Közlemény:</strong> <?=strtoupper(substr($this->user->username, 0, 4).substr(md5($this->user->id), 0, 4));?>
 			</p>

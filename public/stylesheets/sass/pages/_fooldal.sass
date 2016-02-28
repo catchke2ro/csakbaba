@@ -159,150 +159,7 @@
 
 
 
-    //************************************************
-    //
-    //  Category icons
-    //
-    //************************************************
-    div.borzeIcons
-      a
-        width: 20%
-        max-width: 100px
-        height: auto
-        margin: 20px 3%
-        &:not(.link):hover
-          -webkit-animation: rotatebounce 0.3s
-          animation: rotatebounce 0.3s
-        &:before
-          content: ""
-          display: block
-          padding-top: 100%
-      div.clear
-        display: block
-        clear: both
-      div.link
-        width: percentage(1/3)
-        min-width: 200px
-        float: left
-        +mq3
-          float: none
-          width: 100%
-      a.link
-        display: block
-        width: 200px
-        color: $cBrowntext
-        font-size: 2rem
-        line-height: 3rem
-        opacity: 0.6
-        font-weight: bold
-        margin: 10px auto 0px
-        text-align: center
-        max-width: none
-        +mq3
-          float: none !important
-          width: 90%
-          margin-left: auto !important
-          margin-right: auto !important
-        &:before
-          display: none
 
-      a.registration
-        float: left
-        background-color: $cMainRegBg
-        color: $cMainRegColor
-        margin: 10px 20px
-        opacity: 0.9
-        +box-shadow(0px -30px 3px -15px rgba($cSubmitColor, 0.1) inset)
-        &:hover
-          +box-shadow(none)
-          opacity: 1
-
-      a.upload
-        float: left
-        //background-color: darken($cMainRegBg, 10%)
-        background-color: darken($cRed, 10%)
-        color: $cMainRegColor
-        margin: 10px 20px
-        opacity: 0.9
-        +box-shadow(0px -30px 3px -15px rgba($cSubmitColor, 0.1) inset)
-        font-size: 1.6rem
-        width: 90%
-        &:hover
-          +box-shadow(none)
-          opacity: 1
-
-      &.bottom
-        margin-bottom: 20px
-        div.link
-          float: none
-          display: inline-block
-
-
-
-
-
-
-
-  //************************************************
-  //
-  //  Lists
-  //
-  //************************************************
-  .lists
-    margin: 0 0 20px 0
-    +clearFix
-    .listsInner
-      width: 100%
-    .listMenu
-      +tab
-      background-color: transparent
-      border-top: none
-      position: relative
-      & > span
-        position: absolute
-        bottom: 0px
-        height: 3px
-        background-color: $cTabsTabBgHover
-        display: block
-      a
-        color: $cBrowntext
-        font-weight: bold
-        border: none
-        background-color: transparent
-        font-size: 1.8rem
-        +transition(color 0.5s)
-        &:hover, &.active
-          background-color: transparent
-          color: $cBrowntext
-        &.active
-          color: $cTabsTabBgHover
-
-    .bx-wrapper
-      border-bottom: 1px solid $cMainListsBorder
-      height: auto !important
-      background-color: $cMainListsBg
-      width: 100%
-      float: left
-      li.product
-        width: percentage(1/6)
-        .productInner
-          height: 90%
-          .flipper
-            height: 100%
-        +mq0
-          width: percentage(1/5)
-        +mq1
-          width: percentage(1/4)
-        +mq2
-          width: percentage(1/3)
-        +mq5
-          width: percentage(1/2)
-        +mq5
-          width: percentage(1/1)
-
-        .productName
-          a
-            font-weight: normal
 
 
 
@@ -377,6 +234,14 @@
 
 
 
+
+
+
+
+
+
+
+
   //************************************************
   //
   //  Sidebar
@@ -393,3 +258,148 @@
       .categorySelector
         background-color: transparent
         +background-image(linear-gradient(left, rgba($cCatSelTitleBg, 0) 0%, rgba($cCatSelTitleBg, 1) 5%, rgba($cCatSelTitleBg, 1) 100%))
+
+
+
+#container.fooldal, .blogContent
+
+
+
+  //************************************************
+  //
+  //  Lists
+  //
+  //************************************************
+  .lists
+    margin: 0 0 20px 0
+    +clearFix
+    .listsInner
+      width: 100%
+    .listMenu
+      +tab
+      background-color: transparent
+      border-top: none
+      position: relative
+      & > span
+        position: absolute
+        bottom: 0px
+        height: 3px
+        background-color: $cTabsTabBgHover
+        display: block
+      a
+        color: $cBrowntext
+        font-weight: bold
+        border: none
+        background-color: transparent
+        font-size: 1.8rem
+        +transition(color 0.5s)
+        &:hover, &.active
+          background-color: transparent
+          color: $cBrowntext
+        &.active
+          color: $cTabsTabBgHover
+
+    .bx-wrapper
+      border-bottom: 1px solid $cMainListsBorder
+      height: auto !important
+      background-color: $cMainListsBg
+      width: 100%
+      float: left
+    li.product
+      width: percentage(1/6)
+      .productInner
+        height: 90%
+        .flipper
+          height: 100% !important
+      +mq0
+        width: percentage(1/5)
+      +mq1
+        width: percentage(1/4)
+      +mq2
+        width: percentage(1/3)
+      +mq5
+        width: percentage(1/2)
+      +mq5
+        width: percentage(1/1)
+
+      .productName
+        a
+          font-weight: normal
+
+  //************************************************
+  //
+  //  Category icons
+  //
+  //************************************************
+  div.borzeIcons
+    a
+      width: 20%
+      max-width: 100px
+      height: auto
+      margin: 20px 3%
+      &:not(.link):hover
+        -webkit-animation: rotatebounce 0.3s
+        animation: rotatebounce 0.3s
+      &:before
+        content: ""
+        display: block
+        padding-top: 100%
+    div.clear
+      display: block
+      clear: both
+    div.link
+      width: percentage(1/3)
+      min-width: 200px
+      float: left
+      +mq3
+        float: none
+        width: 100%
+    a.link
+      display: block
+      width: 200px
+      color: $cBrowntext
+      font-size: 2rem
+      line-height: 3rem
+      opacity: 0.6
+      font-weight: bold
+      margin: 10px auto 0px
+      text-align: center
+      max-width: none
+      +mq3
+        float: none !important
+        width: 90%
+        margin-left: auto !important
+        margin-right: auto !important
+      &:before
+        display: none
+
+    a.registration
+      float: left
+      background-color: $cMainRegBg
+      color: $cMainRegColor
+      margin: 10px 20px
+      opacity: 0.9
+      +box-shadow(0px -30px 3px -15px rgba($cSubmitColor, 0.1) inset)
+      &:hover
+        +box-shadow(none)
+        opacity: 1
+
+    a.upload
+      float: left
+      //background-color: darken($cMainRegBg, 10%)
+      background-color: darken($cRed, 10%)
+      color: $cMainRegColor
+      margin: 10px 20px
+      opacity: 0.9
+      +box-shadow(0px -30px 3px -15px rgba($cSubmitColor, 0.1) inset)
+      font-size: 1.6rem
+      width: 90%
+      &:hover
+        +box-shadow(none)
+        opacity: 1
+
+    &.bottom
+      margin-bottom: 20px
+      div.link
+        float: none
+        display: inline-block

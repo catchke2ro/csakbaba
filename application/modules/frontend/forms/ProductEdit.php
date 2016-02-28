@@ -26,7 +26,7 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 		$desc=new Zend_Form_Element_Textarea('desc');
 		$desc->setLabel('Leírás')->setRequired(true)->addValidators(array(array('NotEmpty',true)));
 		$price=new Zend_Form_Element_Text('price');
-		$price->setLabel('Ár')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Digits',true)))->setAttrib('class', 'priceInput');
+		$price->setLabel('Ár')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Digits',true)))->setAttrib('class', 'priceInput')->addFilters(array(array('StringTrim')));
 		$image=new CB_Form_Element_Upload('images');
 		$image->setLabel('Kép feltöltése')->setTargetDir('/upload/product');
 		$type=new Zend_Form_Element_Radio('type');

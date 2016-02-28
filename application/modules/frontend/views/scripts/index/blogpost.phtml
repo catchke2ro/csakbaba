@@ -11,4 +11,26 @@
 		</div>
 	</article>
 
+
+
+
+	<div class="lists">
+		<div class="listsInner">
+			<div class="fresh list">
+				<div class="productList">
+					<ul class="products">
+
+						<? foreach($this->random as $product){?>
+							<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'nameTag'=>'h4')));?>
+						<? } ?>
+
+					</ul>
+				</div>
+		</div>
+	</div>
+
+	<div class="borzeIcons bottom">
+		<div class="link"><a href="<?=$this->url('piac');?>" class="link">tovább a börzére</a></div>
+	</div>
+
 </div>
