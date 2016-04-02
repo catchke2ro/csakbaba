@@ -8,12 +8,12 @@
   </div>
 	<div class="commentForm">
 		<? if($this->user){?>
-			<ul>
+			<!--<ul>
 				<li class="field checkbox commentSubscribe">
-					<input type="checkbox" id="commentsubscribe" <?=(in_array($this->product->id, ($this->user->subscribed ?: array())) ? 'checked="checked"' : "");?> />
+					<input type="checkbox" id="commentsubscribe" <?/*=(in_array($this->product->id, ($this->user->subscribed ?: array())) ? 'checked="checked"' : "");*/?> />
 					<label for="commentsubscribe">Értesítést kérek ha hozzászólás érkezik</label>
 				</li>
-			</ul>
+			</ul>-->
 		<? } ?>
 		<?=$this->commentForm;?>
 	</div>

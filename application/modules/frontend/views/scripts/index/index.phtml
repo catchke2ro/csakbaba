@@ -19,9 +19,9 @@
 <div class="mainContent">
 
 	<div class="borzeIcons">
-		<div class="link"><a href="<?=$this->url('felhasznalotermekek');?>" class="upload link">ingyenes termékfeltöltés</a></div>
-		<div class="link"><a href="<?=$this->url('piac');?>" class="link">tovább a börzére</a></div>
-		<div class="link"><a href="<?=$this->url('regisztracio');?>" class="registration link">Regisztráció</a></div>
+		<div class="link"><a href="<?=$this->url('felhasznalotermekek');?>" class="upload link">ingyenes <span class="bigger">termékfeltöltés</span></a></div>
+		<div class="link"><a href="<?=$this->url('piac');?>" class="market link">tovább a <span class="bigger">börzére</span></a></div>
+		<div class="link"><a href="<?=$this->url('regisztracio');?>" class="registration link">villám gyors<span class="bigger">regisztráció</span></a></div>
 		<div class="clear"></div>
 		<? foreach($this->catMultiArray as $mainCat){?>
 			<a href="<?=$this->url('piac').$mainCat->url;?>" class="<?=$mainCat->id;?>"><?=$mainCat->name;?></a>

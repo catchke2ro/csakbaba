@@ -1,3 +1,4 @@
+@charset "UTF-8"
 /////////////////////////////////////////////////////////
 //
 //      Felhasználói oldal
@@ -56,17 +57,21 @@ div.productList.user
       line-height: 36px
       padding: 0px 1%
       overflow: hidden
+    .productBottom
+      width: 90%
+      .frontDesc
+        display: none
     .productImages
       width: 10%
       min-width: 60px
       text-align: center
-      img
-        max-height: 100%
-        max-width: 100%
-        vertical-align: middle
+      background-size: contain
+      background-position: center center
+      background-repeat: no-repeat
     .productName
       border: none
       max-width: 60%
+      float: left
       & > a
         font-size: 1.2em
         color: $cDarktext
@@ -127,15 +132,28 @@ div.productList.user
       background-color: $cUserProductBlueButton
       color: #FFFFFF
       text-decoration: none
+      position: relative
       +transition(0.8s)
-      &:hover
-        background-color: darken($cUserProductBlueButton,10%)
+      &:hover, &.active
+        background-color: darken($cUserProductBlueButton,20%)
         +transition(0.8s)
       &.userDeleteProduct
         background-color: $cUserProductRedButton
         &:hover
-          background-color: darken($cUserProductRedButton,10%)
+          background-color: darken($cUserProductRedButton,20%)
           +transition(0.8s)
+      &.active
+        opacity: 1
+        &:after
+          content: ""
+          display: block
+          position: absolute
+          top: 100%
+          width: 100%
+          left: 0px
+          height: 20px
+          background-color: darken($cUserProductBlueButton,20%)
+
 
     .dates
       line-height: 1em
@@ -218,6 +236,7 @@ div.productEditAddForm
   max-height: 0px
   overflow: hidden
   +transition(max-height 1s linear)
+  background-color: darken($cUserProductBlueButton, 20%)
   +form
   &.opened
     max-height: 2000px
@@ -231,6 +250,15 @@ div.productEditAddForm
       width: 100%
   li.field.submit
     clear: both
+
+  li.fieldset.more
+    max-height: 0px
+    overflow: hidden
+    opacity: 0
+    width: 100%
+    +transition(max-height 0.5s)
+    &.visible
+      max-height: 1000px
 
   & > p
     background-color: rgba($colAlter, 0.2)

@@ -38,7 +38,7 @@
 	      <? } ?>
 
 	    </div>
-		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="productPrice"><span itemprop="price"><?=$this->product->price;?></span> Ft.<meta itemprop="pricecurrency" content="HUF" /></div>
+		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="productPrice"><span itemprop="price"><?=number_format($this->product->price, 0, ',', ' ');?></span> Ft.<meta itemprop="pricecurrency" content="HUF" /></div>
 	  <? if($this->product->status==1){?>
 		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
 		  <? if(!$this->user || ($this->user && $this->product->user->get()->id!=$this->user->id)){?>
@@ -47,7 +47,7 @@
 			  <? } else { ?>
 				  <div class="addToCart haveToLogin"><a href="javascript:void(0)">A vásárláshoz be kell jelentkezned</a></div>
 			  <? } ?>
-			  <? if($this->user) {?><div class="addToFavourites"><a href="<?=$this->url('kedvencek');?>?id=<?=$this->product->id;?>">Kedvencekhez</a></div><? } ?>
+			  <? if($this->user) {?><div class="addToFavourites"><a href="<?=$this->url('kedvencek');?>?id=<?=$this->product->id;?>">Kedvencekhez adom</a></div><? } ?>
 		  <? } ?>
 
 		  <div class="cassa">

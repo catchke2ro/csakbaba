@@ -114,6 +114,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 						->appendStylesheet('/stylesheets/css/global_'.$color.'.css');
 		$this->view->minifyHeadScript()
 						->appendFile('/js/jquery/jquery.min.js')
+						->appendFile('/js/raf.js')
 						->appendFile('/js/jquery/jquery-ui.min.js')
 						->appendFile('/js/jquery/jquery-ui.touch.min.js')
 						->appendFile('/js/jquery/jquery.cookie.js')
@@ -125,6 +126,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-process.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-validate.js')
 						->appendFile('/js/jquery/shadowbox.js')
+						->appendFile('/js/jquery/clamp.min.js')
 						->appendFile('/js/jquery/jquery.bxslider.min.js')
 						->appendFile('/js/jquery/jquery.maskedinput.min.js')
 						->appendFile('/js/jquery/jquery.imgpreview.js')
@@ -136,7 +138,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		$this->view->headTitle()->setSeparator(' | ');
 		$this->view->headMeta()
 						->setName('description', 'A csakbaba.hu egy virtuális börze, vásár, amely összehozza az eladókat a vásárlókkal, és online „asztalt” biztosít a gondtalan adás-vételhez.')
-						->appendName('viewport', 'width=device-width, initial-scale=1');
+						->appendName('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
 	}
 
 

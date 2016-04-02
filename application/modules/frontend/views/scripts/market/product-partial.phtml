@@ -17,12 +17,12 @@
 
 			<? if(!isset($this->front) || $this->front==true){?>
 				<div class="front">
-					<div class="productImages">
-						<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
-						<img src="<?=$img['mid'];?>" alt="<?=htmlentities($this->product->name);?>" data-preview="<?=$img['mid'];?>" class="<?=!empty($this->previewImg) ? 'previewImg' : '';?>" />
+					<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
+					<div class="productImages <?=!empty($this->previewImg) ? 'previewImg' : '';?>" style="background-image: url(<?=$img['mid'];?>);" data-preview="<?=$img['mid'];?>">
 					</div>
-					<<?=$nameTag;?> class="productName">
-						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=htmlentities($this->product->name);?></a>
+					<div class="productBottom">
+						<<?=$nameTag;?> class="productName">
+						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->product->name);?></a>
 						<? if(!empty($this->o)){?>
 							<div class="productInfo">
 								<span>Vásárlás dátuma: <strong><?=$this->o->date->format('Y.m.d H:i');?></strong></span>
@@ -30,18 +30,20 @@
 								<span>Kód: <strong><?=$this->o->code;?></strong></span>
 							</div>
 						<? } ?>
-					</<?=$nameTag;?>>
-					<div class="productPrice"><span><?=$this->product->price;?> Ft.</span></div>
-					<? if(!empty($this->frontDesc)){?>
-					<div class="frontDesc"><?=$this->product->desc;?></div>
-					<? } ?>
+						</<?=$nameTag;?>>
+						<div class="productPrice"><span><?=number_format($this->product->price, 0, ',', ' ');?> Ft.</span></div>
+						<? if(!empty($this->frontDesc)){?>
+							<div class="frontDesc"><?=$this->product->desc;?></div>
+						<? } ?>
+					</div>
+
 				</div>
 			<? } ?>
 
 
 			<? if(!isset($this->back) || $this->back==true){?>
 				<div class="back">
-					<h3 class="productName"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=htmlentities($this->product->name);?></a></h3>
+					<h3 class="productName"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->product->name);?></a></h3>
 					<div class="details">
 						<!--<div class="productDesc"><?=implode(' ', array_slice(explode(' ', $this->product->desc), 0, 12)).' ...';?></div>-->
 						<div class="productOptions">
@@ -60,7 +62,7 @@
 							<? }} ?>
 						</div>
 					</div>
-					<div class="productPrice"><?=$this->product->price;?> Ft.</div>
+					<div class="productPrice"><?=number_format($this->product->price, 0, ',', ' ');?> Ft.</div>
 					<div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
 
 					<div class="productGallery">

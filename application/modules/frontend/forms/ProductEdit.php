@@ -46,8 +46,12 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 		$this->addElements(array($id,$name,$desc,$price,$image,$type,$new,$deliveries,$autorenew,$id,$categoryId,$userId));
 		$ids=$this->_categoryFields();
 
-		$this->addDisplayGroup(array('name','price','desc','type','new'),'general');
-		$this->addDisplayGroup(array_merge($ids,array('deliveries','autorenew','images')),'others');
+		$this->addDisplayGroup(array('name','price','images'),'generalleft');
+		$this->addDisplayGroup(array('desc'),'generalright');
+		$this->addDisplayGroup(array_merge($ids,array('type','new','deliveries','autorenew')),'more');
+
+		$more=new Zend_Form_Element_Button('További részleteket adok meg');
+
 
 		$submit=new Zend_Form_Element_Submit('Mentés');
 		$cancel=new Zend_Form_Element_Button('Mégse');

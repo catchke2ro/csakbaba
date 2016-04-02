@@ -1,3 +1,4 @@
+@charset "UTF-8"
 /////////////////////////////////////////////////////////
 //
 //      Változók, mixinek, fügvények
@@ -13,17 +14,41 @@ $colBlue: #6a778b //kék
 $colPink: #c67d94 // pink
 
 
-$iconFb:        "\e000"
-$iconGp:        "\e001"
-$iconLogin:     "\e002"
-$iconLogout:    "\e003"
-$iconSearch:    "\e004"
-$iconProfile:   "\e005"
+$iconFb:        "a"
+$iconGp:        "b"
+$iconLogin:     "c"
+$iconLogout:    "d"
+$iconSearch:    "e"
+$iconProfile:   "f"
+$iconUpload:    "g"
+$iconMarket:    "h"
+$iconDownArrow: "i"
+$iconBuy:       "j"
+$iconFav:       "k"
+$iconComment:   "l"
+$iconSend:      "m"
 
 
 
 $sidebarWidth: 280px
 $anim: cubic-bezier(.13,.94,.62,1.25)
+
+@mixin icon($icon)
+  &:before
+    content: $icon
+    display: inline
+    font-family: csakbaba
+
+@mixin iconButton($icon)
+  +icon($icon)
+  &:before
+    font-weight: 100
+    font-size: 5rem
+    display: inline
+    float: left
+    margin-left: 10px
+    margin-right: 20px
+
 
 @mixin clearFix
   &:after
@@ -82,6 +107,10 @@ $anim: cubic-bezier(.13,.94,.62,1.25)
 
 @mixin mq5
   @media (max-width: 400px)
+    @content
+
+@mixin mq6
+  @media (max-width: 300px)
     @content
 
 @mixin mqh1

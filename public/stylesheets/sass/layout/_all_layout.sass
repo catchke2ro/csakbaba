@@ -1,3 +1,4 @@
+@charset "UTF-8"
 // CSB 2014 - Útmutató a SASS fájlokhoz
 //
 //    Kommentelés: //**************************************************************
@@ -131,7 +132,7 @@ div.socialLogin
       text-decoration: none
     &:before
       font-weight: normal
-      font-family: Flaticon
+      font-family: csakbaba
       float: left
       font-size: 2rem
       margin-left: 3px
@@ -255,16 +256,15 @@ div.borzeIcons
 //***************************************************************
 div.content, div.footer, div.subheader
   padding-left: 40px
-  +transition(padding-left 0.4s $anim 1s)
-  +mq2
-    +transition(padding-left 0.4s $anim 0s)
+  +transition(padding-left 0.4s 1s)
   &.slided, &.stick
     padding-left: $sidebarWidth
-    +transition(padding-left 0.4s $anim 0.2s)
-
+    +transition(padding-left 0.4s 0.2s)
     div.flash
       padding-left: 0px
 
+  +mq2
+    padding-left: 0px !important
 
   +mq2
     div.contentInner, div.footerInner

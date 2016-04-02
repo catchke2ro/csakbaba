@@ -1,3 +1,4 @@
+@charset "UTF-8"
 /////////////////////////////////////////////////////////
 //
 //      Főoldal sass
@@ -23,6 +24,7 @@
     div.sliderContainer
       position: relative
       top: -40px
+      overflow: hidden
       +mq3
         top: 0px
       & > div.slider
@@ -99,7 +101,7 @@
               content: $iconSearch
               display: block
               color: $cMainSearchSubmitColor
-              font-family: Flaticon
+              font-family: csakbaba
               font-size: 2rem
               line-height: 40px
               text-align: center
@@ -331,7 +333,7 @@
   //  Category icons
   //
   //************************************************
-  div.borzeIcons
+  div.content div.borzeIcons
     a
       width: 20%
       max-width: 100px
@@ -340,10 +342,6 @@
       &:not(.link):hover
         -webkit-animation: rotatebounce 0.3s
         animation: rotatebounce 0.3s
-      &:before
-        content: ""
-        display: block
-        padding-top: 100%
     div.clear
       display: block
       clear: both
@@ -355,48 +353,60 @@
         float: none
         width: 100%
     a.link
+      float: left
       display: block
-      width: 200px
-      color: $cBrowntext
+      width: 90%
       font-size: 2rem
       line-height: 3rem
-      opacity: 0.6
+      opacity: 0.9
       font-weight: bold
       margin: 10px auto 0px
       text-align: center
       max-width: none
+      position: relative
+      padding-left: 75px
+      &:before
+        display: block !important
+        position: absolute
+        top: 0px
+        left: 0px
+        width: 75px
+        height: 100%
+        font-weight: 300
+        line-height: 75px
+        font-size: 4rem
+
+      &:hover
+        opacity: 1
+      .bigger
+        display: inline-block
+        width: 100%
+        font-weight: 300
+        font-size: 2.6rem
+        line-height: 5rem
       +mq3
         float: none !important
         width: 90%
         margin-left: auto !important
         margin-right: auto !important
-      &:before
-        display: none
 
     a.registration
-      float: left
       background-color: $cMainRegBg
       color: $cMainRegColor
       margin: 10px 20px
-      opacity: 0.9
-      +box-shadow(0px -30px 3px -15px rgba($cSubmitColor, 0.1) inset)
-      &:hover
-        +box-shadow(none)
-        opacity: 1
+      +icon($iconProfile)
 
     a.upload
-      float: left
-      //background-color: darken($cMainRegBg, 10%)
       background-color: darken($cRed, 10%)
       color: $cMainRegColor
       margin: 10px 20px
-      opacity: 0.9
-      +box-shadow(0px -30px 3px -15px rgba($cSubmitColor, 0.1) inset)
-      font-size: 1.6rem
-      width: 90%
-      &:hover
-        +box-shadow(none)
-        opacity: 1
+      +icon($iconUpload)
+
+    a.market
+      background-color: darken($col1_d3, 10%)
+      color: $cMainRegColor
+      margin: 10px 20px
+      +icon($iconMarket)
 
     &.bottom
       margin-bottom: 20px

@@ -17,7 +17,7 @@ output_style = :expanded
 line_comments = true
 #color_output = true
 
-#sourcemap=true
+sourcemap=true
 
 # If you prefer the indented syntax, you might want to regenerate this
 # project again passing --syntax sass, or you can uncomment this:

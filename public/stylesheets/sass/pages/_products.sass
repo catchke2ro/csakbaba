@@ -1,3 +1,4 @@
+@charset "UTF-8"
 /////////////////////////////////////////////////////////
 //
 //      Termék listák / börze
@@ -110,24 +111,35 @@ div.productList:not(.user)
       font-size: 2em
       color: #FFFFFF
 
-  div.moreProducts span.productsUntil
-    font-size: 1rem
-    vertical-align: middle
-    &:before
-      content: "("
-    &:after
-      content: ")"
+  div.moreProducts
+    +mq2
+      width: 95%
+    a
+      +iconButton($iconDownArrow)
+    span.productsUntil
+      font-size: 1rem
+      vertical-align: middle
+      &:before
+        content: "("
+      &:after
+        content: ")"
 
   div.productUploadLink
     background-color: darken($cRed, 10%)
     color: #FFFFFF
-    height: 30px
-    line-height: 30px
+    height: 35px
+    line-height: 35px
     margin-top: 20px
+    width: 30%
+    +mq2
+      width: 95%
     &:hover
       background-color: darken($cRed, 20%)
     a
-      font-size: 1.6rem
+      font-size: 2rem
+      +mq5
+        font-size: 1.5rem
+      +iconButton($iconUpload)
 
 
 
@@ -200,14 +212,27 @@ div.subcategories
 //
 //************************************************
 .products:not(.user) .product
+  .productName
+    line-height: 2rem
+    font-size: 1.3rem
+    text-align: center
+    padding: 5px 10px
+    height: 50px
+    width: 100%
+    font-weight: bold
+    a
+      display: block
+      color: $cPGProductName
   .front
     .productImages
       max-width: 100%
       overflow: hidden
       margin: 0
       text-align: center
-      height: 70%
+      height: 100%
       position: relative
+      background-size: cover
+      background-position: center center
       img
         position: absolute
         top: 50%
@@ -217,16 +242,13 @@ div.subcategories
         width: 100%
         cursor: pointer
         +transform(translate(-50%, -50%))
-    .productName
-      height: 30%
-      position: relative
-      a
-        text-align: center
-        font-size: 1.1em
-        color: $cPGProductName
-        display: block
-        width: 100%
-        padding: 2%
+    .productBottom
+      position: absolute
+      bottom: 0px
+      background-color: rgba($cWhite, 0.75)
+      height: 65px
+      width: 100%
+
     .productPrice
       position: absolute
       bottom: 0px
@@ -243,7 +265,8 @@ div.subcategories
         font-size: 1.5em
         +transition(0.4s)
     .details
-      font-size: 1.2em
+      font-size: 1.2rem
+      line-height: 2rem
       .productDesc
         text-align: center
         padding: 1%
@@ -300,13 +323,13 @@ div.subcategories
 
   &.fiu .productInner
     +box-shadow(0px 0px 5px 2px $colFiu)
-    a
-      color: $colFiu
+    .fix a:hover
+      background-color: $colFiu
 
   &.lany .productInner
     +box-shadow(0px 0px 5px 2px $colLany)
-    a
-      color: $colLany
+    .fix a:hover
+      background-color: $colLany
 
 
 
@@ -369,12 +392,11 @@ div.productDetails
     margin-right: 5%
     .productImages > div
       height: 350px
-      background-color: $cWhite
       position: relative
     img
       max-width: 100%
       max-height: 100%
-      border: 1px solid $cWhite
+      border: 2px solid $cWhite
       left: 50%
       position: absolute
       top: 50%
@@ -394,15 +416,16 @@ div.productDetails
     +mq2
       width: 100%
     .productName
-      padding-top: 3%
       float: left
       width: 100%
       text-align: center
-      font-size: 2.2em
-      line-height: 1.2em
+      font-size: 2.2rem
+      line-height: 3rem
       font-weight: bold
-      color: $cBrowntext
+      color: $colAlter
       +text-shadow(0 0 2px $cWhite)
+      +mq2
+        margin-top: 10px
     .productOptions
       float: left
       width: 100%
@@ -412,12 +435,12 @@ div.productDetails
         padding: 1%
         width: 100%
         float: left
-        font-size: 1.2em
+        font-size: 1.4rem
         strong
           font-weight: bold
     .productPrice
       color: $cPDPriceColor
-      font-size: 20px
+      font-size: 4rem
       font-weight: bold
       letter-spacing: 1px
       text-shadow: 0 0 1px $cWhite
@@ -440,41 +463,43 @@ div.productDetails
           +transition(0.6s)
     .addToCart
       float: left
-      width: 50%
+      width: 100%
       margin-top: 2%
-      +mq2
-        width: 100%
       a
         width: 100%
         display: inline-block
         text-align: center
-        padding: 5%
-        background-color: rgba($cPDAddtocartBg,0.7)
+        padding: 10px
+        background-color: rgba(darken($cPDAddtocartBg, 20%),0.7)
         color: $cPDAddtocartColor
         text-decoration: none
         font-weight: bold
         float: left
-        font-size: 1.5em
+        font-size: 2.5rem
+        line-height: 5rem
         +transition(0.6s)
+        +iconButton($iconBuy)
         &:hover
           background-color: $cPDAddtocartBg
           +transition(0.6s)
     .addToFavourites
       float: left
-      width: 50%
-      margin-top: 2%
+      width: 100%
+      margin-top: 5%
       a
         width: 100%
         display: inline-block
         text-align: center
-        padding: 5%
-        background-color: rgba($cPDAddtofavsBg,0.7)
+        padding: 10px
+        background-color: rgba(darken($col1_d3, 10%),0.7)
         float: left
-        font-size: 1.5em
+        font-size: 2rem
+        line-height: 5rem
         color: $cPDAddtofavsColor
         +transition(0.6s)
+        +iconButton($iconFav)
         &:hover
-          background-color: $cPDAddtofavsBg
+          background-color: darken($col1_d3, 10%)
           +transition(0.6s)
   .productDesc
     margin-top: 3%
@@ -482,8 +507,8 @@ div.productDetails
     padding: 3%
     float: left
     width: 100%
-    font-size: 1.3em
-    line-height: 1.4em
+    font-size: 1.4rem
+    line-height: 2rem
     u
       text-decoration: underline
     em
@@ -546,10 +571,19 @@ div.productDetails
     width: 100%
     font-weight: bold
     color: $cPDHeadersColor
-    line-height: 2em
-    font-size: 1.4em
-    text-align: center
-    background-color: rgba($cPDHeadersBg,0.7)
+    line-height: 6rem
+    font-size: 2em
+    text-align: left
+    +background-image(linear-gradient(left, rgba($cPDHeadersBg, 1) 20%, rgba($cPDHeadersBg, 0) 70%))
+
+    &:before
+      margin-right: 20px
+
+  h2.commentHeader
+    +iconButton($iconComment)
+  h2.userProductsHeader
+    +iconButton($iconMarket)
+
 
 
 
@@ -621,27 +655,65 @@ div.productDetails
           background: none
         li.textarea
           height: 100px
-          width: 75%
+          width: calc(100% - 250px)
           padding-right: 0px !important
           float: left
+          +mq3
+            width: calc(100% - 150px)
+          +mq4
+            width: 100%
           textarea
+            padding: 5px 10px !important
             margin: 0px !important
             width: 100% !important
             height: 100% !important
         li.field.note
           float: left
           height: 100px
-          padding-left: 0
+          padding: 0
           width: 100px
-          img
+          +mq3
+            display: none
+          div
+            width: 100%
             height: 100%
-            max-width: 100%
+            background-size: cover
+            background-position: center center
         li.field.submit
           float: left
-          margin-top: 1%
           min-width: 115px
           padding: 0
-          width: 115px
+          height: 100px
+          width: 150px
+          position: relative
+          +mq4
+            width: 100%
+            height: 50px
+          input
+            height: 100%
+            width: 100%
+            padding-left: 45px
+            font-size: 2.5rem
+            +mq3
+              font-size: 2rem
+
+          +iconButton($iconSend)
+          &:before
+            top: 0px
+            left: 0px
+            color: $cWhite
+            z-index: 1
+            position: absolute
+            line-height: 100px
+            font-size: 3.5rem
+            margin-right: 0px
+            +mq3
+              font-size: 2rem
+            +mq4
+              line-height: 50px
+
+
+
 
 
 

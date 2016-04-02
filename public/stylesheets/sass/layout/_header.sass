@@ -1,3 +1,4 @@
+@charset "UTF-8"
 //***************************************************************
 //
 //           Header
@@ -12,7 +13,7 @@ div.header
   width: 100%
   padding-left: $sidebarWidth
   z-index: 55000
-  +mq3
+  +mq2
     padding-left: 0px !important
     z-index: 90001
   .headerInner
@@ -37,7 +38,7 @@ div.header
     table-layout: fixed
     min-width: 0px
     +transition(width 0.5s $anim, min-width 0.5s $anim)
-    +mq('width', percentage(1/4), percentage(1/4) percentage(1/4), percentage(1/4), percentage(2/8))
+    +mq('width', percentage(1/3), percentage(1/3) percentage(1/3), percentage(1/3), percentage(1/3))
     &:hover
       background-color: $cWhite
     +mq1
@@ -71,7 +72,7 @@ div.header
           color: $cBrowntext
           content: $iconLogin
           display: block
-          font-family: Flaticon
+          font-family: csakbaba
           font-size: 3rem
           font-style: normal
           line-height: 4rem
@@ -90,7 +91,7 @@ div.header
           color: $cBrowntext
           content: $iconProfile
           display: block
-          font-family: Flaticon
+          font-family: csakbaba
           font-size: 3rem
           font-style: normal
           opacity: 0.6
@@ -108,7 +109,7 @@ div.header
         color: $cWhite
         content: $iconLogout
         display: block
-        font-family: Flaticon
+        font-family: csakbaba
         font-size: 2rem
         font-style: normal
       &:hover
@@ -294,7 +295,7 @@ div.header
   div.search
     float: right
     width: percentage(1/4)
-    +mq('width', percentage(1/4), percentage(1/4), percentage(1/4), percentage(1/4), percentage(2/8))
+    +mq('width', percentage(1/4), percentage(1/3), percentage(1/3), percentage(1/3), percentage(1/3))
     z-index: 100
     height: 100%
     position: relative
@@ -304,7 +305,7 @@ div.header
       float: none
       position: absolute
       top: 0px
-      left: percentage(1/2)
+      left: percentage(1/3)
       z-index: 100
       +transition(left 0.5s, width 0.5s)
       &.opened
@@ -317,8 +318,6 @@ div.header
           +transition(width 0.5s, padding 0.5s)
         li.submit
           opacity: 0
-    +mq5
-      left: percentage(4/8)
     form
       height: 100%
       ul
@@ -338,7 +337,6 @@ div.header
           width: 100%
           +mq2
             font-size: 1.1em
-          +mq3
             width: 0px
             padding-left: 0px
             padding-right: 0px
@@ -363,12 +361,12 @@ div.header
           width: 100%
           height: 100%
           color: $cBrowntext
-          font-family: Flaticon
+          font-family: csakbaba
           content: $iconSearch
           font-size: 1.8rem
           line-height: 26px
           text-align: center
-        +mq3
+        +mq2
           input
             cursor: pointer !important
           left: 50%
@@ -378,6 +376,34 @@ div.header
 
 
 
+
+  div.hamburger
+    display: none
+    background-color: $col1_d1
+    +mq2
+      display: block
+      width: percentage(1/3)
+      height: 100%
+      padding: 7px 10px
+    a
+      width: 35px
+      height: 100%
+      display: inline-block
+
+    a.openMenu
+      background-image: url(/img/elements/hamburger_horizontal.png)
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+
+    a.toMainPage
+      background-image: url(/img/elements/logoV3.png)
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+      margin-left: 10px
+      +mq6
+        display: none
 
 
   //*************************************************
@@ -393,7 +419,8 @@ div.header
     color: $cBrowntext
     font-style: italic
     +mq('width', percentage(1/2))
-    +mq1
+    +mq2
+      display: none
       float: none
       position: absolute
       top: 0px
@@ -428,6 +455,12 @@ div.header
         height: 35px
         width: 35px
         margin: 2px 5px
+        &.baba
+          background-image: url(/img/elements/baba_logo_textured_textonly.png)
+        &.gyerek
+          background-image: url(/img/elements/gyerek_logo_textured_textonly.png)
+        &.kismama
+          background-image: url(/img/elements/kismama_logo_textured_textonly.png)
     div.loading.show
       +loadingLine
       margin-top: -2px
@@ -511,8 +544,6 @@ div.subheader
   bottom: 0px
   width: 100%
   z-index: 50000
-  +mq3
-    padding-left: 40px
   .subheaderInner
     height: 100%
     background-color: $cSubheaderBg
