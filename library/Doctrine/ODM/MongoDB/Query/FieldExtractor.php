@@ -29,13 +29,11 @@ class FieldExtractor
 {
     private $query;
     private $sort;
-    private $cmd;
 
-    public function __construct(array $query, array $sort = array(), $cmd = '$')
+    public function __construct(array $query, array $sort = array())
     {
         $this->query = $query;
         $this->sort = $sort;
-        $this->cmd = $cmd;
     }
 
     public function getFields()
@@ -43,17 +41,17 @@ class FieldExtractor
         $fields = array();
 
         foreach ($this->query as $k => $v) {
-            if (is_array($v) && isset($v[$this->cmd.'elemMatch'])) {
-                $elemMatchFields = $this->getFieldsFromElemMatch($v[$this->cmd.'elemMatch']);
+            if (is_array($v) && isset($v['$elemMatch']) && is_array($v['$elemMatch'])) {
+                $elemMatchFields = $this->getFieldsFromElemMatch($v['$elemMatch']);
                 foreach ($elemMatchFields as $field) {
                     $fields[] = $k.'.'.$field;
                 }
-            } else if ($this->isOperator($k, array('and', 'or'))) {
+            } elseif ($this->isOperator($k, array('and', 'or'))) {
                 foreach ($v as $q) {
                     $test = new self($q);
                     $fields = array_merge($fields, $test->getFields());
                 }
-            } else if ($k[0] !== $this->cmd) {
+            } elseif ($k[0] !== '$') {
                 $fields[] = $k;
             }
         }
@@ -61,7 +59,7 @@ class FieldExtractor
         return $fields;
     }
 
-    private function getFieldsFromElemMatch($elemMatch)
+    private function getFieldsFromElemMatch(array $elemMatch)
     {
         $fields = array();
         foreach ($elemMatch as $fieldName => $value) {
@@ -83,11 +81,11 @@ class FieldExtractor
 
     private function isOperator($fieldName, $operator)
     {
-        if (!is_array($operator)) {
+        if ( ! is_array($operator)) {
             $operator = array($operator);
         }
         foreach ($operator as $op) {
-            if ($fieldName === $this->cmd.$op) {
+            if ($fieldName === '$' . $op) {
                 return true;
             }
         }

@@ -1,4 +1,4 @@
-php_flag opcache.enable Off
+#php_flag opcache.enable Off
 
 
 RewriteEngine On
@@ -6,13 +6,13 @@ RewriteEngine On
 
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-RewriteCond %{HTTP_HOST} !^test.csakbaba.hu$
-RewriteCond %{HTTPS} off [OR]
-RewriteCond %{HTTP_HOST} ^www.csakbaba.hu$ [NC]
-RewriteRule ^(.*)$ https://csakbaba.hu/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} !^test.csakbaba.hu$
+#RewriteCond %{HTTPS} off [OR]
+#RewriteCond %{HTTP_HOST} ^www.csakbaba.hu$ [NC]
+#RewriteRule ^(.*)$ https://csakbaba.hu/$1 [R=301,L]
 
-RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
 #RewriteCond %{HTTPS} off
 # First rewrite to HTTPS:
@@ -47,46 +47,46 @@ AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css font/openty
 
 
 
-<IfModule mod_expires.c>
-  ExpiresActive on
-
-  ExpiresDefault                          "access plus 1 month"
-
-# Your document html
-  ExpiresByType text/html                 "access plus 0 seconds"
-
-# Data
-  ExpiresByType text/xml                  "access plus 0 seconds"
-  ExpiresByType application/xml           "access plus 0 seconds"
-  ExpiresByType application/json          "access plus 0 seconds"
-
-# Favicon (cannot be renamed)
-  ExpiresByType image/x-icon              "access plus 1 month"
-
-# Media: images, video, audio
-  ExpiresByType image/gif                 "access plus 1 month"
-  ExpiresByType image/png                 "access plus 1 month"
-  ExpiresByType image/jpg                 "access plus 1 month"
-  ExpiresByType image/jpeg                "access plus 1 month"
-  ExpiresByType video/ogg                 "access plus 1 month"
-  ExpiresByType audio/ogg                 "access plus 1 month"
-  ExpiresByType video/mp4                 "access plus 1 month"
-  ExpiresByType video/webm                "access plus 1 month"
-
-# Webfonts
-  ExpiresByType font/truetype             "access plus 1 month"
-  ExpiresByType font/opentype             "access plus 1 month"
-  ExpiresByType application/x-font-woff   "access plus 1 month"
-  ExpiresByType image/svg+xml             "access plus 1 month"
-  ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
-
-# CSS and JavaScript
-#  ExpiresByType text/css                  "access plus 1 year"
-#  ExpiresByType application/javascript    "access plus 1 year"
-#  ExpiresByType text/javascript           "access plus 1 year"
-
-  <IfModule mod_headers.c>
-    Header append Cache-Control "public"
-  </IfModule>
-
-</IfModule>
+#<IfModule mod_expires.c>
+#  ExpiresActive on
+#
+#  ExpiresDefault                          "access plus 1 month"
+#
+## Your document html
+#  ExpiresByType text/html                 "access plus 0 seconds"
+#
+## Data
+#  ExpiresByType text/xml                  "access plus 0 seconds"
+#  ExpiresByType application/xml           "access plus 0 seconds"
+#  ExpiresByType application/json          "access plus 0 seconds"
+#
+## Favicon (cannot be renamed)
+#  ExpiresByType image/x-icon              "access plus 1 month"
+#
+## Media: images, video, audio
+#  ExpiresByType image/gif                 "access plus 1 month"
+#  ExpiresByType image/png                 "access plus 1 month"
+#  ExpiresByType image/jpg                 "access plus 1 month"
+#  ExpiresByType image/jpeg                "access plus 1 month"
+#  ExpiresByType video/ogg                 "access plus 1 month"
+#  ExpiresByType audio/ogg                 "access plus 1 month"
+#  ExpiresByType video/mp4                 "access plus 1 month"
+#  ExpiresByType video/webm                "access plus 1 month"
+#
+## Webfonts
+#  ExpiresByType font/truetype             "access plus 1 month"
+#  ExpiresByType font/opentype             "access plus 1 month"
+#  ExpiresByType application/x-font-woff   "access plus 1 month"
+#  ExpiresByType image/svg+xml             "access plus 1 month"
+#  ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+#
+## CSS and JavaScript
+##  ExpiresByType text/css                  "access plus 1 year"
+##  ExpiresByType application/javascript    "access plus 1 year"
+##  ExpiresByType text/javascript           "access plus 1 year"
+#
+#  <IfModule mod_headers.c>
+#    Header append Cache-Control "public"
+#  </IfModule>
+#
+#</IfModule>

@@ -15,50 +15,37 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
-*/
+ */
 
 namespace Doctrine\ODM\MongoDB\Event;
 
-use Doctrine\Common\EventArgs;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs as BaseLifecycleEventArgs;
 
 /**
  * Lifecycle Events are triggered by the UnitOfWork during lifecycle transitions
  * of documents.
  *
- * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.com
- * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
- * @author      Roman Borschel <roman@code-factory.org>
+ * @since 1.0
  */
-class LifecycleEventArgs extends EventArgs
+class LifecycleEventArgs extends BaseLifecycleEventArgs
 {
     /**
-     * @var DocumentManager
+     * Retrieves the associated document.
+     *
+     * @return object
      */
-    private $dm;
-
-    /**
-     * @var object
-     */
-    private $document;
-    
-    public function __construct($document, $em)
-    {
-        $this->document = $document;
-        $this->dm = $em;
-    }
-    
     public function getDocument()
     {
-        return $this->document;
+        return $this->getObject();
     }
 
     /**
-     * @return DocumentManager
+     * Retrieves the associated DocumentManager.
+     *
+     * @return \Doctrine\ODM\MongoDB\DocumentManager
      */
     public function getDocumentManager()
     {
-        return $this->dm;
+        return $this->getObjectManager();
     }
 }

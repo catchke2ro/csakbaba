@@ -122,10 +122,10 @@ class Product extends \CB_Resource_Model{
 	}
 
 	public function getMostVisited(){
-		if(!($visited=$this->cache->load('mainVisited'))){
+		//if(!($visited=$this->cache->load('mainVisited'))){
 			$visited=$this->find(array('conditions'=>array('status'=>1), 'order'=>'visitors desc', 'limit'=>12));
-			$this->cache->save($visited, 'mainVisited', array(), 120);
-		}
+			//$this->cache->save($visited, 'mainVisited', array(), 120);
+		//}
 		return $visited;
 	}
 

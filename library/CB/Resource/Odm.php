@@ -15,6 +15,8 @@ class CB_Resource_Odm extends Zend_Application_Resource_ResourceAbstract {
 	 * @return DocumentManager
 	 */
 	public function init() {
+
+		include APPLICATION_PATH.'/../library/MongoDB/functions.php';
 		$config = new \Doctrine\ODM\MongoDB\Configuration(); //Create configuration
 		$options = $this->getOptions(); //Read options (defined in application.ini)
 		$this->registerAutoloaders($options); //Registering autoloader namespaces
@@ -28,8 +30,8 @@ class CB_Resource_Odm extends Zend_Application_Resource_ResourceAbstract {
 		}
 
 
-		//$reader=new \Doctrine\Common\Annotations\AnnotationReader();
-		$reader=new FileCacheReader(new AnnotationReader(), APPLICATION_PATH.'/models/cache/annotation', $debug=false);
+		$reader=new \Doctrine\Common\Annotations\AnnotationReader();
+		//$reader=new FileCacheReader(new AnnotationReader(), APPLICATION_PATH.'/models/cache/annotation', $debug=false);
 		//$driverChain = new \Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain();
 		$annotationDriver=new \Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver($reader);
 		$annotationDriver->registerAnnotationClasses();
@@ -45,7 +47,7 @@ class CB_Resource_Odm extends Zend_Application_Resource_ResourceAbstract {
 		$host=$sc->get('mongo')->get('host', 'localhost');
 		$port=$sc->get('mongo')->get('port', '27017');
 
-		$dm = DocumentManager::create(new \Doctrine\MongoDB\Connection(new \Mongo('mongodb://'.$host.':'.$port.'/'.$database)), $config);
+		$dm = DocumentManager::create(new \Doctrine\MongoDB\Connection(new \MongoClient('mongodb://'.$username.':'.$password.'@'.$host.':'.$port.'/'.$database)), $config);
 
 		//$dm->getEventManager()->addEventListener(array(\Doctrine\ODM\MongoDB\Events::preUpdate, \Doctrine\ODM\MongoDB\Events::prePersist), new \CB_Resource_Doctrine_Evm());
 

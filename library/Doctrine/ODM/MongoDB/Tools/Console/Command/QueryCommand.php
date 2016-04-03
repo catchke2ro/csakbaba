@@ -1,7 +1,5 @@
 <?php
 /*
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,18 +19,15 @@
 
 namespace Doctrine\ODM\MongoDB\Tools\Console\Command;
 
-use Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console;
+use Doctrine\Common\Util\Debug;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console;
 
 /**
  * Command to query mongodb and inspect the outputted results from your document classes.
  *
- * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link    www.doctrine-project.org
- * @since   2.0
- * @version $Revision$
- * @author  Jonathan Wage <jonwage@gmail.com>
+ * @since   1.0
  */
 class QueryCommand extends Console\Command\Command
 {
@@ -81,10 +76,10 @@ EOT
      */
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
-        $dm = $this->getHelper('dm')->getDocumentManager();
-        $query = json_decode($input->getArgument('query'));
-        $cursor = $dm->getRepository($input->getArgument('class'))->findBy((array) $query);
-        $cursor->hydrate((bool) $input->getOption('hydrate'));
+        $dm = $this->getHelper('documentManager')->getDocumentManager();
+        $qb = $dm->getRepository($input->getArgument('class'))->createQueryBuilder();
+        $qb->setQueryArray((array) json_decode($input->getArgument('query')));
+        $qb->hydrate((bool) $input->getOption('hydrate'));
 
         $depth = $input->getOption('depth');
 
@@ -97,7 +92,7 @@ EOT
                 throw new \LogicException("Option 'skip' must contain an integer value");
             }
 
-            $cursor->skip((int) $skip);
+            $qb->skip((int) $skip);
         }
 
         if (($limit = $input->getOption('limit')) !== null) {
@@ -105,11 +100,11 @@ EOT
                 throw new \LogicException("Option 'limit' must contain an integer value");
             }
 
-            $cursor->limit((int) $limit);
+            $qb->limit((int) $limit);
         }
 
-        $resultSet = $cursor->toArray();
-
-        \Doctrine\Common\Util\Debug::dump($resultSet, $depth);
+        foreach ($qb->getQuery() as $result) {
+            Debug::dump($result, $depth);
+        }
     }
 }

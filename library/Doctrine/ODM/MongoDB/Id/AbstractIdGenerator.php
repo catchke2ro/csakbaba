@@ -20,22 +20,19 @@
 namespace Doctrine\ODM\MongoDB\Id;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 
 /**
  * AbstractIdGenerator
  *
- * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.com
  * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
  */
 abstract class AbstractIdGenerator
 {
     /**
      * Generates an identifier for a document.
      *
-     * @param Doctrine\ODM\MongoDB\DocumentManager $document
+     * @param \Doctrine\ODM\MongoDB\DocumentManager $dm
+     * @param object $document
      * @return mixed
      */
     abstract public function generate(DocumentManager $dm, $document);

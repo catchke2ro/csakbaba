@@ -1,7 +1,5 @@
 <?php
 /*
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
-*/
+ */
 
 namespace Doctrine\ODM\MongoDB\Hydrator;
 
@@ -26,25 +24,22 @@ use Doctrine\ODM\MongoDB\MongoDBException;
 /**
  * MongoDB ODM Hydrator Exception
  *
- * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.com
- * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
+ * @since  1.0
  */
 class HydratorException extends MongoDBException
 {
+    public static function hydratorDirectoryNotWritable()
+    {
+        return new self('Your hydrator directory must be writable.');
+    }
+
     public static function hydratorDirectoryRequired()
     {
-        return new self("You must configure a hydrator directory. See docs for details");
+        return new self('You must configure a hydrator directory. See docs for details.');
     }
 
     public static function hydratorNamespaceRequired()
     {
-        return new self("You must configure a hydrator namespace. See docs for details");
-    }
-
-    public static function hydratorDirectoryMustExist()
-    {
-        return new self("You must create a hydrator directory specified");
+        return new self('You must configure a hydrator namespace. See docs for details');
     }
 }

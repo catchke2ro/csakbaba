@@ -42,10 +42,10 @@ function l($message='', $type='info', $firebug=false){
 function shutdown() {
 	if($error=error_get_last()){
 		l($error['message'], 'crit', false);
-		if(empty($_COOKIE['CSBDEV'])){
+		/*if(empty($_COOKIE['CSBDEV'])){
 			if(ob_get_length()) ob_clean();
 		}
-		echo file_get_contents(APPLICATION_PATH.'/../public/500.html');
+		echo file_get_contents(APPLICATION_PATH.'/../public/500.html');*/
 	}
 }
 

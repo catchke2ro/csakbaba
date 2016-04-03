@@ -1,7 +1,5 @@
 <?php
 /*
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,45 +15,48 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
-*/
+ */
 
 namespace Doctrine\ODM\MongoDB\Tools\Console;
 
 /**
  * Used by CLI Tools to restrict entity-based commands to given patterns.
  *
- * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.com
  * @since       1.0
- * @version     $Revision$
- * @author      Benjamin Eberlei <kontakt@beberlei.de>
- * @author      Guilherme Blanco <guilhermeblanco@hotmail.com>
- * @author      Jonathan Wage <jonwage@gmail.com>
- * @author      Roman Borschel <roman@code-factory.org>
  */
 class MetadataFilter extends \FilterIterator implements \Countable
 {
     /**
      * Filter Metadatas by one or more filter options.
-     * 
+     *
      * @param array $metadatas
      * @param array|string $filter
      * @return array
      */
-    static public function filter(array $metadatas, $filter)
+    public static function filter(array $metadatas, $filter)
     {
         $metadatas = new MetadataFilter(new \ArrayIterator($metadatas), $filter);
         return iterator_to_array($metadatas);
     }
 
+    /**
+     * @var array
+     */
     private $_filter = array();
 
+    /**
+     * @param \ArrayIterator $metadata
+     * @param array|string $filter
+     */
     public function __construct(\ArrayIterator $metadata, $filter)
     {
-        $this->_filter = (array)$filter;
+        $this->_filter = (array) $filter;
         parent::__construct($metadata);
     }
 
+    /**
+     * @return bool
+     */
     public function accept()
     {
         if (count($this->_filter) == 0) {
@@ -73,6 +74,9 @@ class MetadataFilter extends \FilterIterator implements \Countable
         return false;
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         return count($this->getInnerIterator());

@@ -22,10 +22,7 @@ namespace Doctrine\ODM\MongoDB;
 /**
  * LockException
  *
- * @author Roman Borschel <roman@code-factory.org>
- * @author Benjamin Eberlei <kontakt@beberlei.de>
- * @author Jonathan H. Wage <jonwage@gmail.com>
- * @since 2.0
+ * @since 1.0
  */
 class LockException extends MongoDBException
 {

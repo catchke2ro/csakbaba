@@ -19,8 +19,7 @@
 
 namespace Doctrine\ODM\MongoDB\Mapping;
 
-use Doctrine\ODM\MongoDB\MongoDBException,
-    Doctrine\ODM\MongoDB\LockException;
+use Doctrine\Instantiator\Instantiator;
 
 /**
  * A <tt>ClassMetadata</tt> instance holds all the object-document mapping metadata
@@ -36,27 +35,21 @@ use Doctrine\ODM\MongoDB\MongoDBException,
  *    get the whole class name, namespace inclusive, prepended to every property in
  *    the serialized representation).
  *
- * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.com
  * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
- * @author      Roman Borschel <roman@code-factory.org>
  */
 class ClassMetadata extends ClassMetadataInfo
 {
     /**
      * The ReflectionProperty instances of the mapped class.
      *
-     * @var array
+     * @var \ReflectionProperty[]
      */
     public $reflFields = array();
 
     /**
-     * The prototype from which new instances of the mapped class are created.
-     *
-     * @var object
+     * @var \Doctrine\Instantiator\InstantiatorInterface|null
      */
-    private $prototype;
+    private $instantiator;
 
     /**
      * Initializes a new ClassMetadata instance that will hold the object-document mapping
@@ -70,22 +63,22 @@ class ClassMetadata extends ClassMetadataInfo
         $this->reflClass = new \ReflectionClass($documentName);
         $this->namespace = $this->reflClass->getNamespaceName();
         $this->setCollection($this->reflClass->getShortName());
+        $this->instantiator = new Instantiator();
     }
 
     /**
      * Map a field.
      *
      * @param array $mapping The mapping information.
+     * @return void
      */
     public function mapField(array $mapping)
     {
         $mapping = parent::mapField($mapping);
 
-        if ($this->reflClass->hasProperty($mapping['fieldName'])) {
-            $reflProp = $this->reflClass->getProperty($mapping['fieldName']);
-            $reflProp->setAccessible(true);
-            $this->reflFields[$mapping['fieldName']] = $reflProp;
-        }
+        $reflProp = $this->reflClass->getProperty($mapping['fieldName']);
+        $reflProp->setAccessible(true);
+        $this->reflFields[$mapping['fieldName']] = $reflProp;
     }
 
     /**
@@ -106,6 +99,7 @@ class ClassMetadata extends ClassMetadataInfo
         // This metadata is always serialized/cached.
         $serialized = array(
             'fieldMappings',
+            'associationMappings',
             'identifier',
             'name',
             'namespace', // TODO: REMOVE
@@ -115,7 +109,7 @@ class ClassMetadata extends ClassMetadataInfo
             'generatorType',
             'generatorOptions',
             'idGenerator',
-            'indexes'
+            'indexes',
         );
 
         // The rest of the metadata is only serialized if necessary.
@@ -132,6 +126,7 @@ class ClassMetadata extends ClassMetadataInfo
             $serialized[] = 'discriminatorField';
             $serialized[] = 'discriminatorValue';
             $serialized[] = 'discriminatorMap';
+            $serialized[] = 'defaultDiscriminatorValue';
             $serialized[] = 'parentClasses';
             $serialized[] = 'subClasses';
         }
@@ -157,6 +152,20 @@ class ClassMetadata extends ClassMetadataInfo
             $serialized[] = 'file';
         }
 
+        if ($this->slaveOkay) {
+            $serialized[] = 'slaveOkay';
+        }
+
+        if ($this->distance) {
+            $serialized[] = 'distance';
+        }
+
+        if ($this->collectionCapped) {
+            $serialized[] = 'collectionCapped';
+            $serialized[] = 'collectionSize';
+            $serialized[] = 'collectionMax';
+        }
+
         return $serialized;
     }
 
@@ -169,6 +178,7 @@ class ClassMetadata extends ClassMetadataInfo
     {
         // Restore ReflectionClass and properties
         $this->reflClass = new \ReflectionClass($this->name);
+        $this->instantiator = $this->instantiator ?: new Instantiator();
 
         foreach ($this->fieldMappings as $field => $mapping) {
             if (isset($mapping['declared'])) {
@@ -188,9 +198,6 @@ class ClassMetadata extends ClassMetadataInfo
      */
     public function newInstance()
     {
-        if ($this->prototype === null) {
-            $this->prototype = unserialize(sprintf('O:%d:"%s":0:{}', strlen($this->name), $this->name));
-        }
-        return clone $this->prototype;
+        return $this->instantiator->instantiate($this->name);
     }
 }

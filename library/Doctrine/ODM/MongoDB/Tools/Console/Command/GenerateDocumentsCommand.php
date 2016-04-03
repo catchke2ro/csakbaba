@@ -1,7 +1,5 @@
 <?php
 /*
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -21,24 +19,17 @@
 
 namespace Doctrine\ODM\MongoDB\Tools\Console\Command;
 
-use Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console,
-    Doctrine\ODM\MongoDB\Tools\Console\MetadataFilter,
-    Doctrine\ODM\MongoDB\Tools\DocumentGenerator,
-    Doctrine\ODM\MongoDB\Tools\DisconnectedClassMetadataFactory;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console;
+use Doctrine\ODM\MongoDB\Tools\Console\MetadataFilter;
+use Doctrine\ODM\MongoDB\Tools\DocumentGenerator;
+use Doctrine\ODM\MongoDB\Tools\DisconnectedClassMetadataFactory;
 
 /**
  * Command to generate document classes and method stubs from your mapping information.
  *
- * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link    www.doctrine-project.org
- * @since   2.0
- * @version $Revision$
- * @author  Benjamin Eberlei <kontakt@beberlei.de>
- * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
- * @author  Jonathan Wage <jonwage@gmail.com>
- * @author  Roman Borschel <roman@code-factory.org>
+ * @since   1.0
  */
 class GenerateDocumentsCommand extends Console\Command\Command
 {
@@ -60,19 +51,19 @@ class GenerateDocumentsCommand extends Console\Command\Command
             ),
             new InputOption(
                 'generate-annotations', null, InputOption::VALUE_OPTIONAL,
-                'Flag to define if generator should generate annotation metadata on documents.', false
+                'Flag to define if the generator should generate annotation metadata on documents.', false
             ),
             new InputOption(
                 'generate-methods', null, InputOption::VALUE_OPTIONAL,
-                'Flag to define if generator should generate stub methods on documents.', true
+                'Flag to define if the generator should generate stub methods on documents.', true
             ),
             new InputOption(
                 'regenerate-documents', null, InputOption::VALUE_OPTIONAL,
-                'Flag to define if generator should regenerate document if it exists.', false
+                'Flag to define if the generator should regenerate a document if it exists.', false
             ),
             new InputOption(
                 'update-documents', null, InputOption::VALUE_OPTIONAL,
-                'Flag to define if generator should only update document if it exists.', true
+                'Flag to define if the generator should only update a document if it exists.', true
             ),
             new InputOption(
                 'extend', null, InputOption::VALUE_OPTIONAL,
@@ -80,7 +71,11 @@ class GenerateDocumentsCommand extends Console\Command\Command
             ),
             new InputOption(
                 'num-spaces', null, InputOption::VALUE_OPTIONAL,
-                'Defines the number of indentation spaces', 4
+                'Defines the number of indentation spaces.', 4
+            ),
+            new InputOption(
+                'no-backup', null, InputOption::VALUE_NONE,
+                'Flag to define if the generator should provide a backup file of exisiting code.'
             )
         ))
         ->setHelp(<<<EOT
@@ -111,7 +106,7 @@ EOT
      */
     protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
     {
-        $dm = $this->getHelper('dm')->getDocumentManager();
+        $dm = $this->getHelper('documentManager')->getDocumentManager();
         
         $cmf = new DisconnectedClassMetadataFactory();
         $cmf->setDocumentManager($dm);
@@ -126,7 +121,7 @@ EOT
             throw new \InvalidArgumentException(
                 sprintf("Documents destination directory '<info>%s</info>' does not exist.", $destPath)
             );
-        } else if ( ! is_writable($destPath)) {
+        } elseif ( ! is_writable($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Documents destination directory '<info>%s</info>' does not have write permissions.", $destPath)
             );
@@ -140,6 +135,7 @@ EOT
             $documentGenerator->setGenerateStubMethods($input->getOption('generate-methods'));
             $documentGenerator->setRegenerateDocumentIfExists($input->getOption('regenerate-documents'));
             $documentGenerator->setUpdateDocumentIfExists($input->getOption('update-documents'));
+            $documentGenerator->setBackupExisting(!$input->getOption('no-backup'));
             $documentGenerator->setNumSpaces($input->getOption('num-spaces'));
 
             if (($extend = $input->getOption('extend')) !== null) {
@@ -147,8 +143,8 @@ EOT
             }
 
             foreach ($metadatas as $metadata) {
-                $output->write(
-                    sprintf('Processing document "<info>%s</info>"', $metadata->name) . PHP_EOL
+                $output->writeln(
+                    sprintf('Processing document "<info>%s</info>".', $metadata->name)
                 );
             }
 
@@ -156,9 +152,12 @@ EOT
             $documentGenerator->generate($metadatas, $destPath);
 
             // Outputting information message
-            $output->write(PHP_EOL . sprintf('Document classes generated to "<info>%s</INFO>"', $destPath) . PHP_EOL);
+            $output->writeln(array(
+                '',
+                sprintf('Document classes have been generated to "<info>%s</info>".', $destPath)
+            ));
         } else {
-            $output->write('No Metadata Classes to process.' . PHP_EOL);
+            $output->writeln('No Metadata Classes to process.');
         }
     }
 }
