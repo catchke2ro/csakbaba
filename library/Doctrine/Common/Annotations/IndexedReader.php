@@ -13,13 +13,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\Common\Annotations;
-
-use Doctrine\Common\Annotations\Reader;
 
 /**
  * Allows the reader to be used in-place of Doctrine's reader.
@@ -28,13 +26,24 @@ use Doctrine\Common\Annotations\Reader;
  */
 class IndexedReader implements Reader
 {
+    /**
+     * @var Reader
+     */
     private $delegate;
 
+    /**
+     * Constructor.
+     *
+     * @param Reader $reader
+     */
     public function __construct(Reader $reader)
     {
         $this->delegate = $reader;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getClassAnnotations(\ReflectionClass $class)
     {
         $annotations = array();
@@ -45,11 +54,17 @@ class IndexedReader implements Reader
         return $annotations;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getClassAnnotation(\ReflectionClass $class, $annotation)
     {
         return $this->delegate->getClassAnnotation($class, $annotation);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getMethodAnnotations(\ReflectionMethod $method)
     {
         $annotations = array();
@@ -60,11 +75,17 @@ class IndexedReader implements Reader
         return $annotations;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getMethodAnnotation(\ReflectionMethod $method, $annotation)
     {
         return $this->delegate->getMethodAnnotation($method, $annotation);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getPropertyAnnotations(\ReflectionProperty $property)
     {
         $annotations = array();
@@ -75,17 +96,21 @@ class IndexedReader implements Reader
         return $annotations;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getPropertyAnnotation(\ReflectionProperty $property, $annotation)
     {
         return $this->delegate->getPropertyAnnotation($property, $annotation);
     }
 
     /**
-     * Proxy all methods to the delegate.
+     * Proxies all methods to the delegate.
      *
-     * @param type $method
-     * @param type $args
-     * @return type
+     * @param string $method
+     * @param array  $args
+     *
+     * @return mixed
      */
     public function __call($method, $args)
     {

@@ -22,12 +22,10 @@ namespace Doctrine\MongoDB\Event;
 use Doctrine\Common\EventArgs as BaseEventArgs;
 
 /**
- * Map reduce event args.
+ * Event args for the mapReduce command.
  *
- * @license     http://www.opensource.org/licenses/mit-license.php MIT
- * @link        www.doctrine-project.com
- * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
+ * @since  1.0
+ * @author Jonathan H. Wage <jonwage@gmail.com>
  */
 class MapReduceEventArgs extends BaseEventArgs
 {
@@ -36,33 +34,118 @@ class MapReduceEventArgs extends BaseEventArgs
     private $reduce;
     private $query;
     private $out;
+    private $options;
 
-    public function __construct($invoker, &$map, &$reduce, array &$out, array &$query)
+    /**
+     * Constructor.
+     *
+     * @param object            $invoker
+     * @param string|\MongoCode $map
+     * @param string|\MongoCode $reduce
+     * @param array             $out
+     * @param array             $query
+     * @param array             $options
+     */
+    public function __construct($invoker, $map, $reduce, array $out, array $query, array $options = array())
     {
         $this->invoker = $invoker;
         $this->map = $map;
         $this->reduce = $reduce;
         $this->out = $out;
         $this->query = $query;
+        $this->options = $options;
     }
 
-    public function getKeys()
+    /**
+     * @return object
+     */
+    public function getInvoker()
     {
-        return $this->keys;
+        return $this->invoker;
     }
 
+    /**
+     * @return \MongoCode|string
+     */
+    public function getMap()
+    {
+        return $this->map;
+    }
+
+    /**
+     * @return \MongoCode|string
+     */
     public function getReduce()
     {
         return $this->reduce;
     }
 
+    /**
+     * @return array
+     */
+    public function getOut()
+    {
+        return $this->out;
+    }
+
+    /**
+     * @return array
+     */
     public function getQuery()
     {
         return $this->query;
     }
 
-    public function getOut()
+    /**
+     * @return array
+     */
+    public function getOptions()
     {
-        return $this->out;
+        return $this->options;
+    }
+
+    /**
+     * @param array $query
+     * @since 1.3
+     */
+    public function setQuery(array $query)
+    {
+        $this->query = $query;
+    }
+
+    /**
+     * @param $map
+     * @since 1.3
+     */
+    public function setMap($map)
+    {
+        $this->map = $map;
+    }
+
+    /**
+     * @param $reduce
+     * @since 1.3
+     */
+    public function setReduce($reduce)
+    {
+        $this->reduce = $reduce;
+    }
+
+    /**
+     * @param array $out
+     * @since 1.3
+     */
+    public function setOut(array $out)
+    {
+        $this->out = $out;
+    }
+
+    /**
+     * @param array $options
+     * @since 1.3
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
     }
 }

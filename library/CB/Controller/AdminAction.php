@@ -53,8 +53,8 @@ abstract class CB_Controller_AdminAction extends Zend_Controller_Action {
 	private function _head(){
 
 		$this->view->headLink()
-			->appendStylesheet('/css/ext/ext-theme-classic-all.css')
-			->appendStylesheet('/css/admin.css');
+			->appendStylesheet('/stylesheets/css/ext/ext-theme-classic-all.css')
+			->appendStylesheet('/stylesheets/css/admin.css');
 		$this->view->headScript()
 			->appendFile('/js/ext/ext-all-dev.js')
 			->appendFile('/js/ck/ckeditor.js')

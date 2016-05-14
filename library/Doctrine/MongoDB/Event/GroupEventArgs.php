@@ -22,40 +22,110 @@ namespace Doctrine\MongoDB\Event;
 use Doctrine\Common\EventArgs as BaseEventArgs;
 
 /**
- * Group event args.
+ * Event args for the group command.
  *
- * @license     http://www.opensource.org/licenses/mit-license.php MIT
- * @link        www.doctrine-project.com
- * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
+ * @since  1.0
+ * @author Jonathan H. Wage <jonwage@gmail.com>
  */
 class GroupEventArgs extends BaseEventArgs
 {
     private $invoker;
     private $keys;
-    private $initial = array();
+    private $initial;
     private $reduce;
+    private $options;
 
-    public function __construct($invoker, &$keys, array &$initial, &$reduce)
+    /**
+     * Constructor.
+     *
+     * @param object                  $invoker
+     * @param array|string|\MongoCode $keys
+     * @param array                   $initial
+     * @param string|\MongoCode       $reduce
+     * @param array                   $options
+     */
+    public function __construct($invoker, $keys, array $initial, $reduce, array $options = array())
     {
         $this->invoker = $invoker;
         $this->keys = $keys;
         $this->initial = $initial;
         $this->reduce = $reduce;
+        $this->options = $options;
     }
 
+    /**
+     * @return object
+     */
+    public function getInvoker()
+    {
+        return $this->invoker;
+    }
+
+    /**
+     * @return array|\MongoCode|string
+     */
     public function getKeys()
     {
         return $this->keys;
     }
 
+    /**
+     * @return array
+     */
     public function getInitial()
     {
         return $this->initial;
     }
 
+    /**
+     * @return \MongoCode|string
+     */
     public function getReduce()
     {
         return $this->reduce;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param $keys
+     * @since 1.3
+     */
+    public function setKeys($keys)
+    {
+        $this->keys = $keys;
+    }
+
+    /**
+     * @param array $initial
+     * @since 1.3
+     */
+    public function setInitial(array $initial)
+    {
+        $this->initial = $initial;
+    }
+
+    /**
+     * @param $reduce
+     * @since 1.3
+     */
+    public function setReduce($reduce)
+    {
+        $this->reduce = $reduce;
+    }
+
+    /**
+     * @param array $options
+     * @since 1.3
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
     }
 }

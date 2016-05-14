@@ -22,38 +22,90 @@ namespace Doctrine\MongoDB\Event;
 use Doctrine\Common\EventArgs as BaseEventArgs;
 
 /**
- * Update event args.
+ * Event args for update queries.
  *
- * @license     http://www.opensource.org/licenses/mit-license.php MIT
- * @link        www.doctrine-project.com
- * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
+ * @since  1.0
+ * @author Jonathan H. Wage <jonwage@gmail.com>
  */
 class UpdateEventArgs extends BaseEventArgs
 {
     private $invoker;
-    private $query = array();
-    private $newObj = array();
+    private $query;
+    private $newObj;
+    private $options;
 
-    public function __construct($invoker, &$query, &$newObj)
+    /**
+     * Constructor.
+     *
+     * @param object $invoker
+     * @param array  $query
+     * @param array  $newObj
+     * @param array  $options
+     */
+    public function __construct($invoker, array $query, array $newObj, array $options = array())
     {
         $this->invoker = $invoker;
         $this->query = $query;
         $this->newObj = $newObj;
+        $this->options = $options;
     }
 
+    /**
+     * @return object
+     */
     public function getInvoker()
     {
         return $this->invoker;
     }
 
+    /**
+     * @return array
+     */
     public function getQuery()
     {
         return $this->query;
     }
 
+    /**
+     * @return array
+     */
     public function getNewObj()
     {
         return $this->newObj;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param array $query
+     * @since 1.3
+     */
+    public function setQuery(array $query)
+    {
+        $this->query = $query;
+    }
+
+    /**
+     * @param array $newObj
+     * @since 1.3
+     */
+    public function setNewObj(array $newObj)
+    {
+        $this->newObj = $newObj;
+    }
+
+    /**
+     * @param array $options
+     * @since 1.3
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
     }
 }

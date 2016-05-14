@@ -22,160 +22,125 @@ namespace Doctrine\ODM\MongoDB;
 /**
  * Class for all exceptions related to the Doctrine MongoDB ODM
  *
- * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.org
  * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
  */
 class MongoDBException extends \Exception
 {
+    /**
+     * @param string $documentName
+     * @param string $fieldName
+     * @param string $method
+     * @return MongoDBException
+     */
     public static function invalidFindByCall($documentName, $fieldName, $method)
     {
         return new self(sprintf('Invalid find by call %s::$fieldName (%s)', $documentName, $fieldName, $method));
     }
 
-    public static function removedDocumentInCollectionDetected($document, $mapping)
-    {
-        return new self(sprintf('Removed document in collection detected "%s"', get_class($document), $mapping['fieldName']));
-    }
-
+    /**
+     * @return MongoDBException
+     */
     public static function detachedDocumentCannotBeRemoved()
     {
         return new self('Detached document cannot be removed');
     }
 
+    /**
+     * @param string $state
+     * @return MongoDBException
+     */
     public static function invalidDocumentState($state)
     {
         return new self(sprintf('Invalid document state "%s"', $state));
     }
 
-    public static function mappingFileNotFound($className, $fileName)
-    {
-        return new self(sprintf('Could not find mapping file "%s" for class "%s".', $fileName, $className));
-    }
-
-    public static function documentNotMappedToDB($className)
-    {
-        return new self(sprintf('The "%s" document is not mapped to a MongoDB database.', $className));
-    }
-
+    /**
+     * @param string $className
+     * @return MongoDBException
+     */
     public static function documentNotMappedToCollection($className)
     {
         return new self(sprintf('The "%s" document is not mapped to a MongoDB database collection.', $className));
     }
 
+    /**
+     * @return MongoDBException
+     */
     public static function documentManagerClosed()
     {
         return new self('The DocumentManager is closed.');
     }
 
+    /**
+     * @param string $methodName
+     * @return MongoDBException
+     */
     public static function findByRequiresParameter($methodName)
     {
         return new self("You need to pass a parameter to '".$methodName."'");
     }
 
-
-    public static function typeExists($name)
-    {
-        return new self('Type '.$name.' already exists.');
-    }
-
-    public static function unknownFieldType($name)
-    {
-        return new self('Unknown field type '.$name.' requested.');
-    }
-
-    public static function typeNotFound($name)
-    {
-        return new self('Type to be overwritten '.$name.' does not exist.');
-    }
-
+    /**
+     * @param string $documentNamespaceAlias
+     * @return MongoDBException
+     */
     public static function unknownDocumentNamespace($documentNamespaceAlias)
     {
         return new self("Unknown Document namespace alias '$documentNamespaceAlias'.");
     }
 
+    /**
+     * @param string $className
+     * @return MongoDBException
+     */
     public static function cannotPersistMappedSuperclass($className)
     {
         return new self('Cannot persist an embedded document or mapped superclass ' . $className);
     }
 
-    public static function mappingNotFound($className, $fieldName)
-    {
-        return new self("No mapping found for field '$fieldName' in class '$className'.");
-    }
-
-    public static function duplicateFieldMapping($document, $fieldName)
-    {
-        return new self('Property "'.$fieldName.'" in "'.$document.'" was already declared, but it must be declared only once');
-    }
-
     /**
-     * Throws an exception that indicates that a class used in a discriminator map does not exist.
-     * An example would be an outdated (maybe renamed) classname.
-     *
-     * @param string $className The class that could not be found
-     * @param string $owningClass The class that declares the discriminator map.
-     * @return self
+     * @param string $className
+     * @param string $unindexedFields
+     * @return MongoDBException
      */
-    public static function invalidClassInDiscriminatorMap($className, $owningClass)
-    {
-        return new self(
-            "Document class '$className' used in the discriminator map of class '$owningClass' ".
-            "does not exist."
-        );
-    }
-
-    public static function missingFieldName($className)
-    {
-        return new self("The Document class '$className' field mapping misses the 'fieldName' attribute.");
-    }
-
-    public static function classIsNotAValidDocument($className)
-    {
-        return new self('Class '.$className.' is not a valid document or mapped super class.');
-    }
-
-    public static function pathRequired()
-    {
-        return new self("Specifying the paths to your documents is required ".
-            "in the AnnotationDriver to retrieve all class names.");
-    }
-
-    public static function fileMappingDriversRequireConfiguredDirectoryPath()
-    {
-        return new self('File mapping drivers must have a valid directory path, however the given path seems to be incorrect!');
-    }
-
-    /**
-     * Exception for reflection exceptions - adds the document name,
-     * because there might be long classnames that will be shortened
-     * within the stacktrace
-     *
-     * @param string $document The document's name
-     * @param \ReflectionException $previousException
-     */
-    public static function reflectionFailure($document, \ReflectionException $previousException)
-    {
-        return new self('An error occurred in ' . $document, 0, $previousException);
-    }
-
-    public static function identifierRequired($documentName)
-    {
-        return new self("No identifier/primary key specified for Document '$documentName'."
-                . " Every Document must have an identifier/primary key.");
-    }
-
-    public static function missingIdentifierField($className, $fieldName)
-    {
-        return new self("The identifier $fieldName is missing for a query of " . $className);
-    }
-
     public static function queryNotIndexed($className, $unindexedFields)
     {
         return new self(sprintf('Cannot execute unindexed queries on %s. Unindexed fields: %s',
             $className,
             implode(', ', $unindexedFields)
         ));
+    }
+
+    /**
+     * @param string $className
+     * @return MongoDBException
+     */
+    public static function invalidDocumentRepository($className)
+    {
+        return new self("Invalid repository class '".$className."'. It must be a Doctrine\Common\Persistence\ObjectRepository.");
+    }
+
+    /**
+     * @param string $type
+     * @param string|array $expected
+     * @param mixed $got
+     * @return MongoDBException
+     */
+    public static function invalidValueForType($type, $expected, $got)
+    {
+        if (is_array($expected)) {
+            $expected = sprintf('%s or %s',
+                join(', ', array_slice($expected, 0, -1)),
+                end($expected)
+            );
+        }
+        if (is_object($got)) {
+            $gotType = get_class($got);
+        } elseif (is_array($got)) {
+            $gotType = 'array';
+        } else {
+            $gotType = 'scalar';
+        }
+        return new self(sprintf('%s type requires value of type %s, %s given', $type, $expected, $gotType));
     }
 }

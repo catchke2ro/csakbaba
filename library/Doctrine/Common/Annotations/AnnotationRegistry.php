@@ -13,12 +13,15 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\Common\Annotations;
 
+/**
+ * AnnotationRegistry.
+ */
 final class AnnotationRegistry
 {
     /**
@@ -40,24 +43,36 @@ final class AnnotationRegistry
      */
     static private $loaders = array();
 
+    /**
+     * @return void
+     */
     static public function reset()
     {
         self::$autoloadNamespaces = array();
         self::$loaders = array();
     }
 
+    /**
+     * Registers file.
+     *
+     * @param string $file
+     *
+     * @return void
+     */
     static public function registerFile($file)
     {
         require_once $file;
     }
 
     /**
-     * Add a namespace with one or many directories to look for files or null for the include path.
+     * Adds a namespace with one or many directories to look for files or null for the include path.
      *
      * Loading of this namespaces will be done with a PSR-0 namespace loading algorithm.
      *
-     * @param string $namespace
+     * @param string            $namespace
      * @param string|array|null $dirs
+     *
+     * @return void
      */
     static public function registerAutoloadNamespace($namespace, $dirs = null)
     {
@@ -65,11 +80,13 @@ final class AnnotationRegistry
     }
 
     /**
-     * Register multiple namespaces
+     * Registers multiple namespaces.
      *
      * Loading of this namespaces will be done with a PSR-0 namespace loading algorithm.
      *
      * @param array $namespaces
+     *
+     * @return void
      */
     static public function registerAutoloadNamespaces(array $namespaces)
     {
@@ -77,26 +94,31 @@ final class AnnotationRegistry
     }
 
     /**
-     * Register an autoloading callabale for annotations, much like spl_autoload_register().
+     * Registers an autoloading callable for annotations, much like spl_autoload_register().
      *
      * NOTE: These class loaders HAVE to be silent when a class was not found!
      * IMPORTANT: Loaders have to return true if they loaded a class that could contain the searched annotation class.
      *
-     * @param callabale $callabale
+     * @param callable $callable
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException
      */
-    static public function registerLoader($callabale)
+    static public function registerLoader($callable)
     {
-        if (!is_callable($callabale)) {
+        if (!is_callable($callable)) {
             throw new \InvalidArgumentException("A callable is expected in AnnotationRegistry::registerLoader().");
         }
-        self::$loaders[] = $callabale;
+        self::$loaders[] = $callable;
     }
 
     /**
-     * Autoload an annotation class silently.
+     * Autoloads an annotation class silently.
      *
      * @param string $class
-     * @return void
+     *
+     * @return boolean
      */
     static public function loadAnnotationClass($class)
     {
@@ -110,7 +132,7 @@ final class AnnotationRegistry
                     }
                 } else {
                     foreach((array)$dirs AS $dir) {
-                        if (file_exists($dir . DIRECTORY_SEPARATOR . $file)) {
+                        if (is_file($dir . DIRECTORY_SEPARATOR . $file)) {
                             require $dir . DIRECTORY_SEPARATOR . $file;
                             return true;
                         }

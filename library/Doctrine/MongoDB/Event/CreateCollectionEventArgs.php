@@ -22,52 +22,87 @@ namespace Doctrine\MongoDB\Event;
 use Doctrine\Common\EventArgs as BaseEventArgs;
 
 /**
- * Create collection event args.
+ * Event args for creating a collection.
  *
- * @license     http://www.opensource.org/licenses/mit-license.php MIT
- * @link        www.doctrine-project.com
- * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
+ * @since  1.0
+ * @author Jonathan H. Wage <jonwage@gmail.com>
  */
 class CreateCollectionEventArgs extends BaseEventArgs
 {
     private $invoker;
     private $name;
-    private $capped;
-    private $size;
-    private $max;
+    private $options;
 
-    public function __construct($invoker, &$name, &$capped, &$size, &$max)
+    /**
+     * Constructor.
+     *
+     * @todo Remove support for separate capped, size and max parameters in 2.0
+     * @param object        $invoker
+     * @param string        $name
+     * @param boolean|array $cappedOrOptions
+     * @param integer       $size
+     * @param integer       $max
+     */
+    public function __construct($invoker, $name, $cappedOrOptions, $size = 0, $max = 0)
     {
         $this->invoker = $invoker;
         $this->name = $name;
-        $this->capped = $capped;
-        $this->size = $size;
-        $this->max = $max;
+
+        $options = is_array($cappedOrOptions)
+            ? $cappedOrOptions
+            : array('capped' => $cappedOrOptions, 'size' => $size, 'max' => $max);
+
+        $this->options = $options;
     }
 
+    /**
+     * @return object
+     */
     public function getInvoker()
     {
         return $this->invoker;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return array|bool
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @deprecated 1.1 Replaced by options; will be removed for 2.0
+     * @return mixed
+     */
     public function getCapped()
     {
-        return $this->capped;
+        return $this->options['capped'];
     }
 
+    /**
+     * @deprecated 1.1 Replaced by options; will be removed for 2.0
+     * @return mixed
+     */
     public function getSize()
     {
-        return $this->size;
+        return $this->options['size'];
     }
 
+    /**
+     * @deprecated 1.1 Replaced by options; will be removed for 2.0
+     * @return mixed
+     */
     public function getMax()
     {
-        return $this->max;
+        return $this->options['max'];
     }
 }

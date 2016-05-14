@@ -19,17 +19,11 @@
 
 namespace Doctrine\ODM\MongoDB\Hydrator;
 
-use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-
 /**
  * The HydratorInterface defines methods all hydrator need to implement
  *
- * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.com
  * @since       1.0
- * @author      Jonathan H. Wage <jonwage@gmail.com>
  */
-
 interface HydratorInterface
 {
     /**
@@ -40,5 +34,5 @@ interface HydratorInterface
      * @param array $hints Any hints to account for during reconstitution/lookup of the document.
      * @return array $values The array of hydrated values.
      */
-    function hydrate($document, $data, array $hints = array());
+    public function hydrate($document, $data, array $hints = array());
 }

@@ -13,15 +13,15 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\Common\Persistence\Event;
 
 use Doctrine\Common\EventArgs;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Class that holds event arguments for a loadMetadata event.
@@ -44,7 +44,7 @@ class LoadClassMetadataEventArgs extends EventArgs
     /**
      * Constructor.
      *
-     * @param ClasseMetadata $classMetadata
+     * @param ClassMetadata $classMetadata
      * @param ObjectManager $objectManager
      */
     public function __construct(ClassMetadata $classMetadata, ObjectManager $objectManager)
@@ -54,7 +54,7 @@ class LoadClassMetadataEventArgs extends EventArgs
     }
 
     /**
-     * Retrieve associated ClassMetadata.
+     * Retrieves the associated ClassMetadata.
      *
      * @return ClassMetadata
      */
@@ -64,7 +64,7 @@ class LoadClassMetadataEventArgs extends EventArgs
     }
 
     /**
-     * Retrieve associated ObjectManager.
+     * Retrieves the associated ObjectManager.
      *
      * @return ObjectManager
      */
@@ -73,4 +73,3 @@ class LoadClassMetadataEventArgs extends EventArgs
         return $this->objectManager;
     }
 }
-
