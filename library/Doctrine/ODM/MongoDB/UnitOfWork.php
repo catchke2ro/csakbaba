@@ -103,6 +103,8 @@ class UnitOfWork implements PropertyChangedListener
      *           by the user.
      */
     private $originalDocumentData = array();
+	
+		private $translatedDocuments = array();
 
     /**
      * Map of document changes. Keys are object ids (spl_object_hash).
@@ -685,7 +687,10 @@ class UnitOfWork implements PropertyChangedListener
         $oid = spl_object_hash($document);
         $actualData = $this->getDocumentActualData($document);
         $isNewDocument = ! isset($this->originalDocumentData[$oid]);
-        if ($isNewDocument) {
+	    
+	      if(in_array($oid, $this->translatedDocuments)){
+		      return;
+	      } else if ($isNewDocument) {
             // Document is either NEW or MANAGED but not yet fully persisted (only has an id).
             // These result in an INSERT.
             $this->originalDocumentData[$oid] = $actualData;
@@ -2733,6 +2738,20 @@ class UnitOfWork implements PropertyChangedListener
         $this->originalDocumentData[$oid] = $data;
         unset($this->documentChangeSets[$oid]);
     }
+	
+		public function addTranslatedDocument($document){
+			$oid = spl_object_hash($document);
+			if(!in_array($oid, $this->translatedDocuments)){
+				$this->translatedDocuments[] = $oid;
+			}
+		}
+	
+		public function removeTranslatedDocument($document){
+			$oid = spl_object_hash($document);
+			if(in_array($oid, $this->translatedDocuments)){
+				$this->translatedDocuments = array_diff($this->translatedDocuments, array($oid));
+			}
+		}
 
     /**
      * INTERNAL:

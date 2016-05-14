@@ -77,9 +77,9 @@ function sendImage($filename, $browser_cache) {
 	}
   $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
   if (in_array($extension, array('png', 'gif', 'jpeg'))) {
-    header("Content-Type: image/".$extension);
+    //header("Content-Type: image/".$extension);
   } else {
-    header("Content-Type: image/jpeg");
+    //header("Content-Type: image/jpeg");
   }
   header("Cache-Control: private, max-age=".$browser_cache);
   header('Expires: '.gmdate('D, d M Y H:i:s', time()+$browser_cache).' GMT');

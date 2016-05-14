@@ -30,10 +30,10 @@ class HashType extends Type
 {
     public function convertToDatabaseValue($value)
     {
-        if ($value !== null && ! is_array($value)) {
+        /*if ($value !== null && ! is_array($value)) {
             throw MongoDBException::invalidValueForType('Hash', array('array', 'null'), $value);
-        }
-        return $value !== null ? (object) $value : null;
+        }*/
+        return ($value !== null && $value != 'null' && $value != '') ? (object) $value : null;
     }
 
     public function convertToPHPValue($value)

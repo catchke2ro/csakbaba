@@ -9,6 +9,7 @@ class CB_Resource_Mailchimp {
 	public function __construct(){
 		include APPLICATION_PATH.'/../library/Mailchimp/Mailchimp.php';
 		$this->mc=new Mailchimp($this->apiKey);
+		$this->mc->ssl_verifypeer=false;
 
 	}
 

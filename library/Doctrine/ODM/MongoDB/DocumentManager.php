@@ -61,7 +61,7 @@ class DocumentManager implements ObjectManager
      *
      * @var \Doctrine\ODM\MongoDB\Mapping\ClassMetadataFactory
      */
-    private $metadataFactory;
+    public $metadataFactory;
 
     /**
      * The UnitOfWork used to coordinate object-level transactions.

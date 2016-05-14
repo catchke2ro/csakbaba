@@ -49,6 +49,7 @@ class Request {
 		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
 
 

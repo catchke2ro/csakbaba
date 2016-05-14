@@ -405,7 +405,7 @@ class Expr
     public function equals($value)
     {
         if ($this->currentField) {
-            $this->query[$this->currentField] = $value;
+            $this->query[strval($this->currentField)] = $value;
         } else {
             $this->query = $value;
         }

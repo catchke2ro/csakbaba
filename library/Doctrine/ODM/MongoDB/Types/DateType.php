@@ -81,6 +81,7 @@ class DateType extends Type
 
     public function convertToDatabaseValue($value)
     {
+	      if($value === '') return null;
         if ($value === null || $value instanceof \MongoDate) {
             return $value;
         }

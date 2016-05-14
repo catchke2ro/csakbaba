@@ -137,7 +137,16 @@ class HydratorFactory
 
         if ( ! class_exists($fqn, false)) {
             $fileName = $this->hydratorDir . DIRECTORY_SEPARATOR . $hydratorClassName . '.php';
-            switch ($this->autoGenerate) {
+
+	          if($this->autoGenerate){
+		          $classFileName = new \ReflectionClass($className);
+		          $fileNameTime = file_exists($fileName) ? filemtime($fileName) : 0;
+		          if(filemtime($classFileName->getFileName()) > $fileNameTime){
+			          $this->generateHydratorClass($class, $hydratorClassName, $fileName);
+		          }
+	          }
+
+            /*switch ($this->autoGenerate) {
                 case Configuration::AUTOGENERATE_NEVER:
                     require $fileName;
                     break;
@@ -157,7 +166,7 @@ class HydratorFactory
                 case Configuration::AUTOGENERATE_EVAL:
                     $this->generateHydratorClass($class, $hydratorClassName, false);
                     break;
-            }
+            }*/
         }
         $this->hydrators[$className] = new $fqn($this->dm, $this->unitOfWork, $class);
         return $this->hydrators[$className];
