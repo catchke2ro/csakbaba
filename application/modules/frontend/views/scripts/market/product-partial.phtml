@@ -1,11 +1,13 @@
 <? if(!empty($this->product)){?>
 
 <? $tag=isset($this->tag) ? $this->tag : 'li';?>
+    <? $fix = !isset($this->fix) || $this->fix==true;?>
 <? $nameTag=isset($this->nameTag) ? $this->nameTag : 'h3';?>
 <<?=$tag;?>
-	class="product <?=$this->product->type;?> <?=((isset($this->back) && $this->back==false)?'noflip':'');?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->product->isPromoted('frame')?'promotedFrame':'');?> <?=($this->product->isPromoted('list')?'promotedList':'');?> status<?=$this->product->status;?>"
+	class="product <?=$this->product->type;?> <?=$fix ? '' : 'noFix';?> <?=((isset($this->back) && $this->back==false)?'noflip':'');?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->product->isPromoted('frame')?'promotedFrame':'');?> <?=($this->product->isPromoted('list')?'promotedList':'');?> status<?=$this->product->status;?>"
 	data-id="<?=$this->product->id;?>"
 	data-categoryid="<?=$this->product->category;?>"
+	data-status="<?=$this->product->status;?>"
 	<?=(!empty($this->extraData)?$this->extraData:'');?>
 >
 	<div class="productInner">
@@ -77,15 +79,18 @@
 		</div>
 
 
-		<? if(!isset($this->fix) || $this->fix==true){?>
+        <? if(isset($this->userfunctions) && $this->userfunctions==true){?>
+            <div class="userFix">
+                <?=$this->partial('shop/userproductfix.phtml', $this->getVars());?>
+            </div>
+            <?=$this->partial('shop/userproductfunctions.phtml', $this->getVars());?>
+        <? } else if($fix) { ?>
 			<div class="fix">
 				<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="button jump">tovább a termékhez</a>
 			</div>
 		<? } ?>
 
-		<? if(isset($this->userfunctions) && $this->userfunctions==true){?>
-			<?=$this->partial('shop/userproductfunctions.phtml', $this->getVars());?>
-		<? } ?>
+
 
 		<? if(isset($this->rating) && $this->rating==true && !empty($this->o)){?>
 			<?=$this->partial('shop/userrating.phtml', $this->getVars());?>

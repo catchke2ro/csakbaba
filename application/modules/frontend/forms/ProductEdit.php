@@ -6,12 +6,17 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 	public $category;
 	public $options;
 	public $deliveryOptions;
+    public $product;
 
 	public function init(){
 		$this->setAttrib('enctype', 'multipart/form-data');
 	}
 
-	public function initFields(){
+	public function initFields($category = null, $deliveryOptions = null){
+        $this->category = $category;
+        $this->options = $category->props;
+        $this->deliveryOptions = $deliveryOptions;
+        $this->setAttrib('data-amount', 0);
 
 		$this->setAttrib('class', reset(explode('-', $this->category->id)));
 
@@ -24,45 +29,90 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 		$name=new Zend_Form_Element_Text('name');
 		$name->setLabel('Áru neve')->setRequired(true)->addValidators(array(array('NotEmpty',true)));
 		$desc=new Zend_Form_Element_Textarea('desc');
-		$desc->setLabel('Leírás')->setRequired(true)->addValidators(array(array('NotEmpty',true)));
+		$desc->setLabel('Leírás')->addValidators(array(array('NotEmpty',true)));
 		$price=new Zend_Form_Element_Text('price');
 		$price->setLabel('Ár')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Digits',true)))->setAttrib('class', 'priceInput')->addFilters(array(array('StringTrim')));
 		$image=new CB_Form_Element_Upload('images');
 		$image->setLabel('Kép feltöltése')->setTargetDir('/upload/product');
+
+        $moreOpened = new Zend_Form_Element_Hidden('moreopened');
+        $moreOpened->setValue('0');
+
 		$type=new Zend_Form_Element_Radio('type');
 		$types=Zend_Registry::get('genreTypes');
 		if($this->category->sex==false){
 			$types=array_slice($types, 2, 1);
 			$type->setValue(key($types));
 		}
-		$type->setLabel('Típus')->setRequired(true)->setMultiOptions($types)->setAttrib('class', 'genre');
+		$type->setLabel('Típus')->setMultiOptions($types)->setAttrib('class', 'genre');
 		$new=new Zend_Form_Element_Radio('new');
-		$new->setLabel('Állapot')->setRequired(true)->setMultiOptions(array('0'=>'Használt', '1'=>'Új'));
+		$new->setLabel('Állapot')->setMultiOptions(array('0'=>'Használt', '1'=>'Új'));
 		$deliveries=new Zend_Form_Element_MultiCheckbox('deliveries');
-		$deliveries->setLabel('Szállítási módok')->setRequired(true)->setMultiOptions($this->deliveryOptions);
+		$deliveries->setLabel('Szállítási módok')->setMultiOptions($this->deliveryOptions);
 		$autorenew=new Zend_Form_Element_Radio('autorenew');
 		$autorenew->setLabel('Automatikus megújítás')->setMultiOptions(Zend_Registry::get('autoRenewOptions'))->setValue('never');
 
-		$this->addElements(array($id,$name,$desc,$price,$image,$type,$new,$deliveries,$autorenew,$id,$categoryId,$userId));
+
+		$this->addElements(array($id,$name,$desc,$price,$image,$moreOpened,$type,$new,$deliveries,$autorenew,$id,$categoryId,$userId));
 		$ids=$this->_categoryFields();
+
+
+
+        $moreButton=new Zend_Form_Element_Button('moreButton');
+        $moreButton->setLabel('További adatok');
+        $moreButtonInfo = (new Zend_Form_Element_Note('moreButtonInfo'));
+        $moreButtonInfo->setValue('<p class="infoText">További részletek megadásával könnyebben megtalálható lesz a terméked, és az eladás menetét is gyorsítja</p>');
+        $this->addElements([$moreButton, $moreButtonInfo]);
+
+
+
+        //Promote
+        $prices=Zend_Registry::get('promoteOptionPrices');
+        $promoteOptions=Zend_Registry::get('promoteOptions');
+        $opts=array();
+        foreach($promoteOptions as $type=>$text){
+            $opts[$type]=$text.' ('.$prices[$type].' HUF)';
+        }
+
+        $promoteButton=new Zend_Form_Element_Button('promoteButton');
+        $promoteButton->setLabel('Termék kiemelése');
+        $promoteButtonInfo = (new Zend_Form_Element_Note('promoteButtonInfo'));
+        $promoteButtonInfo->setValue('<p class="infoText">Kiemeléssel a vásárlók könnyebben megtalálhatják és megásárolhatják a termékedet</p>');
+        $promoteButtonInfo = (new Zend_Form_Element_Note('promoteButtonInfo'));
+        $promoteButtonInfo->setValue('<p class="infoText">Kiemeléssel a vásárlók könnyebben megtalálhatják és megásárolhatják a termékedet</p>');
+        $this->addElements([$promoteButton, $promoteButtonInfo]);
+
+        $cb=new Zend_Form_Element_MultiCheckbox('promote_types');
+        $cb->setLabel('Kiemelés típusa')->setMultiOptions($opts);
+        $hint=new Zend_Form_Element_Note('promote_hint');
+        $hint->setValue('<p class="infoText error">Nincs elég pénz az egyenlegeden minden kiemelés beállításához.</p>');
+
+        $this->addElements(array($cb, $hint));
+        $this->setAttrib('data-promoteprices', json_encode($prices));
+
+
+
 
 		$this->addDisplayGroup(array('name','price','images'),'generalleft');
 		$this->addDisplayGroup(array('desc'),'generalright');
-		$this->addDisplayGroup(array_merge($ids,array('type','new','deliveries','autorenew')),'more');
+		$this->addDisplayGroup(['moreButton','moreButtonInfo'],'moreButtonFieldset');
+		$this->addDisplayGroup(array_merge(['moreopened'], $ids, ['type']),'more1', null, 'hidden more');
+		$this->addDisplayGroup(array('new','deliveries','autorenew'),'more2', null, 'hidden more');
+        $this->addDisplayGroup(['promoteButton','promoteButtonInfo'],'promoteButtonFieldset');
+        $this->addDisplayGroup(array('promote_types', 'promote_hint'),'hidden promote');
 
-		$more=new Zend_Form_Element_Button('További részleteket adok meg');
 
 
-		$submit=new Zend_Form_Element_Submit('Mentés');
+        $submit=new Zend_Form_Element_Submit('Mentés');
 		$cancel=new Zend_Form_Element_Button('Mégse');
 		$cancel->setAttrib('class', 'cancelButton');
-		$preview=new Zend_Form_Element_Button('Előnézet');
-		$preview->setAttrib('class', 'previewButton');
-		$this->addElement($submit);
-		$this->addElement($preview);
-		$this->addElement($cancel);
+        $this->addElement($cancel);
+        $this->addElement($submit);
 
-	}
+        $this->addDisplayGroup(array('Mégse', 'Mentés'),'buttons');
+
+
+    }
 
 	private function _categoryFields(){
 		$ids=array();
@@ -102,33 +152,48 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 		return $return;
 	}
 
-	public function processData($values, $controller){
-		foreach($values as $fieldId=>$value){
-			if(strpos($fieldId, 'options_')!==false){
-				if(empty($values['options'])) $values['options']=array();
-				$values['options'][str_replace('options_', '', $fieldId)]=$value;
-				unset($values[$fieldId]);
-			}
-		}
-		$values['images']=is_array($values['images']) ? array_filter($values['images']) : array();
-		$values['user']=$controller->userModel->findOneById($values['user_id']);
-		$values['category']=$values['category_id'];
-		$values['search_name']=strtolower($values['name']);
-		if(empty($values['id'])){
-			$values['date_added']=new DateTime(date('Y-m-d H:i:s'));
-			$values['date_period']=new DateTime(date('Y-m-d H:i:s'));
-			$values['status']=1;
-		}
-		return $values;
-	}
-
-	public function populate($values=array()){
+	public function populate($values=array(), $copy = false){
 		if(!empty($values['options']) && is_array($values['options'])){
 			foreach($values['options'] as $id=>$opt){
 				if(!isset($values['options_'.$id])) $values['options_'.$id]=$opt;
 			}
 		}
+        if(!empty($values['promotes']) && !$copy){
+            foreach($values['promotes'] as $type=>$date){
+                $this->getElement('promote_types')->removeMultiOption($type);
+            }
+        }
 		return parent::populate($values);
 	}
 
+    public function setProduct($product, $copy = false){
+        if(!$product) return $this;
+        $this->product = $product;
+        $this->populate(get_object_vars($product), $copy);
+        if($copy){
+            $this->getElement('id')->setValue('');
+            $this->getElement('images')->setValue('');
+        }
+        return $this;
+    }
+
+
+    public function processDescription($user){
+        $userActiveProductsCount=$user->getActiveProductsCount();
+    
+        if(Zend_Registry::get('uploadPrice') == 0){
+            $this->setAttrib('data-amount', 0);
+            $this->setDescription('A termék feltöltése most ingyenes!');
+        } else if($userActiveProductsCount < Zend_Registry::get('freeUploadLimit')){
+            $this->setAttrib('data-amount', 0);
+            $this->setDescription(''.Zend_Registry::get('freeUploadLimit').' aktív termékig a feltöltés ingyenes!');
+        } else if($user->balance < Zend_Registry::get('uploadPrice')){
+            $this->getView()->assign(array(
+                'noBalanceError'=>true
+            ));
+        } else {
+            $this->setAttrib('data-amount', Zend_Registry::get('uploadPrice'));
+            $this->setDescription('A termék feltöltésének díja '.Zend_Registry::get('uploadPrice').' Ft, amit az egyenlegedből vonunk le.');
+        }
+    }
 }

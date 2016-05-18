@@ -6,7 +6,10 @@ RewriteEngine On
 
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-RewriteCond %{HTTP_HOST} !^dev.csakbaba.hu$
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^dev.csakbaba.hu$ [NC]
+RewriteRule ^(.*)$ https://dev.csakbaba.hu/$1 [R=301,L]
+
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www.csakbaba.hu$ [NC]
 RewriteRule ^(.*)$ https://csakbaba.hu/$1 [R=301,L]

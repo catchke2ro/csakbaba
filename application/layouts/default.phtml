@@ -21,11 +21,11 @@
 	<?=$this->minifyHeadScript();?>
 
 	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-						m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-48324090-1', 'csakbaba.hu');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', '<?=ANALYTICS_ID;?>', 'auto');
 		ga('set', 'dimension1', '<?=$this->user ? $this->user->username : 'notregistered';?>');
 		ga('set', 'dimension2', '<?=$this->user ? $this->user->gender : 'notset';?>');
 		ga('set', 'dimension3', '<?=($this->user && is_object($this->user->birth_date)) ? $this->user->birth_date->diff(new DateTime())->y : 'notset';?>');

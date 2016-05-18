@@ -37,7 +37,7 @@ class CB_View_Helper_FormUpload extends Zend_View_Helper_FormElement {
 
 		$xhtml.='<div class="fileUploadContainer">'
 						.'<div class="btn btn-success fileinput-button dropzone"><span>'.$label.'</span>'
-						.'<input id="'.$this->view->escape($id).'" type="file" name="'.$this->view->escape($name).'file[]" multiple '.$this->_htmlAttribs($attribs).' class="fileupload" />'
+						.'<input id="'.$this->view->escape($id).'" type="file" capture="image" name="'.$this->view->escape($name).'file[]" multiple '.$this->_htmlAttribs($attribs).' class="fileupload" />'
 						.'<input type="hidden" name="'.$this->view->escape($name).'" value="'.$this->view->escape(json_encode(array_values(!is_array($value) ? array() : $value))).'" class="saveinput">'
 						.'</div>'
             .'<div class="files"></div>'

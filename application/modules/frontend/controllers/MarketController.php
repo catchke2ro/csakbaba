@@ -52,7 +52,7 @@ class MarketController extends CB_Controller_Action {
 		}
 
 		if($category){
-			$this->view->headTitle()->prepend($category->name);
+			$this->view->headTitle()->prepend($category->title ?: $category->name);
 		}
 
 		$products=$this->productModel->findByCategory($category, $categoryTree);

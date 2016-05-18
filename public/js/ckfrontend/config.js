@@ -8,6 +8,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar= 'Mini';
 	config.removePlugins= 'elementspath';
 	config.resize_enabled = false;
+	config.extraPlugins = 'divarea';
 
 
 	// Let's have it basic on dialogs as well.

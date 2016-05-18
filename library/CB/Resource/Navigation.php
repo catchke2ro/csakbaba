@@ -31,7 +31,7 @@ class CB_Resource_Navigation extends Zend_Navigation {
 				array('label'=>'Egyenlegem, számláim', 'uri'=>'/felhasznalo/egyenleg', 'mvc'=>array('user','charge'), 'resource'=>'egyenleg', 'visible'=>true),
 				array('label'=>'Kijelentkezés', 'uri'=>'/felhasznalo/kijelentkezes', 'mvc'=>array('user','logout'), 'resource'=>'kijelentkezes', 'visible'=>true),
 			)),
-			array('label'=>'Termékfeltöltés', 'notValid'=>array('label'=>'Asztalnyitás', 'url'=>'/felhasznalo/adatmodositas?nyitas=1'), 'uri'=>'/felhasznalo/termekek', 'mvc'=>array('shop','userproducts'), 'visible'=>true),
+			array('label'=>'Termékfeltöltés', 'notValid'=>array('label'=>'Asztalnyitás', 'url'=>'/felhasznalo/adatmodositas?nyitas=1'), 'uri'=>'/felhasznalo/termekek?uj', 'mvc'=>array('shop','userproducts'), 'visible'=>true),
 			array('label'=>'A csakbabáról', 'uri'=>'/rolunk', 'mvc'=>array('index','about'), 'resource'=>'rolunk'),
 			array('label'=>'Blog', 'uri'=>'/blog', 'mvc'=>array('index','blog'), 'resource'=>'blog'),
 

@@ -50,19 +50,16 @@ class UserController extends CB_Controller_Action {
 			'form'=>$form
 		));
 
-
+        $redirectSession = new Zend_Session_Namespace('loginRedirect');
 
 		if($this->getRequest()->isPost()){
 			if($form->isValid($this->getRequest()->getPost())){
-				if(!empty($_GET['r'])){
-					$rElement=new Zend_Form_Element_Hidden('r');
-					$rElement->setValue(urldecode($_GET['r']))->removeDecorator('label');
-					$form->addElement($rElement);
-				}
+                if($form->getElement('popupurl')->getValue()){
+                    $redirectSession->r = $form->getElement('popupurl')->getValue();
+                }
+                
 				$authAdapter=new CB_Resource_Auth($form->getElement('email')->getValue(), $form->getElement('password')->getValue());
 				$result=$authAdapter->authenticate();
-				$r=($form->getElement('r') ? $form->getElement('r')->getValue() : false);
-				if($r==$this->url('bejelentkezes')) $r=$this->url('adatmodositas');
 				$cassaSession=new Zend_Session_Namespace('cassa');
 				CB_Resource_Functions::logEvent('userLogin', array('authresult'=>$result));
 				switch($result->getcode()){
@@ -71,7 +68,11 @@ class UserController extends CB_Controller_Action {
 						$user=$this->userModel->findOneById($id['id']);
 						$user->date_last_login=date('Y-m-d H:i:s');
 						$this->userModel->save($user);
-						$url=(!empty($cassaSession->id) ? $this->url('vasarlas') : ($r ? $r : $this->url('adamodositas')));
+
+						$url=(!empty($cassaSession->id) ? $this->url('vasarlas') : (!empty($redirectSession->r) ? $redirectSession->r : $this->url('adamodositas')));
+
+                        $redirectSession->unsetAll();
+
 						$this->redirect($url); break;
 					case $result::FAILURE:
 						$this->m('A felhasználó még nem aktivált.'); break;
@@ -80,6 +81,19 @@ class UserController extends CB_Controller_Action {
 				}
 			}
 		} else {
+
+            if($this->user){
+                $this->redirect($this->url('adatmodositas'));
+                return;
+            }
+
+
+            if($this->g('r')){
+                $r = $this->g('r');
+                $redirectSession->r = $r;
+            } else {
+                
+            }
 
 			if(!empty($_GET['r']) && $_GET['r'] == $this->url('felhasznalotermekek')){
 				$this->m('Termékfeltöltéshez lépj be felhasználói profilodba, ha még nem regisztráltál, regisztrálj oldalunkra, hogy megnyithasd virtuális asztalodat és feltölthesd holmijaidat a borzére.');

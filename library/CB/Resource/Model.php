@@ -83,6 +83,7 @@ class CB_Resource_Model{
 
 	public function runQuery(){
 		$items=$this->qb->getQuery()->execute(); //Execute query
+        if(is_int($items)) return $items;
 		$items=$this->afterFind($items->toArray()); //Run afterFind callback
 		return $items;
 	}

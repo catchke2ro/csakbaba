@@ -3,7 +3,7 @@
 return array(
 'CAT'=>array(
 
-	'baba'=>        array('name'=>'Baba',                                               'slug'=>'baba', 'promoteName'=>'baba', 'children'=>array(
+	'baba'=>        array('name'=>'Baba',                                               'slug'=>'baba', 'promoteName'=>'baba', 'title'=>'Új és használt babaholmik börzéje', 'children'=>array(
 					'babaruha'=>    array('name'=>'Babaruházat',                                        'slug'=>'babaruhak', 'children'=>array(
 									'babacipo'=>    array('name'=>'Babacipő',                                           'slug'=>'babacipo', 'prop'=>array('babakor','babacipomeret'), 'children'=>array(
 													'felcipo'=>     array('name'=>'Baba félcipők',                                      'slug'=>'baba-felcipo'),
@@ -167,7 +167,7 @@ return array(
 									'egyeb'=>       array('name'=>'Egyéb',                                              'slug'=>'egyeb')
 					))
 	)),
-	'gyerek'=>      array('name'=>'Gyerek',                                             'slug'=>'gyerek', 'promoteName'=>'gyerek',  'children'=>array(
+	'gyerek'=>      array('name'=>'Gyerek',                                             'slug'=>'gyerek', 'promoteName'=>'gyerek', 'title'=>'Új és használt gyerekholmik börzéje',  'children'=>array(
 					'gyerekruha'=>  array('name'=>'Gyerekruhák',                                        'slug'=>'gyerekruha', 'children'=>array(
 									'cipo'=>        array('name'=>'Gyerekcipok',                                        'slug'=>'gyerekcipo', 'prop'=>array('gyerekkor','gyerekcipomeret'), 'children'=>array(
 													'sport'=>       array('name'=>'Sportcipők',                                         'slug'=>'sportcipo', 'children'=>array(
@@ -396,7 +396,7 @@ return array(
 									'autosules'=>   array('name'=>'Autósülés',                                          'slug'=>'autosules', 'prop'=>array('gyerekkor'))
 					))
 	)),
-	'kismama'=>     array('name'=>'Kismama',                                            'slug'=>'kismama-ruhazat', 'promoteName'=>'kismama', 'sex'=>false, 'children'=>array(
+	'kismama'=>     array('name'=>'Kismama',                                            'slug'=>'kismama-ruhazat', 'promoteName'=>'kismama', 'sex'=>false, 'title'=>'Új és használt termékek kismamáknak', 'children'=>array(
 					'fehernemu'=>   array('name'=>'Kismama fehérneműk',                                 'slug'=>'egyeb', 'children'=>array(
 									'melltarto'=>   array('name'=>'Szoptatós melltartó',                        'slug'=>'szoptatos-melltarto', 'prop'=>array('melltartomeret')),
 									'bugyi'=>       array('name'=>'Kismama bugyi',                              'slug'=>'kismama-bugyi', 'prop'=>array('kismamameret')),

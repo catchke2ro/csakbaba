@@ -1,0 +1,27 @@
+<div class="moreInfo">
+    <h1><?=$this->product->name;?></h1>
+    <a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" target="_blank" class="productLink">Termékoldal megnyitása</a>
+    <table>
+        <tr>
+            <td>Feltöltés dátuma:</td>
+            <td><?=$this->product->date_added->format('Y.m.d. H:i');?></td>
+        </tr>
+        <tr>
+            <td>Lejárat dátuma:</td>
+            <td><?=date('Y.m.d. H:i', strtotime('+30 days', $this->product->date_period->getTimestamp()));?></td>
+        </tr>
+        <tr>
+            <td>Megtekintések száma:</td>
+            <td><?=intval($this->product->visitors);?></td>
+        </tr>
+
+        <? if(($activePromotes = $this->product->getActivePromotes())){?>
+            <? foreach($activePromotes as $promote){?>
+                <tr class="productPromote">
+                    <td>Kiemelve: <?=$promote['name'];?></td>
+                    <td><?=$promote['date']->format('Y.m.d H:i');?> - ig</td>
+                </tr>
+            <? } ?>
+        <? } ?>
+    </table>
+</div>

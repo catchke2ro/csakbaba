@@ -1,29 +1,23 @@
 <div class="userproductfunctions">
 	<div class="productStatus s<?=$this->product->status;?>">
-		<div class="status s<?=$this->product->status;?> hasTooltip"><?=$this->statusCodes[$this->product->status];?></div>
-		<div class="tooltip">
-			<div class="productDate added">Termékfeltöltés ideje: <strong><?=$this->product->date_added->format('Y.m.d. H:i');?></strong></div>
-			<div class="productDate periodEnd">Termék lejáratának ideje: <strong><?=date('Y.m.d. H:i', strtotime('+30 days', $this->product->date_period->getTimestamp()));?></strong></div>
-		</div>
-		<div class="s1 extra">
-			<a href="javascript:void(0)" class="userPromoteProduct hasTooltip">Kiemelés</a>
-			<? if(!empty($this->product->promotes)){?>
-				<div class="tooltip">
-					<? $promoteOptions=Zend_Registry::get('promoteOptions');?>
-					<? foreach((is_array($this->product->promotes) ? $this->product->promotes : array()) as $type=>$date){?>
-						<? if($date < time()) continue;?>
-						<p><strong><?=$promoteOptions[$type];?></strong>: <?=date('Y.m.d H:i', $date);?>-ig</p>
-					<? } ?>
-				</div>
-			<? } ?>
-		</div>
-		<div class="s3 extra"><a href="javascript:void(0)" class="userRenewProduct">Megújítás</a></div>
-
-		<a href="javascript:void(0)" class="userDeleteProduct action">Törlés</a>
-		<a href="javascript:void(0)" class="userEditProduct action">Szerkesztés</a>
-		<? if(!($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit'))){?>
-		<a href="javascript:void(0)" class="userCopyProduct action">Másolás</a>
-		<? } ?>
+		<div class="status s<?=$this->product->status;?>" title="<?=$this->statusCodes[$this->product->status];?>"></div>
+        <? if($this->product->getActivePromotes()){?>
+            <div class="promoted" title="Kiemelve"></div>
+        <? } ?>
+        <div class="menu"></div>
 	</div>
-
 </div>
+
+<? $freeUpload = count($this->activeProducts) < Zend_Registry::get('freeUploadLimit'); ?>
+<? $canUpload = $this->user->balance >= Zend_Registry::get('uploadPrice') || $freeUpload;?>
+<div class="productMenu">
+    <ul>
+        <li><a href="javascript:void(0)" class="userEditProduct action">Szerkesztés</a></li>
+        <li><a href="javascript:void(0)" class="userDeleteProduct action">Törlés</a></li>
+        <li><a href="javascript:void(0)" class="userCopyProduct action <?=$canUpload ? '' : 'disabled';?>">Másolás</a></li>
+        <? if($this->product->status == 3){ ?>
+            <li><a href="javascript:void(0)" class="userRenewProduct action <?=$canUpload ? '' : 'disabled';?>">Megújítás (<?=$freeUpload ? 'ingyenes' : Zend_Registry::get('uploadPrice').' Ft.';?>)</a></li>
+        <? } ?>
+    </ul>
+</div>
+

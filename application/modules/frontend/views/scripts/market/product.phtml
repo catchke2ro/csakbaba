@@ -10,7 +10,7 @@
 		<div class="productImages magnificParent">
 			<? $images=(is_array($this->product->images) && !empty($this->product->images)) ? $this->product->images : array(array('url'=>'/img/elements/defaultproduct.png'));?>
 			<? foreach($images as $image){?>
-				<div><img itemprop="image" src="<?=$image['url'];?>" alt="<?=htmlentities($this->product->name);?>" data-mfp-src="<?=$image['url'];?>" class="magnificImage"/></div>
+				<div class="imageWrapper"><img itemprop="image" src="<?=$image['url'];?>" alt="<?=htmlentities($this->product->name);?>" data-mfp-src="<?=$image['url'];?>" class="magnificImage"/></div>
 			<? } ?>
 		</div>
 	</div>

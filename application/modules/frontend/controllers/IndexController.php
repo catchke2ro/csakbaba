@@ -3,6 +3,7 @@
 class IndexController extends CB_Controller_Action {
 
 	public function indexAction(){
+
 		$productModel=new \CB\Model\Product();
 		$visited=$productModel->getMostVisited();
 		$fresh=$productModel->getFresh();

@@ -91,7 +91,7 @@ class CronController extends CB_Controller_Action {
 	}
 
 	private function _sendGAEvent(){
-		$tracker = new \GoogleAnalytics\Tracker('UA-48324090-1', 'csakbaba.hu');
+		$tracker = new \GoogleAnalytics\Tracker(ANALYTICS_ID, 'csakbaba.hu');
 		$visitor = new \GoogleAnalytics\Visitor();
 		$visitor->setIpAddress($_SERVER['REMOTE_ADDR']);
 		$visitor->setUserAgent($_SERVER['HTTP_USER_AGENT']);

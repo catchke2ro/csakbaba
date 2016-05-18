@@ -1,0 +1,80 @@
+@charset "UTF-8"
+
+
+div.productList
+  .productBeforeListLoad, .productAfterListLoad
+    display: none
+    margin: 10px auto
+    &.show
+      display: block
+      +loading
+
+  div.moreProducts
+    a
+      +iconButton($iconDownArrow)
+      width: 50%
+    span.productsUntil
+      font-size: 1rem
+      vertical-align: middle
+      &:before
+        content: "("
+      &:after
+        content: ")"
+
+  div.productUploadLink
+    a
+      +iconButton($iconUpload, $cRed)
+      width: 30%
+
+
+div.subcategories
+  width: 100%
+  +clearFix
+  ul
+    text-align: center
+  ul li
+    display: inline-block
+    margin: 5px
+    a
+      display: block
+      height: 100px
+      width: 100px
+      background-image: url(/img/elements/logo_textured_bg.png)
+      background-position: top center
+      background-repeat: no-repeat
+      background-color: transparent
+      background-size: contain
+      position: relative
+      &:hover
+        -webkit-animation: rotatebounce 0.3s
+        animation: rotatebounce 0.3s
+      span
+        display: block
+        width: 100%
+        text-align: center
+        color: $cDarkbrowntext
+        line-height: 1.4rem
+        font-size: 1.1rem
+        padding: 5px
+        position: absolute
+        top: 50%
+        +transform(translateY(-50%))
+
+  ul li.baba
+    margin: 5px 15px
+    a
+      background-image: url('/img/elements/baba_logo_textured.png')
+    span
+      display: none
+  ul li.gyerek
+    margin: 5px 15px
+    a
+      background-image: url('/img/elements/gyerek_logo_textured.png')
+    span
+      display: none
+  ul li.kismama-ruhazat
+    margin: 5px 15px
+    a
+      background-image: url('/img/elements/kismama_logo_textured.png')
+    span
+      display: none

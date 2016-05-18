@@ -1,0 +1,208 @@
+@charset "UTF-8"
+
+
+div.productList.user
+
+  li.product
+
+    &.hidden
+      display: none
+
+    .productInner
+      +box-shadow(none)
+      background-color: $cWhite
+    .productImages
+      &:before
+        position: absolute
+        display: block
+        content: ""
+        top: 0px
+        left: 0px
+        width: 100%
+        height: 100%
+        background-color: rgba($cBlack, 0.4)
+      &:hover:before
+        display: none
+
+    .userFix
+      font-size: 1rem
+      line-height: 1.2rem
+      padding: 5px
+
+    .frontDesc
+      display: none
+
+    &.promotedFrame
+      background-color: transparent
+
+
+  .userproductfunctions
+    position: absolute
+    top: 0px
+    left: 0px
+    width: 100%
+    height: 40px
+    z-index: 1000
+    font-size: 0px
+    .productStatus
+      height: 100%
+      +clearFix
+    div.status, div.menu, div.promoted
+      font-size: 1.6rem
+      width: percentage(1/4)
+      display: block
+      height: 100%
+      padding: 5px
+      color: $cWhite
+      text-align: center
+      opacity: 0.8
+      vertical-align: top
+      background-color: $colAlter
+      line-height: 3rem
+      &:hover
+        opacity: 1
+
+      &.disabled
+        visibility: hidden
+        pointer-events: none
+
+    div.status
+      +icon($iconCheck)
+      opacity: 1
+      float: left
+
+    div.promoted
+      +icon($iconStar)
+      float: left
+      background-color: $cRed
+
+    div.menu
+      float: right
+      cursor: pointer
+      font-size: 2rem
+      +icon($iconMenu)
+
+
+  .productMenu
+    position: absolute
+    top: 40px
+    width: 100%
+    z-index: 100
+    background-color: rgba($colAlter, 0.9)
+    height: 0px
+    overflow: hidden
+    +transition(height 0.3s)
+    &.open
+      height: calc(85% - 40px)
+
+    .userEditProduct
+      +icon($iconEdit)
+    .userDeleteProduct
+      +icon($iconDelete)
+    .userCopyProduct
+      +icon($iconCopy)
+    .userRenewProduct
+      +icon($iconTime)
+
+    .action
+      display: block
+      line-height: 2.6rem
+      text-align: left
+      color: $cWhite
+      font-weight: bold
+      position: relative
+      padding: 5px 10px 5px 40px
+      border-bottom: 1px solid rgba($cWhite, 0.5)
+      &:hover
+        background-color: $colAlter
+      &:before
+        position: absolute
+        top: 0px
+        height: 100%
+        line-height: 4rem
+        left: 10px
+      &.disabled
+        background-color: rgba($cBlack, 0.2)
+        opacity: 0.5
+        pointer-events: none
+
+
+
+
+div.productFilter
+  font-size: 0px
+  +mq1
+    text-align: center
+  .statusButton
+    +iconButton($iconCheck, false, false, 40px, 1.4rem)
+    width: 150px
+    display: inline-block
+    vertical-align: top
+    margin: 2px
+    +mq1
+      width: percentage(1/5)
+    +mq3
+      width: percentage(0.95/3)
+      margin: 0px
+    +mq4
+      padding-left: 35px
+      &:before
+        width: 20px
+        font-size: 20px
+    +mq5
+      font-size: 1.2rem
+    &:not(.active)
+      background-color: rgba($cBlack, 0.3) !important
+
+  .textFilter
+    display: inline-block
+    vertical-align: top
+    width: 458px
+    margin: 2px
+    +mq1
+      width: calc(60% + 8px)
+    +mq3
+      width: 95%
+    input
+      height: 40px
+      border: 1px solid $cBlack
+      padding: 0px 10px
+      font-size: 2rem
+      width: 100%
+
+
+
+.addNewProductWrapper
+
+  .userAddProduct
+    +iconButton($iconAdd, $cRed)
+    width: 300px
+
+  .nobalance
+    +iconButton($iconCard, false, false, 40px)
+    width: 300px
+
+  .hidden
+    display: none
+
+
+
+
+
+div.productList.user .userproductfunctions div.status, div.productFilter .statusButton
+  &.s0
+    background-color: $cStatus0
+    &:before
+      content: $iconClose
+  &.s1
+    background-color: $cStatus1
+    &:before
+      content: $iconCheck
+  &.s2
+    background-color: $cStatus2
+    &:before
+      content: $iconBuy
+  &.s3
+    background-color: $cStatus3
+    &:before
+      content: $iconTime

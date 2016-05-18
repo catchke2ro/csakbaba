@@ -4,7 +4,7 @@
   height: 100%
   width: $sidebarWidth+40px
   top: 0px
-  z-index: 90000
+  z-index: 500
   left: -$sidebarWidth
   background-color: $cSidebarBg
   +transition(left 0.4s 1s)
@@ -238,7 +238,7 @@
               color: $cSidebarMenuItemColHover
               background-color: transparent
               +transition(color 0.3s)
-        &.active ul
+        &.opened ul
           max-height: 200px
           +mq1
             max-height: 1000px

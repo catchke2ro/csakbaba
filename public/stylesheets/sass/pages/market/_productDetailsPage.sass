@@ -1,0 +1,423 @@
+h3.productIsNotActive
+  width: 80%
+  display: block
+  margin: auto
+  background-color: $cPDProductnotactiveBg
+  color: $cPDProductnotactiveColor
+  font-size: 2rem
+  padding: 10px
+
+
+div.productDetails
+  width: 90%
+  margin: 0px auto
+  background-color: rgba($cWhite, 0.2)
+  padding: 2%
+  +clearFix
+
+
+  //************************************************
+  //  Images
+  //************************************************
+  .productImagesWrapper
+    width: 60%
+    float: left
+    margin-right: 5%
+    div.imageWrapper
+      position: relative
+      text-align: center
+      img
+        max-width: 100%
+        display: inline-block
+    +mq2
+      width: 100%
+
+
+
+  //************************************************
+  //  Info, buttons, price, etc.
+  //************************************************
+  .productDetailsWrapper
+    float: left
+    width: 35%
+    +clearFix
+    +mq2
+      width: 100%
+    .productName
+      width: 100%
+      text-align: center
+      font-size: 2.2rem
+      line-height: 3rem
+      font-weight: bold
+      color: $colAlter
+      +text-shadow(0 0 2px $cWhite)
+      +mq2
+        margin-top: 10px
+    .productOptions
+      width: 100%
+      padding: 1%
+      margin-top: 10%
+      span.option
+        display: block
+        padding: 1%
+        width: 100%
+        font-size: 1.4rem
+        strong
+          font-weight: bold
+    .productPrice
+      color: $cPDPriceColor
+      font-size: 4rem
+      font-weight: bold
+      letter-spacing: 1px
+      text-shadow: 0 0 1px $cWhite
+      margin: 20px 0px
+      width: 100%
+      text-align: right
+    .productUser
+      width: 100%
+      text-align: right
+      font-size: 1.4rem
+      font-weight: bold
+      margin-bottom: 10%
+      a
+        color: $cPDSellerColor
+        +transition(0.6s)
+        &:hover
+          color: $cDarktext
+          +transition(0.6s)
+    .addToCart
+      width: 100%
+      margin-top: 2%
+      a
+        +iconButton($iconBuy, rgba($colAlter, 0.9))
+        +transition(0.6s)
+    .addToFavourites
+      width: 70%
+      margin: auto
+      margin-top: 5%
+      a
+        +iconButton($iconFav, rgba($col1_d3, 0.7), false, 30px, 1.4rem)
+        +transition(0.6s)
+  .productDesc
+    margin-top: 3%
+    background-color: rgba(255,255,255,0.3)
+    padding: 3%
+    width: 100%
+    font-size: 1.4rem
+    line-height: 2rem
+    clear: both
+    u
+      text-decoration: underline
+    em
+      font-style: italic
+    strong
+      font-weight: bold
+    ul
+      margin-top: 3%
+      padding-left: 2%
+      list-style: disc
+
+
+
+
+
+
+  //************************************************
+  //  "Cassa"
+  //************************************************
+  div.cassa
+    background-color: rgba($cPDCassaBg,0.4)
+    width: 100%
+    height: auto
+    max-height: 0px
+    overflow: hidden
+    padding: 0px 10px
+    +transition(max-height 0.5s, padding 0.5s)
+    color: $cPDCassaColor
+    font-size: 1.2rem
+    font-weight: bold
+    line-height: 1.2rem
+    &.opened
+      max-height: 200px
+      padding: 10px
+  div.cassaSubmit
+    width: 80%
+    margin: auto
+    margin-top: 10px
+    input[type="submit"]
+      color: $cPDCassaColor
+      background-color: $cPDCassaBg
+      font-weight: bold
+      font-size: 1.3rem
+      text-align: center
+      height: 100%
+      width: 100%
+      border: none
+      padding: 5px 0px
+      cursor: pointer
+    div.cassaAccept
+      margin: 5px 0px
+
+
+  h2.commentHeader
+    +iconButton($iconComment, transparent)
+  h2.userProductsHeader
+    +iconButton($iconMarket, transparent)
+
+  h2.commentHeader, h2.userProductsHeader
+    margin-top: 10px
+    margin-bottom: 0px
+    clear: both
+    float: none
+    width: 100%
+    font-weight: bold
+    color: $cPDHeadersColor
+    line-height: 6rem
+    font-size: 2rem
+    text-align: left
+    +background-image(linear-gradient(left, rgba($cPDHeadersBg, 1) 20%, rgba($cPDHeadersBg, 0) 70%))
+
+    &:before
+      margin-right: 20px
+
+
+
+
+
+
+
+
+
+
+
+  //************************************************
+  //
+  //  Comments
+  //
+  //************************************************
+  div.commentContainer
+    li.comment
+      padding: 9px
+      +clearFix
+      max-height: 200px
+      overflow: hidden
+      +transition(max-height 1s, padding 1s)
+      &.fresh
+        padding: 0px 9px
+        max-height: 0px
+      &.moderated
+        opacity: 0.5
+      div.text
+        background-color: $cInputBg
+        width: 87.5%
+        padding: 2%
+        float: left
+        min-height: 100px
+        color: $cPDCommentTextColor
+        font-size: 1.2rem
+      div.user
+        float: left
+        height: 100px
+        width: 12.5%
+        padding: 1% 0
+        background-color: rgba($cWhite, 0.2)
+        +background-image(linear-gradient(left, $cInputBg 0%, rgba($cWhite, 0.2) 10%))
+        text-align: center
+        a.username
+          display: block
+          color: $cPDCommentUserColor
+          padding: 2px
+          font-weight: bold
+          text-align: center
+        div.avatar
+          display: block
+          height: 60px
+          padding-left: 0
+          width: 60px
+          margin: 0 auto
+
+          img
+            height: 100%
+            max-width: 100%
+        time
+          display: block
+
+    div.commentForm
+      position: relative
+      form
+        +form
+        ul
+          +clearFix
+          background-color: rgba($cPDCommentFormBg, 0.7)
+        li.field
+          background: none
+        li.textarea
+          height: 100px
+          width: calc(100% - 300px)
+          padding-right: 0px !important
+          float: left
+          +mq3
+            width: calc(100% - 150px)
+          +mq4
+            width: 100%
+          textarea
+            padding: 5px 10px !important
+            margin: 0px !important
+            width: 100% !important
+            height: 100% !important
+        li.field.note
+          float: left
+          height: 100px
+          padding: 0
+          width: 100px
+          +mq3
+            display: none
+          div
+            width: 100%
+            height: 100%
+            background-size: cover
+            background-position: center center
+        li.field.submit
+          +iconButton($iconSend)
+          float: left
+          min-width: 115px
+          padding: 0
+          height: 100px
+          width: 200px
+          position: relative
+          font-size: 0px
+          margin: 0px
+          &:before
+            display: inline-block
+            box-sizing: border-box
+            height: 100px
+            line-height: 100px
+            width: 40%
+            margin: 0px
+            padding: 0px 10px 0px 20px
+          +mq4
+            width: 100%
+            height: 50px
+          input
+            height: 100%
+            width: 60%
+            font-size: 2.5rem
+            background-color: transparent
+            +mq3
+              font-size: 2rem
+
+
+
+
+
+
+
+  //************************************************
+  //
+  //  User's ratings
+  //
+  //************************************************
+  div.userRatings
+    div.productList.user
+      ul li.product
+        max-height: 200px
+        min-height: 60px
+        width: 100%
+        margin-bottom: 10px
+        float: left
+        div.productInner
+          border: none
+          padding: 0px
+        div.flipper
+          float: none
+          width: 100%
+          height: auto
+        div.front
+          .productImages, .productPrice, .productInfo
+            display: none
+          .productName
+            height: auto
+            background-color: $cPDRatingProductnameBg
+            text-align: center
+            width: 100%
+            max-width: 100%
+            padding: 1%
+            & > a
+              color: $cPDRatingProductnameColor
+              font-weight: bold
+        div.rating
+          width: 100%
+          & > *
+            width: 100%
+
+
+
+
+
+//************************************************
+//
+//  Product images BX
+//
+//************************************************
+.productImagesWrapper, .productImages
+  .bx-wrapper
+    position: relative
+    .bx-controls
+      position: absolute
+      background-color: rgba($cPDBXControlsBg, 0.9)
+      height: 30px
+      width: 100%
+      top: 0px
+      text-align: center
+      padding: 1% 0
+      .bx-pager
+        display: inline-block
+        position: relative
+        z-index: 200
+        .bx-pager-item
+          float: left
+          margin: 3px 5px 0px
+          font-weight: bold
+          height: 14px
+          width: 14px
+          border-radius: 7px
+          background-color: $cPDBXPagerBg
+          a
+            color: transparent
+          a.active
+            background-color: $cPDBXPagerActiveBg
+            border-radius: 5px
+            display: block
+            height: 10px
+            margin: 2px
+            width: 10px
+
+      .bx-controls-direction
+        position: absolute
+        top: 20%
+        left: 0px
+        width: 100%
+        z-index: 100
+        a
+          margin: 0px 10px
+          font-weight: bold
+          text-indent: -10000px
+          width: 0
+          height: 0
+          border-top: 10px solid transparent
+          border-bottom: 10px solid transparent
+          &.bx-next
+            float: right
+            border-left: 10px solid $cPDBXPagerBg
+            background-image: none
+          &.bx-prev
+            float: left
+            border-right: 10px solid $cPDBXPagerBg
+            background-image: none
+
+
+.buttonBack a
+  +iconButtonCenter($iconMarket)
+  width: 50%
+  margin: auto
+

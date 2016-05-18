@@ -22,7 +22,15 @@ class Product extends \CB_Resource_Model{
 		return $items;
 	}
 
-	public function extAfterFind($items, $params=array()){
+    public function runQuery()
+    {
+        if(!$this->ext){
+            $this->qb->field('deleted')->notEqual(true);
+        }
+        return parent::runQuery();
+    }
+
+    public function extAfterFind($items, $params=array()){
 		if(isset($params['single'])){ $items=array($items); }
 		foreach($items as $key=>$item){
 			$items[$key]->user->get();
@@ -131,7 +139,7 @@ class Product extends \CB_Resource_Model{
 
 	public function getFresh(){
 		//if(!($fresh=$this->cache->load('mainFresh'))){
-			$fresh=$this->initQb();
+			$this->initQb();
 			$this->qb->field('status')->equals(1);
 			$this->qb->field('user')->notEqual(new \MongoId('528a82320f435fd2028b4568'));
 			$this->qb->sort('date_added', 'desc');
