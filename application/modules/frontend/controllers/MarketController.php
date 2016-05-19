@@ -324,4 +324,30 @@ class MarketController extends CB_Controller_Action {
 		}
 	}
 
+
+
+    public function manualemailAction(){
+        die();
+        //$this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
+
+        $data['user'] = $this->userModel->findOneByUsername('Barbi555');
+        $user = $data['user'];
+        $data['comment'] = (new \CB\Model\Comment())->findOneById('573788544a79599c7a8b4567');
+        $data['product'] = (new \CB\Model\Product())->findOneById('56c03b8b6df19dac2fc6ef93');
+
+        $categories=Zend_Registry::get('categories');
+        $data['productlink']=$categories->getUri($data['product']->category).'/'.$data['product']->id.'/'.$this->functions->slug($data['product']->name);
+
+        $data['subscribedUser'] = $user;
+
+        $mail = new CB_Resource_Mail('UTF-8');
+        $mail->s(array(
+            'to'=>array($user->username=>$user->email),
+            'template'=>'commentsubscribeduser',
+            'subject'=>'csakbaba.hu - Új hozzászólás',
+            'data'=>$data
+        ));
+        die();
+    }
+
 }

@@ -332,6 +332,15 @@
   //
   //************************************************
   div.borzeIcons
+
+    //MORA
+    width: calc(100% - 320px)
+    float: left
+    +mq1
+      width: 100%
+      float: none
+
+
     a
       width: 20%
       max-width: 100px
@@ -403,3 +412,14 @@
       div.link
         float: none
         display: inline-block
+
+
+
+div.mora
+  width: 320px
+  padding: 10px
+  float: right
+  +mq1
+    width: 100%
+    float: none
+    text-align: center
