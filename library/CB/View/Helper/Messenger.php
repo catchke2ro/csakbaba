@@ -26,7 +26,7 @@ class CB_View_Helper_Messenger{
 			foreach($messages as $message){
 				$output.=(is_array($message)) ? '<li class="'.(isset($message['id']) ? $message['id'] : '').'">'.$message['message'].'</li>' : '<li>'.$message.'</li>';
 			}
-			$output.='<li class="close">X</li></ul>';
+			$output.='<li class="close"></li></ul>';
 		}
 		$output.="</div>\r\n";
 		return $output;

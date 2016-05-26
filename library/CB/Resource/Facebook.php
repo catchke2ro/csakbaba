@@ -18,18 +18,29 @@ class CB_Resource_Facebook {
 
 	public function login(){
 		$user=$this->fb->getUser();
+        $login = false;
 		if($user){
-			$userProfile = $this->fb->api('/me');
-			return $userProfile;
+            try {
+                $login = $this->fb->api('/me');
+            } catch(Exception $e){
+                $login = true;
+            }
 		} else {
-			$loginUrl = $this->fb->getLoginUrl(array(
-				'scope'=>implode(', ', $this->scopes),
-				'redirectUri'=>'https://'.$_SERVER['HTTP_HOST'].'/slogin?s=fb'
-			));
+			$login = true;
 		}
 
-		$redirector=Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-		$redirector->gotoUrl($loginUrl);
+        if($login === true){
+            $loginUrl = $this->fb->getLoginUrl(array(
+                'scope'=>implode(', ', $this->scopes),
+                'redirectUri'=>'https://'.$_SERVER['HTTP_HOST'].'/slogin?s=fb'
+            ));
+            $redirector=Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+            $redirector->gotoUrl($loginUrl);
+            return;
+        }
+
+        return $login;
+
 	}
 
 	public function post($message, $url=false){

@@ -64,4 +64,8 @@ class CB_Form_Form extends Zend_Form {
 		return parent::render($view);
 	}
 
+    static function infoDescription($text=''){
+        return '<span class="inputInfoIcon hasTooltip"></span><span class="inputInfoText">'.$text.'</span>';
+    }
+
 }

@@ -90,9 +90,11 @@ div.flash
   opacity: 0
   height: 0px
   +transition(opacity 0.7s, height 0s linear 0.7s)
+  +mq2
+    width: 100%
   &.visible
     opacity: 1
-    height: 40px
+    height: 60px
   ul
     height: 100%
     position: relative
@@ -109,16 +111,12 @@ div.flash
       font-size: 1.3rem
       line-height: 1.3rem
     li.close
-      border: 2px solid $cWhite
-      border-radius: 50%
-      cursor: pointer
-      height: 25px
-      line-height: 2.1rem
-      opacity: 0.8
+      +icon($iconClose)
       position: absolute
       right: 10px
-      text-align: center
-      width: 25px
+      font-size: 2rem
+      opacity: 0.8
+      cursor: pointer
       &:hover
         opacity: 1
 
@@ -127,35 +125,30 @@ div.flash
 div.socialLogin
   +clearFix
   a
-    width: 46% !important
-    margin: 2%
-    float: left
-    color: #FFFFFF
-    font-weight: bold
-    background-size: auto 90%
-    background-position: left center
-    background-repeat: no-repeat
-    line-height: 3rem
-    text-align: center
-    padding-right: 10px
-    &:hover
-      text-decoration: none
-    &:before
-      font-weight: normal
-      font-family: csakbaba
-      float: left
-      font-size: 2rem
-      margin-left: 3px
-  a.fb
-    background-color: #3B5998
-    margin-left: 0px
-    &:before
-      content: $iconFb
-  a.gp
-    background-color: #D34836
-    margin-right: 0px
-    &:before
-      content: $iconGp
+    &.fb
+      +iconButton($iconFb, #3B5998, false, 30px)
+    &.gp
+      +iconButton($iconGp, #D34836, false, 30px)
+    //width: 46% !important
+    //margin: 2%
+    //float: left
+    //color: #FFFFFF
+    //font-weight: bold
+    //background-size: auto 90%
+    //background-position: left center
+    //background-repeat: no-repeat
+    //line-height: 3rem
+    //text-align: center
+    //padding-right: 10px
+    //&:hover
+    //  text-decoration: none
+    //&:before
+    //  font-weight: normal
+    //  font-family: csakbaba
+    //  float: left
+    //  font-size: 2rem
+    //  margin-left: 3px
+
 
 
 

@@ -99,7 +99,7 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 
 
 	private function _fbToUser($user, $facebook){
-		$user->username=$this->_username($facebook['username']);
+		$user->username=$this->_username($facebook['email']);
 		$user->address=$user->postaddres=array();
 		$user->address['name']=$user->postaddress['name']=$facebook['name'];
 		if(!empty($facebook['location']['name'])) $user->address['city']=$user->postaddress['city']=$facebook['location']['name'];
@@ -112,7 +112,7 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 	}
 
 	private function _gpToUser($user, $google){
-		$user->username=$this->_username(reset(explode('@', $google['email'])));
+		$user->username=$this->_username($google['email']);
 		$user->address=$user->postaddress=array();
 		$user->address['name']=$user->postaddress['name']=$google['name'];
 		$user->email=$google['email'];
@@ -124,16 +124,22 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 	}
 
 
-	private function _username($username){
-		$username=preg_replace('/[^0-9a-zA-Z]+/i', '', $username);
+	private function _username($email){
+        $emailExploded = explode('@', $email);
+        $username = $emailExploded[0];
+        $username = preg_replace('/[^0-9a-zA-Z\.\-]+/i', '', $username);
+
 		$userModel=new \CB\Model\User();
 		if(!$userModel->findOneByUsername($username)){
 			return $username;
 		}
+
+        $rootUsername = $username;
 		$stop=false;
-		$i=1;
+		$i=0;
 		while($stop==false){
-			$username=$username.$i;
+            $i++;
+			$username=$rootUsername.$i;
 			if(!$userModel->findOneByUsername($username)){
 				$stop=true;
 				return $username;

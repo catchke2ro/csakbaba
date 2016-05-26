@@ -231,8 +231,17 @@ function productEditFormLoad(category_id, product_id, formDiv){
 }
 
 
-function userFilterProducts(productFilterDiv, userProductList){
-	var me=jQuery(this), ul=userProductList.children('ul'), q = productFilterDiv.find('.textFilter input').val().trim();
+function userFilterProducts(productFilterDiv, userProductList, func){
+	var me=jQuery(this), ul=userProductList.children('ul'), textFilterInput = productFilterDiv.find('.textFilter input'), q = textFilterInput.length ? textFilterInput.val().trim() : '';
+
+	if(typeof func == 'undefined'){
+		func = function(index, e){
+			var product = $(e), status = product.data('status');
+
+			var show = productFilterDiv.find('a.s'+status).hasClass('active') && textFilterSearch(q, product);
+			product.toggleClass('hidden', !show);
+		}
+	}
 
 	ul.find('li').addClass('hidden');
 
@@ -242,12 +251,7 @@ function userFilterProducts(productFilterDiv, userProductList){
 		return patt.test(product.find('h3.productName').text()) || patt.test(product.find('div.productPrice').text()) || patt.test(product.find('div.frontDesc').text());
 	};
 
-	ul.find('li').each(function(index, e){
-		var product = $(e), status = product.data('status');
-
-		var show = productFilterDiv.find('a.s'+status).hasClass('active') && textFilterSearch(q, product);
-		product.toggleClass('hidden', !show);
-	});
+	ul.find('li').each(func);
 
 
 }

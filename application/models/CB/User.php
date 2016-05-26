@@ -213,6 +213,13 @@ class User extends \CB_Resource_ModelItem {
         }
         return $this;
     }
+    
+    public function getToken(){
+        return md5($this->id.$this->password);
+    }
+
+
+    static $usernameRegex = '/^[a-zA-Z0-9\.\-]{5,16}$/';
 
 
 }

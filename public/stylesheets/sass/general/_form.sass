@@ -4,7 +4,7 @@
   li.hidden
     display: none
   li.field
-    height: 40px
+    height: 44px
     background-color: $cInputLiBg
     width: 100%
     position: relative
@@ -30,6 +30,8 @@
       text-align: center
       top: 15px
       width: 100%
+      left: 0px
+      padding-right: 0px
   input, select, li.textarea > .cke, li.textarea textarea:not(.ck), button
     border: medium none
     font-size: 1.4rem
@@ -44,11 +46,12 @@
     +mq4
       display: block
       float: none
-      width: 95%
+      width: 100%
       margin: 22px auto 0px
     &.cke
-      +mq4
       height: 100%
+      +mq4
+        height: calc(100% - 22px)
     &:focus
       +box-shadow(none)
 
@@ -100,6 +103,11 @@
     display: inline-block
     width: 20%
     height: auto
+    +mq3
+      margin: auto
+      display: block
+
+
 
     label
       display: none
@@ -123,71 +131,58 @@
       content: $iconClose
 
   li.field.errors
+    +mq4
+      height: auto
     ul.errors
       position: absolute
-      bottom: 0px
+      top: 4px
       right: 4px
-      width: 120px
-      height: calc(100% - 4px)
+      width: 150px
+      height: calc(100% - 8px)
       background-color: rgba($cError, 0.1)
       color: $cError
       padding: 2px
       font-size: 1.2rem
       display: table
       text-align: center
+      padding-right: 30px
+      +mq4
+        position: static
+        width: 100%
+        line-height: 2rem
+        text-align: center
+        padding: 0px
       li
         display: table-cell
         vertical-align: middle
 
 
-  li.field.captcha
-    height: 60px
-    img
-      float:  left
-      left: 0px
-      +valign
-      position: absolute
-      width: 25%
-      +mq4
-        margin-left: 5%
-        width: 40%
-
-    input
-      height: 30px
-      margin-top: 30px
-      +mq4
-        float: right
-        margin-right: 5%
-        width: 50%
-    label
-      height: 30px
-      left: 0
-      line-height: 30px
-      margin-left: 25%
-      top: 0
-      text-align: left
-      padding-left: 5px
-      width: 75%
-      +transform(none)
-      +mq4
-        left: auto
-        right: 0px
-        margin-right: 5%
-        width: 50%
+  li.field.recaptcha
+    height: 84px
+    padding-left: 25%
+    +mq4
+      padding-left: 0px
+      text-align: center
+      .recaptchaWrapper
+        display: inline-block
 
   li.field.maskPhone
     input
-      padding-left: 27px
+      padding-left: 30px
     &:before
       padding-left: 5px
       display: block
       content: "+36"
       position: absolute
       left: 25%
-      top: 0px
+      top: 4px
       color: $cInputColor
-      font-size: 1.3rem
-      line-height: 31px
+      font-size: 1.4rem
+      line-height: 36px
+    +mq4
+      &:before
+        top: 26px
+        left: 6px
 
 
   fieldset legend
@@ -198,6 +193,7 @@
     display: block
     width: 100%
     font-weight: bold
+    line-height: 2rem
 
   li.fieldset.buttons
     width: 100%
@@ -260,6 +256,24 @@
       opacity: 0
       height: 1px
       padding: 0
+
+  span.inputInfoIcon
+    +icon($iconInfo)
+    position: absolute
+    top: 12px
+    width: 20px
+    height: 20px
+    display: block
+    right: 10px
+    font-size: 20px
+    color: $colAlter
+    cursor: pointer
+    +mq4
+      margin-top: 0px
+      top: 34px
+
+  span.inputInfoText
+    display: none
 
 
 
@@ -387,8 +401,7 @@
 
 
 @mixin checkbox
-  +mq5
-    height: 55px
+  height: 44px
   input
     display: none
     & + label
@@ -396,6 +409,10 @@
       cursor: pointer
       display: block
       margin: 5px 0px
+      text-align: right
+      padding-right: 10px
+      +mq4
+        width: 50%
       &:after
         content: ""
         display: block
@@ -403,7 +420,7 @@
         top: -10px
         left: 100%
         background-color: $cInputBg
-        height: 30px
+        height: 36px
         width: 300%
         background-repeat: no-repeat
         background-position: 10px center
@@ -414,11 +431,9 @@
         -ms-user-select: none
         user-select: none
         +box-sizing(border-box)
-        +mq5
-          width: 90%
-          left: 5%
-          top: 14px
-          background-position: center center
+        +mq4
+          width: 100%
+          left: 100%
     &:checked + label:after
       background-image: url(/img/elements/cb_active.png)
 

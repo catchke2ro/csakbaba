@@ -1,6 +1,8 @@
 <p>Kedves <strong><?=$this->data['subscribedUser']->username;?></strong>!<br /></p>
 <br />
 <p>Értesítünk, hogy a csakbaba<span>.hu</span> oldalon új hozzászólás érkezett a <strong><a href="<?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?>"><?=$this->data['product']->name;?></a></strong> termékhez</p>
+<br />
+<p>Amennyiben nem akarsz több értesítés kapni errőr a termékről, kattints <a href="<?='https://'.$_SERVER['HTTP_HOST'].$this->url('termekleiratkozas').'?uid='.$this->data['subscribedUser']->id.'&token='.$this->data['subscribedUser']->getToken().'&pid='.$this->data['product']->id;?>">ide</a></p>
 
 <br />
 <p>Üdvözlettel,<br />

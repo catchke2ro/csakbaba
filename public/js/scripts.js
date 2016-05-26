@@ -55,7 +55,12 @@ function filter(data, categoryId, hash){
 function initTooltip(root){
 	$(root).tooltip({
 		items: '.hasTooltip',
-		content: function(){ return ($(this).siblings('.tooltip').length>0 ? $(this).siblings('.tooltip').html() : $(this).attr('title')); }
+		content: function(){
+			if($(this).siblings('.inputInfoText').length){
+				return $(this).siblings('.inputInfoText').text();
+			}
+			return ($(this).siblings('.tooltip').length>0 ? $(this).siblings('.tooltip').html() : $(this).attr('title'));
+		}
 	});
 }
 
@@ -162,6 +167,10 @@ $(document).ready(function(){
 
 	imgPreview();
 
+	$(document).on('hover, click', '.inputInfoIcon', function(){
+		$(this).closest('li').find('.inputInfoText').addClass('visible');
+	});
+
 	if(window.location.hash=='#t'){
 		$('html, body').scrollTop(0);
 	}
@@ -188,6 +197,10 @@ $(document).ready(function(){
 		return false;
 	});
 
+	$('div.breadcrumb.longBC li:nth-child(5)').click(function(){
+		$(this).closest('.breadcrumb').removeClass('longBC');
+	});
+
 	/**
 	 * Telefon input
 	 */
@@ -211,6 +224,11 @@ $(document).ready(function(){
 				}, 1000);
 			});
 		}
+	});
+
+
+	$(document).on('click', 'li.field.submit', function(ev){
+		if($(ev.target).is($(this))) $(this).find('input').click();
 	});
 
 	/**
@@ -293,11 +311,11 @@ $(document).ready(function(){
 	 * FLASH messages
 	 */
 	setTimeout(function(){
-		$('div.flash.visible').removeClass('visible').delay(1000).remove();
+		//$('div.flash.visible').removeClass('visible').delay(1000).remove();
 	}, 10000);
 	$(document).ajaxStop(function(){
 		setTimeout(function(){
-			$('div.flash.visible').removeClass('visible').delay(1000).remove();
+			//$('div.flash.visible').removeClass('visible').delay(1000).remove();
 		}, 10000);
 	});
 	$(document).on('click', 'div.flash .close', function(){
@@ -337,6 +355,9 @@ $(document).ready(function(){
 			//return false;
 		}
 	});
+
+
+
 
 
 
@@ -448,52 +469,7 @@ $(document).ready(function(){
  * F E L H A S Z N Á L Ó   -   R E N D E L É S E K
  ******************************************************************************************************************************************/
 
-	if(container.hasClass('ertekelesek')){
-		$('.orders a.tab').click(function(){
-			var me=jQuery(this), ul=me.closest('.orders').find('div.productList > ul');
-			me.siblings('a.tab').removeClass('active');
-			me.addClass('active');
-			ul.find('li').removeClass('active');
-			ul.find('li.'+me.data('div')).addClass('active');
-			window.location.hash='#'+me.data('div');
-		});
-		$(window).on('hashchange', function(){
-			var hash=window.location.hash.replace('#', ''), tabLink;
-			if(isMongoID(hash) && $('.orders li.order[data-productid="'+hash+'"]').length){
-				var ul=$('.orders ul');
-				ul.find('li').removeClass('active');
-				ul.find('li.pid'+hash).addClass('active');
-				$('.orders a.tab').removeClass('active');
-			}
-			else if((tabLink=$('.orders a.tab[data-div="'+hash+'"]')).length) tabLink.trigger('click');
-			else $('.orders a.tab[data-div="nem-ertekelt"]').trigger('click');
-		});
-		$(window).trigger('hashchange');
-
-
-		$('li.order.nem-ertekelt .rating').each(function(index, e){
-			$.ajax({
-				url: '/user/ratingform', type: 'GET', data: {oid: $(e).closest('li').data('orderid'), seller: $(e).closest('li').data('seller')},
-				complete: function(request){
-					$(e).html(request.responseText);
-				}
-			})
-		});
-
-		$(document).on('click', '.ratingForm input[type=submit]', function(ev){
-			var me=jQuery(this), rating=me.closest('div.rating');
-			$.ajax({
-				url: '/user/ratingform?oid='+me.closest('li.product').data('orderid')+'&seller='+me.closest('li.product').data('seller'),
-				type: 'POST', data: me.closest('form').serialize(),
-				complete: function(request){
-					if(request.responseText==''){window.location.hash='#t';  window.location.reload();}
-					rating.html(request.responseText);
-				}
-			});
-			ev.preventDefault();
-			return false;
-		});
-	}
+	
 
 
 

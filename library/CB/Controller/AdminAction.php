@@ -45,7 +45,8 @@ abstract class CB_Controller_AdminAction extends Zend_Controller_Action {
 			echo "<h1>Hozzáférés megtagadva</h1>";
 			$this->getResponse()->setHttpResponseCode(401);
 			$this->_helper->getHelper('viewRenderer')->setNoRender(true);
-			return false;
+            $this->getHelper('layout')->disableLayout();
+            return $this->getResponse();
 		}
 		return true;
 	}

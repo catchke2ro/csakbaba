@@ -38,7 +38,7 @@
 	<ul class="products user">
 
 		<? foreach($this->products as $product){?>
-			<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'userfunctions'=>true, 'extraClass'=>'status'.$product->status, 'frontDesc'=>true)));?>
+			<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'userfunctions'=>true, 'extraClass'=>'status'.$product->status, 'fixText'=>'Termék oldala', 'frontDesc'=>true)));?>
 		<? } ?>
 
 	</ul>

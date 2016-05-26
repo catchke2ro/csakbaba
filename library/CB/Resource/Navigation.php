@@ -52,6 +52,8 @@ class CB_Resource_Navigation extends Zend_Navigation {
 			array('label'=>'Adatvédelem', 'uri'=>'/adatvedelem', 'mvc'=>array('index', 'adatvedelem'), 'visible'=>false, 'resource'=>'adatvedelem'),
 			array('label'=>'Feliratkozva', 'uri'=>'/feliratkozva', 'mvc'=>array('index', 'feliratkozva'), 'visible'=>false, 'resource'=>'feliratkozva'),
 
+            array('label'=>'Termék leiratkozás', 'uri'=>'/termekleiratkozas', 'mvc'=>array('market', 'commentunsubscribe'), 'visible'=>false, 'resource'=>'termekleiratkozas'),
+
 			array('label'=>'Bejelentkezés', 'uri'=>'/slogin', 'mvc'=>array('user', 'slogin'), 'visible'=>false, 'noindex'=>true, 'resource'=>'slogin')
 
 		));

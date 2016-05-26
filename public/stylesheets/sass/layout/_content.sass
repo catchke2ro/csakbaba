@@ -10,6 +10,8 @@ div.content
   max-width: 100%
   min-height: 540px
   overflow: hidden
+  +mq2
+    padding-top: 100px
   .contentInner
     & > h1, & > h2, & > h3
       text-align: center
@@ -32,7 +34,7 @@ div.content
     width: 100%
     padding-left: $sidebarWidth
 
-    +mq3
+    +mq2
       padding-left: 0
     ul
       width: 100%
@@ -52,6 +54,18 @@ div.content
           font-size: 1rem
           font-weight: bold
           color: $cBreadcrumbActiveColor
+
+    &.longBC
+      li:nth-child(5)
+        &:before
+          content: "..."
+          cursor: pointer
+        a
+          display: none
+      li:nth-child(n+6)
+        display: none
+      li:nth-last-child(-n+4)
+        display: inline-block
 
 
 
@@ -86,6 +100,7 @@ div.content div.social
     line-height: 20px
     text-align: center
     padding-right: 10px
+    font-size: 1.1rem
     +mq2
       width: 20px
     &:before

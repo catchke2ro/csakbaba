@@ -114,6 +114,8 @@ class UserController extends CB_Controller_Action {
 			'form'=>$form
 		));
 
+        $this->view->minifyHeadScript()->appendFile('https://www.google.com/recaptcha/api.js');
+
 		if($this->getRequest()->isPost()){
 			CB_Resource_Functions::logEvent('userRegistrationStarted');
 			if($form->isValid($this->getRequest()->getPost())){
@@ -330,8 +332,8 @@ class UserController extends CB_Controller_Action {
 
 
 		$authAdapter=new CB_Resource_Auth();
-		$result=$authAdapter->slogin($s, $suser);
-		if($result===false) $this->m('A fiókoddal nem lehet bejelentkezni (pl. nem megfelelő e-mail cím miatt). Ellenőrizd e-mail címed a fiókodban!');
+ 		$result=$authAdapter->slogin($s, $suser);
+		if($result===false) $this->m('A fiókoddal nem lehet bejelentkezni (pl. nem megfelelő e-mail cím miatt). Ellenőrizd e-mail címed a fiókodban!', 'error');
 		else $this->m('Sikeres bejelentkezés');
 		$url=(!empty($sloginSession->r) ? $sloginSession->r : $this->url('adatmodositas'));
 		$this->redirect($url);

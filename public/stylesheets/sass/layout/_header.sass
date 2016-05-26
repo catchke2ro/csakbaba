@@ -131,20 +131,30 @@ div.header
       .socialLogin
         margin-top: 10px
         a
+          width: 100%
           color: $cWhite
+          padding-left: 25px
+          &:before
+            width: 25px
+            margin-left: 0px
       form
         li.field.submit
           width: 90%
           float: none
+          +iconButton($iconProfile)
 
       li.field
         width: 100%
-        margin-top: 15px
+        margin-top: 10px
+        +mq4
+          height: 44px
         label
           display: none
         input
           margin-left: 0px
           width: 100%
+          +mq4
+            margin-top: 0px
         &.req input
           border-left: 0px
       a
@@ -174,7 +184,7 @@ div.header
       min-width: 230px
       +mq(width, percentage(1/2), percentage(1/2), percentage(1/2), percentage(1))
       .loginreg
-        max-height: 300px
+        max-height: 400px
         +transition(max-height 0.5s $anim 0.5s)
 
 

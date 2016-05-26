@@ -27,17 +27,13 @@ $(function(){
 	if(productDetails.length){
 
 		productDetails.find('.productImagesWrapper .productImages').slick({
-		  adaptiveHeight: false, dots: true,
+		  adaptiveHeight: true, dots: true, infinite: false
 		});
 
 
 		$('div.addToCart a').click(function(ev){
 			var a=$(this), div=a.parent();
-			if(div.hasClass('haveToLogin')){
-				$('div.usermenu').addClass('opened');
-				ev.preventDefault();
-				return false;
-			} else {
+			if(!div.hasClass('haveToLogin')){
 				div.siblings('.cassa').addClass('opened');
 			}
 		});
@@ -90,6 +86,19 @@ $(function(){
 				enabled:true
 			}
 		});
+
+		var productImagesWrapper = $('.productImagesWrapper'), headerMobile = $('.productHeaderMobile'), productDetailsWrapper = $('.productDetailsWrapper');
+		$(window).on('resize', function(){
+			if(headerMobile.css('display') != 'none' && headerMobile.find('h1').length == 0){
+				productDetailsWrapper.find('h1').appendTo(headerMobile);
+				productDetailsWrapper.find('.productPrice, .productUser').appendTo(headerMobile);
+			}
+			if(headerMobile.css('display') == 'none' && productDetailsWrapper.find('h1').length == 0){
+				headerMobile.find('h1').prependTo(productDetailsWrapper);
+				productDetailsWrapper.find('.productOptions').after(headerMobile.find('.productPrice, .productUser'));
+			}
+		});
+		$(window).trigger('resize');
 
 	}
 

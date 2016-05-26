@@ -30,10 +30,31 @@
       width: 100%
       padding-top: 2%
     img
-      margin: 2%
-      +clearFix
+      margin: 20px
+      float: left
+      width: auto !important
+      max-width: 50% !important
+      height: auto !important
+      +mq2
+        margin: 20px auto
+        display: block
+        float: none
+        max-width: 100% !important
+
     em
       font-style: italic
+
+    &.index
+      img:first-of-type
+        margin-top: 0px
+
+    &:not(.index)
+      h2
+        margin-top: 20px
+        text-align: left
+        font-weight: normal
+      h1
+        font-size: 3rem
 
 .blogSidebar
   float: left
@@ -62,17 +83,14 @@
     font-weight: bold
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
   p, li
-    font-size: 1.4rem
-    line-height: 1.5rem
+    font-size: 1.6rem
+    line-height: 2.2rem
     padding-bottom: 1%
     text-align: justify
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
-    *
-      font-size: 1rem
 
   ol
     list-style: decimal
-    font-size: 1rem
     padding-left: 3%
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
     li
@@ -80,7 +98,6 @@
 
 
   ul
-    font-size: 1.4rem
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
     li
       background-image: url(/img/elements/ulbg.png)
@@ -91,29 +108,10 @@
 
   ol.standard
     list-style: decimal
-    font-size: 1.4rem
     padding-left: 3%
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
     li
       margin-bottom: 1%
-
-  //p.warning
-    padding: 2%
-    background-color: rgba($col4,0.5)
-    border: 1px solid $col4
-    margin: 2% 0
-
-  //p.info
-    padding: 2%
-    background-color: rgba($col5,0.5)
-    border: 1px solid $col5
-    margin: 2% 0
-
-  //p.info2
-    padding: 2%
-    background-color: rgba($col6,0.5)
-    border: 1px solid $col6
-    margin: 2% 0
 
   blockquote
     background: rgba($cBlogQuotes,0.4)

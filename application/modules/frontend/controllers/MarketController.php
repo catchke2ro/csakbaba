@@ -90,7 +90,7 @@ class MarketController extends CB_Controller_Action {
 
 
 	public function productsajaxAction(){
-		$this->getHelper('layout')->disableLayout();
+        $this->getHelper('layout')->disableLayout();
 		$categoryTree=Zend_Registry::get('categories');
 		$catMultiArray=$categoryTree->_multiArray;
 
@@ -191,7 +191,14 @@ class MarketController extends CB_Controller_Action {
 		$comment=$commentModel->save($comment);
 		CB_Resource_Functions::logEvent('commentAdded', array('comment'=>$comment));
 		$comment->date=new DateTime($comment->date);
-		if($this->user->get()->id != $product->user->get()->id) $this->emails->commentProductUser(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
+		if($this->user->get()->id != $product->user->get()->id) {
+            $this->emails->commentProductUser(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
+
+            $subscribed=$this->user->subscribed ? $this->user->subscribed : array();
+            $subscribed[]=$product->id;
+            $this->user->subscribed=array_values(array_unique($subscribed));
+            $this->userModel->save($this->user);
+        }
 
 		$this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
 
@@ -199,24 +206,35 @@ class MarketController extends CB_Controller_Action {
 		$this->_helper->viewRenderer('comment');
 	}
 
-	public function commentsubscribeAction(){
+	public function commentunsubscribeAction(){
 		$this->getHelper('layout')->disableLayout();
 		$this->getHelper('viewRenderer')->setNoRender(true);
-		$productModel=new \CB\Model\Product();
-		$productId=!empty($_GET['pid']) ? $_GET['pid'] : false;
-		if(!($this->user && ($product=$productModel->findOneById($productId)) && isset($_GET['checked']))) die();
+        if(!(
+            !empty($_GET['uid']) &&
+            !empty($_GET['token']) &&
+            !empty($_GET['pid']) &&
+            ($user = $this->userModel->findOneById($_GET['uid'])) &&
+            $user->getToken() == $_GET['token'] &&
+            ($product = $this->productModel->findOneById($_GET['pid']))
+        )){
+            $this->redirect('/');
+            return;
+        }
 
-		$subscribed=$this->user->subscribed ? $this->user->subscribed : array();
-		if($_GET['checked']){
-			$subscribed[]=$productId;
-		} else {
-			$flipped=array_flip($subscribed);
-			unset($flipped[$productId]);
-			$subscribed=array_keys($flipped);
-		}
+		$subscribed=$user->subscribed ? $user->subscribed : array();
+        $flipped=array_flip($subscribed);
+        unset($flipped[$product->id]);
+        $subscribed=array_keys($flipped);
 
-		$this->user->subscribed=$subscribed;
-		$this->userModel->save($this->user);
+		$user->subscribed=$subscribed;
+		$this->userModel->save($user);
+
+        $categories=Zend_Registry::get('categories');
+        $productLink=$this->url('piac').$categories->getUri($product->category).'/'.$product->id.'/'.$this->functions->slug($product->name);
+
+        $this->m('Sikeresen leiratkoztál a termékről, a továbbiakban nem kapsz értesítést a hozzászólásokról.');
+        $this->redirect($productLink);
+        return;
 	}
 
 

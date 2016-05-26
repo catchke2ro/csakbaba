@@ -33,7 +33,7 @@ class HashType extends Type
         /*if ($value !== null && ! is_array($value)) {
             throw MongoDBException::invalidValueForType('Hash', array('array', 'null'), $value);
         }*/
-        return ($value !== null && $value != 'null' && $value != '') ? (object) $value : null;
+        return ($value !== null && $value != 'null' && $value != '') ? (!isAssoc($value) ? (array) $value : (object) $value) : null;
     }
 
     public function convertToPHPValue($value)

@@ -38,6 +38,8 @@ $iconEdit:      "u"
 $iconMenu:      "v"
 $iconCopy:      "w"
 $iconCard:      "x"
+$iconInfo:      "y"
+$iconQuestion:      "z"
 
 
 
@@ -92,16 +94,17 @@ $anim: cubic-bezier(.13,.94,.62,1.25)
     left: 0px
     height: 100%
     text-align: center
+    cursor: pointer
 
   +mq3
     width: 95%
 
 @mixin iconButtonCenter($icon, $bgCol: false, $col: false, $height: 50px, $fontSize: false)
-  +iconButton($icon, $bgCol: false, $col: false, $height: 50px, $fontSize: false)
+  +iconButton($icon, $bgCol, $col, $height, $fontSize)
   text-align: center
 
 @mixin iconButton2Row($icon, $bgCol: false, $col: false, $height: 50px, $fontSize: false)
-  +iconButton($icon, $bgCol: false, $col: false, $height: 50px, $fontSize: false)
+  +iconButton($icon, $bgCol, $col, $height, $fontSize)
   line-height: 3rem
   font-weight: bold
   text-align: center

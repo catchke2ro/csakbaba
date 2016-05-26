@@ -142,6 +142,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 						->appendFile('/js/home.js')
 						->appendFile('/js/products.js')
 						->appendFile('/js/usershop.js')
+						->appendFile('/js/userorders.js')
 						->appendFile('/js/uploader.js')
 		;
 		$this->view->headTitle()->setSeparator(' | ');

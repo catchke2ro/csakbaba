@@ -59,3 +59,9 @@ function object_to_array($obj, $maxLevel=10, $keepObjects=false, $level=0){
 	}
 	return $arr;
 }
+
+
+function isAssoc($arr)
+{
+    return array_keys($arr) !== range(0, count($arr) - 1);
+}

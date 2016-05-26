@@ -27,8 +27,8 @@
 						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->product->name);?></a>
 						<? if(!empty($this->o)){?>
 							<div class="productInfo">
-								<span>Vásárlás dátuma: <strong><?=$this->o->date->format('Y.m.d H:i');?></strong></span>
-								<span>Vásárló: <strong><a href="<?=$this->url('profil').'/'.urlencode($this->o->user->username);?>"><?=$this->o->user->username;?></a></strong></span><br />
+								<span><?=$this->seller ? 'Eladás dátuma' : 'Vásárlás dátuma';?>: <strong><?=$this->o->date->format('Y.m.d H:i');?></strong></span>
+								<span><?=$this->seller ? 'Vásárló' : 'Eladó';?>: <strong><a href="<?=$this->url('profil').'/'.urlencode($this->o->user->username);?>"><?=$this->o->user->username;?></a></strong></span>
 								<span>Kód: <strong><?=$this->o->code;?></strong></span>
 							</div>
 						<? } ?>
@@ -80,13 +80,14 @@
 
 
         <? if(isset($this->userfunctions) && $this->userfunctions==true){?>
-            <div class="userFix">
-                <?=$this->partial('shop/userproductfix.phtml', $this->getVars());?>
-            </div>
+            <!--<div class="userFix">
+                <?/*=$this->partial('shop/userproductfix.phtml', $this->getVars());*/?>
+            </div>-->
             <?=$this->partial('shop/userproductfunctions.phtml', $this->getVars());?>
-        <? } else if($fix) { ?>
+        <? } ?>
+        <? if($fix) { ?>
 			<div class="fix">
-				<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="button jump">tovább a termékhez</a>
+				<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="button jump"><?=(isset($this->fixText) ? $this->fixText : 'tovább a termékhez');?></a>
 			</div>
 		<? } ?>
 
