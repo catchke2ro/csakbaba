@@ -1,15 +1,14 @@
 #php_flag opcache.enable Off
 
-
 RewriteEngine On
 
 
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-RewriteCond %{HTTP_HOST} !^test.csakbaba.hu$
-RewriteCond %{HTTPS} off [OR]
-RewriteCond %{HTTP_HOST} ^www.csakbaba.hu$ [NC]
-RewriteRule ^(.*)$ https://csakbaba.hu/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} !^test.csakbaba.hu$
+#RewriteCond %{HTTPS} off [OR]
+#RewriteCond %{HTTP_HOST} ^www.csakbaba.hu$ [NC]
+#RewriteRule ^(.*)$ https://csakbaba.hu/$1 [R=301,L]
 
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
@@ -21,8 +20,8 @@ RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 
-RewriteCond %{REQUEST_URI} !ai-cache
-RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php
+#RewriteCond %{REQUEST_URI} !ai-cache
+#RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php
 
 
 RewriteCond %{REQUEST_FILENAME} -s [OR]

@@ -25,7 +25,7 @@ class Product extends \CB_Resource_Model{
 	public function extAfterFind($items, $params=array()){
 		if(isset($params['single'])){ $items=array($items); }
 		foreach($items as $key=>$item){
-			$items[$key]->user->get();
+			if($items[$key]->user) $items[$key]->user->get();
 		}
 		$items=array_values($items);
 		if(isset($params['single'])){ $items=$items[0]; }
