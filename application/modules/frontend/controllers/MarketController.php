@@ -327,13 +327,13 @@ class MarketController extends CB_Controller_Action {
 
 
     public function manualemailAction(){
-        die();
+        //die();
         //$this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
 
-        $data['user'] = $this->userModel->findOneByUsername('Barbi555');
+        $data['user'] = $this->userModel->findOneByUsername('csilla74');
         $user = $data['user'];
-        $data['comment'] = (new \CB\Model\Comment())->findOneById('573788544a79599c7a8b4567');
-        $data['product'] = (new \CB\Model\Product())->findOneById('56c03b8b6df19dac2fc6ef93');
+        $data['comment'] = (new \CB\Model\Comment())->findOneById('57bbfee44a7959e03c8b4567');
+        $data['product'] = (new \CB\Model\Product())->findOneById('5556f5341cab67245af07fd1');
 
         $categories=Zend_Registry::get('categories');
         $data['productlink']=$categories->getUri($data['product']->category).'/'.$data['product']->id.'/'.$this->functions->slug($data['product']->name);

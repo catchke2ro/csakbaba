@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* line 5, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -21,45 +21,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../var/lib/gems/2.1.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -6139,43 +6139,55 @@ div.productDetails div.userRatings div.productList.user ul li.product div.rating
 #container.fooldal .lists li.product .productName a, .blogContent .lists li.product .productName a {
   font-weight: normal;
 }
-/* line 335, ../sass/pages/_fooldal.sass */
+/* line 334, ../sass/pages/_fooldal.sass */
+#container.fooldal div.borzeIcons, .blogContent div.borzeIcons {
+  width: calc(100% - 320px);
+  float: left;
+}
+@media (max-width: 960px) {
+  /* line 334, ../sass/pages/_fooldal.sass */
+  #container.fooldal div.borzeIcons, .blogContent div.borzeIcons {
+    width: 100%;
+    float: none;
+  }
+}
+/* line 344, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a, .blogContent div.borzeIcons a {
   width: 20%;
   max-width: 100px;
   height: auto;
   margin: 20px 3%;
 }
-/* line 340, ../sass/pages/_fooldal.sass */
+/* line 349, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a:not(.link):hover, .blogContent div.borzeIcons a:not(.link):hover {
   -webkit-animation: rotatebounce 0.3s;
   animation: rotatebounce 0.3s;
 }
-/* line 343, ../sass/pages/_fooldal.sass */
+/* line 352, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a:before, .blogContent div.borzeIcons a:before {
   content: "";
   display: block;
   padding-top: 100%;
 }
-/* line 347, ../sass/pages/_fooldal.sass */
+/* line 356, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons div.clear, .blogContent div.borzeIcons div.clear {
   display: block;
   clear: both;
 }
-/* line 350, ../sass/pages/_fooldal.sass */
+/* line 359, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons div.link, .blogContent div.borzeIcons div.link {
   width: 33.33333%;
   min-width: 200px;
   float: left;
 }
 @media (max-width: 700px) {
-  /* line 350, ../sass/pages/_fooldal.sass */
+  /* line 359, ../sass/pages/_fooldal.sass */
   #container.fooldal div.borzeIcons div.link, .blogContent div.borzeIcons div.link {
     float: none;
     width: 100%;
   }
 }
-/* line 357, ../sass/pages/_fooldal.sass */
+/* line 366, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a.link, .blogContent div.borzeIcons a.link {
   display: block;
   width: 200px;
@@ -6189,7 +6201,7 @@ div.productDetails div.userRatings div.productList.user ul li.product div.rating
   max-width: none;
 }
 @media (max-width: 700px) {
-  /* line 357, ../sass/pages/_fooldal.sass */
+  /* line 366, ../sass/pages/_fooldal.sass */
   #container.fooldal div.borzeIcons a.link, .blogContent div.borzeIcons a.link {
     float: none !important;
     width: 90%;
@@ -6197,11 +6209,11 @@ div.productDetails div.userRatings div.productList.user ul li.product div.rating
     margin-right: auto !important;
   }
 }
-/* line 373, ../sass/pages/_fooldal.sass */
+/* line 382, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a.link:before, .blogContent div.borzeIcons a.link:before {
   display: none;
 }
-/* line 376, ../sass/pages/_fooldal.sass */
+/* line 385, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a.registration, .blogContent div.borzeIcons a.registration {
   float: left;
   background-color: #76a0ce;
@@ -6212,14 +6224,14 @@ div.productDetails div.userRatings div.productList.user ul li.product div.rating
   -webkit-box-shadow: 0px -30px 3px -15px rgba(253, 246, 247, 0.1) inset;
   box-shadow: 0px -30px 3px -15px rgba(253, 246, 247, 0.1) inset;
 }
-/* line 383, ../sass/pages/_fooldal.sass */
+/* line 392, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a.registration:hover, .blogContent div.borzeIcons a.registration:hover {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
   opacity: 1;
 }
-/* line 387, ../sass/pages/_fooldal.sass */
+/* line 396, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a.upload, .blogContent div.borzeIcons a.upload {
   float: left;
   background-color: #a32929;
@@ -6232,21 +6244,36 @@ div.productDetails div.userRatings div.productList.user ul li.product div.rating
   font-size: 1.6rem;
   width: 90%;
 }
-/* line 397, ../sass/pages/_fooldal.sass */
+/* line 406, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons a.upload:hover, .blogContent div.borzeIcons a.upload:hover {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
   opacity: 1;
 }
-/* line 401, ../sass/pages/_fooldal.sass */
+/* line 410, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons.bottom, .blogContent div.borzeIcons.bottom {
   margin-bottom: 20px;
 }
-/* line 403, ../sass/pages/_fooldal.sass */
+/* line 412, ../sass/pages/_fooldal.sass */
 #container.fooldal div.borzeIcons.bottom div.link, .blogContent div.borzeIcons.bottom div.link {
   float: none;
   display: inline-block;
+}
+
+/* line 418, ../sass/pages/_fooldal.sass */
+div.mora {
+  width: 320px;
+  padding: 10px;
+  float: right;
+}
+@media (max-width: 960px) {
+  /* line 418, ../sass/pages/_fooldal.sass */
+  div.mora {
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
 }
 
 /* line 17, ../sass/pages/_user.sass */
