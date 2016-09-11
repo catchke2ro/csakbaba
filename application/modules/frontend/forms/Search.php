@@ -11,7 +11,7 @@ class Frontend_Form_Search extends CB_Form_Form {
 		$this->setAction('#');
 		$catid=new Zend_Form_Element_Hidden('category_id');
 		$catid->removeDecorator('label');
-		$q=new Zend_Form_Element_Text('q');
+		$q=new CB_Form_Element_Search('q');
 		$q->setRequired(true)->setAttrib('required', 'required')->setAttrib('placeholder', 'keresés...');
 		$submit=new Zend_Form_Element_Submit('Keresés');
 		$submit->removeDecorator('label');

@@ -26,6 +26,9 @@ if(!empty($_COOKIE['SRGDEV'])){
 	//ini_set('max_execution_time', 480);
 }
 
+define('DEV', strpos($_SERVER['HTTP_HOST'], 'dev.') !== false);
+define('ANALYTICS_ID', DEV ? 'UA-48324090-2' : 'UA-48324090-1');
+
 
 require_once APPLICATION_PATH.'/../library/Zend/Loader/AutoloaderFactory.php';
 require_once APPLICATION_PATH.'/../library/Zend/Loader/ClassMapAutoloader.php';

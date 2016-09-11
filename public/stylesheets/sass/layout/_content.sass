@@ -1,3 +1,4 @@
+@charset "UTF-8"
 //***************************************************************
 //
 //           CONTENT RÉGIÓ
@@ -9,10 +10,14 @@ div.content
   max-width: 100%
   min-height: 540px
   overflow: hidden
+  +mq2
+    padding-top: 100px
+  +mq4
+    padding-top: 70px
   .contentInner
     & > h1, & > h2, & > h3
       text-align: center
-      font-size: 2em
+      font-size: 2rem
       margin-bottom: 20px
 
 
@@ -27,18 +32,17 @@ div.content
     top: 40px
     left: 0
     height: 26px
-    z-index: 700
+    z-index: 70
     width: 100%
     padding-left: $sidebarWidth
 
-    +mq3
-      left: 40px
+    +mq2
       padding-left: 0
     ul
       width: 100%
-      padding: 0.7em
+      padding: 0.7rem
       float: left
-      line-height: 1.5em
+      line-height: 1.5rem
       padding-right: 180px
       +mq2
         padding-right: 45px
@@ -49,9 +53,21 @@ div.content
           color: $cBreadcrumbColor
           +transition(0.6s)
         h2
-          font-size: 1em
+          font-size: 1rem
           font-weight: bold
           color: $cBreadcrumbActiveColor
+
+    &.longBC
+      li:nth-child(5)
+        &:before
+          content: "..."
+          cursor: pointer
+        a
+          display: none
+      li:nth-child(n+6)
+        display: none
+      li:nth-last-child(-n+4)
+        display: inline-block
 
 
 
@@ -73,7 +89,7 @@ div.content div.social
   overflow: hidden
   +transition(width 0.5s)
   +mq2
-    width: 40px
+    display: none
 
   a
     margin: 0px
@@ -86,11 +102,12 @@ div.content div.social
     line-height: 20px
     text-align: center
     padding-right: 10px
+    font-size: 1.1rem
     +mq2
       width: 20px
     &:before
       font-weight: normal
-      font-family: Flaticon
+      font-family: csakbaba
       float: left
       font-size: 1.5rem
       margin-left: 3px
@@ -120,5 +137,25 @@ html.desktop div.social.fixed
 
 .piac.details div.content .breadcrumb
   top: 40px
+
+
+.mfp-iframe-holder
+  padding-top: 5px
+  padding-bottom: 5px
+  .mfp-close
+    top: 0px
+    right: 0px
+    width: 40px
+    height: 40px
+    text-align: center
+    line-height: 40px
+    padding: 0px
+    background-color: $colAlter
+    font-size: 3rem
+  .mfp-content
+    height: 100%
+    
+.mfp-wrap
+  -webkit-overflow-scrolling: touch
 
 

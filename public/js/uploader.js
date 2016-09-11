@@ -41,7 +41,7 @@ function fileUploadInit(){
 					if(!file) return;
 					var tpl=jQuery(data.options.filesContainer).closest('.fileUploadContainer').children('.template-download').clone();
 					tpl.find('.filename').text(file.name);
-					tpl.find('img.preview').prop('src', file.small);
+					tpl.find('img.preview').prop('src', file.mid);
 					if(file.error) tpl.find('.error').text(file.error);
 					tpls.push(tpl);
 				});

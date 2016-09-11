@@ -1,44 +1,45 @@
-
-<div class="promoteAll">
+<!--<div class="promoteAll">
 	<a href="javascript:void(0)" class="userPromoteAll hasTooltip">Asztalom kiemelése</a>
-	<? if(!empty($this->user->promotes)){?>
+	<?/* if(!empty($this->user->promotes)){*/?>
 		<div class="tooltip">
-			<? $promoteAllOptions=Zend_Registry::get('promoteAllOptions');?>
-			<? foreach((is_array($this->user->promotes) ? $this->user->promotes : array()) as $type=>$date){?>
-				<? if($date < time()) continue;?>
-				<p><strong><?=$promoteAllOptions[$type];?></strong>: <?=date('Y.m.d H:i', $date);?>-ig</p>
-			<? } ?>
+			<?/* $promoteAllOptions=Zend_Registry::get('promoteAllOptions');*/?>
+			<?/* foreach((is_array($this->user->promotes) ? $this->user->promotes : array()) as $type=>$date){*/?>
+				<?/* if($date < time()) continue;*/?>
+				<p><strong><?/*=$promoteAllOptions[$type];*/?></strong>: <?/*=date('Y.m.d H:i', $date);*/?>-ig</p>
+			<?/* } */?>
 		</div>
+	<?/* } */?>
+</div>-->
+
+<div class="addNewProductWrapper">
+    <div><a href="javascript:void(0)" class="userAddProduct">Új termék hozzáadása</a></div>
+    <? if($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit')){ ?>
+        <div class="hidden"><a href="<?=$this->url('egyenleg');?>" class="nobalance">Új áru hozzáadásához töltsd fel az egyenleged</a></div>
+    <? } ?>
+
+</div>
+
+<div class="productFilter">
+	<? foreach($this->statusCodes as $status=>$text){?>
+		<? if($status==0) continue;?>
+		<a href="javascript:void(0)" class="statusButton s<?=$status;?> active" data-status="<?=$status;?>"><?=$text;?> (<span></span>)</a>
 	<? } ?>
-	<div class="productEditAddForm"></div>
+	<div class="textFilter"><input type="text" placeholder="szűrés név, leírás és ár alapján" /></div>
+</div>
+<div class="categorySelect" style="display:none;">
 </div>
 
 
-		<div class="productFilter">
-			<? if($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit')){ ?>
-				<div><a href="<?=$this->url('egyenleg');?>" class="userAddProduct nobalance">Új áru hozzáadásához töltsd fel az egyenleged</a></div>
-			<? } else { ?>
-				<div><a href="javascript:void(0)" class="userAddProduct">Új termék hozzáadása</a></div>
 
-			<? } ?>
-			<? foreach($this->statusCodes as $status=>$text){?>
-				<? if($status==0) continue;?>
-				<div><a href="javascript:void(0)" data-status="<?=$status;?>"><?=$text;?> termékek</a></div>
-			<? } ?>
-			<div class="textFilter"><input type="text" placeholder="szűrés név, leírás és ár alapján" /></div>
 
-		</div>
-		<div class="categorySelect" style="display:none;">
-		</div>
-		<div class="productEditAddForm add"></div>
 
-		<div class="productList user" data-freeuploadlimit="<?=Zend_Registry::get('freeUploadLimit');?>">
-			<ul class="products user">
+<div class="productList user" data-freeuploadlimit="<?=Zend_Registry::get('freeUploadLimit');?>">
 
-				<? foreach($this->products as $product){?>
-					<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'userfunctions'=>true, 'frontDesc'=>true, 'previewImg'=>true, 'extraClass'=>'status'.$product->status)));?>
-					<div class="productEditAddForm"></div>
-				<? } ?>
+	<ul class="products user">
 
-			</ul>
-		</div>
+		<? foreach($this->products as $product){?>
+			<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'userfunctions'=>true, 'extraClass'=>'status'.$product->status, 'fixText'=>'Termék oldala', 'frontDesc'=>true)));?>
+		<? } ?>
+
+	</ul>
+</div>

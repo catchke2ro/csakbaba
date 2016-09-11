@@ -1,0 +1,127 @@
+div.productEditAddForm
+  padding: 0px 20px
+  +mq2
+    padding: 0px
+
+  .moreInfo
+    padding: 20px
+    text-align: center
+    h1
+      font-weight: bold
+      line-height: 3rem
+    .productLink
+      color: $colAlter
+      font-weight: bold
+    table
+      width: 100%
+      margin: 20px auto
+    td
+      padding: 5px 20px
+      border-bottom: 1px solid $colAlter
+      width: 50%
+      &:first-child
+        text-align: right
+        width: 50%
+
+  +form
+  form > ul
+    +clearFix
+  li.fieldset
+    padding: 10px
+    float: left
+    width: 50%
+    +mq1
+      width: 100%
+  li.field.submit
+    clear: both
+
+  .formLoad.show
+    +loading
+
+
+
+  li.fieldset.moreButtonFieldset, li.fieldset.promoteButtonFieldset
+    width: 100%
+    text-align: center
+    padding-bottom: 0px
+    li.button
+      +iconButton($iconAdd, false, false, 30px, 1.4rem)
+      height: auto
+      margin-bottom: 0px
+      width: 50%
+      +transition(width 0.5s 0.5s)
+    li.note
+      display: block
+      padding: 0px
+      width: 50%
+      margin: 0px auto
+      max-height: 200px
+      overflow: hidden
+      +transition(max-height 0.5s 0.5s)
+      +mq3
+        width: 95%
+      p.infoText
+        font-size: 1.2rem
+    &.active
+      li.button
+        width: 100%
+        +transition(width 0.5s)
+      li.note
+        max-height: 0px
+        +transition(max-height 0.5s)
+
+  li.fieldset.more, li.fieldset.promote
+    overflow: hidden
+    max-height: 1000px
+    padding-top: 0px
+    padding-bottom: 0px
+    +transition(max-height 0.5s 0.5s)
+    &.hidden
+      display: block
+      max-height: 0px
+      +transition(max-height 0.5s)
+
+  li.fieldset.promoteButtonFieldset
+    li.button
+      &:before
+        content: $iconStar
+
+  li.fieldset.promote
+    width: 100%
+
+    li.note
+      padding: 0px
+      .infoText
+        margin: 0px
+      &:not(.visible)
+        display: none
+
+    li.field.multicheckbox
+      & > label
+        width: 50%
+        left: 50%
+      div.radios label
+        width: 50%
+        &:after
+          width: 100%
+
+  .categorySelects
+    &.hasProduct
+      display: none
+    .borzeIcons
+      a
+        width: 70px
+        height: 70px
+        margin: 10px
+
+
+    .categorySelect
+      display: none
+      text-align: center
+      &.visible
+        display: block
+
+      .select2
+        width: 50% !important
+        +mq4
+          width: 95% !important

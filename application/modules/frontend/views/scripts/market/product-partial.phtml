@@ -1,11 +1,13 @@
 <? if(!empty($this->product)){?>
 
 <? $tag=isset($this->tag) ? $this->tag : 'li';?>
+    <? $fix = !isset($this->fix) || $this->fix==true;?>
 <? $nameTag=isset($this->nameTag) ? $this->nameTag : 'h3';?>
 <<?=$tag;?>
-	class="product <?=$this->product->type;?> <?=((isset($this->back) && $this->back==false)?'noflip':'');?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->product->isPromoted('frame')?'promotedFrame':'');?> <?=($this->product->isPromoted('list')?'promotedList':'');?> status<?=$this->product->status;?>"
+	class="product <?=$this->product->type;?> <?=$fix ? '' : 'noFix';?> <?=((isset($this->back) && $this->back==false)?'noflip':'');?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->product->isPromoted('frame')?'promotedFrame':'');?> <?=($this->product->isPromoted('list')?'promotedList':'');?> status<?=$this->product->status;?>"
 	data-id="<?=$this->product->id;?>"
 	data-categoryid="<?=$this->product->category;?>"
+	data-status="<?=$this->product->status;?>"
 	<?=(!empty($this->extraData)?$this->extraData:'');?>
 >
 	<div class="productInner">
@@ -17,37 +19,39 @@
 
 			<? if(!isset($this->front) || $this->front==true){?>
 				<div class="front">
-					<div class="productImages">
-						<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
-						<img src="<?=$img['mid'];?>" alt="<?=htmlentities($this->product->name);?>" data-preview="<?=$img['mid'];?>" class="<?=!empty($this->previewImg) ? 'previewImg' : '';?>" />
+					<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
+					<div class="productImages <?=!empty($this->previewImg) ? 'previewImg' : '';?>" style="background-image: url(<?=$img['mid'];?>);" data-preview="<?=$img['mid'];?>">
 					</div>
-					<<?=$nameTag;?> class="productName">
-						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=htmlentities($this->product->name);?></a>
+					<div class="productBottom">
+						<<?=$nameTag;?> class="productName">
+						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->product->name);?></a>
 						<? if(!empty($this->o)){?>
 							<div class="productInfo">
-								<span>Vásárlás dátuma: <strong><?=$this->o->date->format('Y.m.d H:i');?></strong></span>
-								<span>Vásárló: <strong><a href="<?=$this->url('profil').'/'.urlencode($this->o->user->username);?>"><?=$this->o->user->username;?></a></strong></span><br />
+								<span><?=$this->seller ? 'Eladás dátuma' : 'Vásárlás dátuma';?>: <strong><?=$this->o->date->format('Y.m.d H:i');?></strong></span>
+								<span><?=$this->seller ? 'Vásárló' : 'Eladó';?>: <strong><a href="<?=$this->url('profil').'/'.urlencode($this->o->user->username);?>"><?=$this->o->user->username;?></a></strong></span>
 								<span>Kód: <strong><?=$this->o->code;?></strong></span>
 							</div>
 						<? } ?>
-					</<?=$nameTag;?>>
-					<div class="productPrice"><span><?=$this->product->price;?> Ft.</span></div>
-					<? if(!empty($this->frontDesc)){?>
-					<div class="frontDesc"><?=$this->product->desc;?></div>
-					<? } ?>
+						</<?=$nameTag;?>>
+						<div class="productPrice"><span><?=number_format($this->product->price, 0, ',', ' ');?> Ft.</span></div>
+						<? if(!empty($this->frontDesc)){?>
+							<div class="frontDesc"><?=$this->product->desc;?></div>
+						<? } ?>
+					</div>
+
 				</div>
 			<? } ?>
 
 
 			<? if(!isset($this->back) || $this->back==true){?>
 				<div class="back">
-					<h3 class="productName"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump"><?=htmlentities($this->product->name);?></a></h3>
+					<h3 class="productName"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->product->name);?></a></h3>
 					<div class="details">
 						<!--<div class="productDesc"><?=implode(' ', array_slice(explode(' ', $this->product->desc), 0, 12)).' ...';?></div>-->
 						<div class="productOptions">
 							<? $genreTypes=Zend_Registry::get('genreTypes');?>
 							<span class="option">
-						    <strong><?=$this->product->new ? 'Új' : 'Használt';?>, <?=$genreTypes[$this->product->type]?></strong>
+						    <strong><?=$this->product->new ? 'Új' : 'Használt';?><?=$this->product->type ? ', '.$genreTypes[$this->product->type] : ''?></strong>
 					    </span><br />
 							<span class="option">
 						    <strong>Feltöltve</strong>: <?=$this->product->date_added->format('Y.m.d H:i');?>
@@ -60,7 +64,7 @@
 							<? }} ?>
 						</div>
 					</div>
-					<div class="productPrice"><?=$this->product->price;?> Ft.</div>
+					<div class="productPrice"><?=number_format($this->product->price, 0, ',', ' ');?> Ft.</div>
 					<div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
 
 					<div class="productGallery">
@@ -75,15 +79,19 @@
 		</div>
 
 
-		<? if(!isset($this->fix) || $this->fix==true){?>
+        <? if(isset($this->userfunctions) && $this->userfunctions==true){?>
+            <!--<div class="userFix">
+                <?/*=$this->partial('shop/userproductfix.phtml', $this->getVars());*/?>
+            </div>-->
+            <?=$this->partial('shop/userproductfunctions.phtml', $this->getVars());?>
+        <? } ?>
+        <? if($fix) { ?>
 			<div class="fix">
-				<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="button jump">tovább a termékhez</a>
+				<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="button jump"><?=(isset($this->fixText) ? $this->fixText : 'tovább a termékhez');?></a>
 			</div>
 		<? } ?>
 
-		<? if(isset($this->userfunctions) && $this->userfunctions==true){?>
-			<?=$this->partial('shop/userproductfunctions.phtml', $this->getVars());?>
-		<? } ?>
+
 
 		<? if(isset($this->rating) && $this->rating==true && !empty($this->o)){?>
 			<?=$this->partial('shop/userrating.phtml', $this->getVars());?>

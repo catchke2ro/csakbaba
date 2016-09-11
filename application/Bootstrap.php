@@ -17,7 +17,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 	function _initException(){
 		//error_reporting(E_ERROR | E_WARNING | E_NOTICE);
-		if(empty($_COOKIE['CSBDEV'])){
+		if(empty($_COOKIE['SRGDEV'])){
 			//Zend_Controller_Front::getInstance()->throwExceptions(false);
 		}
 		set_exception_handler(array('CB_Exception_Default', 'fault'));

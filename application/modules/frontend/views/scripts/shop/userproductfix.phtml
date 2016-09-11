@@ -1,0 +1,4 @@
+<div class="moreInfo">
+    <div class="productDate added">Feltöltve: <strong><?=$this->product->date_added->format('Y.m.d. H:i');?></strong></div>
+    <div class="productDate periodEnd">Lejár: <strong><?=date('Y.m.d. H:i', strtotime('+30 days', $this->product->date_period->getTimestamp()));?></strong></div>
+</div>

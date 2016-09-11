@@ -1,197 +1,4 @@
-/* line 519, ../sass/general/_variables.sass */
-.fileUploadContainer {
-  padding: 10px;
-}
-/* line 521, ../sass/general/_variables.sass */
-.fileUploadContainer .fileinput-button {
-  border: 3px dashed #f8f4ef;
-  -moz-transition: 0.6s;
-  -o-transition: 0.6s;
-  -webkit-transition: 0.6s;
-  transition: 0.6s;
-}
-/* line 524, ../sass/general/_variables.sass */
-.fileUploadContainer .fileinput-button:hover {
-  background-color: rgba(248, 244, 239, 0.5);
-  -moz-box-shadow: 0 0 5px #f8f4ef;
-  -webkit-box-shadow: 0 0 5px #f8f4ef;
-  box-shadow: 0 0 5px #f8f4ef;
-  -moz-transition: 0.6s;
-  -o-transition: 0.6s;
-  -webkit-transition: 0.6s;
-  transition: 0.6s;
-}
-/* line 528, ../sass/general/_variables.sass */
-.fileUploadContainer .fileinput-button span {
-  background-color: #76a0ce;
-  color: #FFFFFF;
-  border: 1px solid #FFFFFF;
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-  text-align: center;
-  width: 200px;
-}
-/* line 537, ../sass/general/_variables.sass */
-.fileUploadContainer .fileinput-button input {
-  height: 100%;
-  width: 100%;
-}
-/* line 540, ../sass/general/_variables.sass */
-.fileUploadContainer .fileinput-button.in {
-  background-color: #f8f4ef;
-}
-/* line 542, ../sass/general/_variables.sass */
-.fileUploadContainer .fileinput-button.hover {
-  background: #f8f4ef;
-}
-/* line 544, ../sass/general/_variables.sass */
-.fileUploadContainer .template-upload, .fileUploadContainer .template-download {
-  display: none;
-}
-/* line 547, ../sass/general/_variables.sass */
-.fileUploadContainer .files .progress, .fileUploadContainer .fileupload-progress .progress {
-  height: 10px;
-  width: 90%;
-  border: 1px solid #f8f4ef;
-  margin: auto;
-}
-/* line 552, ../sass/general/_variables.sass */
-.fileUploadContainer .files .progress .progress-bar, .fileUploadContainer .fileupload-progress .progress .progress-bar {
-  background-color: #8b7b6a;
-  height: 100%;
-  width: 0px;
-}
-/* line 556, ../sass/general/_variables.sass */
-.fileUploadContainer .files .error, .fileUploadContainer .fileupload-progress .error {
-  color: red;
-  padding: 1px 5px;
-  font-weight: bold;
-  font-size: 1em;
-}
-/* line 561, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-upload, .fileUploadContainer .files .template-download, .fileUploadContainer .fileupload-progress .template-upload, .fileUploadContainer .fileupload-progress .template-download {
-  display: block;
-  background-color: #f8f4ef;
-  margin: 5px 0.5%;
-  position: relative;
-  float: left;
-  height: 130px;
-  width: 19%;
-}
-/* line 569, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-upload, .fileUploadContainer .fileupload-progress .template-upload {
-  color: #2b2b2b;
-}
-/* line 571, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-upload .size, .fileUploadContainer .fileupload-progress .template-upload .size {
-  margin: 5px 5px 10px 0px;
-  float: right;
-}
-/* line 574, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-upload .filename, .fileUploadContainer .fileupload-progress .template-upload .filename {
-  display: none;
-}
-/* line 576, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-upload .cancel, .fileUploadContainer .fileupload-progress .template-upload .cancel {
-  background-color: #76a0ce;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-size: 1.2em;
-  height: 17px;
-  left: 0;
-  line-height: 17px;
-  padding: 0 5px;
-  position: absolute;
-  top: 0;
-  width: 16px;
-  opacity: 0.7;
-}
-/* line 589, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-upload .cancel:hover, .fileUploadContainer .fileupload-progress .template-upload .cancel:hover {
-  opacity: 1;
-}
-/* line 591, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-upload .error, .fileUploadContainer .fileupload-progress .template-upload .error {
-  margin-top: 5px;
-}
-/* line 593, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-upload .error:before, .fileUploadContainer .fileupload-progress .template-upload .error:before {
-  clear: both;
-  content: "";
-  display: block;
-  float: none;
-}
-/* line 599, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-download .delete, .fileUploadContainer .fileupload-progress .template-download .delete {
-  background-color: #76a0ce;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-size: 1.2em;
-  height: 17px;
-  left: 0;
-  line-height: 17px;
-  padding: 0 5px;
-  position: absolute;
-  top: 0;
-  width: 16px;
-  opacity: 0.7;
-}
-/* line 612, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-download .delete:hover, .fileUploadContainer .fileupload-progress .template-download .delete:hover {
-  opacity: 1;
-}
-/* line 614, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-download .move, .fileUploadContainer .fileupload-progress .template-download .move {
-  background-color: #76a0ce;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-size: 1.2em;
-  height: 17px;
-  right: 0;
-  line-height: 17px;
-  padding: 0 5px;
-  position: absolute;
-  top: 0;
-  width: 16px;
-  opacity: 0.7;
-  background-image: url(/img/elements/move.png);
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-/* line 630, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-download .move:hover, .fileUploadContainer .fileupload-progress .template-download .move:hover {
-  opacity: 1;
-}
-/* line 632, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-download .previewImage, .fileUploadContainer .fileupload-progress .template-download .previewImage {
-  margin: 0 5px;
-  overflow: hidden;
-  height: 100%;
-}
-/* line 636, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-download .filename, .fileUploadContainer .fileupload-progress .template-download .filename {
-  display: none;
-}
-/* line 638, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-download img, .fileUploadContainer .fileupload-progress .template-download img {
-  width: 100%;
-  max-height: 100%;
-  position: relative;
-  top: 50%;
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-/* line 29, ../sass/general/_variables.sass */
-.fileUploadContainer .files .template-download img:after, .fileUploadContainer .fileupload-progress .template-download img:after {
-  content: "";
-  display: block;
-  clear: both;
-  float: none;
-}
-
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,400italic&subset=latin,latin-ext");
 @-webkit-keyframes bounce_loadingProgressG {
   0% {
     margin-left: -256px;
@@ -251,89 +58,73 @@
     -webkit-transform: rotateZ(-10deg);
   }
 }
-@font-face {
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Noto Sans"), local("NotoSans"), url(/fonts/NotoSans-Regular.ttf) format("woff");
+@keyframes fade-out {
+  33% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0;
+  }
 }
 @font-face {
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 700;
-  src: local("Noto Sans Bold"), local("NotoSans-Bold"), url(/fonts/NotoSans-Bold.ttf) format("woff");
-}
-@font-face {
-  font-family: "Noto Sans";
-  font-style: italic;
-  font-weight: 400;
-  src: local("Noto Sans Italic"), local("NotoSans-Italic"), url(/fonts/NotoSans-Italic.ttf) format("woff");
-}
-@font-face {
-  font-family: "Noto Sans";
-  font-style: italic;
-  font-weight: 700;
-  src: local("Noto Sans Bold Italic"), local("NotoSans-BoldItalic"), url(/fonts/NotoSans-BoldItalic.ttf) format("woff");
-}
-@font-face {
-  font-family: "Flaticon";
+  font-family: "csakbaba";
   font-weight: normal;
   font-style: normal;
-  src: url(/fonts/flaticon.eot);
-  src: url(/fonts/flaticon.eot#iefix) format("embedded-opentype"), url(/fonts/flaticon.woff) format("woff"), url(/fonts/flaticon.ttf) format("truetype"), url(/fonts/flaticon.svg) format("svg");
+  src: url(/fonts/csakbaba.eot);
+  src: url(/fonts/csakbaba.eot#iefix) format("embedded-opentype"), url(/fonts/csakbaba.woff) format("woff"), url(/fonts/csakbaba.ttf) format("truetype"), url(/fonts/csakbaba.svg) format("svg");
 }
-/* line 43, ../sass/general/_typo.sass */
+/* line 46, ../sass/general/_typo.sass */
 body {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: black;
   font-weight: normal;
 }
 
-/* line 48, ../sass/general/_typo.sass */
-h1 {
-  font-size: 2em;
-}
-
 /* line 51, ../sass/general/_typo.sass */
-h2 {
-  font-size: 1.5em;
+h1 {
+  font-size: 2rem;
 }
 
 /* line 54, ../sass/general/_typo.sass */
-h3 {
-  font-size: 1.2em;
+h2 {
+  font-size: 1.5rem;
 }
 
 /* line 57, ../sass/general/_typo.sass */
-input, textarea {
-  font-family: "Noto Sans", sans-serif;
+h3 {
+  font-size: 1.2rem;
 }
 
-/* line 59, ../sass/general/_typo.sass */
+/* line 60, ../sass/general/_typo.sass */
+input, textarea {
+  font-family: "Open Sans", sans-serif;
+}
+
+/* line 62, ../sass/general/_typo.sass */
 a {
   text-decoration: none;
 }
-/* line 61, ../sass/general/_typo.sass */
+/* line 64, ../sass/general/_typo.sass */
 a:visited {
   color: #1a1a1a;
 }
 
-/* line 15, ../sass/email.sass */
+/* line 16, ../sass/email.sass */
 div.container {
   background-color: #e5d6c6;
   color: #000000;
-  line-height: 1.3em;
+  line-height: 20px;
   font-size: 13px;
   background-image: url("http://csakbaba.hu/img/elements/bg.png");
   background-repeat: repeat;
 }
 
-/* line 23, ../sass/email.sass */
+/* line 24, ../sass/email.sass */
 h1, h2, h3, h4, h5, h6, p {
   margin: 0px;
 }
 
-/* line 25, ../sass/email.sass */
+/* line 26, ../sass/email.sass */
 .header {
   height: 85px;
   background-image: url("http://csakbaba.hu/img/elements/logoemail.png");
@@ -347,27 +138,29 @@ h1, h2, h3, h4, h5, h6, p {
   border-bottom: 2px solid #76a0ce;
 }
 
-/* line 37, ../sass/email.sass */
+/* line 38, ../sass/email.sass */
 .content {
   padding: 15px;
 }
-/* line 39, ../sass/email.sass */
+/* line 40, ../sass/email.sass */
 .content a, .content p, .content strong {
   font-size: 14px;
-  line-height: 1.5em;
+  line-height: 20px;
   color: #2b2b2b;
   margin: 0px;
 }
-/* line 44, ../sass/email.sass */
+/* line 45, ../sass/email.sass */
 .content strong {
   font-weight: bold;
 }
-/* line 46, ../sass/email.sass */
+/* line 47, ../sass/email.sass */
 .content a, .content a:visited {
   color: #76a0ce;
   text-decoration: none;
 }
-/* line 50, ../sass/email.sass */
+/* line 51, ../sass/email.sass */
 .content h2 {
   font-size: 12px;
 }
+
+/*# sourceMappingURL=email.css.map */

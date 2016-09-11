@@ -1,0 +1,33 @@
+<div class="productEditAddForm " data-balance="<?=$this->user->balance;?>"
+     data-productid="<?=($this->product ? $this->product_id : '');?>"
+     data-categoryid="<?=($this->category ? $this->category->id : '');?>"
+>
+
+    <p class="infoText selectCategory">
+        Válaszd ki, hogy melyik kategóriába szeretnéd feltölteni az eladó termékedet!
+    </p>
+
+    <div class="categorySelects <?=($this->product ? 'hasProduct' : '');?>">
+        <div class="borzeIcons">
+            <? foreach($this->catMultiArray as $mainCat){?>
+                <? $active = $this->category && $this->category->getMainCatId() == $mainCat->id;?>
+                <a href="javascript:void(0)" class="<?=$mainCat->id;?> <?=$active ? 'active' : '';?>" data-id="<?=$mainCat->id;?>"><?=$mainCat->name;?></a>
+            <? } ?>
+        </div>
+
+        <? foreach($this->selects as $key=>$select){ ?>
+            <? $visible = $this->category && $this->category->getMainCatId() == $key;?>
+            <div class="categorySelect <?=$key;?> <?=$visible ? 'visible' : '';?>">
+                <?=$select;?>
+            </div>
+        <? } ?>
+    </div>
+    
+    <div class="form">
+        
+    </div>
+
+
+
+</div>
+

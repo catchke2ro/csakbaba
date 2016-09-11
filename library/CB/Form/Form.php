@@ -34,13 +34,13 @@ class CB_Form_Form extends Zend_Form {
 		if($element->getType()=='Zend_Form_Element_Captcha') $element->removeDecorator('ViewHelper');
 	}
 
-	public function addDisplayGroup(array $elements, $name, $options = null){
+	public function addDisplayGroup(array $elements, $name, $options = null, $class = null){
 		parent::addDisplayGroup($elements, $name, $options);
 		$this->_displayGroups[$name]->setDecorators(array(
 			array('FormElements'),
 			new CB_Form_Decorator_UlFieldset(),
 			array('Fieldset'),
-			array('HtmlTag', array('tag'=>'li', 'class'=>'fieldset '.$name))
+			array('HtmlTag', array('tag'=>'li', 'class'=>'fieldset '.$name.' '.$class))
 		));
 	}
 
@@ -63,5 +63,9 @@ class CB_Form_Form extends Zend_Form {
 		}
 		return parent::render($view);
 	}
+
+    static function infoDescription($text=''){
+        return '<span class="inputInfoIcon hasTooltip"></span><span class="inputInfoText">'.$text.'</span>';
+    }
 
 }

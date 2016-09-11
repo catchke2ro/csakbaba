@@ -1,9 +1,9 @@
 <div class="orders">
-	<div class="orderFilter">
-		<a href="javascript:void(0);" class="tab" data-div="nem-ertekelt">Nem értékelt</a>
-		<a href="javascript:void(0);" class="tab" data-div="vasarolt">Vásárolt</a>
-		<a href="javascript:void(0);" class="tab" data-div="eladott">Eladott</a>
-	</div>
+    <div class="orderFilter">
+        <a href="javascript:void(0)" class="statusButton sNotRated active" data-status="nemertekelt">Nem értékelt (<span></span>)</a>
+        <a href="javascript:void(0)" class="statusButton sBought active" data-status="vasarolt">Vásárolt (<span></span>)</a>
+        <a href="javascript:void(0)" class="statusButton sSold active" data-status="eladott">Eladott (<span></span>)</a>
+    </div>
 
 
 	<div class="productList user">
@@ -16,16 +16,17 @@
 
 				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(),
 								array('product'=>$o->product, 'categoryTree'=>$this->categoryTree, 'back'=>false, 'fix'=>false, 'userfunctions'=>false, 'o'=>$o, 'rating'=>true,
-												'extraClass'=>'order vasarolt '.($o->user_rating ? '' : 'nem-ertekelt').' pid'.$o->product->get()->id, 'extraData'=>'data-orderid="'.$o->id.'" data-productid="'.$o->product->get()->id.'" data-seller="0"', 'seller'=>false, 'showBoth'=>true)));?>
+												'extraClass'=>'order vasarolt statusvasarolt '.($o->user_rating ? '' : 'nem-ertekelt statusnemertekelt').' pid'.$o->product->get()->id, 'extraData'=>'data-orderid="'.$o->id.'" data-productid="'.$o->product->get()->id.'" data-seller="0"', 'seller'=>false, 'showBoth'=>true)));?>
 			<? } ?>
 
 
 			<? foreach($this->userOrdersSell as $o){?>
 				<? if($o->user_rating) $o->user_rating->get();?>
 				<? if($o->shop_user_rating) $o->shop_user_rating->get();?>
+
 				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(),
 								array('product'=>$o->product, 'categoryTree'=>$this->categoryTree, 'back'=>false, 'fix'=>false, 'userfunctions'=>false, 'o'=>$o, 'rating'=>true,
-												'extraClass'=>'order eladott '.($o->shop_user_rating ? '' : 'nem-ertekelt').' pid'.$o->product->get()->id, 'extraData'=>'data-orderid="'.$o->id.'" data-productid="'.$o->product->get()->id.'" data-seller="1"', 'seller'=>true, 'showBoth'=>true)));?>
+												'extraClass'=>'order eladott statuseladott '.($o->shop_user_rating ? '' : 'nem-ertekelt statusnemertekelt').' pid'.$o->product->get()->id, 'extraData'=>'data-orderid="'.$o->id.'" data-productid="'.$o->product->get()->id.'" data-seller="1"', 'seller'=>true, 'showBoth'=>true)));?>
 			<? } ?>
 
 		</ul>

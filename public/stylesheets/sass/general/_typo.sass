@@ -1,3 +1,4 @@
+@charset "UTF-8"
 /////////////////////////////////////////////////////////
 //
 //      Tipográfia
@@ -5,57 +6,59 @@
 //
 ////////////////////////////////////////////////////////
 
-@font-face 
-  font-family: 'Noto Sans'
-  font-style: normal
-  font-weight: 400
-  src: local('Noto Sans'), local('NotoSans'), url(/fonts/NotoSans-Regular.ttf) format('woff')
-  
-@font-face 
-  font-family: 'Noto Sans'
-  font-style: normal
-  font-weight: 700
-  src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(/fonts/NotoSans-Bold.ttf) format('woff')
-  
-@font-face 
-  font-family: 'Noto Sans'
-  font-style: italic
-  font-weight: 400
-  src: local('Noto Sans Italic'), local('NotoSans-Italic'), url(/fonts/NotoSans-Italic.ttf) format('woff')
-  
-@font-face 
-  font-family: 'Noto Sans'
-  font-style: italic
-  font-weight: 700
-  src: local('Noto Sans Bold Italic'), local('NotoSans-BoldItalic'), url(/fonts/NotoSans-BoldItalic.ttf) format('woff')
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,400italic&subset=latin,latin-ext')
+
+//@font-face
+//  font-family: 'Noto Sans'
+//  font-style: normal
+//  font-weight: 400
+//  src: local('Noto Sans'), local('NotoSans'), url(/fonts/NotoSans-Regular.ttf) format('woff')
+//
+//@font-face
+//  font-family: 'Noto Sans'
+//  font-style: normal
+//  font-weight: 700
+//  src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(/fonts/NotoSans-Bold.ttf) format('woff')
+//
+//@font-face
+//  font-family: 'Noto Sans'
+//  font-style: italic
+//  font-weight: 400
+//  src: local('Noto Sans Italic'), local('NotoSans-Italic'), url(/fonts/NotoSans-Italic.ttf) format('woff')
+//
+//@font-face
+//  font-family: 'Noto Sans'
+//  font-style: italic
+//  font-weight: 700
+//  src: local('Noto Sans Bold Italic'), local('NotoSans-BoldItalic'), url(/fonts/NotoSans-BoldItalic.ttf) format('woff')
 
 
 @font-face
-  font-family: "Flaticon"
+  font-family: "csakbaba"
   font-weight: normal
   font-style: normal
-  src: url(/fonts/flaticon.eot)
-  src: url(/fonts/flaticon.eot#iefix) format('embedded-opentype'), url(/fonts/flaticon.woff) format('woff'), url(/fonts/flaticon.ttf) format('truetype'), url(/fonts/flaticon.svg) format('svg')
+  src: url(/fonts/csakbaba.eot)
+  src: url(/fonts/csakbaba.eot#iefix) format('embedded-opentype'), url(/fonts/csakbaba.woff) format('woff'), url(/fonts/csakbaba.ttf) format('truetype'), url(/fonts/csakbaba.svg) format('svg')
 
 
 
 
 body
-  font-family: 'Noto Sans', sans-serif
+  font-family: 'Open Sans', sans-serif
   color: black
   font-weight: normal
 
 h1
-  font-size: 2em
+  font-size: 2rem
 
 h2
-  font-size: 1.5em
+  font-size: 1.5rem
 
 h3
-  font-size: 1.2em
+  font-size: 1.2rem
 
 input, textarea
-  font-family: 'Noto Sans', sans-serif
+  font-family: 'Open Sans', sans-serif
 a
   text-decoration: none
   &:visited

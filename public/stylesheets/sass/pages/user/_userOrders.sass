@@ -1,0 +1,199 @@
+//***************************************************************
+//
+//           Vásárlások, Értékelés
+//
+//***************************************************************
+div.orders
+
+  li.product.order
+    width: 100%
+    float: none
+    height: 200px
+    margin-bottom: 30px
+    &:before
+      padding-top: 0px
+
+
+    &.eladott
+      .productBottom:before
+        content: "eladott"
+        display: inline-block
+        width: 100%
+        background-color: $cSelBlue
+
+      .userRating, .shopUserRating
+        h4
+          background-color: $cSelBlue
+    &.vasarolt
+      .productBottom:before
+        content: "vásárolt"
+        display: inline-block
+        width: 100%
+        background-color: $cGreen
+
+      .userRating, .shopUserRating
+        h4
+          background-color: $cGreen
+
+    &.nem-ertekelt
+      .productBottom:before
+        background-color: $cBlack
+
+    .productInner
+      font-size: 0px
+      height: 100%
+      & > *
+        font-size: 1.6rem
+        display: inline-block
+        vertical-align: top
+        height: 100%
+
+    .flipper
+      width: 50%
+
+    .productImages
+      width: 200px
+      cursor: default
+
+    .front
+      font-size: 0px
+      & > *
+        display: inline-block
+        font-size: 1.6rem
+
+    .productPrice
+      display: none
+
+
+    .productBottom
+      height: 100%
+      width: calc(100% - 200px)
+      &:before
+        padding: 5px 10px
+        color: $cWhite
+        +box-sizing(border-box)
+
+    .productName
+      text-align: left
+      a
+        margin-bottom: 5px
+
+      .productInfo
+        font-weight: normal
+        span
+          width: 100%
+          display: inline-block
+        a
+          display: inline
+          color: $colAlter
+        strong
+          font-weight: bold
+
+
+
+  div.rating
+    width: 50%
+    display: inline-block
+    +box-shadow(0px 0px 5px $cBoxShadow inset)
+
+    +mq1
+      display: block
+      width: 100%
+      margin-bottom: 5px
+    .shopUserRating, .userRating
+      background-color: rgba($cUserRatingBg, 0.7)
+      color: #FFFFFF
+      width: 50%
+      float: left
+      height: 100%
+      h4
+        padding: 5px
+        font-weight: bold
+        text-align: center
+        color: $cUserRatingColHeaderColor
+        background-color: rgba($cUserRatingColHeaderBg, 0.6)
+      .table
+        height: calc(100% - 26px)
+        table-layout: fixed
+        width: 100%
+        .row
+          padding: 0px 5px
+          margin-left: 0
+          font-size: 1.2rem
+          text-align: left
+          color: $cBrowntext
+          line-height: 2rem
+          width: 100%
+          strong
+            font-weight: bold
+          p
+            display: inline
+        .row:nth-child(-n+3)
+          td
+            height: 20px
+            line-height: 2rem
+        .row:last-child
+          overflow: auto
+          width: 100%
+          height: calc(100% - 60px)
+          strong
+            font-weight: bold
+
+
+      span.pos, span.neg
+        font-weight: bold
+      span.pos
+        color: $cGreen
+      span.neg
+        color: $cRed
+
+
+
+  div.ratingForm
+    &, & > form, & > form > ul
+      height: 100%
+    +form
+    form ul
+      font-size: 0px
+      background-color: $cInputLiBg
+      li.field
+        font-size: 1.6rem
+        margin: 0px !important
+        display: inline-block
+        height: 100px
+        width: 50%
+      li.field.textarea
+        textarea
+          height: 100%
+          margin-top: 0px
+      li.field.submit
+        +iconButtonCenter($iconStar, false, false, 92px)
+        width: calc(50% - 8px)
+        height: calc(50% - 8px)
+        margin: 4px !important
+        display: inline-block
+        &:before
+          font-size: 4rem
+
+
+
+div.orderFilter
+  @extend div.productFilter
+
+  .statusButton
+    width: 200px
+    &.sNotRated
+      background-color: $cBlack
+      &:before
+        content: $iconStar
+    &.sSold
+      background-color: $cSelBlue
+      &:before
+        content: $iconCard
+    &.sBought
+      background-color: $cGreen
+      &:before
+        content: $iconMarket
+
+
+

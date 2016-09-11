@@ -18,17 +18,18 @@
 
 <div class="mainContent">
 
-
-	<div class="borzeIcons">
-		<div class="link"><a href="<?=$this->url('felhasznalotermekek');?>" class="upload link">ingyenes termékfeltöltés</a></div>
-		<div class="link"><a href="<?=$this->url('piac');?>" class="link">tovább a börzére</a></div>
-		<div class="link"><a href="<?=$this->url('regisztracio');?>" class="registration link">Regisztráció</a></div>
-		<div class="clear"></div>
-		<? foreach($this->catMultiArray as $mainCat){?>
-			<a href="<?=$this->url('piac').$mainCat->url;?>" class="<?=$mainCat->id;?>"><?=$mainCat->name;?></a>
-		<? } ?>
+	<div class="homeIcons">
+        <div class="link"><a href="<?=$this->url('felhasznalotermekek');?>?uj" class="upload link">ingyenes <span class="bigger">termékfeltöltés</span></a></div>
+        <div class="link"><a href="<?=$this->url('piac');?>" class="market link">tovább a <span class="bigger">börzére</span></a></div>
+        <div class="link"><a href="<?=$this->url('regisztracio');?>" class="registration link">villámgyors<span class="bigger">regisztráció</span></a></div>
+        <div class="clear"></div>
+        <div class="borzeIcons">
+            <? foreach($this->catMultiArray as $mainCat){?>
+                <a href="<?=$this->url('piac').$mainCat->url;?>" class="<?=$mainCat->id;?>"><?=$mainCat->name;?></a>
+            <? } ?>
+        </div>
 	</div>
-
+    
     <div class="mora">
         <a href="http://www.mora.hu/affiliate_url.php?id=38" target="_blank"><img src="/img/elements/banner/csakbaba-affiliate-akcios-csomagok.jpg" alt="Akciós csomagok"/></a>
     </div>
@@ -81,9 +82,7 @@
 	</div>
 
 
-	<div class="borzeIcons bottom">
-		<div class="link"><a href="<?=$this->url('piac');?>" class="link">tovább a börzére</a></div>
-	</div>
+    <div class="homeToMarket"><a href="<?=$this->url('piac');?>" class="link">tovább a börzére</a></div>
 
 
 	<div class="lists">

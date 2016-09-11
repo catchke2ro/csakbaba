@@ -79,6 +79,7 @@ img.right
 	float: right;
 	margin-left: 15px;
 	padding: 5px;
+	width: 50%;
 }
 
 img.left
@@ -87,6 +88,7 @@ img.left
 	float: left;
 	margin-right: 15px;
 	padding: 5px;
+	width: 50%;
 }
 
 pre

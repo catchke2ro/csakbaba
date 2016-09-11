@@ -7,6 +7,14 @@
 				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'delFav'=>true)));?>
 			<? } ?>
 
+            <? if(empty($this->favourties)){?>
+                <div class="noFavs">
+                    <p class="infoText">Még nincsenek kedvenceid</p>
+                    <a class="favouritesMarket" href="<?=$this->url('piac');?>">Irány a börze</a>
+                </div>
+                
+            <? } ?>
+
 		</ul>
 	</div>
 </div>

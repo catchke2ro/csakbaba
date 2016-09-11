@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* line 1, ../sass/ie8.sass */
+/* line 2, ../sass/ie8.sass */
 body:after {
   content: "Az oldal teljes értékű használatához frissítsd a böngésződet, vagy használj Firefox-ot, vagy Chrome-ot";
   position: fixed;
@@ -13,3 +13,5 @@ body:after {
   line-height: 20px;
   text-align: center;
 }
+
+/*# sourceMappingURL=ie8.css.map */

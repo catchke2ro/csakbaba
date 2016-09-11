@@ -1,9 +1,16 @@
+@charset "UTF-8"
 .blogContent
   margin: 10px 5%
   //float: left
   +clearFix
+  
+  .editLink
+    +iconButton($iconEdit)
+    width: 200px
+    float: right
 
   .postItem
+    clear: both
     padding: 3%
     background-color: rgba(255, 255, 255, 0.5)
     margin-bottom: 3%
@@ -24,15 +31,33 @@
       text-align: right
       border-bottom: 2px solid $cBlogHeaderBorder
       padding-bottom: 1%
+      
+    
     .body
       float: left
       width: 100%
       padding-top: 2%
-    img
-      margin: 2%
-      +clearFix
     em
       font-style: italic
+
+    &.index
+      +clearFix
+      img:first-of-type
+        margin-top: 0px
+        cursor: pointer
+        
+      .moreLink
+        float: right
+        color: $colAlter
+        font-weight: bold
+
+    &:not(.index)
+      h2, h3
+        margin-top: 20px
+        text-align: left
+        font-weight: normal
+      h1
+        font-size: 3rem
 
 .blogSidebar
   float: left
@@ -43,35 +68,32 @@
 
 .stat , .blogContent .postItem
   h1
-    font-size: 2.2em
+    font-size: 2.2rem
     text-align: center
     padding-bottom: 3%
     font-weight: bold
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
   h2
-    font-size: 2em
+    font-size: 2.4rem
     text-align: center
     padding-bottom: 2%
     font-weight: bold
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
   h3
-    font-size: 1.7em
+    font-size: 2rem
     text-align: left
     padding-bottom: 1%
     font-weight: bold
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
   p, li
-    font-size: 1.4em
-    line-height: 1.5em
-    padding-bottom: 1%
+    font-size: 1.6rem
+    line-height: 2.2rem
     text-align: justify
+    margin-bottom: 15px
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
-    *
-      font-size: 1em
-
+    
   ol
     list-style: decimal
-    font-size: 1em
     padding-left: 3%
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
     li
@@ -79,60 +101,125 @@
 
 
   ul
-    font-size: 1.4em
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
     li
       background-image: url(/img/elements/ulbg.png)
       background-repeat: no-repeat
       background-size: auto
-      padding-left: 15px
+      padding-left: 20px
       margin-bottom: 1%
 
   ol.standard
     list-style: decimal
-    font-size: 1.4em
     padding-left: 3%
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
     li
       margin-bottom: 1%
 
-  //p.warning
-    padding: 2%
-    background-color: rgba($col4,0.5)
-    border: 1px solid $col4
-    margin: 2% 0
-
-  //p.info
-    padding: 2%
-    background-color: rgba($col5,0.5)
-    border: 1px solid $col5
-    margin: 2% 0
-
-  //p.info2
-    padding: 2%
-    background-color: rgba($col6,0.5)
-    border: 1px solid $col6
-    margin: 2% 0
-
   blockquote
     background: rgba($cBlogQuotes,0.4)
     border-left: 10px solid rgba($cBlogQuotes,0.5)
-    margin: 1.5em 10px
-    padding: 0.5em 10px
+    margin: 1.5rem 10px
+    padding: 0.5rem 10px
     quotes: "\201C""\201D""\2018""\2019"
-    font-size: 1.4em
+    font-size: 1.4rem
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
 
   blockquote:before
     color: $cBlogQuotes
     content: open-quote
-    font-size: 4em
-    line-height: 0.1em
-    margin-right: 0.25em
-    vertical-align: -0.4em
+    font-size: 4rem
+    line-height: 0.1rem
+    margin-right: 0.25rem
+    vertical-align: -0.4rem
 
   blockquote p
     display: inline
 
   strong
     font-weight: bold
+    
+  img.right
+    float: right
+    margin: 10px 0px 10px 10px
+    width: 50% !important
+    height: auto !important
+  
+  img.left
+    float: left
+    margin: 10px 10px 10px 0px
+    width: 50% !important
+    height: auto !important
+  
+  img.center
+    margin: 10px auto
+    max-width: 100%
+    width: auto !important
+    height: auto !important
+    display: block
+  
+  img.intro
+    margin: 10px 10px 10px 0px
+    width: percentage(1/3) !important
+    height: auto !important
+    float: left
+    
+  img.left, img.right, img.center, img.intro
+    +mq2
+      margin: 10px auto !important
+      max-width: 100%
+      width: auto !important
+      height: auto !important
+      display: block !important
+      float: none !important
+    
+  
+    
+    
+.blogComments
+  
+  h2.commentHeader
+    +iconButton($iconComment, transparent)
+    margin-top: 30px
+    margin-bottom: 0px
+    clear: both
+    float: none
+    width: 100%
+    font-weight: bold
+    color: $cPDHeadersColor
+    line-height: 6rem
+    font-size: 2rem
+    text-align: left
+    +background-image(linear-gradient(left, rgba($cPDHeadersBg, 1) 20%, rgba($cPDHeadersBg, 0) 70%))
+    
+    &:before
+      margin-right: 20px
+    
+    +mq4
+      font-size: 1.6rem
+      line-height: 5rem
+      +background-image(linear-gradient(left, rgba($cPDHeadersBg, 1) 40%, rgba($cPDHeadersBg, 0) 85%))
+    
+    +mq5
+      +background-image(none)
+      background-color: $cPDHeadersBg
+      
+      
+      
+.blogForm
+  form
+    +form
+    
+    label
+      width: 10%
+      
+    input, select, li.textarea > .cke, li.textarea textarea:not(.ck), button
+      width: 90%
+      margin-left: 10%
+      
+      
+    li.field.textarea.ck
+      height: auto
+      & > .cke
+        height: auto
+      

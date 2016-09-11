@@ -1,6 +1,12 @@
 <? $uri='/';?>
 
-<div class="breadcrumb">
+<?
+$class = '';
+if(count($this->bc) > 1 && $this->bc[0] instanceof Zend_Navigation_Page_Uri && $this->bc[0]->get('uri') == $this->url('piac')){
+    $class.=' longBC';
+}
+?>
+<div class="breadcrumb <?=$class;?>">
 	<div class="social">
 		<a class="fbshare" href="http://www.facebook.com/share.php?u=">tetszik</a>
 		<a class="gpshare" href="https://plus.google.com/share?url=">+1</a>
@@ -19,9 +25,9 @@
 		$name=$bc->get('label');
 	} else if(is_object($bc) && !empty($bc->slug)) {
 		$uri=$uri.='/'.$bc->slug;
-		$name=property_exists($bc, 'title') ? $bc->title : $bc->name;
+		$name=property_exists($bc, 'title') && !empty($bc->title) ? $bc->title : $bc->name;
 	} else if(is_object($bc)){
-		$name=property_exists($bc, 'title') ? $bc->title : $bc->name;
+		$name=property_exists($bc, 'title') && !empty($bc->title) ? $bc->title : $bc->name;
 	}
 	?>
 	<? if($key+1!=count($this->bc)){?>

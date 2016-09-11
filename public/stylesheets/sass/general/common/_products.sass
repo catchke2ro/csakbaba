@@ -1,0 +1,181 @@
+@charset "UTF-8"
+
+div.productList
+
+  & > ul
+    opacity: 1
+    +transition(opacity 0.5s)
+    &.hidden
+      opacity: 0
+  ul
+    +clearFix
+
+div.productList li.product
+  width: percentage(1/5)
+  float: left
+  +ratio1
+
+  &.promotedFrame
+    background-color: $cPGPromotedBg
+
+  +mq-1
+    width: percentage(1/7)
+  +mq0
+    width: percentage(1/4)
+  +mq1
+    width: percentage(1/3)
+  +mq2
+    width: percentage(1/2)
+  +mq5
+    width: percentage(1/1)
+
+  .productInner
+    height: 90%
+    left: 5%
+    position: absolute
+    top: 5%
+    width: 90%
+    +perspective(1000px)
+    .flipper
+      position: relative
+      width: 100%
+      height: 85%
+      .front, .back
+        +backface-visibility(hidden)
+        position: absolute
+        top: 0px
+        left: 0px
+        width: 100%
+        height: 100%
+        background-color: $cPGProductBg
+      .back
+        +transform(rotateY(180deg))
+        +transform-style(preserve-3d)
+      .front
+        +transform(rotateY(0deg))
+        +transform-style(preserve-3d)
+        z-index: 2
+
+
+  .productName
+    line-height: 2rem
+    font-size: 1.3rem
+    text-align: center
+    padding: 5px 10px
+    height: 50px
+    width: 100%
+    font-weight: bold
+    a
+      display: block
+      color: $cPGProductName
+  .front
+    .productImages
+      max-width: 100%
+      overflow: hidden
+      margin: 0
+      text-align: center
+      height: 100%
+      position: relative
+      background-size: cover
+      background-position: center center
+      cursor: pointer
+    .productBottom
+      position: absolute
+      bottom: 0px
+      background-color: rgba($cWhite, 0.75)
+      height: 65px
+      width: 100%
+
+    .productPrice
+      position: absolute
+      bottom: 0px
+      right: 0px
+      font-size: 1.4rem
+      padding: 2%
+      color: $cDarktext
+  .back
+    .productUser
+      text-align: center
+      padding: 5%
+      a
+        color: $cDarktext
+        font-size: 1.5rem
+        +transition(0.4s)
+    .details
+      font-size: 1.2rem
+      line-height: 2rem
+      .productDesc
+        text-align: center
+        padding: 1%
+      .productOptions
+        text-align: left
+        color: lighten(black,10%)
+        padding-left: 5%
+        padding-top: 2%
+    .productName
+      padding: 2%
+      text-align: center
+      a
+        color: $cDarktext
+        font-size: 1.2rem
+        +transition(0.4s)
+    .productGallery
+      div:nth-child(n+5)
+        display: none
+      div
+        width: 25%
+        padding: 2%
+        float: left
+        img
+          width: 100%
+          max-height: 40px
+          +transition(0.4s)
+          &:hover
+            +transition(0.4s)
+    .productPrice
+      position: absolute
+      bottom: 5%
+      right: 5%
+
+  .fix, .userFix
+    float: left
+    width: 100%
+    height: 15%
+    position: relative
+    z-index: 1
+    a
+      float: left
+      width: 100%
+      height: 100%
+      padding: 5%
+      background-color: $cPGProductBg
+      color: $cBrowntext
+      font-size: 1.3rem
+      text-align: center
+      display: block
+      &:hover
+        color: $cDarktext
+        background-color: rgba($cPGMoreBgHover, 0.5)
+
+  &.noFix
+    .flipper
+      height: 100%
+
+
+  &:not(.noflip)
+    .productInner .flipper
+      +transition(0.6s 0s)
+      +transform-style(preserve-3d)
+    &:hover .productInner .flipper
+      +transition(0.6s 1s)
+      +transform(rotateY(180deg))
+
+  &.fiu .productInner
+    +box-shadow(0px 0px 5px 2px $colFiu)
+    .fix a:hover
+      background-color: $colFiu
+
+  &.lany .productInner
+    +box-shadow(0px 0px 5px 2px $colLany)
+    .fix a:hover
+      background-color: $colLany

@@ -31,6 +31,11 @@ class Comment extends \CB_Resource_ModelItem {
 	/**
 	 * @ODM\String
 	 */
+	public $post_id;
+
+	/**
+	 * @ODM\String
+	 */
 	public $text;
 
 	/**

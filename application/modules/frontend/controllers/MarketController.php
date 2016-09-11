@@ -52,7 +52,7 @@ class MarketController extends CB_Controller_Action {
 		}
 
 		if($category){
-			$this->view->headTitle()->prepend($category->name);
+			$this->view->headTitle()->prepend($category->title ?: $category->name);
 		}
 
 		$products=$this->productModel->findByCategory($category, $categoryTree);
@@ -90,7 +90,7 @@ class MarketController extends CB_Controller_Action {
 
 
 	public function productsajaxAction(){
-		$this->getHelper('layout')->disableLayout();
+        $this->getHelper('layout')->disableLayout();
 		$categoryTree=Zend_Registry::get('categories');
 		$catMultiArray=$categoryTree->_multiArray;
 
@@ -178,46 +178,7 @@ class MarketController extends CB_Controller_Action {
 		));
 	}
 
-	public function commentAction(){
-		$this->getHelper('layout')->disableLayout();
-		if(empty($_POST['product_id'])) die('OK');
-		$productModel=new \CB\Model\Product();
-		if(!($product=$productModel->findOneById($this->_request->getPost('product_id'))) || !$this->user) die();
-		$commentModel=new \CB\Model\Comment();
-		$comment=new \CB\Comment();
-		$comment->saveAll(array(
-			'date'=>date('Y-m-d H:i:s'), 'user'=>$this->user, 'product_id'=>$_POST['product_id'], 'text'=>$_POST['text']
-		));
-		$comment=$commentModel->save($comment);
-		CB_Resource_Functions::logEvent('commentAdded', array('comment'=>$comment));
-		$comment->date=new DateTime($comment->date);
-		if($this->user->get()->id != $product->user->get()->id) $this->emails->commentProductUser(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
-
-		$this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
-
-		$this->view->assign(array('comment'=>$comment, 'added'=>true, 'product'=>$product));
-		$this->_helper->viewRenderer('comment');
-	}
-
-	public function commentsubscribeAction(){
-		$this->getHelper('layout')->disableLayout();
-		$this->getHelper('viewRenderer')->setNoRender(true);
-		$productModel=new \CB\Model\Product();
-		$productId=!empty($_GET['pid']) ? $_GET['pid'] : false;
-		if(!($this->user && ($product=$productModel->findOneById($productId)) && isset($_GET['checked']))) die();
-
-		$subscribed=$this->user->subscribed ? $this->user->subscribed : array();
-		if($_GET['checked']){
-			$subscribed[]=$productId;
-		} else {
-			$flipped=array_flip($subscribed);
-			unset($flipped[$productId]);
-			$subscribed=array_keys($flipped);
-		}
-
-		$this->user->subscribed=$subscribed;
-		$this->userModel->save($this->user);
-	}
+	
 
 
 	public function searchAction(){

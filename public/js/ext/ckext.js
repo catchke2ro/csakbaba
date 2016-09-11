@@ -10,7 +10,7 @@ Ext.define('Ext.CKeditor',{
 				customConfig: '',
 				language: 'hu',
 				toolbar:	[
-					{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+					{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat','-','Styles' ] },
 					{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
 					'/',
 					{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },

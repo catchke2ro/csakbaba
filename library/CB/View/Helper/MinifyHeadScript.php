@@ -167,7 +167,7 @@ class CB_View_Helper_MinifyHeadScript extends Zend_View_Helper_HeadScript {
 	 * @return string
 	 */
 	public function toString($indent = null) {
-		if(!empty($_COOKIE['CSBDEV'])){
+		if(!empty($_COOKIE['SRGDEV'])){
 			return parent::toString($indent);
 		}
 		// An array of Script Items to be rendered

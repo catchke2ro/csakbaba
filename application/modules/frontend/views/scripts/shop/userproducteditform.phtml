@@ -5,12 +5,22 @@
 <? } else { ?>
 
 	<? if(empty($this->ok)){ ?>
+
+        <? if($this->form->product && !$this->copy){?>
+            <?=$this->partial('shop/userproductforminfo.phtml', array_merge($this->getVars(), array('product'=>$this->form->product)));?>
+        <? } ?>
 		<?=$this->form;?>
+
 		<div class="formLoad"><div></div><div></div><div></div><div></div><div></div></div>
 		<? if($this->form->hasErrors()){ ?>
 			<div class="formErrors">Az űrlap nem kitöltött kötelező mezőket, vagy hibásan megadott adatokat tartalmaz. Javítsd ezeket, és Ments újra!</div>
 		<? } ?>
-		<p class="description"><?=$this->form->getDescription();?></p>
+        <p class="infoText balances">
+            <strong>Egyenleged: </strong><span class="huf balance"><?=$this->user->balance;?></span>  Ft.
+            <br />
+            <strong>Egyenleged a mentés után: </strong><span class="huf afterSave"><?=$this->user->balance;?></span> Ft.
+        </p>
+		<p class="infoText"><?=$this->form->getDescription();?></p>
 	<? } ?>
 
 <? } ?>

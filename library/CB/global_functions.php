@@ -42,10 +42,10 @@ function l($message='', $type='info', $firebug=false){
 function shutdown() {
 	if($error=error_get_last()){
 		l($error['message'], 'crit', false);
-		/*if(empty($_COOKIE['CSBDEV'])){
+		if(empty($_COOKIE['SRGDEV'])){
 			if(ob_get_length()) ob_clean();
 		}
-		echo file_get_contents(APPLICATION_PATH.'/../public/500.html');*/
+		echo file_get_contents(APPLICATION_PATH.'/../public/500.html');
 	}
 }
 
@@ -58,4 +58,10 @@ function object_to_array($obj, $maxLevel=10, $keepObjects=false, $level=0){
 		$arr[$key] = $val;
 	}
 	return $arr;
+}
+
+
+function isAssoc($arr)
+{
+    return array_keys($arr) !== range(0, count($arr) - 1);
 }

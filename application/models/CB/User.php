@@ -130,6 +130,12 @@ class User extends \CB_Resource_ModelItem {
 	public $subscribed;
 
 
+	/**
+	 * @ODM\Boolean
+	 */
+	public $blogadmin;
+
+
 	public function getRating($type='avg'){
 		$orderModel=new \CB\Model\Order();
 		$all=$positive=0;
@@ -169,6 +175,17 @@ class User extends \CB_Resource_ModelItem {
 		return $products;
 	}
 
+    public function getActiveProductsCount(){
+        $productModel=new \CB\Model\Product();
+        $productModel->initQb();
+        $productModel->qb->field('user')->equals(new \MongoId($this->id));
+        $productModel->qb->field('status')->in([1]);
+        $productModel->qb->field('deleted')->notEqual(true);
+        $productModel->qb->count();
+        $count=$productModel->runQuery();
+        return $count;
+    }
+
 	public function isValid(){
 		return (//!empty($this->address['name']) &&
 						//!empty($this->address['zip']) &&
@@ -192,6 +209,23 @@ class User extends \CB_Resource_ModelItem {
 						!empty($this->active)
 		);
 	}
+
+
+    public function modifyBalance($amount){
+        $this->balance=intval($this->balance) + $amount;
+        if($this->balance <= (2 * \Zend_Registry::get('uploadPrice'))){
+            $emails = new \CB_Resource_Emails($this);
+            $emails->balanceLow(array('user'=>$this));
+        }
+        return $this;
+    }
+    
+    public function getToken(){
+        return md5($this->id.$this->password);
+    }
+
+
+    static $usernameRegex = '/^[a-zA-Z0-9\.\-]{5,16}$/';
 
 
 }

@@ -14,15 +14,19 @@ class Frontend_Form_UserEdit extends CB_Form_Form {
 		$passwordCb=new Zend_Validate_Callback(array($this, 'passwordConfirm')); $passwordCb->setMessage('A két jelszó nem egyezik');
 
 		$username=new Zend_Form_Element_Text('username');
-		$username->setLabel('Felhasználónév')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Alnum',true),array('StringLength',true,'options'=>array('min'=>5,'max'=>16))))->setAttrib('autocomplete', 'off');
+		$username->setLabel('Felhasználónév')->setRequired(true)
+            ->addValidators(array(array('NotEmpty',true),array('Regex',true,'options'=>array('pattern'=>\CB\User::$usernameRegex)),array('StringLength',true,'options'=>array('min'=>5,'max'=>16))))
+            ->setAttrib('autocomplete', 'off');
+        $username->setDescription(self::infoDescription('Csak számok, betűk, és a .- karakterek megadása lehetséges'));
 		$gender=new Zend_Form_Element_Radio('gender');
-		$gender->setLabel('Nem')->setRequired(true)->setMultiOptions(array('male'=>'Férfi', 'female'=>'Nő'));
+		$gender->setLabel('Nem')->setMultiOptions(array('male'=>'Férfi', 'female'=>'Nő'));
 		$birth=new Zend_Form_Element_Date('birth_date');
 		$birth->setLabel('Születési idő')->setAttrib('class', 'maskBirth');
 		$email=new Zend_Form_Element_Email('email');
 		$email->setLabel('E-mail cím')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('EmailAddress',true), array($emailCb,true)))->setAttrib('autocomplete', 'off');
 		$phone=new Zend_Form_Element_Text('phone');
-		$phone->setLabel('Telefonszám')->setRequired(true)->addValidators(array(array('NotEmpty',true)))->setAttrib('autocomplete', 'off')->setAttrib('class', 'maskPhone');
+		$phone->setLabel('Telefonszám')->addValidators(array(array('NotEmpty',true)))->setAttrib('autocomplete', 'off')->setAttrib('class', 'maskPhone');
+        $phone->setDescription(self::infoDescription('Vásárláshoz és eladáshoz szükséges. <br />Csak számokat adj meg!'));
 		$hasNewPassword=new Zend_Form_Element_Checkbox('has_new_password');
 		$hasNewPassword->setLabel('Jelszó megváltoztatása')->setAttrib('disabled', 'disabled')->setAttrib('class', 'changePswd');
 		$password=new Zend_Form_Element_Password('new_password');
@@ -48,19 +52,19 @@ class Frontend_Form_UserEdit extends CB_Form_Form {
 		$addressBankNumber->setLabel('Számlaszám');
 
 		$postaddressName=new Zend_Form_Element_Text('name');
-		$postaddressName->setLabel('Név')->setRequired(true)->addValidators(array(array('NotEmpty',true)));
+		$postaddressName->setLabel('Név')->addValidators(array(array('NotEmpty',true)));
 		$postaddressZip=new Zend_Form_Element_Text('zip');
-		$postaddressZip->setLabel('Irányítószám')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Digits',true),array('Between',true,'options'=>array('min'=>1000,'max'=>9999))));
+		$postaddressZip->setLabel('Irányítószám')->addValidators(array(array('NotEmpty',true),array('Digits',true),array('Between',true,'options'=>array('min'=>1000,'max'=>9999))));
 		$postaddressCity=new Zend_Form_Element_Text('city');
-		$postaddressCity->setLabel('Város')->setRequired(true)->addValidators(array(array('NotEmpty',true)));
+		$postaddressCity->setLabel('Város')->addValidators(array(array('NotEmpty',true)));
 		$postaddressAddress=new Zend_Form_Element_Text('street');
-		$postaddressAddress->setLabel('Utca, házszám')->setRequired(true)->addValidators(array(array('NotEmpty', true)));
+		$postaddressAddress->setLabel('Utca, házszám')->addValidators(array(array('NotEmpty', true)));
 
-		$addressSF=new CB_Form_SubForm(array('legend'=>'Számlázási cím (opcionális)'));
+		$addressSF=new CB_Form_SubForm(array('legend'=>'Számlázási cím (opcionális, egyenleg feltöltéshez szükséges)'));
 		$addressSF->addElements(array($addressName,$addressZip,$addressCity,$addressAddress,$addressBankNumber));
 
 
-		$postaddressSF=new CB_Form_SubForm(array('legend'=>'Postázási cím'));
+		$postaddressSF=new CB_Form_SubForm(array('legend'=>'Postázási cím (vásárláshoz, és eladáshoz szükséges)'));
 		$postaddressSF->addElements(array($postaddressName,$postaddressZip,$postaddressCity,$postaddressAddress));
 
 		$oldEmail=new Zend_Form_Element_Hidden('old_email'); $oldEmail->removeDecorator('label');
@@ -69,8 +73,8 @@ class Frontend_Form_UserEdit extends CB_Form_Form {
 
 		$this->addElements(array($username,$gender,$birth,$email,$phone,$hasNewPassword,$password,$passwordConfirm,$avatar,$desc));
 
-		$this->addDisplayGroup(array('avatar','desc'),'avatardesc',array('legend'=>'Általános tudnivalók'));
-		$this->addDisplayGroup(array('username','email','gender','birth_date','phone','has_new_password','new_password','passwordconfirm'),'base',array('legend'=>'Alapadatok'));
+        $this->addDisplayGroup(array('username','email','gender','birth_date','phone','has_new_password','new_password','passwordconfirm'),'base',array('legend'=>'Alapadatok'));
+        $this->addDisplayGroup(array('avatar','desc'),'avatardesc',array('legend'=>'Általános tudnivalók'));
 		$this->addSubForm($postaddressSF, 'postaddress', 2);
 		$this->addSubForm($addressSF, 'address', 3);
 

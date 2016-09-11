@@ -109,3 +109,37 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } }
 ] );
 
+
+
+
+CKEDITOR.stylesSet.add( 'blog', [
+	 { name: 'Alcím 1',		element: 'h2' },
+	 { name: 'Alcím 2',		element: 'h3' },
+
+
+	{
+		name: 'Balra rendezett kép (50%)',
+		element: 'img',
+		attributes: { 'class': 'left' }
+	},
+
+	{
+		name: 'Jobbra rendezett kép (50%)',
+		element: 'img',
+		attributes: { 'class': 'right' }
+	},
+
+	{
+		name: 'Teljes szélességű kép (középre rendezett)',
+		element: 'img',
+		attributes: { 'class': 'center' }
+	},
+
+	{
+		name: 'Intro kép',
+		element: 'img',
+		attributes: { 'class': 'intro' }
+	}
+
+] );
+

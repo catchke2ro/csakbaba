@@ -1,3 +1,4 @@
+@charset "UTF-8"
 // CSB 2014 - Útmutató a SASS fájlokhoz
 //
 //    Kommentelés: //**************************************************************
@@ -38,6 +39,16 @@ body
   background-image: url(/img/elements/bg.png)
   background-repeat: repeat
   background-attachment: fixed
+  font-size: 1.6rem
+
+body.noScroll
+  position: fixed
+  overflow: hidden
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  height: 100%
 
 body *
   +box-sizing(border-box)
@@ -75,13 +86,15 @@ div.flash
   right: 0px
   width: calc(100% - 280px)
   //padding-left: $sidebarWidth
-  z-index: 85000
+  z-index: 100
   opacity: 0
   height: 0px
   +transition(opacity 0.7s, height 0s linear 0.7s)
+  +mq2
+    width: 100%
   &.visible
     opacity: 1
-    height: 40px
+    height: 60px
   ul
     height: 100%
     position: relative
@@ -95,19 +108,15 @@ div.flash
       text-align: center
       font-weight: bold
       color: $cWhite
-      font-size: 1.3em
-      line-height: 1.3em
+      font-size: 1.3rem
+      line-height: 1.3rem
     li.close
-      border: 2px solid $cWhite
-      border-radius: 50%
-      cursor: pointer
-      height: 25px
-      line-height: 2.1rem
-      opacity: 0.8
+      +icon($iconClose)
       position: absolute
       right: 10px
-      text-align: center
-      width: 25px
+      font-size: 2rem
+      opacity: 0.8
+      cursor: pointer
       &:hover
         opacity: 1
 
@@ -116,40 +125,35 @@ div.flash
 div.socialLogin
   +clearFix
   a
-    width: 46% !important
-    margin: 2%
-    float: left
-    color: #FFFFFF
-    font-weight: bold
-    background-size: auto 90%
-    background-position: left center
-    background-repeat: no-repeat
-    line-height: 3rem
-    text-align: center
-    padding-right: 10px
-    &:hover
-      text-decoration: none
-    &:before
-      font-weight: normal
-      font-family: Flaticon
-      float: left
-      font-size: 2rem
-      margin-left: 3px
-  a.fb
-    background-color: #3B5998
-    margin-left: 0px
-    &:before
-      content: $iconFb
-  a.gp
-    background-color: #D34836
-    margin-right: 0px
-    &:before
-      content: $iconGp
+    &.fb
+      +iconButton($iconFb, #3B5998, false, 30px)
+    &.gp
+      +iconButton($iconGp, #D34836, false, 30px)
+    //width: 46% !important
+    //margin: 2%
+    //float: left
+    //color: #FFFFFF
+    //font-weight: bold
+    //background-size: auto 90%
+    //background-position: left center
+    //background-repeat: no-repeat
+    //line-height: 3rem
+    //text-align: center
+    //padding-right: 10px
+    //&:hover
+    //  text-decoration: none
+    //&:before
+    //  font-weight: normal
+    //  font-family: csakbaba
+    //  float: left
+    //  font-size: 2rem
+    //  margin-left: 3px
+
 
 
 
 #sb-container
-  z-index: 99999
+  z-index: 110
   #sb-nav-close
     background-image: url("/img/shadowbox/close2.png")
     background-size: contain
@@ -168,21 +172,7 @@ div#container.ajax
 
 
 
-div.borzeIcons
-  text-align: center
-  font-size: 0px
-  overflow: hidden
-  a
-    display: inline-block
-    background-size: contain
-    background-repeat: no-repeat
-    color: transparent
-    &.baba
-      background-image: url(/img/elements/baba_logo_textured.png)
-    &.gyerek
-      background-image: url(/img/elements/gyerek_logo_textured.png)
-    &.kismama
-      background-image: url(/img/elements/kismama_logo_textured.png)
+
 
 
 
@@ -195,10 +185,12 @@ div.borzeIcons
     font-weight: bold
     color: $cDarktext
 
+.select2-selection__rendered
+  line-height: 26px
 
 
 .ui-autocomplete
-  z-index: 60000
+  z-index: 100
   background-color: $cMainSearchBg
   border: 0px
   max-height: 200px
@@ -206,7 +198,7 @@ div.borzeIcons
   +box-shadow(0px 6px 5px $cBoxShadow)
   li.ui-menu-item
     cursor: pointer
-    font-size: 1.4em
+    font-size: 1.4rem
     padding: 5px
     +clearFix
     &.ui-state-focus
@@ -255,16 +247,15 @@ div.borzeIcons
 //***************************************************************
 div.content, div.footer, div.subheader
   padding-left: 40px
-  +transition(padding-left 0.4s $anim 1s)
-  +mq2
-    +transition(padding-left 0.4s $anim 0s)
+  +transition(padding-left 0.4s 1s)
   &.slided, &.stick
     padding-left: $sidebarWidth
-    +transition(padding-left 0.4s $anim 0.2s)
-
+    +transition(padding-left 0.4s 0.2s)
     div.flash
       padding-left: 0px
 
+  +mq2
+    padding-left: 0px !important
 
   +mq2
     div.contentInner, div.footerInner

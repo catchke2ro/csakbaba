@@ -31,7 +31,7 @@ class CB_Resource_Navigation extends Zend_Navigation {
 				array('label'=>'Egyenlegem, számláim', 'uri'=>'/felhasznalo/egyenleg', 'mvc'=>array('user','charge'), 'resource'=>'egyenleg', 'visible'=>true),
 				array('label'=>'Kijelentkezés', 'uri'=>'/felhasznalo/kijelentkezes', 'mvc'=>array('user','logout'), 'resource'=>'kijelentkezes', 'visible'=>true),
 			)),
-			array('label'=>'Termékfeltöltés', 'notValid'=>array('label'=>'Asztalnyitás', 'url'=>'/felhasznalo/adatmodositas?nyitas=1'), 'uri'=>'/felhasznalo/termekek', 'mvc'=>array('shop','userproducts'), 'visible'=>true),
+			array('label'=>'Termékfeltöltés', 'notValid'=>array('label'=>'Asztalnyitás', 'url'=>'/felhasznalo/adatmodositas?nyitas=1'), 'uri'=>'/felhasznalo/termekek?uj', 'mvc'=>array('shop','userproducts'), 'visible'=>true),
 			array('label'=>'A csakbabáról', 'uri'=>'/rolunk', 'mvc'=>array('index','about'), 'resource'=>'rolunk'),
 			array('label'=>'Blog', 'uri'=>'/blog', 'mvc'=>array('index','blog'), 'resource'=>'blog'),
 
@@ -51,6 +51,8 @@ class CB_Resource_Navigation extends Zend_Navigation {
 			array('label'=>'Impresszum', 'uri'=>'/impresszum', 'mvc'=>array('index', 'impresszum'), 'visible'=>false, 'resource'=>'impresszum'),
 			array('label'=>'Adatvédelem', 'uri'=>'/adatvedelem', 'mvc'=>array('index', 'adatvedelem'), 'visible'=>false, 'resource'=>'adatvedelem'),
 			array('label'=>'Feliratkozva', 'uri'=>'/feliratkozva', 'mvc'=>array('index', 'feliratkozva'), 'visible'=>false, 'resource'=>'feliratkozva'),
+
+            array('label'=>'Termék leiratkozás', 'uri'=>'/termekleiratkozas', 'mvc'=>array('index', 'commentunsubscribe'), 'visible'=>false, 'resource'=>'termekleiratkozas'),
 
 			array('label'=>'Bejelentkezés', 'uri'=>'/slogin', 'mvc'=>array('user', 'slogin'), 'visible'=>false, 'noindex'=>true, 'resource'=>'slogin')
 

@@ -1,3 +1,4 @@
+@charset "UTF-8"
 //***************************************************************
 //
 //           Header
@@ -11,10 +12,10 @@ div.header
   left: 0px
   width: 100%
   padding-left: $sidebarWidth
-  z-index: 55000
-  +mq3
+  z-index: 500
+  +mq2
     padding-left: 0px !important
-    z-index: 90001
+    z-index: 501
   .headerInner
     background-color: $cHeaderBg
     height: 100%
@@ -37,7 +38,7 @@ div.header
     table-layout: fixed
     min-width: 0px
     +transition(width 0.5s $anim, min-width 0.5s $anim)
-    +mq('width', percentage(1/4), percentage(1/4) percentage(1/4), percentage(1/4), percentage(2/8))
+    +mq('width', percentage(1/3), percentage(1/3) percentage(1/3), percentage(1/3), percentage(1/3))
     &:hover
       background-color: $cWhite
     +mq1
@@ -71,7 +72,7 @@ div.header
           color: $cBrowntext
           content: $iconLogin
           display: block
-          font-family: Flaticon
+          font-family: csakbaba
           font-size: 3rem
           font-style: normal
           line-height: 4rem
@@ -90,7 +91,7 @@ div.header
           color: $cBrowntext
           content: $iconProfile
           display: block
-          font-family: Flaticon
+          font-family: csakbaba
           font-size: 3rem
           font-style: normal
           opacity: 0.6
@@ -108,7 +109,7 @@ div.header
         color: $cWhite
         content: $iconLogout
         display: block
-        font-family: Flaticon
+        font-family: csakbaba
         font-size: 2rem
         font-style: normal
       &:hover
@@ -130,24 +131,34 @@ div.header
       .socialLogin
         margin-top: 10px
         a
+          width: 100%
           color: $cWhite
+          padding-left: 25px
+          &:before
+            width: 25px
+            margin-left: 0px
       form
         li.field.submit
           width: 90%
           float: none
+          +iconButton($iconProfile)
 
       li.field
         width: 100%
-        margin-top: 15px
+        margin-top: 10px
+        +mq4
+          height: 44px
         label
           display: none
         input
           margin-left: 0px
           width: 100%
+          +mq4
+            margin-top: 0px
         &.req input
           border-left: 0px
       a
-        font-size: 1.2em
+        font-size: 1.2rem
         display: block
         float: left
         width: 45%
@@ -173,117 +184,9 @@ div.header
       min-width: 230px
       +mq(width, percentage(1/2), percentage(1/2), percentage(1/2), percentage(1))
       .loginreg
-        max-height: 300px
+        max-height: 400px
         +transition(max-height 0.5s $anim 0.5s)
 
-
-
-
-
-  //:::::::::::::::::::::::::::::::::::::::::
-  // FEED
-  //:::::::::::::::::::::::::::::::::::::::::
-  //.feeds
-    position: absolute
-    top: 40px
-    right: 40px
-    min-width: 300px
-    height: 0px
-    width: 0px
-    opacity: 0
-    +transition(width 0s 0.5s, height 0s 0.5s, opacity 0.5s)
-    border: 1px solid $col1
-    background-color: rgba(255,255,255,0.8)
-    overflow: hidden
-    &.opened
-      height: 400px
-      width: 25%
-      opacity: 1
-      +transition(width 0s 0s, height 0s 0s, opacity 0.5s)
-
-    .feedsInner
-      max-height: 100%
-      overflow: auto
-
-    .feedsLoading
-      display: none
-      &.show
-        display: block
-        +loading
-
-    .feedsList
-      overflow: hidden
-      li
-        border-bottom: 1px solid $col2
-        height: 65px
-        overflow: hidden
-        padding: 10px
-        position: relative
-        cursor: pointer
-        &.unread
-          border-left: 3px solid $col2
-          background-color: rgba($col2, 0.2)
-          &:hover
-            background-color: rgba($col2, 0.3)
-
-        p.text
-          font-size: 1.2em
-          line-height: 1.4em
-          color: $col2
-          max-height: 35px
-          overflow: hidden
-          strong
-            font-weight: bold
-
-        p.date
-          position: absolute
-          bottom: 5px
-          right: 10px
-          text-align: right
-          color: $col1
-
-        a.markRead
-          color: $col1
-          position: absolute
-          right: 10px
-          top: 5px
-          font-size: 1.2em
-          font-weight: bold
-          opacity: 0.5
-          &:hover
-            opacity: 1
-
-
-  //.feedIndicator
-    opacity: 0.5
-    background-image: url(/img/elements/notification.png)
-    background-color: $col7
-    border: 2px solid white
-    //+border-radius(50% 0 50% 50%)
-    color: white
-    display: block
-    font-size: 1.2em
-    font-weight: bold
-    height: 37px
-    line-height: 20px
-    margin: 0 0 0 -25px
-    position: absolute
-    text-align: center
-    top: 0
-    width: 20px
-    +transition(border-radius 0.5s, top 0.5s)
-    &.opened
-      background-image: url(/img/elements/notification2.png)
-      background-color: white
-      border: 2px solid $col7
-    &.hasFeed
-      opacity: 1
-      background-image: none
-    &:not(.hasFeed)
-      background-position: center center
-      background-repeat: no-repeat
-      background-size: 60% auto
-      color: transparent
 
 
 
@@ -294,7 +197,7 @@ div.header
   div.search
     float: right
     width: percentage(1/4)
-    +mq('width', percentage(1/4), percentage(1/4), percentage(1/4), percentage(1/4), percentage(2/8))
+    +mq('width', percentage(1/4), percentage(1/3), percentage(1/3), percentage(1/3), percentage(1/3))
     z-index: 100
     height: 100%
     position: relative
@@ -304,21 +207,21 @@ div.header
       float: none
       position: absolute
       top: 0px
-      left: percentage(1/2)
+      left: percentage(1/3)
       z-index: 100
       +transition(left 0.5s, width 0.5s)
       &.opened
         width: percentage(1)
         left: 0
         z-index: 101
-        input[type=text]
+        input[type=search]
           width: percentage(1) !important
           padding: 5px !important
           +transition(width 0.5s, padding 0.5s)
+          margin-top: 0px
+          line-height: 1.6rem
         li.submit
           opacity: 0
-    +mq5
-      left: percentage(4/8)
     form
       height: 100%
       ul
@@ -329,16 +232,16 @@ div.header
         background-color: transparent
         padding: 7px 10px
         input
-          font-size: 1.4em
+          font-size: 1.4rem
           border-left: 0px !important
           background-color: $cHeaderSearchBg
           padding-left: 30px
           +box-shadow(none)
           margin-left: 0px
           width: 100%
+          height: 26px
           +mq2
-            font-size: 1.1em
-          +mq3
+            font-size: 1.1rem
             width: 0px
             padding-left: 0px
             padding-right: 0px
@@ -347,28 +250,26 @@ div.header
         min-width: 0
         padding: 0
         position: absolute
-        left: 12px
+        left: 10px
         top: 7px
         width: 26px
+        margin: 0px
+        +icon($iconSearch)
+        background-color: transparent !important
+        color: $col1_d3
+        cursor: pointer
+        &:before
+          width: 26px
+          font-size: 2rem
+          line-height: 26px
+          margin: 0px
         input
           opacity: 0
           cursor: default
           &:hover
             opacity: 0
-        &:before
-          display: block
-          position: absolute
-          top: 0px
-          left: 0px
-          width: 100%
-          height: 100%
-          color: $cBrowntext
-          font-family: Flaticon
-          content: $iconSearch
-          font-size: 1.8rem
-          line-height: 26px
-          text-align: center
-        +mq3
+
+        +mq2
           input
             cursor: pointer !important
           left: 50%
@@ -378,6 +279,34 @@ div.header
 
 
 
+
+  div.hamburger
+    display: none
+    background-color: $col1_d1
+    +mq2
+      display: block
+      width: percentage(1/3)
+      height: 100%
+      padding: 7px 10px
+    a
+      width: 35px
+      height: 100%
+      display: inline-block
+
+    a.openMenu
+      background-image: url(/img/elements/hamburger_horizontal.png)
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+
+    a.toMainPage
+      background-image: url(/img/elements/logoV3.png)
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+      margin-left: 10px
+      +mq6
+        display: none
 
 
   //*************************************************
@@ -393,7 +322,8 @@ div.header
     color: $cBrowntext
     font-style: italic
     +mq('width', percentage(1/2))
-    +mq1
+    +mq2
+      display: none
       float: none
       position: absolute
       top: 0px
@@ -425,8 +355,6 @@ div.header
         +mq4
           display: none
       a
-        height: 35px
-        width: 35px
         margin: 2px 5px
     div.loading.show
       +loadingLine
@@ -437,7 +365,7 @@ div.header
       cursor: pointer
       display: block
       color: $cCatSelLink
-      font-size: 1.2em
+      font-size: 1.2rem
       width: auto
       height: 25px
       text-align: center
@@ -451,7 +379,7 @@ div.header
         span
           display: table-cell
           vertical-align: middle
-          line-height: 1em
+          line-height: 1rem
 
     //DROPDOWN
     .dropdown
@@ -510,9 +438,7 @@ div.subheader
   left: 0px
   bottom: 0px
   width: 100%
-  z-index: 50000
-  +mq3
-    padding-left: 40px
+  z-index: 500
   .subheaderInner
     height: 100%
     background-color: $cSubheaderBg
@@ -532,10 +458,17 @@ div.subheader
         display: block
         line-height: 40px
         text-align: center
-        font-size: 1.4em
+        font-size: 1.4rem
         font-style: italic
         color: $cDarktext
         +transition(0.8s)
         &:hover
           color: white
           +transition(0.8s)
+
+          
+          
+          
+          
+html.mobile div.search input[type=search]
+  +transition(none !important)

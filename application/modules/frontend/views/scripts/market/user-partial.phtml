@@ -11,9 +11,9 @@
 			<? if(!isset($this->front) || $this->front==true){?>
 				<div class="front">
 					<div class="productImages">
-						<? if(is_array($this->user->avatar) && !empty($this->user->avatar)){ $img=reset($this->user->avatar); ?>
-							<img src="<?=$img['small'];?>" alt="<?=$this->user->username;?>"/>
-						<? } ?>
+                        <? $img=(is_array($this->user->avatar) && !empty($this->user->avatar)) ? $img=reset($this->user->avatar) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
+                        <div class="productImages <?=!empty($this->previewImg) ? 'previewImg' : '';?>" style="background-image: url(<?=$img['mid'];?>);" data-preview="<?=$img['mid'];?>">
+                        </div>
 					</div>
 					<h3 class="productName">
 						<a href="<?=$this->url('profil').'/'.urlencode($this->user->username);?>" class="jump"><?=$this->user->username;?></a>

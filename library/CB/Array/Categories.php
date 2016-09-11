@@ -9,6 +9,11 @@ class CB_Array_Categories {
 	public $_props;
 	public $_comboList=array();
 
+    private $_listOptions = [
+        'rootChar'=>' |',
+        'levelChar'=>'_'
+    ];
+
 	public function __construct(){
 		$categoriesPHP=require(APPLICATION_PATH.'/configs/categories.php');
 		$this->_props=$categoriesPHP['PROP'];
@@ -24,12 +29,32 @@ class CB_Array_Categories {
 		return !empty($this->_singleArray[$id]) ? $this->_singleArray[$id]->props : '';
 	}
 
-	public function getComboList($onlySelectable=false){
+    public function getById($id){
+        return !empty($this->_singleArray[$id]) ? $this->_singleArray[$id] : false;
+    }
+
+	public function getComboList($listOptions, $children = null){
+
+        $this->_listOptions = array_merge($this->_listOptions, $listOptions);
+        $this->_comboList = [];
 		$this->_walkRecursive(function($item, $array, $level){
-			$array->_comboList[strval((!empty($item->children)?'x':'').$item->id)]=($level?' |':'').str_repeat('_', $level).$item->name;
-		});
+			$array->_comboList[strval((!empty($item->children)?'x':'').$item->id)]=($level? $this->_listOptions['rootChar'] : '').str_repeat($this->_listOptions['levelChar'], $level).$item->name;
+		}, (!empty($listOptions['parent_id']) ? $listOptions['parent_id'] : null), 0, $children);
 		return $this->_comboList;
 	}
+
+    public function getCombo($listOptions = [], $name = 'category_id', $emptyText = 'Válassz kategóriát!'){
+        $children = null;
+        if(!empty($listOptions['parent_id'])){
+            $children = $this->_multiArray[$listOptions['parent_id']]->children;
+        }
+        $categoryOptions=$this->getComboList($listOptions, $children);
+        $disabledOptions=array();
+        foreach($categoryOptions as $id=>$option){ if(strpos($id, 'x')!==false) $disabledOptions[]=$id; }
+        $categorySelect=new Zend_Form_Element_Select($name);
+        $categorySelect->setMultioptions(array(''=>$emptyText)+$categoryOptions)->setAttrib('disable', $disabledOptions);
+        return $categorySelect;
+    }
 
 	public function fetchCategory($params){
 		$extraParams=array();
@@ -59,10 +84,10 @@ class CB_Array_Categories {
 		return $path;
 	}
 
-	private function _walkRecursive(Closure $function=null, $parent_id=0, $level=0, $children=null){
+	private function _walkRecursive(Closure $function=null, $parent_id=null, $level=0, $children=null){
 		$walkArray=(is_array($children)) ? $children : $this->_multiArray;
 		foreach($walkArray as $item){
-			if($function) $function($item, $this, $level);
+			if($function) $function($item, $this, $level, $this->_listOptions);
 			if($item->children) $this->_walkRecursive($function, $item->id, $level+1, $item->children);
 		}
 	}

@@ -9,25 +9,53 @@
 
 	<? if($showBoth || (!$this->seller && $hideOwn)){?>
 		<? if($this->o->$firstProp){?>
-			<div class="userRating">
-				<h4>Te értékelésed</h4>
-				<p class="date"><strong>Értékelés dátuma:</strong> <?=$this->o->$firstProp->date->format('Y-m-d H:i');?></p>
-				<p class="succes"><strong>Sikeres rendelés:</strong> <?=$this->o->$firstProp->success ? 'igen' : 'nem';?></p>
-				<p class="positive"><strong>Értékelés:</strong> <?=$this->o->$firstProp->positive ? 'Pozitív' : 'Negatív';?></p>
-				<p class="text"><strong>Szöveges értékelés:</strong> <?=$this->o->$firstProp->text;?></p>
-			</div>
+            <div class="userRating">
+                <h4>Te értékelésed</h4>
+                <div class="table">
+                    <div class="row">
+                        <strong>Értékelés dátuma:</strong>
+                        <p><?=$this->o->$firstProp->date->format('Y-m-d H:i');?></p>
+                    </div>
+                    <div class="row">
+                        <strong>Sikeres rendelés:</strong>
+                        <p><?=$this->o->$firstProp->success ? '<span class="pos">igen</span>' : '<span class="neg">nem</span>';?></p>
+                    </div>
+                    <div class="row">
+                        <strong>Értékelés:</strong>
+                        <p><?=$this->o->$firstProp->positive ? '<span class="pos">Pozitív</span>' : '<span class="neg">Negatív</span>';?></p>
+                    </div>
+                    <div class="row">
+                        <strong>Szöveges értékelés:</strong>
+                        <p><?=$this->o->$firstProp->text;?></p>
+                    </div>
+                </div>
+            </div>
 		<? } ?>
 	<? } ?>
 
 	<? if($showBoth || ($this->seller && $hideOwn)){?>
 		<? if($this->o->$secondProp){?>
-			<div class="shopUserRating">
-				<h4><?=$username;?> értékelése</h4>
-				<p class="date"><strong>Értékelés dátuma:</strong> <?=$this->o->$secondProp->date->format('Y-m-d H:i');?></p>
-				<p class="succes"><strong>Sikeres rendelés:</strong> <?=$this->o->$secondProp->success ? 'igen' : 'nem';?></p>
-				<p class="positive"><strong>Értékelés:</strong> <?=$this->o->$secondProp->positive ? 'Pozitív' : 'Negatív';?></p>
-				<p class="text"><strong>Szöveges értékelés:</strong> <?=$this->o->$secondProp->text;?></p>
-			</div>
+            <div class="shopUserRating">
+                <h4><?=$username;?> értékelése</h4>
+                <div class="table">
+                    <div class="row">
+                        <strong>Értékelés dátuma:</strong>
+                        <p><?=$this->o->$secondProp->date->format('Y-m-d H:i');?></p>
+                    </div>
+                    <div class="row">
+                        <strong>Sikeres rendelés:</strong>
+                        <p><?=$this->o->$secondProp->success ? '<span class="pos">igen</span>' : '<span class="neg">nem</span>';?></p>
+                    </div>
+                    <div class="row">
+                        <strong>Értékelés:</strong>
+                        <p><?=$this->o->$secondProp->positive ? '<span class="pos">Pozitív</span>' : '<span class="neg">Negatív</span>';?></p>
+                    </div>
+                    <div class="row">
+                        <strong>Szöveges értékelés:</strong>
+                        <p><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?></p>
+                    </div>
+                </div>
+            </div>
 		<? } ?>
 	<? } ?>
 

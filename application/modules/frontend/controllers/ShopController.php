@@ -21,6 +21,14 @@ class ShopController extends CB_Controller_Action {
 	}
 
 	public function userproductsAction(){
+        if(isset($_GET['uj'])){
+            $hash = 'uj';
+            if($this->g('cid')){
+                $hash.='__'.$this->g('cid');
+            }
+            $this->redirect($this->_request->getUri().'#'.$hash);
+            return;
+        }
 		if(!$this->user->isValid()){
 			$this->m('Termékek feltöltéséhez minden szükséges adatot meg kell adnod!', 'error');
 			$this->redirect($this->url('adatmodositas'));
@@ -31,100 +39,129 @@ class ShopController extends CB_Controller_Action {
 		});
 
 		$categoryTree=Zend_Registry::get('categories');
-		$categoryOptions=$categoryTree->getComboList();
-		$disabledOptions=array();
-		foreach($categoryOptions as $id=>$option){ if(strpos($id, 'x')!==false) $disabledOptions[]=$id; }
-		$categorySelect=new Zend_Form_Element_Select('category_id');
-		$categorySelect->setMultioptions(array(''=>'Válassz kategóriát!')+$categoryOptions)->setAttrib('disable', $disabledOptions);
 
 		$this->view->assign(array(
 			'statusCodes'=>$this->statusCodes,
 			'products'=>$products,
 			'activeProducts'=>$activeProducts,
-			'categorySelect'=>$categorySelect,
 			'categoryTree'=>$categoryTree,
 			'promoteOptions'=>Zend_Registry::get('promoteOptions'),
-			'promoteAllOptions'=>Zend_Registry::get('promoteAllOptions')
+			'promoteAllOptions'=>Zend_Registry::get('promoteAllOptions'),
+            'initNew'=>isset($_GET[''])
 		));
 	}
 
+
+
+    public function userproducteditAction(){
+        /**
+         * @var $categoryTree CB_Array_Categories
+         */
+        $this->getHelper('layout')->setLayout('ajax');
+
+        $categoryTree=Zend_Registry::get('categories');
+
+        $category = false;
+        if(!empty($_GET['cid'])) $category = $categoryTree->getById($_GET['cid']);
+        if(!empty($_GET['category_id'])) $category = $categoryTree->getById($_GET['category_id']);
+
+        $product = false;
+        if($this->g('product_id')) $product = $this->productModel->findOneById(str_replace('COPY_', '', $this->g('product_id')));
+
+        /**
+         * @var $select Zend_Form_Element_Select
+         */
+        $selects = [];
+        foreach($categoryTree->_multiArray as $key=>$value){
+            $select = $categoryTree->getCombo([
+                'rootChar'=>'',
+                'levelChar'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+                'parent_id'=>$key
+            ]);
+            if($category && $category->getMainCatId() == $key) $select->setValue($category->id);
+            $select->setAttrib('class', $select->getAttrib('class') . ' select2 showSearch');
+            $selects[$key] = $select;
+        }
+
+
+
+        $this->view->assign([
+            'selects'=>$selects,
+            'category'=>$category,
+            'product'=>$product,
+            'product_id'=>$this->g('product_id')
+        ]);
+
+    }
+
 	public function userproducteditformAction(){
-		if($this->getRequest()->isXmlHttpRequest())	$this->getHelper('layout')->disableLayout();
-		$category_id=$this->_request->isPost() ? $this->_request->getPost('category_id') : $this->_request->get('category_id');
-		$categoryTree=Zend_Registry::get('categories');
-		$category=$categoryTree->_singleArray[$category_id];
-		$options=$category->props;
-		$userActiveProducts=$this->user->getProducts(false, 10000);
+        /**
+         * @var $categoryTree CB_Array_Categories
+         */
+		$this->getHelper('layout')->disableLayout();
+
+        $categoryTree=Zend_Registry::get('categories');
+
+
+		$category=$categoryTree->getById($this->_request->isPost() ? $this->_request->getPost('category_id') : $this->g('category_id'));
 
 		$form=new Frontend_Form_ProductEdit();
-		$form->category=$category;
-		$form->options=$options;
-		$form->deliveryOptions=$this->deliveryOptions;
-		$form->initFields();
+		$form->initFields($category, $this->deliveryOptions);
 
-		$productid=$this->getRequest()->get('product_id');
-		if($productid=='false') $productid=false;
+		$productid=$this->g('product_id');
+        $copy = false;
+
 		if(strpos($productid, 'COPY_')!==false){
-			$product=$this->productModel->findOneById(str_replace('COPY_', '', $productid));
-			if($product) $form->populate(get_object_vars($product));
-			$form->getElement('id')->setValue('');
-			$form->getElement('images')->setValue('');
+            $form->setProduct($this->productModel->findOneById(str_replace('COPY_', '', $productid)), true);
+            $copy = true;
 			$productid=false;
 		}
-		if($productid){
-			$product=$this->productModel->findOneById($productid);
-			if($product) $form->populate(get_object_vars($product));
+        if($productid){
+			$form->setProduct($this->productModel->findOneById($productid));
 		}
 
 		if(!$productid && !$this->_request->getPost('id')){
 			$form->removeElement('id');
-			if(Zend_Registry::get('uploadPrice')==0){
-				$form->setDescription('A termék feltöltése most ingyenes!');
-			} else if(count($userActiveProducts) < Zend_Registry::get('freeUploadLimit')){
-				$form->setDescription(''.Zend_Registry::get('freeUploadLimit').' aktív termékig a feltöltés ingyenes!');
-			} else if($this->user->balance < Zend_Registry::get('uploadPrice')){
-				$this->view->assign(array(
-					'noBalanceError'=>true
-				));
-			} else {
-				$form->setDescription('A termék feltöltésének díja '.Zend_Registry::get('uploadPrice').' Ft, amit az egyenlegedből vonunk le.');
-			}
-
+			$form->processDescription($this->user);
 		}
 
 		if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
 
-				$values=$form->processData($form->getValues(), $this);
+                $values = $form->getValues();
 
-				$email=false;
-				if(!empty($values['id'])){
-					CB_Resource_Functions::logEvent('userProductEditStarted');
-					$product=$this->productModel->findOneById($values['id']);
-					$product->saveAll($values);
-				} else {
-					CB_Resource_Functions::logEvent('userProductAddStarted');
-					$values['code']=uniqid('CSB');
-					$email=true;
+                if(!empty($values['id'])){
+                    $product=$this->productModel->findOneById($values['id']);
+                }
 
-					if(count($userActiveProducts) >= Zend_Registry::get('freeUploadLimit')){
-						$this->user->balance=intval($this->user->balance)-Zend_Registry::get('uploadPrice');
-						if($this->user->balance <= (2*Zend_Registry::get('uploadPrice'))) $this->emails->balanceLow(array('user'=>$this->user));
-					}
+                $product = isset($product) ? $product : new \CB\Product();
+                list($promoted) = $product->fromEditForm($form, $this->user);
 
-					$this->userModel->save($this->user);
-					$this->m('Sikeresen feltöltötted a terméked a csakbaba.hu oldalon! A terméked hamarosan megjelenik a többi termék között és láthatod a főoldalon a legfrissebben feltöltött termékeknél! Köszönjük a feltöltést! További jó börzézést!', 'message');
-				}
-				$product=$this->productModel->save(isset($product) ? $product : $values);
-				CB_Resource_Functions::logEvent('userProductEditAddEnded', array('product'=>$product));
-				$this->view->assign(array(
-					'categoryTree'=>Zend_Registry::get('categories'),
-					'product'=>$product, 'back'=>false, 'fix'=>false, 'userfunctions'=>true, 'statusCodes'=>$this->statusCodes, 'extraClass'=>'status'.$product->status
-				));
-				$this->getHelper('viewRenderer')->setNoController(true);
-				$this->_helper->viewRenderer('market/product-partial');
 
-				if($email) $this->emails->productAdd(array('product'=>$product));
+                if($this->user->balance < 0){
+                    $this->m('Nincs elég pénz az egyenlegeden!', 'error');
+                    $this->_response->setHttpResponseCode(400);
+                } else {
+                    $email=false;
+                    if(empty($values['id'])){
+                        $email=true;
+                        $this->m('Sikeresen feltöltötted a terméked a csakbaba.hu oldalon! A terméked hamarosan megjelenik a többi termék között és láthatod a főoldalon a legfrissebben feltöltött termékeknél! Köszönjük a feltöltést! További jó börzézést!', 'message');
+                    } else {
+                        $this->m('Sikeres szerkesztés', 'message');
+                    }
+
+                    if($promoted === true){
+                        $this->m('Sikeresen kiemelted a terméket 1 hétre!', 'message');
+                    }
+
+                    CB_Resource_Functions::logEvent('userProductEditAddEnded', array('product'=>$product));
+                    $this->productModel->save($product);
+                    $this->userModel->save($this->user);
+                    if($email) $this->emails->productAdd(array('product'=>$product));
+
+                    die();
+                }
+
 			} else {
 				$this->_response->setHttpResponseCode(400);
 			}
@@ -132,46 +169,16 @@ class ShopController extends CB_Controller_Action {
 			$form->populate(array('category_id'=>$category->id, 'user_id'=>$this->user->id));
 		}
 		$this->view->assign(array(
-			'form'=>$form
+			'form'=>$form,
+            'copy'=>$copy,
+            'categoryTree'=>$categoryTree
 		));
 	}
-
-
-	public function userproductpreviewAction(){
-		$categoryTree=Zend_Registry::get('categories');
-
-		if(!empty($_GET['images'])) $_GET['images']=json_decode($_GET['images'], true);
-		$form=new Frontend_Form_ProductEdit();
-		$values=$form->processData($_GET, $this);
-
-		$product=new \CB\Product();
-		$product->saveAll($values);
-		$product->date_added=new DateTime();
-		$product->name=$product->name ? $product->name : 'Termék neve';
-		$product->category=$_GET['category_id'];
-		$product->type=$product->type ? $product->type : 'egyeb';
-		$product->price=$product->price ? $product->price : 0;
-		$product->desc=$product->desc ? $product->desc : 'Leírás';
-
-
-
-		$this->view->assign(array(
-						'product'=>$product,
-						'categoryTree'=>$categoryTree,
-						'deliveryOptions'=>$this->deliveryOptions,
-		));
-		$this->getHelper('layout')->setLayout('ajax');
-		$this->getHelper('viewRenderer')->setNoController(true);
-		$this->_helper->viewRenderer('market/productpreview');
-	}
-
 
 	public function userproductdeleteAction(){
 		$this->getHelper('layout')->disableLayout();
 		$this->getHelper('viewRenderer')->setNoRender(true);
-		$id=$this->getRequest()->getParam('productid');
-		$product=$this->productModel->findOneById($id);
-		if($product){
+		if(($product=$this->productModel->findOneById($this->g('id')))){
 			CB_Resource_Functions::logEvent('userProductDelete', array('product'=>$product));
 			$product->deleted=true;
 			$this->productModel->save($product);
@@ -181,24 +188,22 @@ class ShopController extends CB_Controller_Action {
 	}
 
 	public function userrenewAction(){
-		if($this->getRequest()->isXmlHttpRequest())	$this->getHelper('layout')->disableLayout();
-		if(empty($_GET['product_id'])) die();
-		$product=$this->productModel->findOneById($_GET['product_id']);
-		if(!($product && $product->user->get()->id==$this->user->id)) $this->m('Nincs ilyen termék', 'error');
-		else {
-			$this->view->assign(array('product'=>$product));
+        $this->getHelper('layout')->disableLayout();
+        $this->getHelper('viewRenderer')->setNoRender(true);
+        if(($product=$this->productModel->findOneById($this->g('id')))){
+            CB_Resource_Functions::logEvent('userProductRenew', array('product'=>$product));
 
-			if(!empty($_GET['renew']) && $_GET['renew']=='true'){
-				CB_Resource_Functions::logEvent('userProductRenew', array('product'=>$product));
-				$this->user->balance=intval($this->user->balance)-Zend_Registry::get('uploadPrice');
-				if($this->user->balance <= (2*Zend_Registry::get('uploadPrice'))) $this->emails->balanceLow(array('user'=>$this->user));
-				$this->userModel->save($this->user);
+            if($this->user->getActiveProductsCount() >= Zend_Registry::get('freeUploadLimit')){
+                $this->user->modifyBalance(-Zend_Registry::get('uploadPrice'));
+            }
+            $this->userModel->save($this->user);
 
-				$product->status=1;
-				$product->date_period=date('Y-m-d H:i:s');
-				$this->productModel->save($product);
-			}
-		}
+            $product->status=1;
+            $product->date_period=date('Y-m-d H:i:s');
+            $this->productModel->save($product);
+
+            $this->m('Sikeresen megújítottad a terméket!');
+        }
 	}
 
 	public function userpromoteAction(){

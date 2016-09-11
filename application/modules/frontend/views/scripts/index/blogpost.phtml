@@ -1,20 +1,31 @@
 <div class="blogContent">
 	<article class="postItem">
 		<header>
-			<h2>
+			<h1>
 				<a href="<?=$this->url('blog').'/'.$this->post->slug;?>"><?=$this->post->title;?></a>
-			</h2>
+			</h1>
 		</header>
+        <? if($this->user && $this->user->blogadmin){?>
+        <a href="/index/blogedit?id=<?=$this->post->id;?>" class="editLink">Szerkesztés</a>
+        <? } ?>
 		<time><?=$this->post->date->format('Y.m.d');?></time>
+        
 		<div class="body">
 			<?=$this->post->body;?>
 		</div>
 	</article>
-
-
-
-
-	<div class="lists">
+    
+    <div class="blogComments">
+        <h2 class="commentHeader">Hozzászólások</h2>
+        <?=$this->partial('common/comments.phtml', $this->getVars());?>
+    </div>
+    
+    <div class="buttonBack"><a href="<?=$this->url('blog');?>"> Vissza a blog főoldalára </a></div>
+    
+    <br />
+    <br />
+    
+    <div class="lists">
 		<div class="listsInner">
 			<div class="fresh list">
 				<div class="productList">
@@ -28,9 +39,8 @@
 				</div>
 		</div>
 	</div>
-
-	<div class="borzeIcons bottom">
-		<div class="link"><a href="<?=$this->url('piac');?>" class="link">tovább a börzére</a></div>
-	</div>
-
+        
+    <div class="buttonBack"><a href="<?=$this->url('piac');?>"> tovább a börzére </a></div>
+    
+    
 </div>

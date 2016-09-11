@@ -89,6 +89,10 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		}
 	}
 
+    public function g($var = null){
+        return !empty($_GET[$var]) ? $_GET[$var] : null;
+    }
+
 	public function m(){
 		$args=func_get_args();
 		call_user_func_array(array($this->fm, 'messenger'), $args);
@@ -107,36 +111,45 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 
 		$this->view->minifyHeadLink()
 						->appendStylesheet('/stylesheets/css/jquery/jquery.fileupload-ui.css')
-						->appendStylesheet('/stylesheets/css/jquery/shadowbox.css')
 						->appendStylesheet('/stylesheets/css/jquery/jquery.magnific.css')
+						->appendStylesheet('/stylesheets/css/jquery/slick.css')
+						->appendStylesheet('/stylesheets/css/jquery/slick-theme.css')
+						->appendStylesheet('/stylesheets/css/jquery/select2.min.css')
 						->appendStylesheet('/stylesheets/css/jquery/jquery-ui.css')
 						->appendStylesheet('/stylesheets/css/animate.css')
 						->appendStylesheet('/stylesheets/css/global_'.$color.'.css');
 		$this->view->minifyHeadScript()
 						->appendFile('/js/jquery/jquery.min.js')
+						->appendFile('/js/raf.js')
 						->appendFile('/js/jquery/jquery-ui.min.js')
 						->appendFile('/js/jquery/jquery-ui.touch.min.js')
 						->appendFile('/js/jquery/jquery.cookie.js')
 						->appendFile('/js/jquery/jquery.touchSwipe.min.js')
 						->appendFile('/js/jquery/jquery.magnific.min.js')
-						->appendFile('/js/jquery/fileupload/jquery.iframe-transport.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-ui.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-process.js')
 						->appendFile('/js/jquery/fileupload/jquery.fileupload-validate.js')
-						->appendFile('/js/jquery/shadowbox.js')
-						->appendFile('/js/jquery/jquery.bxslider.min.js')
+						->appendFile('/js/jquery/clamp.min.js')
+						->appendFile('/js/jquery/slick.min.js')
 						->appendFile('/js/jquery/jquery.maskedinput.min.js')
 						->appendFile('/js/jquery/jquery.imgpreview.js')
 						->appendFile('/js/ckfrontend/ckeditor.min.js')
 						->appendFile('/js/ckfrontend/adapters/jquery.min.js')
-						->appendFile('/js/scripts.js')
+						->appendFile('/js/select2/select2.full.min.js')
+                        ->appendFile('/js/functions.js')
+                        ->appendFile('/js/scripts.js')
+						->appendFile('/js/home.js')
+						->appendFile('/js/products.js')
+						->appendFile('/js/blog.js')
+						->appendFile('/js/usershop.js')
+						->appendFile('/js/userorders.js')
 						->appendFile('/js/uploader.js')
 		;
 		$this->view->headTitle()->setSeparator(' | ');
 		$this->view->headMeta()
 						->setName('description', 'A csakbaba.hu egy virtuális börze, vásár, amely összehozza az eladókat a vásárlókkal, és online „asztalt” biztosít a gondtalan adás-vételhez.')
-						->appendName('viewport', 'width=device-width, initial-scale=1');
+						->appendName('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
 	}
 
 
@@ -144,6 +157,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 	private function _initVars(){
 		if(!$this->user){
 			$loginform=new Frontend_Form_Login();
+            $loginform->getElement('popupurl')->setValue($this->_request->getUri());
 			$this->view->assign(array('loginform'=>$loginform));
 		}
 
