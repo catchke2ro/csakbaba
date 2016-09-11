@@ -1,6 +1,23 @@
 <?php
 
 class IndexController extends CB_Controller_Action {
+    
+    /**
+     * @var \CB\Model\User()
+     */
+    private $userModel;
+    
+    /**
+     * @var \CB\Model\Product()
+     */
+    private $productModel;
+    
+    public function init(){
+        $this->userModel=new \CB\Model\User();
+        $this->productModel=new \CB\Model\Product();
+        
+        parent::init();
+    }
 
 	public function indexAction(){
 
@@ -59,7 +76,18 @@ class IndexController extends CB_Controller_Action {
 			$random=$productModel->getRandom(5);
 			$this->view->headMeta()->setName('description', substr(strip_tags($post->teaser), 0, 160).'...');
 			$categoryTree=Zend_Registry::get('categories');
-			$this->view->assign(array('post'=>$post, 'random'=>$random, 'categoryTree'=>$categoryTree));
+            
+            $commentForm=new Frontend_Form_Comment();
+            $commentForm->getElement('post_id')->setValue($post->id);
+            
+			$this->view->assign(array(
+			    'post'=>$post,
+                'random'=>$random,
+                'categoryTree'=>$categoryTree,
+                'commentForm'=>$commentForm,
+                'comments'=>$post->getComments(),
+                'user'=>$this->user
+            ));
 			$this->_helper->viewRenderer('blogpost');
 			$this->view->headTitle()->prepend($post->title);
 			$bc=Zend_Registry::get('breadcrumb');
@@ -69,9 +97,44 @@ class IndexController extends CB_Controller_Action {
 		}
 		$posts=$postModel->find(array('order'=>'date desc'));
 		$this->view->assign(array(
-			'posts'=>$posts ? $posts : array()
+			'posts'=>$posts ? $posts : array(),
+            'user'=>$this->user
 		));
 	}
+	
+	
+	public function blogeditAction(){
+	    if(!($this->user && $this->user->blogadmin)) die();
+        
+        $blogModel = new \CB\Model\BlogPost();
+        
+        $form = new Frontend_Form_BlogEdit();
+        
+        $post = $blogModel->findOneById($this->g('id'));
+        
+        if($this->getRequest()->isPost()){
+            if($form->isValid($this->getRequest()->getPost())){
+                if(!$post) $post = new \CB\BlogPost();
+                
+                $values=$form->getValues();
+                $values['date'] = date('Y-m-d H:i:s');
+                if(empty($values['id'])) unset($values['id']);
+                $post->saveAll($values);
+                $blogModel->save($post);
+                $this->m('Sikeres módosítás');
+                $this->redirect($this->url('blog').'/'.$post->slug);
+            } else {
+                $this->m('Nem töltöttél ki megfelelően minden mezőt', 'error');
+            }
+        } else if($post) {
+            $form->populate(get_object_vars($post));
+        }
+        
+        $this->view->assign([
+            'form'=>$form
+        ]);
+        
+    }
 
 	public function contactAction(){
 		$form=new Frontend_Form_Contact();
@@ -87,6 +150,94 @@ class IndexController extends CB_Controller_Action {
 		$this->view->assign(array('contactForm'=>$form));
 		$this->getHelper('layout')->setLayout('default');
 	}
+    
+    
+    
+    
+    
+    
+    public function commentAction(){
+        $this->getHelper('layout')->disableLayout();
+        if(empty($_POST['product_id']) && empty($_POST['post_id'])) die('OK');
+        
+        $type = $this->_request->getPost('post_id') ? 'post' : 'product';
+        $productId = $postId = null;
+        switch($type){
+            case 'post':
+                $model = new \CB\Model\BlogPost();
+                $id = $this->_request->getPost('post_id');
+                $postId = $id;
+                break;
+            case 'product':
+                $model = new \CB\Model\Product();
+                $id = $this->_request->getPost('product_id');
+                $productId = $id;
+                break;
+        }
+        
+        if(!($item=$model->findOneById($id)) || !$this->user) die();
+        
+        $commentModel=new \CB\Model\Comment();
+        $comment=new \CB\Comment();
+        $comment->saveAll(array(
+            'date'=>date('Y-m-d H:i:s'), 'user'=>$this->user, 'product_id'=>$productId, 'post_id'=>$postId, 'text'=>$_POST['text']
+        ));
+        $comment=$commentModel->save($comment);
+        
+        CB_Resource_Functions::logEvent('commentAdded', array('comment'=>$comment));
+        $comment->date=new DateTime($comment->date);
+        
+        if($type == 'product'){
+            if($this->user->get()->id != $item->user->get()->id) {
+                $this->emails->commentProductUser(array('comment'=>$comment, 'user'=>$item->user->get(), 'product'=>$item));
+        
+                $subscribed=$this->user->subscribed ? $this->user->subscribed : array();
+                $subscribed[]=$item->id;
+                $this->user->subscribed=array_values(array_unique($subscribed));
+                $this->userModel->save($this->user);
+            }
+    
+            $this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$item->user->get(), 'product'=>$item));
+        }
+        
+        $this->view->assign(array('comment'=>$comment, 'added'=>true, 'product'=>$item));
+        $this->_helper->viewRenderer('comment');
+    }
+    
+    public function commentunsubscribeAction(){
+        $this->getHelper('layout')->disableLayout();
+        $this->getHelper('viewRenderer')->setNoRender(true);
+        if(!(
+            !empty($_GET['uid']) &&
+            !empty($_GET['token']) &&
+            !empty($_GET['pid']) &&
+            ($user = $this->userModel->findOneById($_GET['uid'])) &&
+            $user->getToken() == $_GET['token'] &&
+            ($product = $this->productModel->findOneById($_GET['pid']))
+        )){
+            $this->redirect('/');
+            return;
+        }
+        
+        $subscribed=$user->subscribed ? $user->subscribed : array();
+        $flipped=array_flip($subscribed);
+        unset($flipped[$product->id]);
+        $subscribed=array_keys($flipped);
+        
+        $user->subscribed=$subscribed;
+        $this->userModel->save($user);
+        
+        $categories=Zend_Registry::get('categories');
+        $productLink=$this->url('piac').$categories->getUri($product->category).'/'.$product->id.'/'.$this->functions->slug($product->name);
+        
+        $this->m('Sikeresen leiratkoztál a termékről, a továbbiakban nem kapsz értesítést a hozzászólásokról.');
+        $this->redirect($productLink);
+        return;
+    }
+    
+    
+    
+    
 
 	public function categoryselectorAction(){
 		$this->getHelper('layout')->disableLayout();

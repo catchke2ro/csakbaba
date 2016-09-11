@@ -64,6 +64,7 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 		$identity['id']=$user->id;
 		$identity['username']=$user->username;
 		$identity['email']=$user->email;
+		$identity['ckupload']=!!$user->blogadmin;
 		return $identity;
 	}
 

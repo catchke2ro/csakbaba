@@ -45,6 +45,9 @@ div.subcategories
       background-color: transparent
       background-size: contain
       position: relative
+      +mq4
+        width: 70px
+        height: 70px
       &:hover
         -webkit-animation: rotatebounce 0.3s
         animation: rotatebounce 0.3s
@@ -61,20 +64,19 @@ div.subcategories
         +transform(translateY(-50%))
 
   ul li.baba
-    margin: 5px 15px
     a
       background-image: url('/img/elements/baba_logo_textured.png')
-    span
-      display: none
   ul li.gyerek
-    margin: 5px 15px
     a
       background-image: url('/img/elements/gyerek_logo_textured.png')
-    span
-      display: none
   ul li.kismama-ruhazat
-    margin: 5px 15px
     a
       background-image: url('/img/elements/kismama_logo_textured.png')
-    span
-      display: none
+      
+  ul
+    li.baba, li.gyerek, li.kismama-ruhazat
+      margin: 5px 15px
+      +mq4
+        margin: 5px 10px
+      span
+        display: none

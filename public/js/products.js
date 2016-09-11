@@ -53,28 +53,7 @@ $(function(){
 			return false;
 		});
 
-		$('div.commentForm #commentsubscribe').change(function(index, e){
-			var productId=$(this).closest('.productDetails').data('id'), checked=$(this).prop('checked');
-			$.ajax({
-				url: '/market/commentsubscribe?pid='+productId+'&checked='+(checked ? 1 : 0), complete: function(){
 
-				}
-			})
-		});
-		$('div.commentForm form').submit(function(ev){
-			var form=$(this), ul=form.closest('.commentContainer').find('.comments ul');
-			$.ajax({
-				url: '/market/comment', type: 'POST', data: form.serialize(), complete: function(request){
-					ul.append(request.responseText);
-					form[0].reset();
-					setTimeout(function(){
-						ul.find('li').last().removeClass('fresh');
-					}, 500);
-				}
-			});
-			ev.preventDefault();
-			return false;
-		});
 
 		$('.magnificParent').magnificPopup({
 			delegate: '.magnificImage',

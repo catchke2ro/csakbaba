@@ -51,7 +51,7 @@
 						<div class="productOptions">
 							<? $genreTypes=Zend_Registry::get('genreTypes');?>
 							<span class="option">
-						    <strong><?=$this->product->new ? 'Új' : 'Használt';?>, <?=$genreTypes[$this->product->type]?></strong>
+						    <strong><?=$this->product->new ? 'Új' : 'Használt';?><?=$this->product->type ? ', '.$genreTypes[$this->product->type] : ''?></strong>
 					    </span><br />
 							<span class="option">
 						    <strong>Feltöltve</strong>: <?=$this->product->date_added->format('Y.m.d H:i');?>

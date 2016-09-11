@@ -85,7 +85,7 @@
 
 
 	<h2 class="commentHeader">Kérdések az eladóhoz</h2>
-	<?=$this->partial('market/comments.phtml', $this->getVars());?>
+	<?=$this->partial('common/comments.phtml', $this->getVars());?>
 
 	<? if(!(empty($this->userOrdersBuy) && empty($this->userOrdersSell))){?>
 		<h2 class="commentHeader"><?=$this->product->user->username;?> legfrissebb értékelései</h2>

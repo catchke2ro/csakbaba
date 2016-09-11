@@ -38,5 +38,12 @@ class BlogPost extends \CB_Resource_ModelItem {
 	 */
 	public $body;
 
+    public function getComments(){
+        $commentModel=new \CB\Model\Comment();
+        $comments=$commentModel->find(array('conditions'=>array(
+            'post_id'=>$this->id
+        ), 'order'=>'date ASC'));
+        return $comments ? $comments : array();
+    }
 
 }

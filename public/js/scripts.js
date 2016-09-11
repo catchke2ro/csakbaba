@@ -1,6 +1,3 @@
-CKEDITOR.basePath='/js/ckfrontend/';
-CKEDITOR.timestamp='aaaa';
-
 
 function updateRows(){
 	$('.clamp').each(function (index, e){
@@ -94,7 +91,8 @@ $.extend(true, $.magnificPopup.defaults, {
 	tClose: 'Bezárás (Esc)', tLoading: 'Töltés...',
 	gallery: { tPrev: 'Előző (balra nyíl billentyű)', tNext: 'Következő (jobbra nyíl billentyű)', tCounter: '%curr% / %total%' },
 	image: { tError: '<a href="%url%">A kép</a> nem betölthető.' },
-	ajax: {	tError: '<a href="%url%">A tartalom</a> nem betölthető.' }
+	ajax: {	tError: '<a href="%url%">A tartalom</a> nem betölthető.' },
+	fixedContentPos: true
 });
 
 $(document).ready(function(){
@@ -291,6 +289,35 @@ $(document).ready(function(){
 
 
 
+	var commentForm = $('div.commentForm');
+	if(commentForm.length){
+		$('div.commentForm #commentsubscribe').change(function(index, e){
+			var productId=$(this).closest('.productDetails').data('id'), checked=$(this).prop('checked');
+			$.ajax({
+				url: '/index/commentsubscribe?pid='+productId+'&checked='+(checked ? 1 : 0), complete: function(){
+
+				}
+			})
+		});
+		$('div.commentForm form').submit(function(ev){
+			var form=$(this), ul=form.closest('.commentContainer').find('.comments ul');
+			$.ajax({
+				url: '/index/comment', type: 'POST', data: form.serialize(), complete: function(request){
+					ul.append(request.responseText);
+					form[0].reset();
+					setTimeout(function(){
+						ul.find('li').last().removeClass('fresh');
+					}, 500);
+				}
+			});
+			ev.preventDefault();
+			return false;
+		});
+	}
+
+
+
+
 
 
 
@@ -348,14 +375,19 @@ $(document).ready(function(){
 
 	$('div.header div.search').find('input[type=submit]').click(function(ev){
 		if($(this).css('cursor')=='pointer'){
+			ev.preventDefault();
+			ev.stopPropagation();
 			var search=$(this).closest('div.search');
 			search.trigger(search.hasClass('opened') ? 'csbClose' : 'csbOpen');
 			search.toggleClass('opened');
-			ev.preventDefault();
-			//return false;
+			$('input#q').focus();
+			return false;
 		}
 	});
 
+	$('div.header div.search').find('input#q').on('keypress', function(ev){
+		if(ev.which == 13) $(this).closest('form').submit();
+	});
 
 
 
@@ -627,13 +659,17 @@ $(document).ready(function(){
 			};
 		},
 		select: function(event, ui){
-			window.location.href=ui.item.value;
+			//alert(window.location.origin+ui.item.value);
+			window.setTimeout(function(){
+				location.href=window.location.origin+ui.item.value;
+			}, 0);
 			return false;
 		},
 		open: function(event, ui){
 			var input=$(this);
 			ga('send', 'event', 'search', 'autocomplete', input.val());
 			input.data('uiAutocomplete').widget().outerWidth($(event.target).outerWidth());
+			$('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
 		}
 	});
 

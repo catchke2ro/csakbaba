@@ -130,6 +130,12 @@ class User extends \CB_Resource_ModelItem {
 	public $subscribed;
 
 
+	/**
+	 * @ODM\Boolean
+	 */
+	public $blogadmin;
+
+
 	public function getRating($type='avg'){
 		$orderModel=new \CB\Model\Order();
 		$all=$positive=0;

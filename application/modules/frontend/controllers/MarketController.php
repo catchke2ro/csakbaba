@@ -178,64 +178,7 @@ class MarketController extends CB_Controller_Action {
 		));
 	}
 
-	public function commentAction(){
-		$this->getHelper('layout')->disableLayout();
-		if(empty($_POST['product_id'])) die('OK');
-		$productModel=new \CB\Model\Product();
-		if(!($product=$productModel->findOneById($this->_request->getPost('product_id'))) || !$this->user) die();
-		$commentModel=new \CB\Model\Comment();
-		$comment=new \CB\Comment();
-		$comment->saveAll(array(
-			'date'=>date('Y-m-d H:i:s'), 'user'=>$this->user, 'product_id'=>$_POST['product_id'], 'text'=>$_POST['text']
-		));
-		$comment=$commentModel->save($comment);
-		CB_Resource_Functions::logEvent('commentAdded', array('comment'=>$comment));
-		$comment->date=new DateTime($comment->date);
-		if($this->user->get()->id != $product->user->get()->id) {
-            $this->emails->commentProductUser(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
-
-            $subscribed=$this->user->subscribed ? $this->user->subscribed : array();
-            $subscribed[]=$product->id;
-            $this->user->subscribed=array_values(array_unique($subscribed));
-            $this->userModel->save($this->user);
-        }
-
-		$this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
-
-		$this->view->assign(array('comment'=>$comment, 'added'=>true, 'product'=>$product));
-		$this->_helper->viewRenderer('comment');
-	}
-
-	public function commentunsubscribeAction(){
-		$this->getHelper('layout')->disableLayout();
-		$this->getHelper('viewRenderer')->setNoRender(true);
-        if(!(
-            !empty($_GET['uid']) &&
-            !empty($_GET['token']) &&
-            !empty($_GET['pid']) &&
-            ($user = $this->userModel->findOneById($_GET['uid'])) &&
-            $user->getToken() == $_GET['token'] &&
-            ($product = $this->productModel->findOneById($_GET['pid']))
-        )){
-            $this->redirect('/');
-            return;
-        }
-
-		$subscribed=$user->subscribed ? $user->subscribed : array();
-        $flipped=array_flip($subscribed);
-        unset($flipped[$product->id]);
-        $subscribed=array_keys($flipped);
-
-		$user->subscribed=$subscribed;
-		$this->userModel->save($user);
-
-        $categories=Zend_Registry::get('categories');
-        $productLink=$this->url('piac').$categories->getUri($product->category).'/'.$product->id.'/'.$this->functions->slug($product->name);
-
-        $this->m('Sikeresen leiratkoztál a termékről, a továbbiakban nem kapsz értesítést a hozzászólásokról.');
-        $this->redirect($productLink);
-        return;
-	}
+	
 
 
 	public function searchAction(){

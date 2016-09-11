@@ -214,10 +214,12 @@ div.header
         width: percentage(1)
         left: 0
         z-index: 101
-        input[type=text]
+        input[type=search]
           width: percentage(1) !important
           padding: 5px !important
           +transition(width 0.5s, padding 0.5s)
+          margin-top: 0px
+          line-height: 1.6rem
         li.submit
           opacity: 0
     form
@@ -463,3 +465,10 @@ div.subheader
         &:hover
           color: white
           +transition(0.8s)
+
+          
+          
+          
+          
+html.mobile div.search input[type=search]
+  +transition(none !important)

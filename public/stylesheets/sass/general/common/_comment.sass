@@ -1,0 +1,153 @@
+div.commentContainer
+  li.comment
+    padding: 9px
+    +clearFix
+    max-height: 200px
+    position: relative
+    overflow: hidden
+    +transition(max-height 1s, padding 1s)
+    &.fresh
+      padding: 0px 9px
+      max-height: 0px
+    &.moderated
+      opacity: 0.5
+    div.text
+      background-color: $cInputBg
+      width: 87.5%
+      padding: 2%
+      float: left
+      min-height: 100px
+      color: $cPDCommentTextColor
+      font-size: 1.2rem
+      +mq1
+        width: 75%
+      +mq4
+        width: 100%
+        padding-right: 50px
+        height: auto
+        min-height: 50px
+    div.user
+      float: left
+      height: 100px
+      width: 12.5%
+      padding: 1% 0
+      background-color: rgba($cWhite, 0.2)
+      +background-image(linear-gradient(left, $cInputBg 0%, rgba($cWhite, 0.2) 10%))
+      text-align: center
+      +mq1
+        width: 25%
+      +mq4
+        float: none
+        width: 100%
+        height: auto
+        clear: both
+        text-align: right
+        padding: 0px 10px
+      a.username
+        display: block
+        color: $cPDCommentUserColor
+        padding: 2px
+        font-weight: bold
+        text-align: center
+        overflow: hidden
+        font-size: 1.6rem
+        +mq1
+          font-size: 1.4rem
+        +mq4
+          display: inline-block
+          line-height: 2rem
+          vertical-align: middle
+      div.avatar
+        display: block
+        height: 40px
+        padding-left: 0
+        width: 40px
+        margin: 0 auto
+        +mq4
+          position: absolute
+          top: 10px
+          right: 10px
+        
+        img
+          height: 100%
+          max-width: 100%
+      time
+        display: block
+        font-size: 1rem
+        margin-top: 5px
+        +mq4
+          display: inline-block
+          line-height: 2rem
+          vertical-align: middle
+  
+  div.commentForm
+    position: relative
+    padding: 10px
+    form
+      +form
+      ul
+        +clearFix
+        background-color: rgba($cPDCommentFormBg, 0.7)
+      li.field
+        background: none
+      li.textarea
+        height: 100px
+        width: calc(100% - 300px)
+        padding-right: 0px !important
+        float: left
+        +mq2
+          width: calc(100% - 200px)
+        +mq3
+          width: 100%
+          padding-right: 5px !important
+        textarea
+          padding: 5px 10px !important
+          margin: 0px !important
+          width: 100% !important
+          height: 100% !important
+      li.field.note
+        float: left
+        height: 100px
+        padding: 0
+        width: 100px
+        +mq2
+          display: none
+        div
+          width: 100%
+          height: 100%
+          background-size: cover
+          background-position: center center
+      li.field.submit
+        +iconButton($iconSend)
+        float: left
+        min-width: 115px
+        padding: 0
+        height: 100px
+        width: 200px
+        position: relative
+        font-size: 0px
+        margin: 0px
+        &:before
+          display: inline-block
+          box-sizing: border-box
+          height: 100px
+          line-height: 100px
+          width: 40%
+          margin: 0px
+          padding: 0px 10px 0px 20px
+        +mq3
+          width: 100%
+          height: 50px
+          &:before
+            height: 50px
+            line-height: 50px
+            width: 75px
+        input
+          height: 100%
+          width: 60%
+          font-size: 2.5rem
+          background-color: transparent
+          +mq2
+            font-size: 2rem
+          +mq3
+            width: calc(100% - 75px)

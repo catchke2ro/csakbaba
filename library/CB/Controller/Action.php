@@ -141,6 +141,7 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
                         ->appendFile('/js/scripts.js')
 						->appendFile('/js/home.js')
 						->appendFile('/js/products.js')
+						->appendFile('/js/blog.js')
 						->appendFile('/js/usershop.js')
 						->appendFile('/js/userorders.js')
 						->appendFile('/js/uploader.js')
