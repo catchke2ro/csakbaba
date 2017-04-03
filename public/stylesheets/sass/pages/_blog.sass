@@ -58,6 +58,40 @@
         font-weight: normal
       h1
         font-size: 3rem
+    
+
+  .relatedPosts
+    margin: 20px 0px
+    ul
+      +clearFix
+      li
+        float: left
+        width: percentage(1/3)
+        padding: 10px
+        cursor: pointer
+        +mq2
+          width: 100%
+        .relatedInner
+          position: relative
+          padding-top: 80px
+          overflow: hidden
+          background-color: rgba($colAlter, 0.4)
+        .teaser
+          height: 0px
+          overflow: hidden
+        .postTitle
+          position: absolute
+          top: 50%
+          +transform(translateY(-50%))
+          left: calc(#{percentage(1/3)} + 10px)
+          font-size: 1.6rem
+          width: calc(#{percentage(2/3)} - 20px)
+        img
+          position: absolute
+          top: 0px
+          left: 0px
+          width: percentage(1/3) !important
+          height: auto !important
 
 .blogSidebar
   float: left
@@ -85,7 +119,7 @@
     padding-bottom: 1%
     font-weight: bold
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
-  p, li
+  p, li, div
     font-size: 1.6rem
     line-height: 2.2rem
     text-align: justify
@@ -175,6 +209,8 @@
     
   
     
+  
+    
     
 .blogComments
   
@@ -222,4 +258,7 @@
       height: auto
       & > .cke
         height: auto
+        
+        
+  
       

@@ -119,7 +119,8 @@ class MarketController extends CB_Controller_Action {
 		));
 		$this->_helper->viewRenderer('product_list_partial');
 	}
-
+	
+	
 	public function productAction(){
 		$categoryTree=Zend_Registry::get('categories');
 		$product=$this->productModel->findOneById($this->getParam(1));
@@ -135,7 +136,7 @@ class MarketController extends CB_Controller_Action {
 		$commentForm=new Frontend_Form_Comment();
 		$commentForm->getElement('product_id')->setValue($product->id);
 
-		$userProducts=$product->user->getProducts(true, 10, array(1));
+		$userProducts=$product->user ? $product->user->getProducts(true, 10, array(1)) : [];
 
 		$orderModel=new \CB\Model\Order();
 		$userOrdersBuy=$orderModel->find(array('conditions'=>array('user._id'=>new \MongoId($product->user->get()->id), 'user_rating.$id'=>array('exists'=>true)), 'limit'=>2, 'order'=>'date DESC'));
@@ -177,6 +178,40 @@ class MarketController extends CB_Controller_Action {
 			'category'=>$catMultiArray[$key]
 		));
 	}
+    
+    
+    
+    public function getrandomproductsAction(){
+        $this->getHelper('layout')->disableLayout();
+        $categoryTree=Zend_Registry::get('categories');
+        
+        $count = !empty($_GET['count']) ? $_GET['count'] : 1;
+        
+        if($count == 'fullRow'){
+            $count = 5;
+            if(!empty($_COOKIE['resolution'])){
+                $res=$_COOKIE['resolution'];
+                foreach(\CB\Model\Product::$smallRowSizes as $limit=>$rs){
+                    if($res >= $limit) $count = $rs;
+                }
+            }
+        }
+    
+        $productModel = new \CB\Model\Product();
+        $random=$productModel->getRandom($count);
+    
+        if(!empty($_GET['partialOptions']) && ($partialOptions = json_decode($_GET['partialOptions'], true))){
+            foreach($partialOptions as $poKey => $poValue){
+                $this->view->assign($poKey, $poValue);
+            }
+        }
+        
+        $this->view->assign(array(
+            'products'=>$random,
+            'categoryTree'=>$categoryTree,
+        ));
+        $this->_helper->viewRenderer('product_list_partial');
+    }
 
 	
 

@@ -35,7 +35,7 @@ class Frontend_Form_UserEdit extends CB_Form_Form {
 		$passwordConfirm->setLabel('Új jelszó megerősítése')->addValidators(array(array('Alnum',true),array($passwordCb,true)))->setAttrib('autocomplete', 'off')->setAttrib('class', 'newPswd hidden');
 
 		$desc=new Zend_Form_Element_Textarea('desc');
-		$desc->setLabel('Leírás')->setAttrib('class', 'ck');
+		$desc->setLabel('Leírás')/*->setAttrib('class', 'ck')*/;
 		$avatar=new CB_Form_Element_Upload('avatar');
 		$avatar->setLabel('Kép feltöltése')->setTargetDir('/upload/avatar');
 		$avatar->buttonLabel='Kép feltöltése';

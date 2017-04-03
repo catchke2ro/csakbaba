@@ -66,6 +66,7 @@ class Zend_Http_UserAgent_Features_Adapter_Browscap implements Zend_Http_UserAge
      */
     public static function getFromRequest($request, array $config)
     {
+        //debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
         $browscap = get_browser($request['http_user_agent'], true);
         $features = array();
         foreach ($browscap as $key => $value) {

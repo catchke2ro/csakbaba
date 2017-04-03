@@ -147,3 +147,4 @@ function charMapReplace(text){
 			.replace(new RegExp('[ÝŸŶ]', 'g'), 'Y')
 			.replace(new RegExp('[ýÿŷ]', 'g'), 'y')
 }
+

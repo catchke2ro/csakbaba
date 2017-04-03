@@ -15,7 +15,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
-ini_set('browscap', APPLICATION_PATH.'/../library/php_browscap.ini');
+//ini_set('browscap', APPLICATION_PATH.'/../library/php_browscap.ini');
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
@@ -24,10 +24,22 @@ ini_set('display_errors', true);
 ini_set('display_startup_errors', true);
 if(!empty($_COOKIE['SRGDEV'])){
 	//ini_set('max_execution_time', 480);
+    if(isset($_GET['sd31641'])){
+        session_start();
+        session_destroy();
+        die();
+    }
+}
+
+if(isset($_GET['sd31641'])){
+    session_start();
+    session_destroy();
+    die();
 }
 
 define('DEV', strpos($_SERVER['HTTP_HOST'], 'dev.') !== false);
 define('ANALYTICS_ID', DEV ? 'UA-48324090-2' : 'UA-48324090-1');
+
 
 
 require_once APPLICATION_PATH.'/../library/Zend/Loader/AutoloaderFactory.php';

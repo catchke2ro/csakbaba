@@ -25,7 +25,7 @@
 		    <? $genreTypes=Zend_Registry::get('genreTypes');?>
 		    <span class="option">
 			    <link itemprop="itemCondition" href="http://schema.org/<?=$this->product->new ? 'New' : 'Used';?>Condition"/>
-			    <strong><?=$this->product->new ? 'Új' : 'Használt';?>, <?=$genreTypes[$this->product->type]?></strong>
+			    <strong><?=$this->product->new ? 'Új' : 'Használt';?><? ($this->product->type ? ', '.$genreTypes[$this->product->type] : '');?></strong>
 		    </span>
 		    <span class="option">
 			    <strong>Feltöltve</strong>: <?=$this->product->date_added->format('Y.m.d H:i');?>

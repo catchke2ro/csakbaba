@@ -133,7 +133,7 @@ class CB_Resource_Payment {
 		$paymentStateResponse=$payment->getPaymentState($this->payment->bpid);
 		$this->payment->barion_data=$paymentStateResponse->rawResponse;
 
-		if($paymentStateResponse->getStatus()=='Succeeded'){
+		if($paymentStateResponse->getStatus()=='Succeeded' && $this->payment->status != 2){
 			$this->payment->status=2;
 			$this->_userBalance();
 			$this->_billingoInvoice();

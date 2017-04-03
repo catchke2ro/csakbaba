@@ -74,6 +74,7 @@ class IndexController extends CB_Controller_Action {
 		$this->view->headMeta()->setName('description', 'Hasznos cikkek információk a csakbaba.hu oldalról, és minden kismamának, szülőnek szóló témáról');
 		if(!empty($ep) && ($post=$postModel->findOneBy('slug', reset($ep)))){
 			$random=$productModel->getRandom(5);
+            $relatedPosts = $postModel->getRelated(3, [$post->id]);
 			$this->view->headMeta()->setName('description', substr(strip_tags($post->teaser), 0, 160).'...');
 			$categoryTree=Zend_Registry::get('categories');
             
@@ -86,7 +87,8 @@ class IndexController extends CB_Controller_Action {
                 'categoryTree'=>$categoryTree,
                 'commentForm'=>$commentForm,
                 'comments'=>$post->getComments(),
-                'user'=>$this->user
+                'user'=>$this->user,
+                'relatedPosts'=>$relatedPosts
             ));
 			$this->_helper->viewRenderer('blogpost');
 			$this->view->headTitle()->prepend($post->title);
@@ -198,6 +200,9 @@ class IndexController extends CB_Controller_Action {
             }
     
             $this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$item->user->get(), 'product'=>$item));
+        } else {
+            $users = $this->userModel->find(['conditions'=>['blogadmin'=>true]]);
+            $this->emails->blogCommentNotification(array('comment'=>$comment, 'users'=>$users, 'post'=>$item));
         }
         
         $this->view->assign(array('comment'=>$comment, 'added'=>true, 'product'=>$item));
@@ -234,7 +239,6 @@ class IndexController extends CB_Controller_Action {
         $this->redirect($productLink);
         return;
     }
-    
     
     
     

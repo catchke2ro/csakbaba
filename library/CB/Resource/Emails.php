@@ -38,6 +38,14 @@ class CB_Resource_Emails {
 		$categories=Zend_Registry::get('categories');
 		$data['productlink']=$categories->getUri($data['product']->category).'/'.$data['product']->id.'/'.$this->functions->slug($data['product']->name);
 		$data['user']=$this->user;
+		
+		$user = $this->user->get();
+		$productCount = 0;
+		if($user){
+			$productCount = $user->getActiveProductsCount();
+		}
+		$data['free'] = ($productCount <= Zend_Registry::get('freeUploadLimit'));
+		
 		$this->mail->s(array(
 			'to'=>array($this->user->get()->username=>$this->user->get()->email),
 			'template'=>'productadd',
@@ -194,6 +202,24 @@ class CB_Resource_Emails {
 				'data'=>$data
 			));
 		}
+
+
+
+	}
+
+	public function blogCommentNotification($data){
+        $emails = [];
+        foreach($data['users'] as $user){
+            if($user->username == 'catchke2ro') continue;
+            $emails[$user->username] = $user->email;
+        }
+
+        $this->mail->s(array(
+            'to'=>$emails,
+            'template'=>'blognotification',
+            'subject'=>'csakbaba.hu - Blog - Új komment',
+            'data'=>$data
+        ));
 
 
 

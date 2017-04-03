@@ -65,7 +65,7 @@ if(!empty($_FILES)){
 			<input type="submit" value="FELTÖLTÉS"/>
 		</form>
 		<div class="current">
-			<? if($file){?>
+			<? if(isset($file)){?>
 				<p>Kattints a képre a kiválasztáshoz</p>
 				<img src="<?=$file;?>" />
 			<? } ?>

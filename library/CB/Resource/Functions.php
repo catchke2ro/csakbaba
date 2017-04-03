@@ -19,7 +19,7 @@ class CB_Resource_Functions extends Zend_Application_Resource_ResourceAbstract {
 
 
 	static function logEvent($eventName, $params=array()){
-		return; 
+		//return;
 		$logModel=new \CB\Model\Log();
 		$log=new \CB\Log();
 		$log->event_name=$eventName;

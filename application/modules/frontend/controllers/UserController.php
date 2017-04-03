@@ -21,6 +21,10 @@ class UserController extends CB_Controller_Action {
 		$user=$this->userModel->findOneById($identity['id']);
 		$userArray=get_object_vars($user);
 		$form=new Frontend_Form_UserEdit();
+		
+		if(!empty($userArray['desc'])){
+			$userArray['desc'] = strip_tags($userArray['desc']);
+		}
 		$form->populate($userArray);
 		$form->getElement('old_email')->setValue($user->email);
 
@@ -335,7 +339,16 @@ class UserController extends CB_Controller_Action {
  		$result=$authAdapter->slogin($s, $suser);
 		if($result===false) $this->m('A fiókoddal nem lehet bejelentkezni (pl. nem megfelelő e-mail cím miatt). Ellenőrizd e-mail címed a fiókodban!', 'error');
 		else $this->m('Sikeres bejelentkezés');
+        
 		$url=(!empty($sloginSession->r) ? $sloginSession->r : $this->url('adatmodositas'));
+        
+        $redirectSession = new Zend_Session_Namespace('loginRedirect');
+        $cassaSession = new Zend_Session_Namespace('cassa');
+        
+        $url=(!empty($cassaSession->id) ? $this->url('vasarlas') : (!empty($redirectSession->r) ? $redirectSession->r : $this->url('adamodositas')));
+        
+        $redirectSession->unsetAll();
+        
 		$this->redirect($url);
 	}
 

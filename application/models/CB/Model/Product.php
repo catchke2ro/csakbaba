@@ -243,5 +243,14 @@ class Product extends \CB_Resource_Model{
 		1181=>5,
 		1601=>7
 	);
+    
+	static $smallRowSizes=array(
+		0=>2,
+		401=>3,
+		801=>4,
+		961=>5,
+		1181=>6,
+		1601=>7
+	);
 
 }

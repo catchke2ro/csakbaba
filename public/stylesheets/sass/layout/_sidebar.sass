@@ -17,11 +17,18 @@
     .sidebarButtons .stick_it a
       background-image: url(/img/elements/pin2.png)
 
-  &.slided, &.stick
+  &.slided
     left: -40px
     +transition(left 0.4s 0.2s)
     +mq2
       left: 0px
+      
+  @media (min-width: 801px)
+    &.stick
+      left: -40px
+      +transition(left 0.4s 0.2s)
+      +mq2
+        left: 0px
 
 
 

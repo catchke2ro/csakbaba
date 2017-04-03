@@ -1,5 +1,5 @@
-php_flag opcache.enable Off
-
+#php_flag opcache.enable Off
+#php_value browscap /home/csakbaba/etc/php_browscap.ini
 
 RewriteEngine On
 

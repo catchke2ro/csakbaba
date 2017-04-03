@@ -20,20 +20,29 @@
         <?=$this->partial('common/comments.phtml', $this->getVars());?>
     </div>
     
-    <div class="buttonBack"><a href="<?=$this->url('blog');?>"> Vissza a blog főoldalára </a></div>
+    <div class="relatedPosts">
+        <ul>
+        <? foreach($this->relatedPosts as $relatedPost){?>
+            <li data-url="<?=$this->url('blog').'/'.$relatedPost->slug;?>">
+                <div class="relatedInner">
+                    <p class="postTitle"><?=$relatedPost->title;?></p>
+                    <div class="teaser"><?=$relatedPost->teaser;?></div>
+                </div>
+            </li>
+        <? } ?>
+        </ul>
+    </div>
+    
+    <div class="buttonBack"><a href="<?=$this->url('blog');?>"> további cikkek </a></div>
     
     <br />
     <br />
     
     <div class="lists">
 		<div class="listsInner">
-			<div class="fresh list">
+			<div class="fresh list lazyRandom" data-partialoptions='{"back":false,"fix":false,"nameTag":"h4"}'>
 				<div class="productList">
 					<ul class="products">
-
-						<? foreach($this->random as $product){?>
-							<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false, 'nameTag'=>'h4')));?>
-						<? } ?>
 
 					</ul>
 				</div>
