@@ -131,6 +131,12 @@ $(function(){
 			window.parent.$.magnificPopup.close();
 		});
 
+		$(document).on('click', 'div.productEditAddForm .formActions a', function(ev){
+			var a = $(this), peaf = a.closest('div.productEditAddForm');
+			if(a.hasClass('save')) peaf.find('.form > form .field.submit input').click();
+			else peaf.find('.form > form .cancelButton button').click();
+		});
+
 		$(document).on('submit', 'div.productEditAddForm > .form > form', function(ev){
 			var formElement=this;
 			$('.formLoad').addClass('show');

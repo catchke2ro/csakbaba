@@ -305,6 +305,8 @@ class UserController extends CB_Controller_Action {
 				$notifyUser=$this->user->id==$order->user->id ? $order->shop_user : $order->user;
 				CB_Resource_Functions::addFeed('newRating', $notifyUser->get(), $rating->product);
 				$this->getHelper('viewRenderer')->setNoRender(true);
+			} else {
+				$this->_response->setHttpResponseCode(400);
 			}
 		}
 	}

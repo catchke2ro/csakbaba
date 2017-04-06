@@ -13,7 +13,8 @@ class Frontend_Form_Rating extends CB_Form_Form {
 		$positive=new Zend_Form_Element_Radio('positive');
 		$positive->setLabel('Felhasználó értékelése')->setRequired(true)->setMultiOptions(array(0=>'Negatív', 1=>'Pozitív'));
 		$text=new Zend_Form_Element_Textarea('text');
-		$text->setLabel('Szöveges értékelés');
+		$text->setAttrib('placeholder', 'Szöveges értékelés');
+		$text->removeDecorator('Label');
 		$oid=new Zend_Form_Element_Hidden('oid');
 		$oid->removeDecorator('label')->setValue($this->oid);
 		$submit=new Zend_Form_Element_Submit('Értékelés elküldése');
