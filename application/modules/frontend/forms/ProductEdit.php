@@ -160,6 +160,7 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 		}
         if(!empty($values['promotes']) && !$copy){
             foreach($values['promotes'] as $type=>$date){
+            	if($date < time()) continue;
                 $this->getElement('promote_types')->removeMultiOption($type);
             }
         }

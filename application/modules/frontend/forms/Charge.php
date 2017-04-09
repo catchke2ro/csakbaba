@@ -5,7 +5,6 @@ class Frontend_Form_Charge extends CB_Form_Form {
 
 	public function initFields(){
 	    $min = Zend_Registry::get('minCharge');
-	    $min = 100;
 	    
 		$amount=new CB_Form_Element_Number('amount');
 		$amount->setAttrib('placeholder', 'összeg')->removeDecorator('label');

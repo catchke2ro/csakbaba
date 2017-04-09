@@ -40,6 +40,12 @@ body
   background-repeat: repeat
   background-attachment: fixed
   font-size: 1.6rem
+  
+html.iframe
+  &, & body
+    height: 100%
+    overflow: auto
+    -webkit-overflow-scrolling: touch
 
 body.noScroll
   position: fixed

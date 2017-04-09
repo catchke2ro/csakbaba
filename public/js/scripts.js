@@ -104,6 +104,10 @@ $(document).ready(function(){
 	window.scrollEventItem = window.isMobile ? 'body' : window;
 	window.scrollEvent = window.isMobile ? 'touchmove' : 'scroll';
 
+	if(window.self !== window.top){
+		$('html').addClass('iframe');
+	}
+
 	initSelect2($('body'));
 
 
