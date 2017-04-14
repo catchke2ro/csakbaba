@@ -233,6 +233,14 @@ $(document).ready(function(){
 		if($(ev.target).is($(this))) $(this).find('input').click();
 	});
 
+	$(document).on('click', '.collapseOpenButtonFieldset li.field.button', function(){
+		var button = $(this).find('button'), form = button.closest('form'), fsClass = button.attr('name').replace('Button', '');
+		var fs = form.find('li.fieldset.'+fsClass), openedInput = fs.find('input[name='+fsClass+'opened]');
+		$(this).closest('li.fieldset').toggleClass('active');
+		fs.toggleClass('hidden');
+		if(openedInput.length) openedInput.val(fs.hasClass('hidden') ? 0 : 1);
+	});
+
 	/**
 	 * Selector
 	 */

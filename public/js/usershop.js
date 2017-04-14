@@ -138,13 +138,7 @@ $(function(){
 
 
 
-		$(form).on('click', 'button[name=moreButton], button[name=promoteButton]', function(){
-			var button = $(this), fsClass = button.attr('name').replace('Button', '');
-			var fs = form.find('li.fieldset.'+fsClass), openedInput = fs.find('input[name='+fsClass+'opened]');
-			$(this).closest('li.fieldset').toggleClass('active');
-			fs.toggleClass('hidden');
-			if(openedInput.length) openedInput.val(fs.hasClass('hidden') ? 0 : 1);
-		});
+
 
 		$(document).on('click', 'div.productEditAddForm li.cancelButton button', function(){
 			window.parent.$.magnificPopup.close();

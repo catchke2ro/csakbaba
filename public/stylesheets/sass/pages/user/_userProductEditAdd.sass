@@ -49,6 +49,7 @@ div.productEditAddForm
         width: 50%
 
   +form
+  +formWidthCollapseFieldsets
   form > ul
     +clearFix
   li.fieldset
@@ -63,48 +64,6 @@ div.productEditAddForm
   .formLoad.show
     +loading
 
-
-
-  li.fieldset.moreButtonFieldset, li.fieldset.promoteButtonFieldset
-    width: 100%
-    text-align: center
-    padding-bottom: 0px
-    li.button
-      +iconButton($iconAdd, false, false, 30px, 1.4rem)
-      height: auto
-      margin-bottom: 0px
-      width: 50%
-      +transition(width 0.5s 0.5s)
-    li.note
-      display: block
-      padding: 0px
-      width: 50%
-      margin: 0px auto
-      max-height: 200px
-      overflow: hidden
-      +transition(max-height 0.5s 0.5s)
-      +mq3
-        width: 95%
-      p.infoText
-        font-size: 1.2rem
-    &.active
-      li.button
-        width: 100%
-        +transition(width 0.5s)
-      li.note
-        max-height: 0px
-        +transition(max-height 0.5s)
-
-  li.fieldset.more, li.fieldset.promote
-    overflow: hidden
-    max-height: 1000px
-    padding-top: 0px
-    padding-bottom: 0px
-    +transition(max-height 0.5s 0.5s)
-    &.hidden
-      display: block
-      max-height: 0px
-      +transition(max-height 0.5s)
 
   li.fieldset.promoteButtonFieldset
     li.button

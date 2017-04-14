@@ -33,10 +33,17 @@ $(function(){
 
 		$('div.addToCart a').click(function(ev){
 			var a=$(this), div=a.parent();
-			if(!div.hasClass('haveToLogin')){
+
+			if(div.hasClass('haveToLogin')){
+				ev.preventDefault();
+				$('div.header .loginLink .login').click();
+				$('div.header .loginreg .infoText').text(div.data('info')).addClass('visible');
+				return false;
+			} else {
 				div.siblings('.cassa').addClass('opened');
 			}
 		});
+
 
 		$('div.cassaSubmit').find('input[type=submit]').click(function(ev){
 			var submit=$(this);

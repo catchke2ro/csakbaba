@@ -123,7 +123,8 @@ class UserController extends CB_Controller_Action {
 		if($this->getRequest()->isPost()){
 			CB_Resource_Functions::logEvent('userRegistrationStarted');
 			if($form->isValid($this->getRequest()->getPost())){
-				$data=$this->getRequest()->getPost();
+				$data = $form->getValues();
+				
 				if($data['newsletter']){
 					$mc=new CB_Resource_Mailchimp();
 					$mc->subscribe($data['email'], array('NAME'=>$data['username']));

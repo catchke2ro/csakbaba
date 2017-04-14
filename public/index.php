@@ -74,5 +74,6 @@ $application = new Zend_Application(
 );
 $application->bootstrap()
             ->run();
-//memprof_dump_callgrind(fopen("../tmp/callgrind.out", "w"));
-//memprof_dump_pprof(fopen("../tmp/profile.heap", "w"));
+
+//memprof_dump_callgrind(fopen("/tmp/cachegrindout/cachegrind.out.csb_memory_".time(), "w"));
+//memprof_dump_pprof(fopen("/tmp/cachegrindout/profile.csb_memory.heap", "w"));

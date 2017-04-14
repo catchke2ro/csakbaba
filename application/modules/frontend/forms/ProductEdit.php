@@ -95,11 +95,11 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
 
 		$this->addDisplayGroup(array('name','price','images'),'generalleft');
 		$this->addDisplayGroup(array('desc'),'generalright');
-		$this->addDisplayGroup(['moreButton','moreButtonInfo'],'moreButtonFieldset');
-		$this->addDisplayGroup(array_merge(['moreopened'], $ids, ['type']),'more1', null, 'hidden more');
-		$this->addDisplayGroup(array('new','deliveries','autorenew'),'more2', null, 'hidden more');
-        $this->addDisplayGroup(['promoteButton','promoteButtonInfo'],'promoteButtonFieldset');
-        $this->addDisplayGroup(array('promote_types', 'promote_hint'),'hidden promote');
+		$this->addDisplayGroup(['moreButton','moreButtonInfo'],'moreButtonFieldset', null, 'collapseOpenButtonFieldset');
+		$this->addDisplayGroup(array_merge(['moreopened'], $ids, ['type']),'more1', null, 'hidden more collapseOpenFieldset');
+		$this->addDisplayGroup(array('new','deliveries','autorenew'),'more2', null, 'hidden more collapseOpenFieldset');
+        $this->addDisplayGroup(['promoteButton','promoteButtonInfo'],'promoteButtonFieldset', null, 'collapseOpenButtonFieldset');
+        $this->addDisplayGroup(array('promote_types', 'promote_hint'),'hidden promote collapseOpenFieldset');
 
 
 
