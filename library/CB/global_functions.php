@@ -45,7 +45,7 @@ function shutdown() {
 		if(empty($_COOKIE['SRGDEV'])){
 			if(ob_get_length()) ob_clean();
 		}
-		echo file_get_contents(APPLICATION_PATH.'/../public/500.html');
+		//echo file_get_contents(APPLICATION_PATH.'/../public/500.html');
 	}
 }
 

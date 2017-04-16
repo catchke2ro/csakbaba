@@ -170,15 +170,17 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
     public function setProduct($product, $copy = false){
         if(!$product) return $this;
         $this->product = $product;
-        $this->populate(get_object_vars($product), $copy);
+        
+        $vars = get_object_vars($product);
+        if(!empty($vars['desc'])) $vars['desc'] = strip_tags($vars['desc']);
+        $this->populate($vars, $copy);
         if($copy){
             $this->getElement('id')->setValue('');
             $this->getElement('images')->setValue('');
         }
         return $this;
     }
-
-
+    
     public function processDescription($user){
         $userActiveProductsCount=$user->getActiveProductsCount();
     

@@ -235,7 +235,7 @@ function afterProductEditFormLoad(formDiv, request){
 	formDiv.addClass('opened');
 	formDiv.siblings('.formActions').addClass('opened');
 	$('html, body').animate({ scrollTop: formDiv.offset().top-100	}, 500);
-	if(!window.isMobile) formDiv.find('textarea').ckeditor();
+	//if(!window.isMobile) formDiv.find('textarea').ckeditor();
 	initRange(formDiv);
 	initTooltip(formDiv);
 	formDiv.find('.fieldset.promote input[type=checkbox]').trigger('change');
