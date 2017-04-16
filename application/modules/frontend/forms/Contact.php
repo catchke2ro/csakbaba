@@ -16,10 +16,10 @@ class Frontend_Form_Contact extends CB_Form_Form {
 		$text=new Zend_Form_Element_Textarea('text');
 		$text->setLabel('szöveg')->setAttribs(array('placeholder'=>$text->getLabel(), 'required'=>'required'))->setRequired(true);
 		$text->addValidator(new Zend_Validate_NotEmpty());
-		$captchaOptions=Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('captchaOptions');
-		$captchaOptions['width']=100;
-		$captcha=new Zend_Form_Element_Captcha('captcha', array('captcha'=>new CB_Form_ImageCaptcha($captchaOptions)));
-		$captcha->setLabel('Írd be az ellenőrzőkódot')->setAttrib('required', 'required');
+		
+		$captcha=new CB_Form_Element_ReCaptcha('captcha', []);
+		$captcha->setRequired(true)->setValidators(array(new CB_Form_Validator_ReCaptcha()));
+		
 		$submit=new Zend_Form_Element_Submit('Küldés');
 		$submit->removeDecorator('label');
 

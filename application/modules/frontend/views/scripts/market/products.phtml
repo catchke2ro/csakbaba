@@ -10,6 +10,6 @@
 	</ul>
 	<div class="productAfterListLoad"><div></div><div></div><div></div><div></div><div></div></div>
 	<div class="moreProducts"><a href="javascript:void(0);">további termékek <span class="productsUntil"></span></a></div>
-	<div class="productUploadLink"><a href="<?=$this->url('felhasznalotermekek');?>?uj&cid=<?=$this->category->id;?>">Feltöltök egy terméket én is!</a></div>
+	<div class="productUploadLink"><a href="<?=$this->url('felhasznalotermekek');?>?uj<?=$this->category ? '&cid='.$this->category->id : '';?>">Feltöltök egy terméket én is!</a></div>
 
 </div>

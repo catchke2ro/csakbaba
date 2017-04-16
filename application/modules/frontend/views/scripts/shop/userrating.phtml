@@ -8,9 +8,9 @@
 	<? $showBoth=isset($this->showBoth) && $this->showBoth;?>
 
 	<? if($showBoth || (!$this->seller && $hideOwn)){?>
-		<? if($this->o->$firstProp){?>
-            <div class="userRating">
-                <h4>Te értékelésed</h4>
+        <div class="userRating">
+            <h4>Te értékelésed</h4>
+            <? if($this->o->$firstProp){?>
                 <div class="table">
                     <div class="row">
                         <strong>Értékelés dátuma:</strong>
@@ -29,14 +29,16 @@
                         <p><?=$this->o->$firstProp->text;?></p>
                     </div>
                 </div>
-            </div>
-		<? } ?>
+            <? } else { ?>
+                <div class="table n_a"><div class="row"><p>Még nem adott le értékelést.</p></div></div>
+            <? } ?>
+        </div>
 	<? } ?>
 
 	<? if($showBoth || ($this->seller && $hideOwn)){?>
-		<? if($this->o->$secondProp){?>
-            <div class="shopUserRating">
-                <h4><?=$username;?> értékelése</h4>
+        <div class="shopUserRating">
+            <h4><?=$username;?> értékelése</h4>
+            <? if($this->o->$secondProp){?>
                 <div class="table">
                     <div class="row">
                         <strong>Értékelés dátuma:</strong>
@@ -55,8 +57,10 @@
                         <p><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?></p>
                     </div>
                 </div>
-            </div>
-		<? } ?>
+            <? } else { ?>
+                <div class="table n_a"><div class="row"><p>Még nem adott le értékelést.</p></div></div>
+            <? } ?>
+        </div>
 	<? } ?>
 
 </div>

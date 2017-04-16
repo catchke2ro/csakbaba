@@ -140,7 +140,10 @@ class IndexController extends CB_Controller_Action {
 
 	public function contactAction(){
 		$form=new Frontend_Form_Contact();
-
+		
+		$this->view->minifyHeadScript()->appendFile('https://www.google.com/recaptcha/api.js');
+		
+		
 		if($this->_request->isPost()){
 			CB_Resource_Functions::logEvent('contactSend');
 			if($form->isValid($this->_request->getPost())){

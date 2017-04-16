@@ -35,7 +35,8 @@
 	<? } else { ?>
 		<div class="loginLink"><a href="javascript:void(0)" class="login">Bejelentkezés</a></div>
 		<div class="loginreg">
-			<div class="socialLogin">
+            <p class="infoText highlighted"></p>
+            <div class="socialLogin">
 				<a href="/slogin?s=fb&amp;r=<?=urlencode(Zend_Controller_Front::getInstance()->getRequest()->getUri());?>" class="fb" title="Bejelentkezés Facebook fiókkal">Bejelentkezés Facebook fiókkal</a>
 				<a href="/slogin?s=gp&amp;r=<?=urlencode(Zend_Controller_Front::getInstance()->getRequest()->getUri());?>" class="gp" title="Bejelentkezés Goggle fiókkal">Bejelentkezés Goggle fiókkal</a>
 			</div>

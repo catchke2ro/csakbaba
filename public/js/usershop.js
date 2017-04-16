@@ -66,16 +66,35 @@ $(function(){
 		productFilter.find('a').click(function(){
 			$(this).toggleClass('active');
 			userFilterProducts(productFilter, userProductList);
+
+			var checkedStatuses = [];
+			productFilter.find('.statusButton').each(function(index, e2){
+				if($(e2).hasClass('active')) checkedStatuses.push($(e2).data('status'));
+			});
+
+			if(checkedStatuses.length){
+				$.cookie('userShopProductsFilter', checkedStatuses.join(','), {expires: 1, path: '/'})
+			}
 		});
 
 		var textFilterTimeout;
 		productFilter.find('.textFilter input').on('keyup', function(){
 			clearTimeout(textFilterTimeout);
 			textFilterTimeout=setTimeout(function(){
-				userFilterProducts(productFilter, userProductList);
+				userFilterProducts(productFilter, userProductList, null, 'userShopProductsFilter');
 			}, 300);
 
 		});
+
+		var checkedStatuses = '1';
+		if($.cookie('userShopProductsFilter')) checkedStatuses = $.cookie('userShopProductsFilter');
+		checkedStatuses = checkedStatuses.split(',');
+
+		productFilter.find('.statusButton').removeClass('active');
+		checkedStatuses.forEach(function(status){
+			productFilter.find('a.s'+status).addClass('active');
+		});
+		userFilterProducts(productFilter, userProductList);
 
 
 		if(window.location.hash.indexOf('uj') !== -1){
@@ -119,16 +138,16 @@ $(function(){
 
 
 
-		$(form).on('click', 'button[name=moreButton], button[name=promoteButton]', function(){
-			var button = $(this), fsClass = button.attr('name').replace('Button', '');
-			var fs = form.find('li.fieldset.'+fsClass), openedInput = fs.find('input[name='+fsClass+'opened]');
-			$(this).closest('li.fieldset').toggleClass('active');
-			fs.toggleClass('hidden');
-			if(openedInput.length) openedInput.val(fs.hasClass('hidden') ? 0 : 1);
-		});
+
 
 		$(document).on('click', 'div.productEditAddForm li.cancelButton button', function(){
 			window.parent.$.magnificPopup.close();
+		});
+
+		$(document).on('click', 'div.productEditAddForm .formActions a', function(ev){
+			var a = $(this), peaf = a.closest('div.productEditAddForm');
+			if(a.hasClass('save')) peaf.find('.form > form .field.submit input').click();
+			else peaf.find('.form > form .cancelButton button').click();
 		});
 
 		$(document).on('submit', 'div.productEditAddForm > .form > form', function(ev){
@@ -144,6 +163,7 @@ $(function(){
 
 					if(request.status!=400){
 						form.html('');
+						$('.formActions').removeClass('opened');
 						window.parent.ga('send', 'event', { 'eventCategory': 'product',	'eventAction': 'add', 'hitCallback': function(){
 							window.parent.location.reload();
 						}});
@@ -202,6 +222,7 @@ function afterSaveBalance(form){
 
 	var basePrice = parseInt(form.data('amount'));
 	var promotePrice = parseInt(form.find('li.fieldset.promote').data('price'));
+	if(!promotePrice) promotePrice = 0;
 	var balance = parseInt(balances.find('span.huf.balance').text());
 
 	var price = balance - (basePrice + promotePrice);
@@ -212,8 +233,9 @@ function afterSaveBalance(form){
 function afterProductEditFormLoad(formDiv, request){
 	formDiv.html(request.responseText);
 	formDiv.addClass('opened');
+	formDiv.siblings('.formActions').addClass('opened');
 	$('html, body').animate({ scrollTop: formDiv.offset().top-100	}, 500);
-	if(!window.isMobile) formDiv.find('textarea').ckeditor();
+	//if(!window.isMobile) formDiv.find('textarea').ckeditor();
 	initRange(formDiv);
 	initTooltip(formDiv);
 	formDiv.find('.fieldset.promote input[type=checkbox]').trigger('change');
@@ -234,7 +256,7 @@ function productEditFormLoad(category_id, product_id, formDiv){
 function userFilterProducts(productFilterDiv, userProductList, func){
 	var me=jQuery(this), ul=userProductList.children('ul'), textFilterInput = productFilterDiv.find('.textFilter input'), q = textFilterInput.length ? textFilterInput.val().trim() : '';
 
-	if(typeof func == 'undefined'){
+	if(typeof func == 'undefined' || !func){
 		func = function(index, e){
 			var product = $(e), status = product.data('status');
 
@@ -252,6 +274,5 @@ function userFilterProducts(productFilterDiv, userProductList, func){
 	};
 
 	ul.find('li').each(func);
-
 
 }

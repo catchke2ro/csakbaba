@@ -33,6 +33,11 @@ p.infoText
   text-align: center
   line-height: 2rem
   font-size: 1.4rem
+  &.highlighted
+    border: 1px solid darken($colAlter, 50%)
+    background-color: rgba($colAlter, 0.9)
+    color: $cWhite
+    font-weight: bold
 
 div.formErrors, p.infoText.error
   @extend p.infoText

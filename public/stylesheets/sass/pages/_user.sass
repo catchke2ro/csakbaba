@@ -316,9 +316,23 @@ div.favourites
 //***************************************************************
 
 div.regForm
+  max-width: 800px
+  form
+    width: 98%
+    +formWidthCollapseFieldsets
+    li.fieldset.collapseOpenButtonFieldset
+      margin-top: 10px
+      li.field.button, li.field.note
+        width: 100%
+        margin-top: 0px
+      li.field.note
+        max-height: 200px !important
+    li.fieldset.collapseOpenFieldset
+      margin-bottom: 10px
+      border-bottom: 1px solid $colAlter
   li.field.checkbox label
     font-size: 1.1rem
-
+    
 //***************************************************************
 //
 //           LOGIN

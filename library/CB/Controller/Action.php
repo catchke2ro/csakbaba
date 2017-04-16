@@ -171,7 +171,6 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		if(strpos($device->getUserAgent(), 'Trident/')!==false) $htmlClass.=' internetexplorer11';
 
 
-
 		$categoryTree=Zend_Registry::get('categories');
 		$catMultiArray=$categoryTree->_multiArray;
 

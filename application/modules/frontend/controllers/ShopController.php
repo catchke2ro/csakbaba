@@ -29,10 +29,6 @@ class ShopController extends CB_Controller_Action {
             $this->redirect($this->_request->getUri().'#'.$hash);
             return;
         }
-		if(!$this->user->isValid()){
-			$this->m('Termékek feltöltéséhez minden szükséges adatot meg kell adnod!', 'error');
-			$this->redirect($this->url('adatmodositas'));
-		}
 		$products=$this->user->getProducts(false, 10, array(0,1,2,3));
 		$activeProducts=array_filter($products, function($item){
 			return $item->status==1;

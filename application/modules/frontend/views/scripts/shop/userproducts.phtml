@@ -12,10 +12,16 @@
 </div>-->
 
 <div class="addNewProductWrapper">
-    <div><a href="javascript:void(0)" class="userAddProduct">Új termék hozzáadása</a></div>
-    <? if($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit')){ ?>
-        <div class="hidden"><a href="<?=$this->url('egyenleg');?>" class="nobalance">Új áru hozzáadásához töltsd fel az egyenleged</a></div>
+    <? if(!$this->user->isValid()){ ?>
+        <p class="infoText error">Termékek feltöltéséhez minden szükséges adatot meg kell adnod!</p>
+        <a href="<?=$this->url('adatmodositas');?>" class="missingDataLink">A hiányzó adatokat <span class="bigger">itt megadhatod</span></a>
+	<? } else { ?>
+        <div><a href="javascript:void(0)" class="userAddProduct">Új termék hozzáadása</a></div>
+		<? if($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit')){ ?>
+            <div class="hidden"><a href="<?=$this->url('egyenleg');?>" class="nobalance">Új áru hozzáadásához töltsd fel az egyenleged</a></div>
+		<? } ?>
     <? } ?>
+    
 
 </div>
 

@@ -48,7 +48,7 @@
 		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
 		  <? if(!$this->user || ($this->user && $this->product->user->get()->id!=$this->user->id)){?>
               <? if(!$this->user){ ?>
-                  <div class="addToCart haveToLogin"><a href="<?=$this->url('bejelentkezes').'?r='.urlencode($_SERVER['REQUEST_URI']);?>">Megveszem</a></div>
+                  <div class="addToCart haveToLogin" data-info="A vásárláshoz be kell jelentkezned!"><a href="javascript:void(0)">Megveszem</a></div>
               <? } else { ?>
                   <div class="addToCart"><a href="javascript:void(0)">Megveszem</a></div>
               <? } ?>

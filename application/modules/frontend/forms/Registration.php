@@ -32,7 +32,36 @@ class Frontend_Form_Registration extends CB_Form_Form {
 		$submit=new Zend_Form_Element_Submit('Regisztráció');
 		$submit->removeDecorator('label');
 
-		$this->addElements(array($username, $email, $password, $passwordConfirm, $captcha, $aszf, $newsletter, $submit));
+		
+		$phone=new Zend_Form_Element_Text('phone');
+		$phone->setLabel('Telefonszám')->setAttrib('autocomplete', 'off')->setAttrib('class', 'maskPhone');
+		$phone->setDescription(self::infoDescription('Vásárláshoz és eladáshoz szükséges. <br />Csak számokat adj meg!'));
+		$postaddressName=new Zend_Form_Element_Text('name');
+		$postaddressName->setLabel('Név');
+		$postaddressZip=new Zend_Form_Element_Text('zip');
+		$postaddressZip->setLabel('Irányítószám')->addValidators(array(array('Digits',true),array('Between',true,'options'=>array('min'=>1000,'max'=>9999))));
+		$postaddressCity=new Zend_Form_Element_Text('city');
+		$postaddressCity->setLabel('Város');
+		$postaddressAddress=new Zend_Form_Element_Text('street');
+		$postaddressAddress->setLabel('Utca, házszám');
+		
+		
+		$this->addElements(array($username, $email, $password, $passwordConfirm, $captcha, $aszf, $newsletter, $phone, $postaddressName, $postaddressZip, $postaddressCity, $postaddressAddress));
+		
+		$moreButton=new Zend_Form_Element_Button('moreButton');
+		$moreButton->setLabel('További adatok');
+		$moreButtonInfo = (new Zend_Form_Element_Note('moreButtonInfo'));
+		$moreButtonInfo->setValue('<p class="infoText">Vásárláshoz és eladáshoz kérlek add meg címedet és telefonszámodat is!</p>');
+		$this->addElements([$moreButton, $moreButtonInfo]);
+		
+		
+		$this->addDisplayGroup(['username','email','password','passwordconfirm'],'base');
+		$this->addDisplayGroup(['moreButton','moreButtonInfo'],'moreButtonFieldset', null, 'collapseOpenButtonFieldset active');
+		$this->addDisplayGroup(array('phone', 'name', 'zip', 'city', 'street'),'collapseOpenFieldset more');
+		$this->addDisplayGroup(['captcha','aszf','newsletter','Regisztráció'],'check');
+		
+		
+		$this->addElements([$submit]);
 	}
 
 	public function passwordConfirm($value, $values){
@@ -48,5 +77,18 @@ class Frontend_Form_Registration extends CB_Form_Form {
 		$userModel=new \CB\Model\User();
 		return !$userModel->findOneByUsername($value);
 	}
-
+	
+	public function getValues($suppressArrayNotation = false){
+		$values = parent::getValues($suppressArrayNotation);
+		
+		if(!empty($values['name'])) $values['postaddress']['name'] = $values['name'];
+		if(!empty($values['zip'])) $values['postaddress']['zip'] = $values['zip'];
+		if(!empty($values['city'])) $values['postaddress']['city'] = $values['city'];
+		if(!empty($values['street'])) $values['postaddress']['street'] = $values['street'];
+		
+		unset($values['name'], $values['zip'], $values['city'], $values['street']);
+		
+		return $values;
+	}
+	
 }

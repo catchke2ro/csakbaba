@@ -17,8 +17,11 @@ $(function(){
 			$.ajax({
 				url: '/user/ratingform?oid='+me.closest('li.product').data('orderid')+'&seller='+me.closest('li.product').data('seller'),
 				type: 'POST', data: me.closest('form').serialize(),
-				complete: function(request){
-					rating.html(request.responseText);
+				success: function(responseText){
+					window.location.reload();
+				},
+				error: function(xhr){
+					rating.html(xhr.responseText);
 				}
 			});
 			ev.preventDefault();
