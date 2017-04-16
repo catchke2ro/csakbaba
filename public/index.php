@@ -1,5 +1,5 @@
 <?php
-//memprof_enable();
+memprof_enable();
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
@@ -46,9 +46,9 @@ require_once APPLICATION_PATH.'/../library/Zend/Loader/AutoloaderFactory.php';
 require_once APPLICATION_PATH.'/../library/Zend/Loader/ClassMapAutoloader.php';
 Zend_Loader_AutoloaderFactory::factory(
 				array(
-								/*'Zend_Loader_ClassMapAutoloader' => array(
+								'Zend_Loader_ClassMapAutoloader' => array(
 												__DIR__.'/../library/classmap.php'
-								),*/
+								),
 								'Zend_Loader_StandardAutoloader' => array(
 												'prefixes' => array(
 													'Zend'=>APPLICATION_PATH.'/../library/Zend',
@@ -75,5 +75,6 @@ $application = new Zend_Application(
 $application->bootstrap()
             ->run();
 
+var_dump(memory_get_usage() / (1024*1024));
 //memprof_dump_callgrind(fopen("/tmp/cachegrindout/cachegrind.out.csb_memory_".time(), "w"));
-//memprof_dump_pprof(fopen("/tmp/cachegrindout/profile.csb_memory.heap", "w"));
+memprof_dump_pprof(fopen("/tmp/cachegrindout/profile.csb_memory.heap", "w"));

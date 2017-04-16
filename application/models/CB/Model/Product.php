@@ -130,15 +130,15 @@ class Product extends \CB_Resource_Model{
 	}
 
 	public function getMostVisited(){
-		//if(!($visited=$this->cache->load('mainVisited'))){
+		if(!($visited=$this->cache->load('mainVisited'))){
 			$visited=$this->find(array('conditions'=>array('status'=>1), 'order'=>'visitors desc', 'limit'=>12));
-			//$this->cache->save($visited, 'mainVisited', array(), 120);
-		//}
+			$this->cache->save($visited, 'mainVisited', array(), 120);
+		}
 		return $visited;
 	}
 
 	public function getFresh(){
-		//if(!($fresh=$this->cache->load('mainFresh'))){
+		if(!($fresh=$this->cache->load('mainFresh'))){
 			$this->initQb();
 			$this->qb->field('status')->equals(1);
 			$this->qb->field('user')->notEqual(new \MongoId('528a82320f435fd2028b4568'));
@@ -146,7 +146,7 @@ class Product extends \CB_Resource_Model{
 			$this->qb->limit(12);
 			$fresh=$this->runQuery();
 			$this->cache->save($fresh, 'mainFresh', array(), 120);
-		//}
+		}
 		return $fresh;
 	}
 
