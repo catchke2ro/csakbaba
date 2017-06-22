@@ -106,7 +106,7 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 		if(!empty($facebook['location']['name'])) $user->address['city']=$user->postaddress['city']=$facebook['location']['name'];
 		$user->email=$facebook['email'];
 		$user->fbid=$facebook['id'];
-		$user->gender=$facebook['gender'];
+		if(!empty($facebook['gender'])) $user->gender=$facebook['gender'];
 		$user->active=true;
 		$user->date_reg=date('Y-m-d H:i:s');
 		return $user;

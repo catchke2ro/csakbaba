@@ -136,7 +136,11 @@ class CB_Resource_Payment {
 		if($paymentStateResponse->getStatus()=='Succeeded' && $this->payment->status != 2){
 			$this->payment->status=2;
 			$this->_userBalance();
-			$this->_billingoInvoice();
+			try{
+				$this->_billingoInvoice();
+			} catch(Exception $e){
+			
+			}
 			$this->controller->emails->charged(array('user'=>$this->payment->user, 'payment'=>$this->payment));
 		}
 		$this->paymentModel->save($this->payment);
@@ -203,25 +207,27 @@ class CB_Resource_Payment {
 
 
 	public function _billingoInvoice(){
-		define("PRIVATE_KEY", $this->_billingoconfig->get('privateKey'));
-		define("PUBLIC_KEY", $this->_billingoconfig->get('publicKey'));
+		$b = new \Billingo\API\Connector\HTTP\Request([
+			'public_key' => $this->_billingoconfig->get('publicKey'),
+			'private_key' => $this->_billingoconfig->get('privateKey'),
+		]);
 
-		$b = new \Billingo\Billingo();
-
-		$newClient = $b->addClient(array(
-			'name' => $this->payment->user->get()->address['name'],
-			'address_street' => $this->payment->user->address['street'],
-			'address_city' => $this->payment->user->address['city'],
-			'address_postcode' => $this->payment->user->address['zip'],
-			'address_country' => 'Magyarország',
+		$address = $this->payment->user->get()->getInvoiceAddress();
+		$newClient = $b->post('clients', array(
+			'name' => $address['name'],
 			'email' => $this->payment->user->email,
-			//'taxcode' => '12345678-2-00'
+			'billing_address' => array(
+				'street_name' => $address['street'],
+				'city' => $address['city'],
+				'postcode' => $address['zip'],
+				'country' => 'Magyarország',
+			)
 		));
-		if(!empty($newClient->success) && $newClient->success==true){
-			$this->payment->user->billingoid=$newClient->clients_id;
-			$userModel=new \CB\Model\User();
-			$userModel->save($this->payment->user, true);
-		}
+		
+		
+		$this->payment->user->billingoid=$newClient['id'];
+		$userModel=new \CB\Model\User();
+		$userModel->save($this->payment->user, true);
 
 
 		$clientId=$this->payment->user->billingoid;
@@ -232,22 +238,19 @@ class CB_Resource_Payment {
 		$vat=($price*0.27/(1.27));
 
 		$product = array(
-			'clients_id' => $clientId,
+			'client_uid' => $clientId,
 			'fulfillment_date' => date('Y-m-d'),
 			'due_date' => date('Y-m-d'),
-			'is_draft' => 0,
 			'payment_method' => 5,
 			'comment' => 'N/A',
 			'currency' => 'HUF',
-			'template' => 'billingo',
 			'template_lang_code' => 'hu',
 			'electronic_invoice' => 1,
-			'recurring_time' => 0,
+			'block_uid' =>0,
 			'round_to'=>1,
-			'status'=>1,
+			'type' =>3,
 			'items' =>
 				array (
-					0 =>
 						array(
 							'description' => 'csakbaba.hu egyenleg feltöltés',
 							'net_unit_price' => ($price - $vat),
@@ -258,22 +261,21 @@ class CB_Resource_Payment {
 				),
 		);
 
-		$invoice = $b->addInvoice($product);
-		if($invoice->success){
-			$invoiceData=array(
-				'invoice_number'=>$invoice->invoice_number,
-				'access_code'=>$invoice->access_code,
-				'pdf_url'=>'https://www.billingo.hu/access/c:'.$invoice->access_code.'/fdl:1'
-			);
-			$this->payment->invoice_data=$invoiceData;
-			$this->paymentModel->save($this->payment, true);
+		$invoice = $b->post('invoices', $product);
+		
+		
+		$invoiceData=array(
+			'invoice_number'=>$invoice['attributes']['invoice_no'],
+			'id'=>$invoice['id']
+		);
+		$this->payment->invoice_data=$invoiceData;
+		$this->paymentModel->save($this->payment, true);
+		
+		$pdf = $b->downloadInvoice($invoiceData['id']);
 
-			$client=new Zend_Http_Client('https://www.billingo.hu/access/c:'.$invoice->access_code.'/fdl:1');
-			$client->setAdapter(new Zend_Http_Client_Adapter_Curl());
-			$response=$client->request();
-			if($response->isSuccessful() && $response->getBody()) file_put_contents(APPLICATION_PATH.'/../tmp/invoices/'.str_replace('/', '_', $invoice->invoice_number).'.pdf', $response->getBody());
+		$pdfContent = $pdf->getContents();
+		file_put_contents(APPLICATION_PATH.'/../tmp/invoices/'.str_replace('/', '_', $invoiceData['invoice_number']).'.pdf', $pdfContent);
 
-		}
 	}
 
 	public function _invoice($invoiceType='PREINVOICE'){
@@ -281,17 +283,17 @@ class CB_Resource_Payment {
 
 		$customer = new Fandepay\Api\Model\Customer();
 		$customer->setType(Fandepay\Api\Model\Customer::TYPE_PERSON);
-		$customer->setName($this->payment->user->address['name']);
+		$customer->setName($this->payment->user->getInvoiceAddress()['name']);
 		$customer->setEmail($this->payment->user->email);
-		$customer->setBankaccountnumber($this->payment->user->address['address_banknum']);
+		$customer->setBankaccountnumber($this->payment->user->getInvoiceAddress()['address_banknum']);
 
 		$szamladdr = new Fandepay\Api\Model\Address;
 		$szamladdr->setType(Fandepay\Api\Model\Address::TYPE_HEAD);
 		$szamladdr->setLabel('Számlázási cím');
 		$szamladdr->setCountryCode('HU');
-		$szamladdr->setPostalCode($this->payment->user->address['zip']);
-		$szamladdr->setCity($this->payment->user->address['city']);
-		$szamladdr->setAddressLine($this->payment->user->address['street']);
+		$szamladdr->setPostalCode($this->payment->user->getInvoiceAddress()['zip']);
+		$szamladdr->setCity($this->payment->user->getInvoiceAddress()['city']);
+		$szamladdr->setAddressLine($this->payment->user->getInvoiceAddress()['street']);
 
 
 		$customer->addAddress($szamladdr);

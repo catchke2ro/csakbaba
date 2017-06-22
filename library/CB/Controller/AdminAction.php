@@ -47,6 +47,7 @@ abstract class CB_Controller_AdminAction extends Zend_Controller_Action {
 			$this->_helper->getHelper('viewRenderer')->setNoRender(true);
             $this->getHelper('layout')->disableLayout();
             return $this->getResponse();
+            die();
 		}
 		return true;
 	}

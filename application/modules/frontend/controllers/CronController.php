@@ -221,7 +221,7 @@ class CronController extends CB_Controller_Action {
 		//$tracker->trackPageview($page, $session, $visitor);
 
 
-		$userModel=new \CB\Model\User();
+		/*$userModel=new \CB\Model\User();
 		$users=$userModel->find();
 		foreach($users as $user){
 			$name='';
@@ -230,8 +230,13 @@ class CronController extends CB_Controller_Action {
 			if(!empty($user->postaddress['name'])) $name=$user->postaddress['name'];
 
 			echo $user->email."\t\"".$name."\"\n";
-		}
+		CSB58f3c462c2997
+		CSB58f3c41a715b7
+		CSB58f3c386cda76
+		}*/
 
+		$payment = new CB_Resource_Payment('CSB58f3c462c2997', $this);
+		$payment->_billingoInvoice();
 
 		die();
 

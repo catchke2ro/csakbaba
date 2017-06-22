@@ -65,6 +65,10 @@ class IndexController extends CB_Controller_Action {
 	public function aboutAction(){
 		$this->view->headMeta()->setName('description', 'Az oldal azért jött létre, hogy itt tényleg azt kapd, amit keresel, sőt, hogy itt csupán azt vedd meg, amiért eredetileg a gép elé ültél.');
 	}
+	
+	public function cookieAction(){
+		$this->view->headMeta()->setName('description', 'A csakbaba.hu cookie-szabályzata');
+	}
 
 	public function blogAction(){
 		$postModel=new \CB\Model\BlogPost();

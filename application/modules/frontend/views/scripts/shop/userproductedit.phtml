@@ -1,4 +1,4 @@
-<div class="productEditAddForm " data-balance="<?=$this->user->balance;?>"
+<div class="productEditAddForm " data-balance="<?=$this->user->balance ?: 0;?>"
      data-productid="<?=($this->product ? $this->product_id : '');?>"
      data-categoryid="<?=($this->category ? $this->category->id : '');?>"
 >

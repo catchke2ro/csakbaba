@@ -228,6 +228,11 @@ $(document).ready(function(){
 		}
 	});
 
+	$('label a[data-url]').on('click', function(){
+		var a = $(this);
+		window.open(a.data('url'));
+	});
+
 
 	$(document).on('click', 'li.field.submit', function(ev){
 		if($(ev.target).is($(this))) $(this).find('input').click();

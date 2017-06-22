@@ -33,6 +33,7 @@ class CB_Resource_Navigation extends Zend_Navigation {
 			)),
 			array('label'=>'Termékfeltöltés', 'notValid'=>array('label'=>'Asztalnyitás', 'url'=>'/felhasznalo/adatmodositas?nyitas=1'), 'uri'=>'/felhasznalo/termekek?uj', 'mvc'=>array('shop','userproducts'), 'visible'=>true),
 			array('label'=>'A csakbabáról', 'uri'=>'/rolunk', 'mvc'=>array('index','about'), 'resource'=>'rolunk'),
+			array('label'=>'Cookie kezelési szabályzat', 'uri'=>'/cookie-szabalyzat', 'mvc'=>array('index','cookie'), 'resource'=>'cookierule', 'visible'=>false),
 			array('label'=>'Blog', 'uri'=>'/blog', 'mvc'=>array('index','blog'), 'resource'=>'blog'),
 
 			array('label'=>'Elfelejtett jelszó', 'uri'=>'/elfelejtett-jelszo', 'mvc'=>array('user','forgotten'), 'resource'=>'elfelejtett', 'visible'=>false),

@@ -25,12 +25,15 @@
 	<?=$this->minifyHeadScript();?>
     
     <script type="text/javascript">
-        window.smartlook||(function(d) {
-            var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
-            var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
-            c.charset='utf-8';c.src='//rec.smartlook.com/recorder.js';h.appendChild(c);
-        })(document);
-        smartlook('init', 'e861db5d3dec3549e0d9ae0041c6a297f0825f44');
+	    $(window).load(function(){
+		    window.smartlook||(function(d) {
+			    var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+			    var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+			    c.charset='utf-8';c.src='//rec.smartlook.com/recorder.js';h.appendChild(c);
+		    })(document);
+		    smartlook('init', 'e861db5d3dec3549e0d9ae0041c6a297f0825f44');
+        });
+        
     </script>
     
 	<script>
@@ -46,6 +49,37 @@
 		ga('send', 'pageview');
 
 	</script>
+
+    
+    
+    <!--COOKIE consent-->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <script>
+		window.addEventListener("load", function(){
+			window.cookieconsent.initialise({
+				"palette": {
+					"popup": {
+						"background": "#5a4f46",
+						"text": "#ffffff"
+					},
+					"button": {
+						"background": "#80a5cd",
+						"text": "#ffffff"
+					}
+				},
+				"theme": "edgeless",
+				"content": {
+					"message": "A weboldalunkon cookie-kat használunk, hogy a legjobb felhasználói élményt nyújthassuk.",
+					"dismiss": "OK",
+					"link": "További információ",
+                    "href": "/cookie-szabalyzat"
+				}
+			})});
+    </script>
+    
+    
+    
     
 	<!--[if lt IE 11]><link rel="stylesheet" href="/css/ie10.css"/><![endif]-->
 	<!--[if lt IE 10]><script type="text/javascript" src="/js/jquery/jquery.placeholder.js"></script><![endif]-->

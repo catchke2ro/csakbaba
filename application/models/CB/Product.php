@@ -1,7 +1,7 @@
 <?php
 namespace CB;
 
-use CB\Model\Comment;
+use CB\Model\Comment as CommentModel;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**

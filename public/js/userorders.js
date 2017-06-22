@@ -3,6 +3,16 @@ $(function(){
 	var userOrderList = $('div.orders .productList');
 	if(userOrderList.length){
 
+		var filterFn = function (index, e){
+			var product = $(e);
+			var show = false;
+			orderFilter.find('a.active').each(function(index, buttonE){
+				var a=$(this);
+				show |= product.hasClass('status'+a.data('status'));
+			});
+			product.toggleClass('hidden', !show);
+		};
+
 		$('li.order.nem-ertekelt .rating').each(function(index, e){
 			$.ajax({
 				url: '/user/ratingform', type: 'GET', data: {oid: $(e).closest('li').data('orderid'), seller: $(e).closest('li').data('seller')},
@@ -36,16 +46,29 @@ $(function(){
 		});
 		orderFilter.find('a').click(function(){
 			$(this).toggleClass('active');
-			userFilterProducts(orderFilter, userOrderList, function(index, e){
-				var product = $(e);
-				var show = false;
-				orderFilter.find('a.active').each(function(index, buttonE){
-					var a=$(this);
-					show |= product.hasClass('status'+a.data('status'));
-				});
-				product.toggleClass('hidden', !show);
+			userFilterProducts(orderFilter, userOrderList, filterFn, 'userOrdersProductsFilter');
+
+			var checkedStatuses = [];
+			orderFilter.find('.statusButton').each(function(index, e2){
+				if($(e2).hasClass('active')) checkedStatuses.push($(e2).data('status'));
 			});
+
+			if(checkedStatuses.length){
+				$.cookie('userOrdersProductsFilter', checkedStatuses.join(','), {expires: 1, path: '/'})
+			}
 		});
+
+
+
+		var checkedStatuses = 'nemertekelt';
+		if($.cookie('userOrdersProductsFilter')) checkedStatuses = $.cookie('userOrdersProductsFilter');
+		checkedStatuses = checkedStatuses.split(',');
+
+		orderFilter.find('.statusButton').removeClass('active');
+		checkedStatuses.forEach(function(status){
+			orderFilter.find('a[data-status='+status+']').addClass('active');
+		});
+		userFilterProducts(orderFilter, userOrderList, filterFn);
 
 	}
 

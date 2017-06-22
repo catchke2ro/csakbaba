@@ -23,8 +23,8 @@ class Mailjet_Mailjet
 	var $debug = 2;
 
 	# Edit with your Mailjet Infos
-	var $apiKey = 'd06cb8e360ee26230b0112ac63b270ba';
-	var $secretKey = '3f1cfc2311249f5b07efe2d6889d6512';
+	var $apiKey = '8cb16e82a67f4cfd61da37372cb1e40f';
+	var $secretKey = '66d4f946bfa76ed5ba95d679cf956583';
 
 
 	// Constructor function

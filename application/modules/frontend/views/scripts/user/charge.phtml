@@ -10,7 +10,7 @@
 	</div>
 
 	<h2>Egyenleg feltöltése</h2>
-	<? if(!$this->user->isValid()){?>
+	<? if(!$this->user->isValidToCharge()){?>
 		<h3>Egyenleg feltöltéséhez minden szükséges adatot meg kell adnod az <a href="<?=$this->url('adatmodositas');?>">adatmódosítás</a> oldalon</h3>
 	<? } else {?>
 		<div class="card stat">

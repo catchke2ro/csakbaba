@@ -293,7 +293,7 @@ class UserController extends CB_Controller_Action {
 				$rating->saveAll($ratingForm->getValues());
 				$rating->date=date('Y-m-d H:i:s');
 				$rating->seller=(bool) $_GET['seller'];
-				$rating->product=$order->product;
+				$rating->product=clone $order->product;
 				$rating->product->user=null;
 				$ratingModel->save($rating);
 

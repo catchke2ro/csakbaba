@@ -210,6 +210,40 @@ class User extends \CB_Resource_ModelItem {
 		);
 	}
 
+	public function isValidToCharge(){
+		return (
+				((!empty($this->address['name']) &&
+				!empty($this->address['zip']) &&
+				!empty($this->address['city']) &&
+				!empty($this->address['street']))
+				
+				||
+				
+				(!empty($this->postaddress['name']) &&
+				!empty($this->postaddress['zip']) &&
+				!empty($this->postaddress['city']) &&
+				!empty($this->postaddress['street'])))
+			
+				&&
+			
+				!empty($this->email) &&
+				!empty($this->phone) &&
+				!empty($this->username) &&
+				!empty($this->active)
+		);
+	}
+	
+	public function getInvoiceAddress(){
+		if((!empty($this->address['name']) &&
+			!empty($this->address['zip']) &&
+			!empty($this->address['city']) &&
+			!empty($this->address['street']))){
+			return $this->address;
+		} else {
+			return $this->postaddress;
+		}
+	}
+
 
     public function modifyBalance($amount){
         $this->balance=intval($this->balance) + $amount;

@@ -86,15 +86,18 @@ $(function(){
 
 		});
 
-		var checkedStatuses = '1';
-		if($.cookie('userShopProductsFilter')) checkedStatuses = $.cookie('userShopProductsFilter');
-		checkedStatuses = checkedStatuses.split(',');
+		if(productFilter.length){
+			var checkedStatuses = '1';
+			if($.cookie('userShopProductsFilter')) checkedStatuses = $.cookie('userShopProductsFilter');
+			checkedStatuses = checkedStatuses.split(',');
 
-		productFilter.find('.statusButton').removeClass('active');
-		checkedStatuses.forEach(function(status){
-			productFilter.find('a.s'+status).addClass('active');
-		});
-		userFilterProducts(productFilter, userProductList);
+			productFilter.find('.statusButton').removeClass('active');
+			checkedStatuses.forEach(function(status){
+				productFilter.find('a.s'+status).addClass('active');
+			});
+			userFilterProducts(productFilter, userProductList);
+		}
+
 
 
 		if(window.location.hash.indexOf('uj') !== -1){
