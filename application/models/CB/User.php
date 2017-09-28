@@ -174,6 +174,19 @@ class User extends \CB_Resource_ModelItem {
 		}
 		return $products;
 	}
+	public function getServices($random=false, $count=10, $status=array(1)){
+		$productModel=new \CB\Model\Service();
+		$productModel->initQb();
+		$productModel->qb->field('user')->equals(new \MongoId($this->id));
+		$productModel->qb->field('status')->in($status);
+		$productModel->qb->sort('date_added', 'DESC');
+		$products=$productModel->runQuery();
+		if($random){
+			shuffle($products);
+			$products=array_slice($products, 0, $count);
+		}
+		return $products;
+	}
 
     public function getActiveProductsCount(){
         $productModel=new \CB\Model\Product();

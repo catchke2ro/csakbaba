@@ -1,0 +1,87 @@
+<? if(!empty($this->service)){?>
+
+<? $tag=isset($this->tag) ? $this->tag : 'li';?>
+    <? $fix = !isset($this->fix) || $this->fix==true;?>
+<? $nameTag=isset($this->nameTag) ? $this->nameTag : 'h3';?>
+<<?=$tag;?>
+	class="product <?=$fix ? '' : 'noFix';?> <?=((isset($this->back) && $this->back==false)?'noflip':'');?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->service->isPromoted('frame')?'promotedFrame':'');?> <?=($this->service->isPromoted('list')?'promotedList':'');?> status<?=$this->service->status;?>"
+	data-id="<?=$this->service->id;?>"
+	data-status="<?=$this->service->status;?>"
+	<?=(!empty($this->extraData)?$this->extraData:'');?>
+>
+	<div class="productInner">
+
+		<? if(!empty($this->delFav) && $this->delFav==true) {?><a href="<?=$this->url('kedvencek').'?remove=1&id='.$this->service->id;?>" class="delFav" title="Eltávolítás a kedvencek közül">X</a><? } ?>
+
+		<div class="flipper">
+
+
+			<? if(!isset($this->front) || $this->front==true){?>
+				<div class="front">
+					<? $img=(is_array($this->service->images) && !empty($this->service->images)) ? $img=reset($this->service->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
+					<div class="productImages <?=!empty($this->previewImg) ? 'previewImg' : '';?>" style="background-image: url(<?=$img['mid'];?>);" data-preview="<?=$img['mid'];?>">
+					</div>
+					<div class="productBottom">
+						<<?=$nameTag;?> class="productName">
+						<a href="<?=$this->url('piacszolg').'/'.$this->service->id.'/'.$this->cb()->slug($this->service->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->service->name);?></a>
+						<? if(!empty($this->o)){?>
+							<div class="productInfo">
+								<span><?=$this->seller ? 'Eladás dátuma' : 'Vásárlás dátuma';?>: <strong><?=$this->o->date->format('Y.m.d H:i');?></strong></span>
+                                
+                                <? $username = $this->seller ? $this->o->user->username : $this->o->shop_user->username;?>
+								<span><?=$this->seller ? 'Vásárló' : 'Eladó';?>: <strong><a href="<?=$this->url('profil').'/'.urlencode($username);?>"><?=$username;?></a></strong></span>
+								<span>Kód: <strong><?=$this->o->code;?></strong></span>
+							</div>
+						<? } ?>
+						</<?=$nameTag;?>>
+						<div class="productPrice"><span><?=number_format($this->service->price, 0, ',', ' ');?> Ft.</span></div>
+						<? if(!empty($this->frontDesc)){?>
+							<div class="frontDesc"><?=$this->service->desc;?></div>
+						<? } ?>
+					</div>
+
+				</div>
+			<? } ?>
+
+
+			<? if(!isset($this->back) || $this->back==true){?>
+				<div class="back">
+					<h3 class="productName"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->service->category).'/'.$this->service->id.'/'.$this->cb()->slug($this->service->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->service->name);?></a></h3>
+					<div class="productPrice"><?=number_format($this->service->price, 0, ',', ' ');?> Ft.</div>
+					<div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->service->user->get()->username;?>"><?=$this->service->user->get()->username;?></a>, <span><?=$this->service->user->postaddress['city'];?></span></div>
+
+					<div class="productGallery">
+						<? if(is_array($this->service->images) && !empty($this->service->images)){ foreach($this->service->images as $image){?>
+							<div><img src="<?=$image['small'];?>" data-preview="<?=$image['mid'];?>" alt="<?=htmlentities($this->service->name);?>" class="previewImg"/></div>
+						<? }} ?>
+					</div>
+				</div>
+			<? } ?>
+
+
+		</div>
+
+
+        <? if(isset($this->userfunctions) && $this->userfunctions==true){?>
+            <!--<div class="userFix">
+                <?/*=$this->partial('shop/userproductfix.phtml', $this->getVars());*/?>
+            </div>-->
+            <?=$this->partial('shop/userproductfunctions.phtml', $this->getVars());?>
+        <? } ?>
+        <? if($fix) { ?>
+			<div class="fix">
+				<a href="<?=$this->url('piacszolg').'/'.$this->service->id.'/'.$this->cb()->slug($this->service->name);?>" class="button jump"><?=(isset($this->fixText) ? $this->fixText : 'tovább a termékhez');?></a>
+			</div>
+		<? } ?>
+
+
+
+		<? if(isset($this->rating) && $this->rating==true && !empty($this->o)){?>
+			<?=$this->partial('shop/userrating.phtml', $this->getVars());?>
+		<? } ?>
+
+
+	</div>
+</<?=$tag;?>>
+
+<? } ?>

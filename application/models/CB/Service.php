@@ -5,12 +5,12 @@ use CB\Model\Comment as CommentModel;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document(collection="products")
+ * @ODM\Document(collection="services")
  */
-class Product extends \CB_Resource_ModelItem {
-
-	use ProductServiceCommon;
+class Service extends \CB_Resource_ModelItem {
 	
+	use ProductServiceCommon;
+
 	/**
 	 * @ODM\Id
 	 */
@@ -30,12 +30,7 @@ class Product extends \CB_Resource_ModelItem {
 	 * @ODM\String
 	 */
 	public $desc;
-
-	/**
-	 * @ODM\String
-	 */
-	public $category;
-
+	
 	/**
 	 * @ODM\ReferenceOne(targetDocument="User", simple=true)
 	 */
@@ -72,16 +67,6 @@ class Product extends \CB_Resource_ModelItem {
 	public $status;
 
 	/**
-	 * @ODM\String
-	 */
-	public $type;
-
-	/**
-	 * @ODM\Boolean
-	 */
-	public $new;
-
-	/**
 	 * @ODM\Int
 	 */
 	public $visitors;
@@ -90,11 +75,6 @@ class Product extends \CB_Resource_ModelItem {
 	 * @ODM\Hash
 	 */
 	public $promotes;
-
-	/**
-	 * @ODM\Hash
-	 */
-	public $deliveries;
 
 	/**
 	 * @ODM\String
@@ -165,5 +145,6 @@ class Product extends \CB_Resource_ModelItem {
 		
 		return [$promoted];
 	}
+	
 
 }

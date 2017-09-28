@@ -10,7 +10,9 @@ $(function(){
 				nobalance.parent().removeClass('hidden');
 				return false;
 			}
-			var url = '/shop/userproductedit';
+
+			var isService = a.closest('.addNewProductWrapper').hasClass('service');
+			var url = isService ? '/shop/userserviceedit' : '/shop/userproductedit';
 			if(a.data('opencategory')){
 				url += '?category_id='+a.data('opencategory');
 				a.data('opencategory', '');

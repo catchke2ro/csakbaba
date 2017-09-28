@@ -1,0 +1,32 @@
+<div class="addNewProductWrapper service">
+    <? if(!$this->user->isValid()){ ?>
+        <p class="infoText error">Szolgáltatás feltöltéséhez minden szükséges adatot meg kell adnod!</p>
+        <a href="<?=$this->url('adatmodositas');?>" class="missingDataLink">A hiányzó adatokat <span class="bigger">itt megadhatod</span></a>
+	<? } else { ?>
+        <div><a href="javascript:void(0)" class="userAddProduct service">Új szolgáltatás hozzáadása</a></div>
+		<? if($this->user->balance < Zend_Registry::get('uploadPriceService')){ ?>
+            <div class="hidden"><a href="<?=$this->url('egyenleg');?>" class="nobalance">Új szolgáltatás hozzáadásához töltsd fel az egyenleged</a></div>
+		<? } ?>
+    <? } ?>
+    
+
+</div>
+
+<div class="productFilter">
+	<? foreach($this->statusCodes as $status=>$text){?>
+		<? if($status==0) continue;?>
+		<a href="javascript:void(0)" class="statusButton s<?=$status;?> active" data-status="<?=$status;?>"><?=$text;?> (<span></span>)</a>
+	<? } ?>
+	<div class="textFilter"><input type="text" placeholder="szűrés név, leírás és ár alapján" /></div>
+</div>
+
+<div class="productList user">
+
+	<ul class="products user">
+
+		<? foreach($this->services as $service){?>
+			<?=$this->partial('market/service-partial.phtml', array_merge($this->getVars(), array('service'=>$service, 'back'=>false, 'userfunctions'=>true, 'extraClass'=>'status'.$service->status, 'fixText'=>'Szolgáltatás oldala', 'frontDesc'=>true)));?>
+		<? } ?>
+
+	</ul>
+</div>

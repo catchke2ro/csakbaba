@@ -1,7 +1,11 @@
+<?php
+$item = isset($this->service) ? $this->service : $this->product;
+?>
+
 <div class="userproductfunctions">
-	<div class="productStatus s<?=$this->product->status;?>">
-		<div class="status s<?=$this->product->status;?>" title="<?=$this->statusCodes[$this->product->status];?>"></div>
-        <? if($this->product->getActivePromotes()){?>
+	<div class="productStatus s<?=$item->status;?>">
+		<div class="status s<?=$item->status;?>" title="<?=$this->statusCodes[$item->status];?>"></div>
+        <? if($item->getActivePromotes()){?>
             <div class="promoted" title="Kiemelve"></div>
         <? } ?>
         <div class="menu"></div>
@@ -15,7 +19,7 @@
         <li><a href="javascript:void(0)" class="userEditProduct action">Szerkesztés</a></li>
         <li><a href="javascript:void(0)" class="userDeleteProduct action">Törlés</a></li>
         <li><a href="javascript:void(0)" class="userCopyProduct action <?=$canUpload ? '' : 'disabled';?>">Másolás</a></li>
-        <? if($this->product->status == 3){ ?>
+        <? if($item->status == 3){ ?>
             <li><a href="javascript:void(0)" class="userRenewProduct action <?=$canUpload ? '' : 'disabled';?>">Megújítás (<?=$freeUpload ? 'ingyenes' : Zend_Registry::get('uploadPrice').' Ft.';?>)</a></li>
         <? } ?>
     </ul>

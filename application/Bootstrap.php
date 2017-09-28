@@ -63,6 +63,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		}
 		Zend_Registry::set('categories', $categories);
 		Zend_Registry::set('uploadPrice', 40);
+		Zend_Registry::set('uploadPriceService', 500);
 		Zend_Registry::set('freeUploadLimit', 10);
 		Zend_Registry::set('minCharge', 320);
 		Zend_Registry::set('deliveryOptions', array('personal'=>'Személyes átvétel','post'=>'Posta', 'futar'=>'Futárszolgálat'));

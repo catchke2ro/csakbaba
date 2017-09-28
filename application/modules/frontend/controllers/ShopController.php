@@ -12,10 +12,16 @@ class ShopController extends CB_Controller_Action {
 	 */
 	public $productModel;
 
+	/**
+	 * @var \CB\Model\Service()
+	 */
+	public $serviceModel;
+
 
 	public function init(){
 		$this->userModel=new \CB\Model\User();
 		$this->productModel=new \CB\Model\Product();
+		$this->serviceModel=new \CB\Model\Service();
 		$this->view->assign(array('uploadPrice'=>Zend_Registry::get('uploadPrice')));
 		parent::init();
 	}
@@ -44,6 +50,30 @@ class ShopController extends CB_Controller_Action {
 			'promoteOptions'=>Zend_Registry::get('promoteOptions'),
 			'promoteAllOptions'=>Zend_Registry::get('promoteAllOptions'),
             'initNew'=>isset($_GET[''])
+		));
+	}
+	
+	public function userservicesAction(){
+		if(isset($_GET['uj'])){
+			$hash = 'uj';
+			if($this->g('cid')){
+				$hash.='__'.$this->g('cid');
+			}
+			$this->redirect($this->_request->getUri().'#'.$hash);
+			return;
+		}
+		$services=$this->user->getServices(false, 10, array(0,1,2,3));
+		$activeServices=array_filter($services, function($item){
+			return $item->status==1;
+		});
+		
+		$this->view->assign(array(
+			'statusCodes'=>$this->statusCodes,
+			'services'=>$services,
+			'activeServices'=>$activeServices,
+			'promoteOptions'=>Zend_Registry::get('promoteOptions'),
+			'promoteAllOptions'=>Zend_Registry::get('promoteAllOptions'),
+			'initNew'=>isset($_GET[''])
 		));
 	}
 
@@ -89,6 +119,23 @@ class ShopController extends CB_Controller_Action {
         ]);
 
     }
+	
+	public function userserviceeditAction(){
+		/**
+		 * @var $categoryTree CB_Array_Categories
+		 */
+		$this->getHelper('layout')->setLayout('ajax');
+		
+		$service = false;
+		if($this->g('service_id')) $service = $this->serviceModel->findOneById(str_replace('COPY_', '', $this->g('service_id')));
+		
+		
+		$this->view->assign([
+			'service'=>$service,
+			'service_id'=>$this->g('service_id')
+		]);
+		
+	}
 
 	public function userproducteditformAction(){
         /**

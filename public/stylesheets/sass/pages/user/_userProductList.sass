@@ -177,10 +177,16 @@ div.productFilter
   .userAddProduct
     +iconButton($iconAdd, $cRed)
     width: 300px
-
+  
+    &.service
+      font-size: 1.8rem
+      
   .nobalance
     +iconButton($iconCard, false, false, 40px)
-    width: 300px
+    max-width: 50%
+    font-size: 1.4rem
+    +mq3
+      max-width: 95%
 
   .hidden
     display: none
@@ -195,6 +201,7 @@ div.productFilter
       width: percentage(1/2)
     +mq4
       width: 100%
+      
 
 
 
