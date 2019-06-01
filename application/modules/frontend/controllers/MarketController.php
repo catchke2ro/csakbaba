@@ -325,8 +325,54 @@ class MarketController extends CB_Controller_Action {
     public function manualemailAction(){
         //die();
         //$this->emails->commentSubscribedNotification(array('comment'=>$comment, 'user'=>$product->user->get(), 'product'=>$product));
+		
+		/*ORDERS
+		 $orderIds = [
+			"59c95d974b7959fb508b4568",
+			"59c8f74b4b795965048b4568",
+			"59c8094f4b795976048b4568",
+		];
+	
+		$orderModel=new \CB\Model\Order();
 
-        $data['user'] = $this->userModel->findOneByUsername('csilla74');
+		foreach($orderIds as $orderId){
+			$order = $orderModel->findOneById($orderId);
+			
+			$this->emails->buyUser(array('product'=>$order->product, 'user'=>$order->user, 'shop_user'=>$order->shop_user, 'order'=>$order));
+			$this->emails->buyShopUser(array('product'=>$order->product, 'user'=>$order->user, 'shop_user'=>$order->shop_user, 'order'=>$order));
+		}*/
+		
+		/*
+		//Activation
+		$userIds = [
+			"59c5ee694b7959a73e8b4568",
+			"59c64e4f4b795949628b4568",
+			"59c6aa114b79595d078b4568",
+			"59c6bd014b795905208b4568",
+			"59c772114b79595a5b8b4568",
+			"59c7a7b34b79592b6c8b4568",
+			"59c7add24b795929458b4568",
+			"59c7d8684b7959f33e8b4569",
+			"59c8ccc24b795910528b4568",
+			"59c8ce9e4b7959f2688b4568",
+			"59c8d8c74b79590b5b8b4568",
+			"59c8fcd84b79596e528b4568",
+			"59c90d5a4b7959c33e8b4568",
+			"59c9c6dd4b79596d418b4568",
+			"59ca3f324b795983058b4568"
+		];
+	
+		$userModel=new \CB\Model\User();
+		
+		foreach($userIds as $userId){
+			$user = $userModel->findOneById($userId);
+			
+			if($user){
+				$this->emails->activation(array('user'=>$user), $this->url('aktivacio'));
+			}
+		}*/
+	
+        /*$data['user'] = $this->userModel->findOneByUsername('csilla74');
         $user = $data['user'];
         $data['comment'] = (new \CB\Model\Comment())->findOneById('57bbfee44a7959e03c8b4567');
         $data['product'] = (new \CB\Model\Product())->findOneById('5556f5341cab67245af07fd1');
@@ -342,7 +388,7 @@ class MarketController extends CB_Controller_Action {
             'template'=>'commentsubscribeduser',
             'subject'=>'csakbaba.hu - Új hozzászólás',
             'data'=>$data
-        ));
+        ));*/
         die();
     }
 

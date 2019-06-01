@@ -33,7 +33,7 @@
 				<strong>Számlaszám:</strong> 10401804-50515548-53541005 <br />
 				<strong>Bank:</strong> K&H Bank <br />
 				<strong>Kedvezményezett neve:</strong> Csakbaba.hu Kft. <br />
-				<strong>Közlemény:</strong> <?=strtoupper(substr($this->user->username, 0, 4).substr(md5($this->user->id), 0, 4));?>
+				<strong>Közlemény:</strong> <?=strtoupper(substr(preg_replace('/[^a-zA-Z0-9]/', '', $this->user->username), 0, 4).substr(md5($this->user->id), 0, 4));?>
 			</p>
 		</div>
 	<? } ?>

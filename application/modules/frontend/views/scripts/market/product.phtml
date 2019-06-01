@@ -45,7 +45,7 @@
 	    </div>
 		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="productPrice"><span itemprop="price"><?=number_format($this->product->price, 0, ',', ' ');?></span> Ft.<meta itemprop="pricecurrency" content="HUF" /></div>
 	  <? if($this->product->status==1){?>
-		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
+		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=!empty($this->product->user->postaddress['city']) ? $this->product->user->postaddress['city'] : '';?></span></div>
 		  <? if(!$this->user || ($this->user && $this->product->user->get()->id!=$this->user->id)){?>
               <? if(!$this->user){ ?>
                   <div class="addToCart haveToLogin" data-info="A vásárláshoz be kell jelentkezned!"><a href="javascript:void(0)">Megveszem</a></div>
@@ -81,7 +81,16 @@
   <div class="productDesc" itemprop="description"><?=$this->product->desc;?></div>
 
 
-
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Termék oldal komment fölé -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-3214257663864441"
+         data-ad-slot="5933243061"
+         data-ad-format="auto"></ins>
+    <script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 
 
 	<h2 class="commentHeader">Kérdések az eladóhoz</h2>

@@ -326,7 +326,16 @@ class IndexController extends CB_Controller_Action {
 
 
 	public function emailtestAction(){
-		$this->emails->test();
+    	$userModel = new \CB\Model\User();
+		/*foreach($userModel->find() as $user){
+			$this->emails->adatvedelem($user);
+		}*/
+		
+		$user = $userModel->findOneByUsername('catchke2ro');
+		$this->emails->adatvedelem($user);
+		
+		$user = $userModel->findOneByUsername('Qwerty');
+		$this->emails->adatvedelem($user);
 		die();
 	}
 

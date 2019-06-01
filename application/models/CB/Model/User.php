@@ -19,5 +19,15 @@ class User extends \CB_Resource_Model{
 		shuffle($users);
 		return $users ? $users : array();
 	}
+	
+	public function extAfterFind($items, $params=array()){
+		if(isset($params['single'])){ $items=array($items); }
+		foreach($items as $key=>$item){
+			$items[$key]->paymentid = strtoupper(substr(preg_replace('/[^a-zA-Z0-9]/', '', $item->username), 0, 4).substr(md5($item->id), 0, 4)) ?: '';
+		}
+		$items=array_values($items);
+		if(isset($params['single'])){ $items=$items[0]; }
+		return parent::extAfterFind($items, $params);
+	}
 
 }

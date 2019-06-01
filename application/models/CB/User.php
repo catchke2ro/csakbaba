@@ -134,6 +134,11 @@ class User extends \CB_Resource_ModelItem {
 	 * @ODM\Boolean
 	 */
 	public $blogadmin;
+	
+	/**
+	 * @ODM\Boolean
+	 */
+	public $deleted;
 
 
 	public function getRating($type='avg'){

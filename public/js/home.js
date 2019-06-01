@@ -62,5 +62,17 @@ $(function(){
 			listMenu.find('a').first().trigger('click');
 		});
 	}
+
+
+	$('.purissimoBanner a').on('click', function(ev){
+		var a = $(this);
+		ga('send', 'event', {
+			'eventCategory': 'banner',
+			'eventAction': 'click',
+			'eventLabel': 'purissimoHome',
+			/*'hitCallback': function(){
+			}*/
+		});
+	});
 	
 });

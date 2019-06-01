@@ -68,8 +68,10 @@ class CB_Resource_Emails {
 	public function buyUser($data){
 		$categories=Zend_Registry::get('categories');
 		$data['productlink']=$categories->getUri($data['product']->category).'/'.$data['product']->id.'/'.$this->functions->slug($data['product']->name);
+		$to = array($data['user']->get()->username=>$data['user']->get()->email);
+		//$to = array('adam.balint@srg.hu');
 		$this->mail->s(array(
-			'to'=>array($data['user']->get()->username=>$data['user']->get()->email),
+			'to'=>$to,
 			'template'=>'buyuser',
 			'subject'=>'csakbaba.hu - Vásárlás visszaigazolás',
 			'data'=>$data
@@ -79,8 +81,10 @@ class CB_Resource_Emails {
 	public function buyShopUser($data){
 		$categories=Zend_Registry::get('categories');
 		$data['productlink']=$categories->getUri($data['product']->category).'/'.$data['product']->id.'/'.$this->functions->slug($data['product']->name);
+		$to = array($data['shop_user']->get()->username=>$data['shop_user']->get()->email);
+		//$to = array('adam.balint@srg.hu');
 		$this->mail->s(array(
-			'to'=>array($data['shop_user']->get()->username=>$data['shop_user']->get()->email),
+			'to'=>$to,
 			'template'=>'buyshopuser',
 			'subject'=>'csakbaba.hu - Új vásárlás',
 			'data'=>$data
@@ -131,11 +135,32 @@ class CB_Resource_Emails {
 
 	public function activation($data, $aktUrl){
 		$data['activation_link']='https://'.$_SERVER['HTTP_HOST'].$aktUrl.'/'.$data['user']->activation_code;
+		$to = array($data['user']->get()->username=>$data['user']->get()->email);
+		//$to = 'adam.balint@srg.hu';
 		$this->mail->s(array(
-			'to'=>array($data['user']->get()->username=>$data['user']->get()->email),
+			'to'=>$to,
 			'template'=>'activation',
 			'subject'=>'csakbaba.hu - Regisztráció aktiválása',
 			'data'=>$data
+		));
+	}
+	
+	public function profiledelete($data){
+		$to = array('catchke2ro@miheztarto.hu', 'info@csakbaba.hu');
+		$this->mail->s(array(
+			'to'=>$to,
+			'template'=>'profiledelete',
+			'subject'=>'csakbaba.hu - Profil törlés',
+			'data'=>$data
+		));
+	}
+	
+	public function adatvedelem($user){
+		$to = array($user->email);
+		$this->mail->s(array(
+				'to'=>$to,
+				'template'=>'adatvedelem',
+				'subject'=>'csakbaba.hu - Adatvédelmi tájékoztató'
 		));
 	}
 

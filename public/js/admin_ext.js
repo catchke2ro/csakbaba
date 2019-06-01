@@ -20,7 +20,7 @@
 
 Ext.define('Users', {
 	extend: 'Ext.data.Store', autoLoad:true, autoSync:true, storeId: 'Users',
-	fields: [{name: 'id'},{name: 'username'},{name: 'email'},{name: 'gender'},{name: 'phone'},{name: 'date_reg'},{name: 'date_last_login'},{name: 'active', type: 'boolean'},{name: 'address', type: 'auto'},{name: 'avatar', 'type': 'auto'},{name:'balance', type: 'int'},{name: 'favourites', type: 'auto'},{name: 'promotes', type: 'auto'}],
+	fields: [{name: 'id'},{name: 'username'},{name: 'email'},{name: 'gender'},{name: 'phone'},{name: 'date_reg'},{name: 'date_last_login'},{name: 'active', type: 'boolean'},{name: 'address', type: 'auto'},{name: 'avatar', 'type': 'auto'},{name:'balance', type: 'int'},{name:'paymentid'},{name: 'favourites', type: 'auto'},{name: 'promotes', type: 'auto'}],
 	proxy: {
 		type: 'ajax',
 		api: {create:'/ext/model/create/model/user',read:'/ext/model/read/model/user',update:'/ext/model/update/model/user',destroy:'/ext/model/destroy/model/user'},

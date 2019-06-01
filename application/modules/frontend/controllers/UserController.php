@@ -47,6 +47,21 @@ class UserController extends CB_Controller_Action {
 			'form'=>$form
 		));
 	}
+	
+	public function profiledeleteAction(){
+		$identity=Zend_Auth::getInstance()->getIdentity();
+		$user=$this->userModel->findOneById($identity['id']);
+		$this->emails->profiledelete(array('user'=>$user));
+		$user->deleted = true;
+		$this->userModel->save($user);
+		
+		
+		$this->m('Profilod hamarosan törlésre kerül!');
+		
+		CB_Resource_Functions::logEvent('userDelete');
+		Zend_Auth::getInstance()->clearIdentity();
+		$this->redirect('/');
+	}
 
 	public function loginAction(){
 		$form=new Frontend_Form_Login();
@@ -79,7 +94,7 @@ class UserController extends CB_Controller_Action {
 
 						$this->redirect($url); break;
 					case $result::FAILURE:
-						$this->m('A felhasználó még nem aktivált.'); break;
+						$this->m('A felhasználó még nem aktivált, vagy törlés alatt áll.'); break;
 					default:
 						$this->m('A felhasználónév vagy a jelszó nem megfelelő', 'error'); break;
 				}
@@ -252,6 +267,7 @@ class UserController extends CB_Controller_Action {
 			'profilUser'=>$user
 		));
 	}
+
 
 	public function favouritesAction(){
 

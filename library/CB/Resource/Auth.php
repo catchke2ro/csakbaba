@@ -40,6 +40,8 @@ class CB_Resource_Auth implements Zend_Auth_Adapter_Interface {
 				$result = new Zend_Auth_Result(Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID, $id);
 			} else if(!$this->user->active) {
 				$result = new Zend_Auth_Result(Zend_Auth_Result::FAILURE, $id);
+			} else if($this->user->deleted) {
+				$result = new Zend_Auth_Result(Zend_Auth_Result::FAILURE, $id);
 			} else {
 				$result = new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $id, array());
 				$this->_store();

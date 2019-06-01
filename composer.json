@@ -10,8 +10,7 @@
 		}
 	],
 	"require": {
-		"facebook/graph-sdk": "^5.4",
-		"voov/billingo-api-connector": "^1.0"
+		"facebook/graph-sdk": "^5.4"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true

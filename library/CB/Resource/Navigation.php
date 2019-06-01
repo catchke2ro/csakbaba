@@ -25,6 +25,7 @@ class CB_Resource_Navigation extends Zend_Navigation {
 			array('label'=>'Kiemelt termékek', 'uri'=>'/kiemelt', 'mvc'=>array('market','promoted'), 'resource'=>'kiemelt', 'visible'=>false),
 			array('label'=>'Asztalom', 'notValid'=>array('label'=>'Oldalam'), 'class'=>'user', 'uri'=>'/felhasznalo', 'mvc'=>array('user', 'index'), 'resource'=>'felhasznalo', 'noindex'=>true, 'visible'=>true, 'pages'=>array(
 				array('label'=>'Adataim', 'uri'=>'/felhasznalo/adatmodositas', 'mvc'=>array('user','edit'), 'resource'=>'adatmodositas', 'visible'=>true),
+				array('label'=>'Profil törlés', 'uri'=>'/profiltorles', 'mvc'=>array('user','profiledelete'), 'visible'=>false, 'profileVisible' => false, 'resource'=>'profiltorles'),
 				array('label'=>'Termékeim, termékfeltöltés', 'notValid'=>array('label'=>'Asztalnyitás', 'url'=>'/felhasznalo/adatmodositas?nyitas=1'), 'uri'=>'/felhasznalo/termekek', 'mvc'=>array('shop','userproducts'), 'resource'=>'felhasznalotermekek', 'visible'=>true),
 				array('label'=>'Vásárlásaim, értékelés', 'uri'=>'/felhasznalo/rendeleseim', 'mvc'=>array('user','orders'), 'resource'=>'ertekelesek', 'visible'=>true),
 				array('label'=>'Kedvencek', 'uri'=>'/felhasznalo/kedvencek', 'mvc'=>array('user','favourites'), 'resource'=>'kedvencek', 'visible'=>true),

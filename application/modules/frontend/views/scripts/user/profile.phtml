@@ -6,6 +6,7 @@
 		<? $pages=Zend_Registry::get('nav')->findBy('resource', 'felhasznalo')->getPages(); ?>
 			<ul>
 				<? foreach($pages as $page){?>
+						<? if($page->get('profileVisible') === false) continue; ?>
 					<li><a href="<?=$page->getUri();?>"><span><?=$page->getLabel();?></span></a></li>
 				<? } ?>
 			</ul>

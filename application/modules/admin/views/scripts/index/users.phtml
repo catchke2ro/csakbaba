@@ -57,6 +57,7 @@
 					return record.data.address['name']+' - '+record.data.address['zip']+' '+record.data.address['city']+' '+record.data.address['street']
 				}},
 				{dataIndex: 'balance', header: 'Egyenleg', flex: 1, editor: {xtype: 'textfield'}},
+				{dataIndex: 'paymentid', header: 'Utalás ID', flex: 1},
 				{xtype: 'actioncolumn', items: [
 					{icon: '/img/fam/money.png', tooltip: 'Egyenleg feltöltés', handler: function(grid, rI, cI, item, e, record){
 						chargeWindow.show();

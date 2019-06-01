@@ -28,6 +28,8 @@ RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 #RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php
 
 
+RewriteRule \.well-known - [L]
+
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
