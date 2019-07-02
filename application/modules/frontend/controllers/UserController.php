@@ -219,7 +219,7 @@ class UserController extends CB_Controller_Action {
 		$form=new Frontend_Form_Charge();
 		$form->initFields();
 
-		$payments=$paymentModel->find(array('conditions'=>array('user._id'=>new \MongoId($this->user->id)), 'sort'=>'date DESC'));
+		$payments=$paymentModel->find(array('conditions'=>array('user._id'=>new \MongoDB\BSON\ObjectId($this->user->id)), 'sort'=>'date DESC'));
 		if($this->_request->isPost()){
 			if($form->isValid($this->_request->getPost())){
 				$payment=new CB_Resource_Payment(null, $this);
@@ -242,9 +242,9 @@ class UserController extends CB_Controller_Action {
 		$identity=Zend_Auth::getInstance()->getIdentity();
 		$user=$this->userModel->findOneById($identity['id']);
 
-		$userOrdersBuy=$orderModel->find(array('conditions'=>array('user._id'=>new \MongoId($user->id))));
+		$userOrdersBuy=$orderModel->find(array('conditions'=>array('user._id'=>new \MongoDB\BSON\ObjectId($user->id))));
 
-		$userOrdersSell=$orderModel->find(array('conditions'=>array('shop_user._id'=>new \MongoId($user->id))));
+		$userOrdersSell=$orderModel->find(array('conditions'=>array('shop_user._id'=>new \MongoDB\BSON\ObjectId($user->id))));
 		$categoryTree=Zend_Registry::get('categories');
 		$this->view->assign(array(
 			'userOrdersBuy'=>$userOrdersBuy,

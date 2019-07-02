@@ -14,32 +14,32 @@ class Feed extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $user_id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $product_id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $product_name;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $type;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $read;
 

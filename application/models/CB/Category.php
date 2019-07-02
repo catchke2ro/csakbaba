@@ -14,42 +14,42 @@ class Category extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $name;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $slug;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $parent_id;
 
 	/**
-	 * @ODM\ReferenceMany(targetDocument="Category", simple=true)
+	 * @ODM\ReferenceMany(targetDocument="CB\Category", storeAs="id")
 	 */
 	public $children;
 
 	/**
-	 * @ODM\Int
+	 * @ODM\Field(type="int")
 	 */
 	public $o;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $active;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $options;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $images;
 

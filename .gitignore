@@ -8,3 +8,4 @@ public/css/sass/.sass-cache
 library/classmap.php
 public/css/sass/compass
 tmp
+/vendor

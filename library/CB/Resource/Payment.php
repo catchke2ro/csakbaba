@@ -68,16 +68,13 @@ class CB_Resource_Payment {
 
 	public function redirect(){
 		//$ok=$_GET['status']=='ACTIVE' ? true : false;
-		$barion=new \Barion\Barion($this->_barionconfig->get('posKey'));
-		if($this->_barionTest){
-			$barion->setApiUrl('https://api.test.barion.com/v2');
-			$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
-		}
+		require_once APPLICATION_PATH.'/../library/Barion/BarionClient.php';
+		
+		$barion = new BarionClient($this->_barionconfig->get('posKey'));
+		
+		$paymentDetails = $barion->GetPaymentState($this->payment->bpid);
 
-		$payment=new \Barion\Payment\SimplePayment($barion, $this->payment->pid);
-		$paymentStateResponse=$payment->getPaymentState($this->payment->bpid);
-
-		$ok=in_array($paymentStateResponse->getStatus(), ['Succeeded','Prepared']);
+		$ok=in_array($paymentDetails->Status, ['Succeeded','Prepared']);
 		if($ok){
 			CB_Resource_Functions::logEvent('userChargeSuccess', array('payment'=>$this->payment));
 			$this->controller->m('A fizetés sikeres volt. Az egyenlegeden pillanatokon belül látható lesz az összeg. Számládat hamarosan megtekintheted lejjebb, valamint kiküldjük e-mailben', 'message');
@@ -92,48 +89,15 @@ class CB_Resource_Payment {
 	}
 
 	public function hook(){
-		/*if($_GET['type']=='invoice'){
-			l('INVOICEIPN');
-			$ipn = new Fandepay\Api\Webhooks\Invoice();
-			echo 'SUCCESS '.$ipn->getToken();
-			$invoiceData=array( 'invoice_number'=>$ipn->getInvoiceNumber(), 'invoice_type'=>$ipn->getInvoiceType(),	'payment_status'=>$ipn->getPaymentStatus(), 'pdf_url'=>$ipn->getPdfUrl() );
-			$this->payment->invoice_data=$invoiceData;
-			$this->paymentModel->save($this->payment, true);
-		}
+		require_once APPLICATION_PATH.'/../library/Barion/BarionClient.php';
+		
+		$barion = new BarionClient($this->_barionconfig->get('posKey'));
+		
+		$paymentDetails = $barion->GetPaymentState($this->payment->bpid);
+		
+		$this->payment->barion_data=object_to_array($paymentDetails);
 
-		if($_GET['type']=='payment'){
-			l('IPN');
-			$ipn = new Fandepay\Api\Webhooks\Ipn();
-			echo 'SUCCESS '.$ipn->getToken();
-			$invoiceData=array('invoice_number'=>$ipn->getInvoiceNumber(), 'invoice_type'=>$ipn->getInvoiceType(), 'payment_status'=>$ipn->getInvoice()->getPaymentStatus(), 'pdf_url'=>$ipn->getPdfUrl() );
-			$this->payment->status=2;
-			$this->payment->invoice_data=$invoiceData;
-			$this->paymentModel->save($this->payment, true);
-			$this->_setInvoiceStatus(2);
-			$this->_userBalance();
-			$this->controller->emails->charged(array('user'=>$this->payment->user, 'payment'=>$this->payment));
-
-		}
-
-		$client=new Zend_Http_Client($ipn->getPdfUrl());
-		$client->setAdapter(new Zend_Http_Client_Adapter_Curl());
-		$response=$client->request();
-		if($response->isSuccessful() && $response->getBody()) file_put_contents(APPLICATION_PATH.'/../tmp/invoices/'.str_replace('/', '_', $ipn->getInvoiceNumber()).'.pdf', $response->getBody());*/
-
-		$barion=new \Barion\Barion($this->_barionconfig->get('posKey'));
-
-		if($this->_barionTest){
-			$barion->setApiUrl('https://api.test.barion.com/v2');
-			$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
-		}
-
-
-
-		$payment=new \Barion\Payment\SimplePayment($barion, $this->payment->pid);
-		$paymentStateResponse=$payment->getPaymentState($this->payment->bpid);
-		$this->payment->barion_data=$paymentStateResponse->rawResponse;
-
-		if($paymentStateResponse->getStatus()=='Succeeded' && $this->payment->status != 2){
+		if($paymentDetails->Status == 'Succeeded' && $this->payment->status != 2){
 			$this->payment->status=2;
 			$this->_userBalance();
 			try{
@@ -144,9 +108,6 @@ class CB_Resource_Payment {
 			$this->controller->emails->charged(array('user'=>$this->payment->user, 'payment'=>$this->payment));
 		}
 		$this->paymentModel->save($this->payment);
-
-
-
 	}
 
 
@@ -164,45 +125,59 @@ class CB_Resource_Payment {
 	public function _start(){
 		$this->payment->barion_data=[];
 
-		$barion=new \Barion\Barion($this->_barionconfig->get('posKey'));
+		require_once APPLICATION_PATH.'/../library/Barion/BarionClient.php';
+		
+		$barion=new BarionClient($this->_barionconfig->get('posKey'));
 		if($this->_barionTest){
 			$barion->setApiUrl('https://api.test.barion.com/v2');
 			$barion->setBarionRedirectUrl('https://test.barion.com/pay?id=');
 		}
 
-		$payment=new \Barion\Payment\SimplePayment($barion, $this->payment->pid);
-
-		$transaction=new \Barion\Payment\Transaction([
-			'TransactionId'=>$this->payment->pid,
-			'Payee'=>$this->_barionconfig->get('payeeEmail'),
-			'Total'=>round(intval($this->payment->amount)),
-			'Comment'=>'csakbaba.hu egyenleg feltöltés'
-		]);
-
-		$item=new \Barion\Payment\Item([
-			'Name'=>'csakbaba.hu egyenleg feltöltés',
-			'Description'=>'csakbaba.hu egyenleg feltöltés',
-			'Quantity'=>1,
-			'Unit'=>'db',
-			'UnitPrice'=>$this->payment->amount,
-			'ItemTotal'=>$this->payment->amount
-		]);
-		$transaction->addItem($item);
-		$startResponse=$payment->startPayment([$transaction]);
-
-		if(!$startResponse->isOK()){
-			CB_Resource_Functions::logEvent('barionError', array('errors'=>$startResponse->getErrors(), 'pid'=>$this->payment->pid));
+		$item = new ItemModel();
+		$item->Name = "csakbaba.hu egyenleg feltöltés'";
+		$item->Description = "csakbaba.hu egyenleg feltöltés";
+		$item->Quantity = 1;
+		$item->Unit = "db";
+		$item->UnitPrice = $this->payment->amount;
+		$item->ItemTotal = $this->payment->amount;
+		$item->SKU = "CSBBAL";
+		
+		$transaction = new PaymentTransactionModel();
+		$transaction->POSTransactionId = $this->payment->pid;
+		$transaction->Payee = $this->_barionconfig->get('payeeEmail');
+		$transaction->Total = round(intval($this->payment->amount));
+		$transaction->Currency = Currency::HUF;
+		$transaction->Comment = "csakbaba.hu egyenleg feltöltés";
+		$transaction->AddItem($item);
+		
+		$ppr = new PreparePaymentRequestModel();
+		$ppr->GuestCheckout = true;
+		$ppr->PaymentType = PaymentType::Immediate;
+		$ppr->FundingSources = array(FundingSourceType::All);
+		$ppr->PaymentRequestId = $this->payment->pid;
+		//$ppr->PayerHint = "user@example.com";
+		$ppr->Locale = UILocale::HU;
+		$ppr->OrderNumber = $this->payment->pid;
+		$ppr->Currency = Currency::HUF;
+		//$ppr->ShippingAddress = "12345 NJ, Example ave. 6.";
+		$ppr->RedirectUrl = "https://{$_SERVER['HTTP_HOST']}/paymentredirect";
+		$ppr->CallbackUrl = "https://{$_SERVER['HTTP_HOST']}/paymenthook";
+		$ppr->AddTransaction($transaction);
+		
+		$response = $barion->PreparePayment($ppr);
+		
+		if (!$response->RequestSuccessful) {
+			CB_Resource_Functions::logEvent('barionError', array('errors'=>$response->Errors, 'pid'=>$this->payment->pid));
 			return false;
 		}
-
-		$paymentStateResponse=$payment->getPaymentState($startResponse->getBarionPaymentId());
-
-		$this->payment->bpid=$startResponse->getBarionPaymentId();
-		$this->payment->barion_data=$paymentStateResponse->rawResponse;
+		
+		$this->payment->bpid=$response->PaymentId;
+		$this->payment->barion_data = object_to_array($response);
 		$this->paymentModel->save($this->payment);
-
-
-		return $startResponse->getRedirectUrl($barion);
+		
+		$redirectUrl = $response->PaymentRedirectUrl;
+		
+		return $redirectUrl;
 	}
 
 

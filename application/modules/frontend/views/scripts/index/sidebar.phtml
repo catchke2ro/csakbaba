@@ -4,9 +4,9 @@
     </div>
     <a href="/" class="logo"><img property="og:image" src="/img/elements/logo.png " title="logo" alt="logo"/></a>
 		<div class="borzeIcons">
-			<? foreach($this->catMultiArray as $mainCat){?>
+			<?php foreach($this->catMultiArray as $mainCat){?>
 				<a href="<?=$this->url('piac').$mainCat->url;?>" class="<?=$mainCat->id;?>"><?=$mainCat->name;?></a>
-			<? } ?>
+			<?php } ?>
 		</div>
     <div class="menu">
         <nav><?=$this->navigation($this->nav)->menu()->setMaxDepth(1);?></nav>

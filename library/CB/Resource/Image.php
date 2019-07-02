@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CB_Resource_Image {
 
@@ -11,7 +11,7 @@ class CB_Resource_Image {
 
 	public function handleImage(array $file){
 		$returnFile=array();
-		$image=new Zend_Image_Transform($file['tmp_name'], new CB_Resource_Imagick());
+		$image=new CB_Image_Transform($file['tmp_name'], new CB_Resource_Imagick());
 		$image->getDriver()->watermark();
 
 		$newPath=APPLICATION_PATH.'/../public'.$this->targetDir.'/';

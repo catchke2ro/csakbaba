@@ -11,12 +11,13 @@ class CB_Form_Form extends Zend_Form {
 	public function addElement($element, $name = null, $options = null){
 		parent::addElement($element, $name, $options);
 
+		$typeExploded = explode('_', $element->getType());
 		$element->setDecorators(array(
 			'ViewHelper',
 			array('Label', array('placement'=>'append', 'escape'=>false)),
 			'Errors',
 			array('Description', array('escape'=>false)),
-			array('HtmlTag', array('tag'=>'li', 'class'=>'field '.strtolower(end(explode('_', $element->getType()))).' '.($element->isRequired() ? 'req' : '').' '.$element->getAttrib('class')))
+			array('HtmlTag', array('tag'=>'li', 'class'=>'field '.strtolower(end($typeExploded)).' '.($element->isRequired() ? 'req' : '').' '.$element->getAttrib('class')))
 		));
 
 		if($element->getType()=='Zend_Form_Element_Radio' || $element->getType()=='Zend_Form_Element_MultiCheckbox'){
@@ -26,7 +27,7 @@ class CB_Form_Form extends Zend_Form {
 				'Errors',
 				array('Label'),
 				array('Description', array('escape'=>false)),
-				array('HtmlTag', array('tag'=>'li', 'class'=>'field '.strtolower(end(explode('_', $element->getType()))).' '.($element->isRequired() ? 'req' : '').' '.$element->getAttrib('class')))
+				array('HtmlTag', array('tag'=>'li', 'class'=>'field '.strtolower(end($typeExploded)).' '.($element->isRequired() ? 'req' : '').' '.$element->getAttrib('class')))
 			));
 		}
 

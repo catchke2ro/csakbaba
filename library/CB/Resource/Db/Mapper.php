@@ -1,4 +1,4 @@
-<?
+<?php 
 
 class CB_Resource_Db_Mapper {
 
@@ -11,7 +11,8 @@ class CB_Resource_Db_Mapper {
 	protected $_primary='id';
 
 	public function __construct(){
-		$classname=end(explode('_', get_class($this)));
+		$classExploded = explode('_', get_class($this));
+		$classname=end($classExploded);
 		if($this->_tableName===null){
 			$this->_tableName=strtolower($classname);
 		}
@@ -142,7 +143,8 @@ class CB_Resource_Db_Mapper {
 				$this->_buildConditions($select, $value, 'OR'); continue;
 			}
 			if(is_array($value)){
-				$this->addWhere($select, reset(array_keys($value)), reset(array_values($value)), $type);
+				$valueKeys = array_keys($value);
+				$this->addWhere($select, reset($valueKeys), reset(array_values($value)), $type);
 			} else {
 				$this->addWhere($select, $field, $value, $type);
 			}

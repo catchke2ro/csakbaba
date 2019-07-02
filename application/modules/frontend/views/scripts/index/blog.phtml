@@ -1,8 +1,8 @@
 <div class="blogContent">
-    <? if($this->user && $this->user->blogadmin){?>
+    <?php if($this->user && $this->user->blogadmin){?>
         <a href="/index/blogedit" class="editLink">Új poszt</a>
-    <? } ?>
-	<? foreach($this->posts as $post){?>
+    <?php } ?>
+	<?php foreach($this->posts as $post){?>
 	<article class="postItem index">
 		<header>
 			<h2>
@@ -15,6 +15,6 @@
 		</div>
         <a href="<?=$this->url('blog').'/'.$post->slug;?>" class="moreLink">tovább</a>
     </article>
-	<? } ?>
+	<?php } ?>
 
 </div>

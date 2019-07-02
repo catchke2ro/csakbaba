@@ -37,7 +37,15 @@ class IndexController extends CB_Controller_Action {
 		}
 
 		$orderModel=new \CB\Model\Order();
-		$latestOrders=$orderModel->find(array('conditions'=>array('user._id'=>array('notEqual'=>new \MongoId('528a82320f435fd2028b4568')), 'shop_user._id'=>array('notEqual'=>new \MongoId('528a82320f435fd2028b4568'))), 'order'=>'date DESC', 'limit'=>10));
+		$conditions = array('conditions'=>array(
+		), 'order'=>'date DESC', 'limit'=>10);
+		if (Zend_Registry::get('CsbConfig')->get('hideC2Orders')) {
+			$conditions['conditions'] = array(
+				'user._id'=>array('notEqual'=>new \MongoDB\BSON\ObjectId('528a82320f435fd2028b4568')),
+				'shop_user._id'=>array('notEqual'=>new \MongoDB\BSON\ObjectId('528a82320f435fd2028b4568'))
+			);
+		}
+		$latestOrders=$orderModel->find($conditions);
 		$latestUsers=array();
 		foreach(($latestOrders ? $latestOrders : array()) as $latestOrder){
 			$latestUsers[$latestOrder->shop_user->id]=$latestOrder->shop_user;

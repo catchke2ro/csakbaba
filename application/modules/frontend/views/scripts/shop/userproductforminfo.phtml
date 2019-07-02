@@ -15,13 +15,13 @@
             <td><?=intval($this->product->visitors);?></td>
         </tr>
 
-        <? if(($activePromotes = $this->product->getActivePromotes())){?>
-            <? foreach($activePromotes as $promote){?>
+        <?php if(($activePromotes = $this->product->getActivePromotes())){?>
+            <?php foreach($activePromotes as $promote){?>
                 <tr class="productPromote">
                     <td>Kiemelve: <?=$promote['name'];?></td>
                     <td><?=$promote['date']->format('Y.m.d H:i');?> - ig</td>
                 </tr>
-            <? } ?>
-        <? } ?>
+            <?php } ?>
+        <?php } ?>
     </table>
 </div>

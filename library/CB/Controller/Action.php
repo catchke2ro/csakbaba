@@ -1,4 +1,4 @@
-<?
+<?php
 
 abstract class CB_Controller_Action extends Zend_Controller_Action {
 
@@ -167,7 +167,8 @@ abstract class CB_Controller_Action extends Zend_Controller_Action {
 		$bootstrap = $this->getInvokeArg('bootstrap');
 		$userAgent = $bootstrap->getResource('useragent');
 		$device=$userAgent->getDevice();
-		$htmlClass.=' '.str_replace(' ', '', strtolower($device->getBrowser().reset(explode('.', $device->getBrowserVersion()))));
+		$versionExploded = explode('.', $device->getBrowserVersion());
+		$htmlClass.=' '.str_replace(' ', '', strtolower($device->getBrowser().reset($versionExploded)));
 		if(strpos($device->getUserAgent(), 'Trident/')!==false) $htmlClass.=' internetexplorer11';
 
 

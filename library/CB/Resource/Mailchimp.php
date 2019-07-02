@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CB_Resource_Mailchimp {
 

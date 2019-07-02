@@ -16,7 +16,7 @@ class CB_Controller_Frontend_Plugin_ACL extends Zend_Controller_Plugin_Abstract 
 	 */
 	private $view;
 
-	public function routeShutdown(Zend_Controller_Request_Http $request){
+	public function routeShutdown(Zend_Controller_Request_Abstract $request){
 		if($request->getModuleName()!='frontend') {
 			Zend_Controller_Front::getInstance()->unregisterPlugin($this);
 			return;

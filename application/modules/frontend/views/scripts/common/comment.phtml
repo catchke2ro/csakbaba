@@ -1,17 +1,17 @@
 <li class="comment <?=(!empty($this->added) && $this->added) ? 'fresh' : '';?> <?=$this->product->user->id==$this->comment->user->get()->id ? 'owner' : '';?> <?=$this->comment->moderated ? 'moderated' : '';?>">
 	<div class="text">
-		<? if($this->comment->moderated){?>
+		<?php if($this->comment->moderated){?>
 			<strong>MODERÁLT ÜZENET</strong>
-		<? } else { ?>
+		<?php } else { ?>
 			<?=strip_tags($this->comment->text);?>
-		<? } ?>
+		<?php } ?>
 	</div>
 	<div class="user">
-		<? if(!empty($this->comment->user->avatar[0]['small'])){?>
+		<?php if(!empty($this->comment->user->avatar[0]['small'])){?>
 			<div class="avatar">
 				<img src="<?=$this->comment->user->avatar[0]['small'];?>" alt="<?=$this->comment->user->username;?>"/>
 			</div>
-		<? } ?>
+		<?php } ?>
 		<a href="<?=$this->url('profil').'/'.$this->comment->user->username;?>" class="username"><?=$this->comment->user->username;?></a>
 		<time><?=$this->comment->date->format('Y.m.d H:i:s');?></time>
 	</div>

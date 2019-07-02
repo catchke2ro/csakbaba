@@ -14,42 +14,42 @@ class Log extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $event_name;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $user;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $ip;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $server;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $post;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $get;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $params;
 

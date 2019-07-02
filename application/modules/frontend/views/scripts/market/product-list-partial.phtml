@@ -1,6 +1,6 @@
 
 
-		<? foreach($this->products as $product){?>
+		<?php foreach($this->products as $product){?>
 			<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product)));?>
-		<? } ?>
+		<?php } ?>
 

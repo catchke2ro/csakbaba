@@ -15,128 +15,128 @@ class User extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $username;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $password;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $email;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $desc;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $gender;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $birth_date;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $phone;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date_reg;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date_last_login;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $active;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $activation_code;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $address;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $postaddress;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $avatar;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $role;
 
 	/**
-	 * @ODM\Int
+	 * @ODM\Field(type="int")
 	 */
 	public $balance;
 
 	/**
-	 * @ODM\ReferenceMany(targetDocument="Product")
+	 * @ODM\ReferenceMany(targetDocument="CB\Product")
 	 */
 	public $favourites;
 
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $promotes;
 
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $fbid;
 
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $gpid;
 
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $billingoid;
 
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $subscribed;
 
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $blogadmin;
 	
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $deleted;
 
@@ -145,7 +145,7 @@ class User extends \CB_Resource_ModelItem {
 		$orderModel=new \CB\Model\Order();
 		$all=$positive=0;
 		if($type=='avg' || $type=='buy'){
-			$userOrdersBuy=$orderModel->find(array('conditions'=>array('user._id'=>new \MongoId($this->id))));
+			$userOrdersBuy=$orderModel->find(array('conditions'=>array('user._id'=>new \MongoDB\BSON\ObjectId($this->id))));
 			foreach($userOrdersBuy as $uob){
 				if($uob->shop_user_rating){
 					$all++;
@@ -154,7 +154,7 @@ class User extends \CB_Resource_ModelItem {
 			}
 		}
 		if($type=='avg' || $type=='sell'){
-			$userOrdersSell=$orderModel->find(array('conditions'=>array('shop_user._id'=>new \MongoId($this->id))));
+			$userOrdersSell=$orderModel->find(array('conditions'=>array('shop_user._id'=>new \MongoDB\BSON\ObjectId($this->id))));
 			foreach($userOrdersSell as $uos){
 				if($uos->user_rating){
 					$all++;
@@ -169,7 +169,7 @@ class User extends \CB_Resource_ModelItem {
 	public function getProducts($random=false, $count=10, $status=array(1)){
 		$productModel=new \CB\Model\Product();
 		$productModel->initQb();
-		$productModel->qb->field('user')->equals(new \MongoId($this->id));
+		$productModel->qb->field('user')->equals(new \MongoDB\BSON\ObjectId($this->id));
 		$productModel->qb->field('status')->in($status);
 		$productModel->qb->sort('date_added', 'DESC');
 		$products=$productModel->runQuery();
@@ -183,7 +183,7 @@ class User extends \CB_Resource_ModelItem {
     public function getActiveProductsCount(){
         $productModel=new \CB\Model\Product();
         $productModel->initQb();
-        $productModel->qb->field('user')->equals(new \MongoId($this->id));
+        $productModel->qb->field('user')->equals(new \MongoDB\BSON\ObjectId($this->id));
         $productModel->qb->field('status')->in([1]);
         $productModel->qb->field('deleted')->notEqual(true);
         $productModel->qb->count();

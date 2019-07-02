@@ -10,8 +10,28 @@
 		}
 	],
 	"require": {
-		"facebook/graph-sdk": "^5.4"
+		"php": "^7.3",
+		"facebook/graph-sdk": "^5.4",
+		"diablomedia/zendframework1": "^2.0",
+		"doctrine/mongodb-odm": "dev-master#51093a4f62ed0154896769f65683ce597f13af72",
+		"mongodb/mongodb": "v1.2.0",
+		"tijsverkoyen/css-to-inline-styles": "^2.2",
+		"phpoffice/phpspreadsheet": "^1.6",
+		"claviska/simpleimage": "^3.3",
+		"drewm/mailchimp-api": "^2.5",
+		"voov/billingo-api-connector": "^1.1"
 	},
 	"minimum-stability": "dev",
-	"prefer-stable": true
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"CB\\": [
+				"application/models/CB",
+				"library/CB"
+			],
+			"Barion\\": [
+				"library/Barion"
+			]
+		}
+	}
 }

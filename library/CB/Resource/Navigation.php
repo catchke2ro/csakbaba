@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Navigation object for menus and breadcrumbs
  * Class SRG_Resource_Navigation

@@ -1,8 +1,8 @@
-<? if(!empty($this->product)){?>
+<?php if(!empty($this->product)){?>
 
-<? $tag=isset($this->tag) ? $this->tag : 'li';?>
-    <? $fix = !isset($this->fix) || $this->fix==true;?>
-<? $nameTag=isset($this->nameTag) ? $this->nameTag : 'h3';?>
+<?php $tag=isset($this->tag) ? $this->tag : 'li';?>
+    <?php $fix = !isset($this->fix) || $this->fix==true;?>
+<?php $nameTag=isset($this->nameTag) ? $this->nameTag : 'h3';?>
 <<?=$tag;?>
 	class="product <?=$this->product->type;?> <?=$fix ? '' : 'noFix';?> <?=((isset($this->back) && $this->back==false)?'noflip':'');?> <?=(!empty($this->extraClass)?$this->extraClass:'');?> <?=($this->product->isPromoted('frame')?'promotedFrame':'');?> <?=($this->product->isPromoted('list')?'promotedList':'');?> status<?=$this->product->status;?>"
 	data-id="<?=$this->product->id;?>"
@@ -12,95 +12,95 @@
 >
 	<div class="productInner">
 
-		<? if(!empty($this->delFav) && $this->delFav==true) {?><a href="<?=$this->url('kedvencek').'?remove=1&id='.$this->product->id;?>" class="delFav" title="Eltávolítás a kedvencek közül">X</a><? } ?>
+		<?php if(!empty($this->delFav) && $this->delFav==true) {?><a href="<?=$this->url('kedvencek').'?remove=1&id='.$this->product->id;?>" class="delFav" title="Eltávolítás a kedvencek közül">X</a><?php } ?>
 
 		<div class="flipper">
 
 
-			<? if(!isset($this->front) || $this->front==true){?>
+			<?php if(!isset($this->front) || $this->front==true){?>
 				<div class="front">
-					<? $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
+					<?php $img=(is_array($this->product->images) && !empty($this->product->images)) ? $img=reset($this->product->images) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
 					<div class="productImages <?=!empty($this->previewImg) ? 'previewImg' : '';?>" style="background-image: url(<?=$img['mid'];?>);" data-preview="<?=$img['mid'];?>">
 					</div>
 					<div class="productBottom">
 						<<?=$nameTag;?> class="productName">
 						<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->product->name);?></a>
-						<? if(!empty($this->o)){?>
+						<?php if(!empty($this->o)){?>
 							<div class="productInfo">
 								<span><?=$this->seller ? 'Eladás dátuma' : 'Vásárlás dátuma';?>: <strong><?=$this->o->date->format('Y.m.d H:i');?></strong></span>
                                 
-                                <? $username = $this->seller ? $this->o->user->username : $this->o->shop_user->username;?>
+                                <?php $username = $this->seller ? $this->o->user->username : $this->o->shop_user->username;?>
 								<span><?=$this->seller ? 'Vásárló' : 'Eladó';?>: <strong><a href="<?=$this->url('profil').'/'.urlencode($username);?>"><?=$username;?></a></strong></span>
 								<span>Kód: <strong><?=$this->o->code;?></strong></span>
 							</div>
-						<? } ?>
+						<?php } ?>
 						</<?=$nameTag;?>>
 						<div class="productPrice"><span><?=number_format($this->product->price, 0, ',', ' ');?> Ft.</span></div>
-						<? if(!empty($this->frontDesc)){?>
+						<?php if(!empty($this->frontDesc)){?>
 							<div class="frontDesc"><?=$this->product->desc;?></div>
-						<? } ?>
+						<?php } ?>
 					</div>
 
 				</div>
-			<? } ?>
+			<?php } ?>
 
 
-			<? if(!isset($this->back) || $this->back==true){?>
+			<?php if(!isset($this->back) || $this->back==true){?>
 				<div class="back">
 					<h3 class="productName"><a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="jump clamp" data-clamprows="2"><?=htmlentities($this->product->name);?></a></h3>
 					<div class="details">
 						<!--<div class="productDesc"><?=implode(' ', array_slice(explode(' ', $this->product->desc), 0, 12)).' ...';?></div>-->
 						<div class="productOptions">
-							<? $genreTypes=Zend_Registry::get('genreTypes');?>
+							<?php $genreTypes=Zend_Registry::get('genreTypes');?>
 							<span class="option">
 						    <strong><?=$this->product->new ? 'Új' : 'Használt';?><?=$this->product->type ? ', '.$genreTypes[$this->product->type] : ''?></strong>
 					    </span><br />
 							<span class="option">
 						    <strong>Feltöltve</strong>: <?=$this->product->date_added->format('Y.m.d H:i');?>
 					    </span><br />
-							<? $catoptions=$this->categoryTree->getOptions($this->product->category);?>
-							<? if(is_array($this->product->options)){ foreach($this->product->options as $id=>$option){?>
-								<? $c=$this->categoryTree->_props[$id];?>
+							<?php $catoptions=$this->categoryTree->getOptions($this->product->category);?>
+							<?php if(is_array($this->product->options)){ foreach($this->product->options as $id=>$option){?>
+								<?php $c=$this->categoryTree->_props[$id];?>
 								<span class="option"><strong><?=$c['name'];?></strong>: <?=empty($c['options'][$option]) ? $option : $c['options'][$option]['name'];?></span>
 								<br />
-							<? }} ?>
+							<?php }} ?>
 						</div>
 					</div>
 					<div class="productPrice"><?=number_format($this->product->price, 0, ',', ' ');?> Ft.</div>
 					<div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=$this->product->user->postaddress['city'];?></span></div>
 
 					<div class="productGallery">
-						<? if(is_array($this->product->images) && !empty($this->product->images)){ foreach($this->product->images as $image){?>
+						<?php if(is_array($this->product->images) && !empty($this->product->images)){ foreach($this->product->images as $image){?>
 							<div><img src="<?=$image['small'];?>" data-preview="<?=$image['mid'];?>" alt="<?=htmlentities($this->product->name);?>" class="previewImg"/></div>
-						<? }} ?>
+						<?php }} ?>
 					</div>
 				</div>
-			<? } ?>
+			<?php } ?>
 
 
 		</div>
 
 
-        <? if(isset($this->userfunctions) && $this->userfunctions==true){?>
+        <?php if(isset($this->userfunctions) && $this->userfunctions==true){?>
             <!--<div class="userFix">
-                <?/*=$this->partial('shop/userproductfix.phtml', $this->getVars());*/?>
+                <?php /*=$this->partial('shop/userproductfix.phtml', $this->getVars());*/?>
             </div>-->
             <?=$this->partial('shop/userproductfunctions.phtml', $this->getVars());?>
-        <? } ?>
-        <? if($fix) { ?>
+        <?php } ?>
+        <?php if($fix) { ?>
 			<div class="fix">
 				<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category).'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" class="button jump"><?=(isset($this->fixText) ? $this->fixText : 'tovább a termékhez');?></a>
 			</div>
-		<? } ?>
+		<?php } ?>
 
 
 
-		<? if(isset($this->rating) && $this->rating==true && !empty($this->o)){?>
+		<?php if(isset($this->rating) && $this->rating==true && !empty($this->o)){?>
 			<?=$this->partial('shop/userrating.phtml', $this->getVars());?>
-		<? } ?>
+		<?php } ?>
 
 
 	</div>
 </<?=$tag;?>>
 
-<? } ?>
+<?php } ?>

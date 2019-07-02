@@ -41,7 +41,8 @@ class CB_Resource_Model{
 	 */
 	function __construct(){
 		$this->dm=\Zend_Registry::get('dm'); //Init Document Manager
-		$this->repository=$this->dm->getRepository('CB\\'.end(explode('\\', get_class($this))));
+		$explodedClassName = explode('\\', get_class($this));
+		$this->repository=$this->dm->getRepository('CB\\'.end($explodedClassName));
 		$cacheManager=Zend_Registry::get('cache');
 		$this->cache=$cacheManager->getCache('general');
 	}
@@ -50,13 +51,18 @@ class CB_Resource_Model{
 	 * Init function for this resource
 	 */
 	function init(){}
-
+	
+	
 	/**
 	 * Saving document (ModelItem)
+	 *
 	 * @param \CB_Resource_ModelItem() $data The saved data object
-	 * @param boolean $onlyOneDocumentFlush Language of data
+	 * @param bool $flush
+	 *
+	 * @return bool|null
+	 * @throws \Doctrine\ODM\MongoDB\MongoDBException
 	 */
-	public function save($data=null, $onlyOneDocumentFlush=false){
+	public function save($data=null, $flush = true){
 		$documentName=$this->repository->getDocumentName();
 		if(is_object($data)){
 			$document=$data;
@@ -69,8 +75,9 @@ class CB_Resource_Model{
 		}
 		if(!empty($document)){
 			$this->dm->persist($document);
-			$flushDocument=($onlyOneDocumentFlush) ? $document : null;
-			$this->dm->flush($flushDocument);
+			if ($flush) {
+				$this->dm->flush();
+			}
 			return $document;
 		}
 		return false;

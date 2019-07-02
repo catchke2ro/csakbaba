@@ -7,7 +7,7 @@ class Frontend_Form_Login extends CB_Form_Form {
 	}
 
 	public function initFields(){
-		$email=new Zend_Form_Element_Email('email');
+		$email=new CB_Resource_Form_Element_Email('email');
 		$email->setLabel('E-mail cím')->setRequired(true)->setAttrib('placeholder', 'e-mail cím');
 		$password=new Zend_Form_Element_Password('password');
 		$password->setLabel('Jelszó')->setRequired(true)->setAttrib('placeholder', 'jelszó');

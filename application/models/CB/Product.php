@@ -15,97 +15,97 @@ class Product extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $name;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $search_name;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $desc;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $category;
 
 	/**
-	 * @ODM\ReferenceOne(targetDocument="User", simple=true)
+	 * @ODM\ReferenceOne(targetDocument="CB\User", storeAs="id")
 	 */
 	public $user;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $images;
 
 	/**
-	 * @ODM\Int
+	 * @ODM\Field(type="int")
 	 */
 	public $price;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date_added;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date_period;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $options;
 
 	/**
-	 * @ODM\Int
+	 * @ODM\Field(type="int")
 	 */
 	public $status;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $type;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $new;
 
 	/**
-	 * @ODM\Int
+	 * @ODM\Field(type="int")
 	 */
 	public $visitors;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $promotes;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $deliveries;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $autorenew;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $deleted;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $code;
 

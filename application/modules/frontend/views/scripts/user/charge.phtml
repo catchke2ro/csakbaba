@@ -3,16 +3,16 @@
 	<h1>Egyenleg</h1>
 
 	<div class="now">
-		<? $avail=Zend_Registry::get('uploadPrice')==0 ? 'végtelen' : floor($this->user->balance/Zend_Registry::get('uploadPrice'));?>
+		<?php $avail=Zend_Registry::get('uploadPrice')==0 ? 'végtelen' : floor($this->user->balance/Zend_Registry::get('uploadPrice'));?>
 		<strong>Jelenlegi egyenleged: <?=$this->user->balance;?> Ft. </strong><br />
 		Ne feledd, 10 aktív termék erejéig a feltöltés ingyenes!<br />
 		<?=($avail>0 || Zend_Registry::get('uploadPrice')==0) ? 'Ez még '.$avail.' termék feltöltésére elegendő' : 'További termékek feltöltéséhez, egyéb szolgáltatásokhoz töltsd fel egyenleged!!';?>
 	</div>
 
 	<h2>Egyenleg feltöltése</h2>
-	<? if(!$this->user->isValidToCharge()){?>
+	<?php if(!$this->user->isValidToCharge()){?>
 		<h3>Egyenleg feltöltéséhez minden szükséges adatot meg kell adnod az <a href="<?=$this->url('adatmodositas');?>">adatmódosítás</a> oldalon</h3>
-	<? } else {?>
+	<?php } else {?>
 		<div class="card stat">
 			<h3 class="cardBarionTitle">Fizetés bankkártyával vagy <img src="/img/elements/barion_icon.png" alt="Barion"/> - nal</h3>
 			<p>Írd be az összeget (min. <?=Zend_Registry::get('minCharge');?> Ft.), kattints a "Fizetés bankkártyával" gombra és fizess bankkártyáddal azonnal.</p>
@@ -36,7 +36,7 @@
 				<strong>Közlemény:</strong> <?=strtoupper(substr(preg_replace('/[^a-zA-Z0-9]/', '', $this->user->username), 0, 4).substr(md5($this->user->id), 0, 4));?>
 			</p>
 		</div>
-	<? } ?>
+	<?php } ?>
 
 
 
@@ -55,12 +55,12 @@
 				<th>Azonosító</th>
 				<th>Számla</th>
 			</tr>
-		<? foreach($this->payments as $payment){?>
-			<? if($payment->status==1) continue;?>
+		<?php foreach($this->payments as $payment){?>
+			<?php if($payment->status==1) continue;?>
 			<tr>
 				<td><?=$payment->date->format('Y.m.d H:i:s');?></td>
 				<td><?=$payment->amount;?> Ft.</td>
-				<td><?
+				<td><?php
 					switch($payment->type){
 						case 'CREDIT_CARD':  echo 'Bankkártya';break;
 						case 'BANK_TRANSFER':  echo 'Átutalás';break;
@@ -69,7 +69,7 @@
 				<td><?=$payment->pid;?></td>
 				<td><a href="<?=$this->url('egyenleg').'?i=1&pid='.$payment->pid;?>" target="_blank"><?=$payment->invoice_data['invoice_number'];?></a></td>
 			</tr>
-		<? } ?>
+		<?php } ?>
 		</table>
 	</div>
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CB_Resource_Route extends  Zend_Controller_Router_Route_Module {
 

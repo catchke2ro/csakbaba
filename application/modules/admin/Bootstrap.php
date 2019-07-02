@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Class Frontend_Bootstrap
  * @author SRG Group

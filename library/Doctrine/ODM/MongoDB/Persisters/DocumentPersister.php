@@ -238,7 +238,7 @@ class DocumentPersister
                     $this->class->reflFields[$this->class->versionField]->setValue($document, $nextVersion);
                 } elseif ($versionMapping['type'] === 'date') {
                     $nextVersionDateTime = new \DateTime();
-                    $nextVersion = new \MongoDate($nextVersionDateTime->getTimestamp());
+                    $nextVersion = new \MongoDB\BSON\UTCDateTime($nextVersionDateTime->getTimestamp());
                     $this->class->reflFields[$this->class->versionField]->setValue($document, $nextVersionDateTime);
                 }
                 $data[$versionMapping['name']] = $nextVersion;
@@ -293,7 +293,7 @@ class DocumentPersister
                     $this->class->reflFields[$this->class->versionField]->setValue($document, $nextVersion);
                 } elseif ($versionMapping['type'] === 'date') {
                     $nextVersionDateTime = new \DateTime();
-                    $nextVersion = new \MongoDate($nextVersionDateTime->getTimestamp());
+                    $nextVersion = new \MongoDB\BSON\UTCDateTime($nextVersionDateTime->getTimestamp());
                     $this->class->reflFields[$this->class->versionField]->setValue($document, $nextVersionDateTime);
                 }
                 $data['$set'][$versionMapping['name']] = $nextVersion;
@@ -385,8 +385,8 @@ class DocumentPersister
                 $this->class->reflFields[$this->class->versionField]->setValue($document, $nextVersion);
             } elseif ($versionMapping['type'] === 'date') {
                 $nextVersion = new \DateTime();
-                $update['$set'][$versionMapping['name']] = new \MongoDate($nextVersion->getTimestamp());
-                $query[$versionMapping['name']] = new \MongoDate($currentVersion->getTimestamp());
+                $update['$set'][$versionMapping['name']] = new \MongoDB\BSON\UTCDateTime($nextVersion->getTimestamp());
+                $query[$versionMapping['name']] = new \MongoDB\BSON\UTCDateTime($currentVersion->getTimestamp());
                 $this->class->reflFields[$this->class->versionField]->setValue($document, $nextVersion);
             }
         }
@@ -453,7 +453,7 @@ class DocumentPersister
     /**
      * Finds a document by a set of criteria.
      *
-     * If a scalar or MongoId is provided for $criteria, it will be used to
+     * If a scalar or MongoDB\BSON\ObjectId is provided for $criteria, it will be used to
      * match an _id value.
      *
      * @param mixed   $criteria Query criteria
@@ -468,7 +468,7 @@ class DocumentPersister
     public function load($criteria, $document = null, array $hints = array(), $lockMode = 0, array $sort = null)
     {
         // TODO: remove this
-        if ($criteria === null || is_scalar($criteria) || $criteria instanceof \MongoId) {
+        if ($criteria === null || is_scalar($criteria) || $criteria instanceof \MongoDB\BSON\ObjectId) {
             $criteria = array('_id' => $criteria);
         }
 
@@ -983,7 +983,7 @@ class DocumentPersister
                 return array($fieldName, $this->pb->prepareEmbeddedDocumentValue($mapping, $value));
             }
 
-            if (! empty($mapping['reference']) && is_object($value) && ! ($value instanceof \MongoId)) {
+            if (! empty($mapping['reference']) && is_object($value) && ! ($value instanceof \MongoDB\BSON\ObjectId)) {
                 try {
                     return array($fieldName, $this->dm->createDBRef($value, $mapping));
                 } catch (MappingException $e) {

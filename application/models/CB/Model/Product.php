@@ -1,6 +1,8 @@
 <?php
 namespace CB\Model;
 
+use Zend_Registry;
+
 class Product extends \CB_Resource_Model{
 
 
@@ -58,7 +60,7 @@ class Product extends \CB_Resource_Model{
 		if(!$category){
 
 		} else if(!empty($category->children)){
-			$this->qb->field('category')->equals(new \MongoRegex('/^'.$category->id.'\-.*/i'));
+			$this->qb->field('category')->equals(new \MongoDb\BSON\Regex('/^'.$category->id.'\-.*/i'));
 		} else {
 			$this->qb->field('category')->equals($category->id);
 		}
@@ -78,10 +80,11 @@ class Product extends \CB_Resource_Model{
 							$this->qb->field('options.'.$id)->in($_POST[$o['slug']]);
 							break;
 						case 'number':
-							$range=range(reset(explode('-', $_POST[$o['slug']])), end(explode('-', $_POST[$o['slug']])));
+							$exploded = explode('-', $_POST[$o['slug']]);
+							$range=range(reset($exploded), end($exploded));
 							$range=array_map(function($a){ return strval($a);	}, $range);
 							$this->qb->field('options.'.$id)->in($range);
-							//$this->qb->field('options.'.$id)->equals(new \MongoRegex('/['.implode(',',$range).']{1}/i'));
+							//$this->qb->field('options.'.$id)->equals(new \MongoDb\BSON\Regex('/['.implode(',',$range).']{1}/i'));
 							break;
 						default: break;
 					}
@@ -141,7 +144,9 @@ class Product extends \CB_Resource_Model{
 		if(!($fresh=$this->cache->load('mainFresh'))){
 			$this->initQb();
 			$this->qb->field('status')->equals(1);
-			$this->qb->field('user')->notEqual(new \MongoId('528a82320f435fd2028b4568'));
+			if (Zend_Registry::get('CsbConfig')->get('hideC2Orders')) {
+				$this->qb->field('user')->notEqual(new \MongoDB\BSON\ObjectId('528a82320f435fd2028b4568'));
+			}
 			$this->qb->sort('date_added', 'desc');
 			$this->qb->limit(12);
 			$fresh=$this->runQuery();
@@ -155,7 +160,9 @@ class Product extends \CB_Resource_Model{
 		$fields=array_keys($this->repository->getClassMetadata()->reflFields);
 		$random=$this->initQb();
 		$this->qb->field('status')->equals(1);
-		$this->qb->field('user')->notEqual(new \MongoId('528a82320f435fd2028b4568'));
+		if (Zend_Registry::get('CsbConfig')->get('hideC2Orders')) {
+			$this->qb->field('user')->notEqual(new \MongoDB\BSON\ObjectId('528a82320f435fd2028b4568'));
+		}
 		$this->qb->addOr($this->qb->expr()->field('deleted')->exists(false));
 		$this->qb->addOr($this->qb->expr()->field('deleted')->equals(false));
 		$ascdesc=['desc', 'asc'];
@@ -185,7 +192,7 @@ class Product extends \CB_Resource_Model{
 			$this->initQb();
 			$this->qb->field('promotes.'.$type)->gte(time());
 			$this->qb->field('status')->equals(1);
-			if(!empty($key)) $this->qb->field('category')->equals(new \MongoRegex('/^'.$key.'-.*/iu'));
+			if(!empty($key)) $this->qb->field('category')->equals(new \MongoDb\BSON\Regex('/^'.$key.'-.*/iu'));
 			//$this->qb->field('promotes.'.$type)->lte(strtotime('-1 weeks'));
 			$products=$this->runQuery();
 			shuffle($products);
@@ -203,7 +210,7 @@ class Product extends \CB_Resource_Model{
 		foreach(explode(' ', $q) as $word){
 			$word=trim($word);
 			if(empty($word)) continue;
-			$this->qb->field('name')->equals(new \MongoRegex('/.*'.$word.'.*/iu'));
+			$this->qb->field('name')->equals(new \MongoDb\BSON\Regex('/.*'.$word.'.*/iu'));
 		}
 		$this->qb->field('status')->equals(1);
 		$resultName=$this->runQuery();
@@ -211,7 +218,7 @@ class Product extends \CB_Resource_Model{
 		foreach(explode(' ', $q) as $word){
 			$word=trim($word);
 			if(empty($word)) continue;
-			$this->qb->field('desc')->equals(new \MongoRegex('/.*'.htmlentities($word, ENT_COMPAT | 'ENT_HTML401', 'UTF-8').'.*/iu'));
+			$this->qb->field('desc')->equals(new \MongoDb\BSON\Regex('/.*'.htmlentities($word, ENT_COMPAT | 'ENT_HTML401', 'UTF-8').'.*/iu'));
 		}
 		$this->qb->field('status')->equals(1);
 		$resultDesc=$this->runQuery();

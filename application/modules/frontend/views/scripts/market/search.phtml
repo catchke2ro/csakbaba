@@ -4,18 +4,18 @@
 	ga('send', 'event', 'search', 'results', '<?=$this->q;?>');
 </script>
 
-<? if(empty($this->results)){?>
+<?php if(empty($this->results)){?>
 	<p class="noResults">Nincs találat</p>
-<? } ?>
+<?php } ?>
 
 <div class="productList">
 
 	<ul class="products">
 
-		<? foreach($this->results as $result){?>
-			<? $product=$result['product'];?>
+		<?php foreach($this->results as $result){?>
+			<?php $product=$result['product'];?>
 			<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product)));?>
-		<? } ?>
+		<?php } ?>
 
 	</ul>
     

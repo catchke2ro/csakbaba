@@ -46,7 +46,7 @@ class MarketController extends CB_Controller_Action {
 
 
 
-		if(!empty($extraParams) && new \MongoId($extraParams[1]) && !is_numeric($extraParams[0])){
+		if(!empty($extraParams) && new \MongoDB\BSON\ObjectId($extraParams[1]) && !is_numeric($extraParams[0])){
 			$this->forward('product', 'market', 'index', $extraParams);
 			return;
 		}
@@ -61,7 +61,7 @@ class MarketController extends CB_Controller_Action {
 			$this->productModel->initQb();
 			$this->productModel->qb->field('status')->equals(1);
 			$this->productModel->qb->field('category')->equals(false);
-			$this->productModel->qb->field('category')->equals(new MongoRegex('/^'.$category->id.'\-.*'));
+			$this->productModel->qb->field('category')->equals(new MongoDb\BSON\Regex('/^'.$category->id.'\-.*'));
 			$productTeaser=$this->productModel->runQuery();
 			shuffle($productTeaser);
 			$productTeaser=array_slice($productTeaser, 0, 15);
@@ -139,8 +139,8 @@ class MarketController extends CB_Controller_Action {
 		$userProducts=$product->user ? $product->user->getProducts(true, 10, array(1)) : [];
 
 		$orderModel=new \CB\Model\Order();
-		$userOrdersBuy=$orderModel->find(array('conditions'=>array('user._id'=>new \MongoId($product->user->get()->id), 'user_rating.$id'=>array('exists'=>true)), 'limit'=>2, 'order'=>'date DESC'));
-		$userOrdersSell=$orderModel->find(array('conditions'=>array('shop_user._id'=>new \MongoId($product->user->get()->id), 'shop_user_rating.$id'=>array('exists'=>true)), 'limit'=>2, 'order'=>'date DESC'));
+		$userOrdersBuy=$orderModel->find(array('conditions'=>array('user._id'=>new \MongoDB\BSON\ObjectId($product->user->get()->id), 'user_rating.$id'=>array('exists'=>true)), 'limit'=>2, 'order'=>'date DESC'));
+		$userOrdersSell=$orderModel->find(array('conditions'=>array('shop_user._id'=>new \MongoDB\BSON\ObjectId($product->user->get()->id), 'shop_user_rating.$id'=>array('exists'=>true)), 'limit'=>2, 'order'=>'date DESC'));
 
 		$this->view->headMeta()->setName('description', $product->name.' a csakbaba.hu börzén. '.substr(strip_tags($product->desc), 0, 100).'...');
 		if(!empty($product->images)){
@@ -164,12 +164,13 @@ class MarketController extends CB_Controller_Action {
 		$categoryTree=Zend_Registry::get('categories');
 		$catMultiArray=$categoryTree->_multiArray;
 
-		$key=reset($this->_request->getExtraParams());
+		$extraParams = $this->_request->getExtraParams();
+		$key=reset($extraParams);
 		$key=(array_key_exists($key, $catMultiArray)) ? $key : '';
 		$this->productModel->initQb();
 		$this->productModel->qb->field('promotes.first')->gte(time());
 		$this->productModel->qb->field('status')->equals(1);
-		if(!empty($key)) $this->productModel->qb->field('category')->equals(new \MongoRegex('/^'.$key.'-.*/iu'));
+		if(!empty($key)) $this->productModel->qb->field('category')->equals(new \MongoDb\BSON\Regex('/^'.$key.'-.*/iu'));
 		$products=$this->productModel->runQuery();
 
 		$this->view->assign(array(

@@ -14,32 +14,32 @@ class Comment extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date;
 
 	/**
-	 * @ODM\ReferenceOne(targetDocument="User", simple=true)
+	 * @ODM\ReferenceOne(targetDocument="CB\User", storeAs="id")
 	 */
 	public $user;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $product_id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $post_id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $text;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $moderated;
 

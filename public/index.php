@@ -18,7 +18,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
 //ini_set('browscap', APPLICATION_PATH.'/../library/php_browscap.ini');
 
 /** Zend_Application */
-require_once 'Zend/Application.php';
 
 ini_set('display_errors', true);
 ini_set('display_startup_errors', true);
@@ -41,10 +40,9 @@ define('DEV', strpos($_SERVER['HTTP_HOST'], 'dev.') !== false);
 define('ANALYTICS_ID', DEV ? 'UA-48324090-2' : 'UA-48324090-1');
 
 
+$loader = require_once APPLICATION_PATH.'/../vendor/autoload.php';
 
-require_once APPLICATION_PATH.'/../library/Zend/Loader/AutoloaderFactory.php';
-require_once APPLICATION_PATH.'/../library/Zend/Loader/ClassMapAutoloader.php';
-Zend_Loader_AutoloaderFactory::factory(
+/*Zend_Loader_AutoloaderFactory::factory(
 				array(
 					'Zend_Loader_ClassMapAutoloader' => array(
 									__DIR__.'/../library/classmap.php'
@@ -66,15 +64,14 @@ Zend_Loader_AutoloaderFactory::factory(
 									'fallback_autoloader' => true
 					)
 				)
-);
-
-require APPLICATION_PATH.'/../vendor/autoload.php';
+);*/
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
+$application->getAutoloader()->pushAutoloader($loader);
 $application->bootstrap()
             ->run();
 

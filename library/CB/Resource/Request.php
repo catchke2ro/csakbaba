@@ -24,7 +24,8 @@ class CB_Resource_Request extends Zend_Controller_Request_Http {
 	}
 
 	public function getUri(){
-		$url=reset(explode('?', $this->_pathInfo));
+		$pathExploded = explode('?', $this->_pathInfo);
+		$url=reset($pathExploded);
 		if(substr($url, -1)=='/') $url=substr($url, 0, strlen($url)-1);
 		return $url;
 		//return implode('/', $this->getUriParams());

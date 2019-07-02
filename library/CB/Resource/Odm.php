@@ -19,7 +19,7 @@ class CB_Resource_Odm extends Zend_Application_Resource_ResourceAbstract {
 		//include APPLICATION_PATH.'/../library/MongoDB/functions.php';
 		$config = new \Doctrine\ODM\MongoDB\Configuration(); //Create configuration
 		$options = $this->getOptions(); //Read options (defined in application.ini)
-		$this->registerAutoloaders($options); //Registering autoloader namespaces
+		//$this->registerAutoloaders($options); //Registering autoloader namespaces
 
 		/**
 		 * Call setters for option values
@@ -29,25 +29,43 @@ class CB_Resource_Odm extends Zend_Application_Resource_ResourceAbstract {
 			$config->{$method}($value);
 		}
 
-
-		$reader=new \Doctrine\Common\Annotations\AnnotationReader();
-		//$reader=new FileCacheReader(new AnnotationReader(), APPLICATION_PATH.'/models/cache/annotation', $debug=false);
-		//$driverChain = new \Doctrine\ODM\MongoDB\Mapping\Driver\DriverChain();
-		$annotationDriver=new \Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver($reader);
-		$annotationDriver->registerAnnotationClasses();
-		//$driverChain->addDriver($annotationDriver, 'CB');
-		$config->setMetadataDriverImpl($annotationDriver);
-		//$config->setMetadataDriverImpl($driverChain);
-
-
 		$sc=Zend_Registry::get('CsbConfig');
+		
+		MongoDB\Types\Type::registerType(MongoDB\Types\Type::HASH, \CB\Resource\Odm\Type\HashType::class);
+		MongoDB\Types\Type::registerType(MongoDB\Types\Type::DATE, \CB\Resource\Odm\Type\DateType::class);
+		$reader=new FileCacheReader(
+			new AnnotationReader(),
+			APPLICATION_PATH.'/models/cache/annotation',
+			!((bool) $sc->get('cache')->get('caching'))
+		);
+		$driverChain = new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
+		$annotationDriver=new \Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver($reader);
+		
+		spl_autoload_register($config->getProxyManagerConfiguration()->getProxyAutoloader());
+		
+		$composerAutoloader = function (){};
+		foreach ($this->getBootstrap()->getApplication()->getAutoloader()->getAutoloaders() as $autoloader) {
+			if ($autoloader instanceof \Composer\Autoload\ClassLoader) {
+				$composerAutoloader = $autoloader;
+				break;
+			}
+		}
+		\Doctrine\Common\Annotations\AnnotationRegistry::registerLoader([$composerAutoloader, 'loadClass']);
+		$driverChain->addDriver($annotationDriver, 'CB');
+		$config->setMetadataDriverImpl($driverChain);
+
+
 		$config->setDefaultDB(($database=$sc->get('mongo')->get('defaultdb', 'csb')));
 		$username=$sc->get('mongo')->get('username');
 		$password=$sc->get('mongo')->get('password');
 		$host=$sc->get('mongo')->get('host', 'localhost');
 		$port=$sc->get('mongo')->get('port', '27017');
-
-		$dm = DocumentManager::create(new \Doctrine\MongoDB\Connection(new \Mongo('mongodb://'.$username.':'.$password.'@'.$host.':'.$port.'/'.$database)), $config);
+		
+		$dm = MongoDB\DocumentManager::create(new \MongoDB\Client(
+			'mongodb://'.$username.':'.urlencode($password).'@'.$host.':'.$port.'/'.$database.'',
+			[],
+			['typeMap' => MongoDB\DocumentManager::CLIENT_TYPEMAP]
+		), $config);
 
 		//$dm->getEventManager()->addEventListener(array(\Doctrine\ODM\MongoDB\Events::preUpdate, \Doctrine\ODM\MongoDB\Events::prePersist), new \CB_Resource_Doctrine_Evm());
 
