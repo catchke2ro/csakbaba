@@ -4,23 +4,23 @@
 
 		<ul>
 
-			<? foreach($this->userOrdersBuy as $o){?>
-				<? if($o->user_rating) $o->user_rating->get();?>
-				<? if($o->shop_user_rating) $o->shop_user_rating->get();?>
+			<?php foreach($this->userOrdersBuy as $o){?>
+				<?php if($o->user_rating) $o->user_rating->get();?>
+				<?php if($o->shop_user_rating) $o->shop_user_rating->get();?>
 
 				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(),
 								array('product'=>$o->product, 'categoryTree'=>$this->categoryTree, 'back'=>false, 'fix'=>false, 'userfunctions'=>false, 'o'=>$o, 'rating'=>true,
 												'extraClass'=>'order vasarolt '.($o->user_rating ? '' : 'nem-ertekelt').' pid'.$o->product->get()->id, 'extraData'=>'data-orderid="'.$o->id.'" data-productid="'.$o->product->get()->id.'" data-seller="0"', 'seller'=>false, 'hideOwn'=>true)));?>
-			<? } ?>
+			<?php } ?>
 
 
-			<? foreach($this->userOrdersSell as $o){?>
-				<? if($o->user_rating) $o->user_rating->get();?>
-				<? if($o->shop_user_rating) $o->shop_user_rating->get();?>
+			<?php foreach($this->userOrdersSell as $o){?>
+				<?php if($o->user_rating) $o->user_rating->get();?>
+				<?php if($o->shop_user_rating) $o->shop_user_rating->get();?>
 				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(),
 								array('product'=>$o->product, 'categoryTree'=>$this->categoryTree, 'back'=>false, 'fix'=>false, 'userfunctions'=>false, 'o'=>$o, 'rating'=>true,
 												'extraClass'=>'order eladott '.($o->shop_user_rating ? '' : 'nem-ertekelt').' pid'.$o->product->get()->id, 'extraData'=>'data-orderid="'.$o->id.'" data-productid="'.$o->product->get()->id.'" data-seller="1"', 'seller'=>true, 'hideOwn'=>true)));?>
-			<? } ?>
+			<?php } ?>
 
 		</ul>
 

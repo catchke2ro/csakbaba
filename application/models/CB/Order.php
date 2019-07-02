@@ -14,42 +14,42 @@ class Order extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $code;
 
 	/**
-	 * @ODM\EmbedOne(targetDocument="Product")
+	 * @ODM\EmbedOne(targetDocument="CB\Product")
 	 */
 	public $product;
 
 	/**
-	 * @ODM\EmbedOne(targetDocument="User")
+	 * @ODM\EmbedOne(targetDocument="CB\User")
 	 */
 	public $user;
 
 	/**
-	 * @ODM\EmbedOne(targetDocument="User")
+	 * @ODM\EmbedOne(targetDocument="CB\User")
 	 */
 	public $shop_user;
 
 	/**
-	 * @ODM\ReferenceOne(targetDocument="Rating")
+	 * @ODM\ReferenceOne(targetDocument="CB\Rating")
 	 */
 	public $user_rating;
 
 	/**
-	 * @ODM\ReferenceOne(targetDocument="Rating")
+	 * @ODM\ReferenceOne(targetDocument="CB\Rating")
 	 */
 	public $shop_user_rating;
 
 	/**
-	 * @ODM\Int
+	 * @ODM\Field(type="int")
 	 */
 	public $orderEmail;
 

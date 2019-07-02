@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CB_Array_Category {
 

@@ -39,7 +39,8 @@ class CB_Resource_Mail extends Zend_Mail {
 		$this->setSubject($this->options['subject']);
 		if(!empty($options['attachment']) && file_exists($options['attachment'])){
 			$att=$this->createAttachment(file_get_contents($options['attachment']));
-			$att->filename=end(explode('/', $options['attachment']));
+			$attExploded = explode('/', $options['attachment']);
+			$att->filename=end($attExploded);
 		}
 		if(!empty($this->options['cc'])) $this->addCc($this->options['cc']);
 		if(!empty($this->options['bcc'])) $this->addBcc($this->options['bcc']);
@@ -56,7 +57,8 @@ class CB_Resource_Mail extends Zend_Mail {
 
 		$layout=Zend_Layout::getMvcInstance();
 		$layout->setLayout($this->options['layout'])->disableLayout();
-		$layout->assign(array('title'=>end(explode(' - ', $this->options['subject'])),	'content'=>$viewHtml));
+		$subjectExploded = explode(' - ', $this->options['subject']);
+		$layout->assign(array('title'=>end($subjectExploded),	'content'=>$viewHtml));
 		$html=$layout->render();
 
 		$html=mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');

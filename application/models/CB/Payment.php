@@ -14,47 +14,47 @@ class Payment extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $pid;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $bpid;
 
 	/**
-	 * @ODM\EmbedOne(targetDocument="User")
+	 * @ODM\EmbedOne(targetDocument="CB\User")
 	 */
 	public $user;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date;
 
 	/**
-	 * @ODM\Int
+	 * @ODM\Field(type="int")
 	 */
 	public $amount;
 
 	/**
-	 * @ODM\Int
+	 * @ODM\Field(type="int")
 	 */
 	public $status;
 
 	/**
-	 * @ODM\Hash
+	 * @ODM\Field(type="hash")
 	 */
 	public $invoice_data;
 
 	/**
-	 * @var @ODM\Hash
+	 * @var @ODM\Field(type="hash")
 	 */
 	public $barion_data;
 
 	/**
-	 * @ODM\STRING
+	 * @ODM\Field(type="string")
 	 */
 	public $type;
 

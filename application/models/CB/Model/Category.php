@@ -9,12 +9,12 @@ class Category extends \CB_Resource_Model{
 		$functions=new \CB_Resource_Functions();
 		foreach($items as $key=>$item){
 			foreach((is_array($item->options) ? $item->options : array()) as $optKey=>$option){
-				if(empty($option['id'])) $items[$key]->options[$optKey]['id']=new \MongoId();
+				if(empty($option['id'])) $items[$key]->options[$optKey]['id']=new \MongoDB\BSON\ObjectId();
 				$items[$key]->options[$optKey]['slug']=$functions->slug($option['name']);
 
 				if(is_array($option['children'])){
 					foreach($option['children'] as $childKey=>$child){
-						if(empty($child['id'])) $items[$key]->options[$optKey]['children'][$childKey]['id']=new \MongoId();
+						if(empty($child['id'])) $items[$key]->options[$optKey]['children'][$childKey]['id']=new \MongoDB\BSON\ObjectId();
 						$items[$key]->options[$optKey]['children'][$childKey]['slug']=$functions->slug($child['name']);
 					}
 

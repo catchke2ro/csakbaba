@@ -7,7 +7,7 @@ class BlogPost extends \CB_Resource_Model{
         $this->initQb();
         
         $notId = array_map(function($id){
-            return is_string($id) ? new \MongoId($id) : $id;
+            return is_string($id) ? new \MongoDB\BSON\ObjectId($id) : $id;
         }, $notId);
         
         $this->qb->field('_id')->notIn($notId);

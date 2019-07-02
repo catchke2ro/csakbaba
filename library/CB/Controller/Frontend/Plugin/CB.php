@@ -1,4 +1,4 @@
-<?
+<?php 
 
 class CB_Controller_Frontend_Plugin_CB extends Zend_Controller_Plugin_Abstract {
 
@@ -9,7 +9,7 @@ class CB_Controller_Frontend_Plugin_CB extends Zend_Controller_Plugin_Abstract {
 
 	private $nav;
 
-	public function routeShutdown(CB_Resource_Request $request){
+	public function routeShutdown(Zend_Controller_Request_Abstract $request){
 		if($request->getModuleName()!='frontend') {
 			Zend_Controller_Front::getInstance()->unregisterPlugin($this);
 			return;

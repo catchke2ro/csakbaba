@@ -1,11 +1,11 @@
 <div class="subcategories">
 	<ul>
-		<? foreach($this->categories as $category){?>
-			<? $bg=(!empty($category->images[0])) ? $category->images[0]['url'] : '';?>
+		<?php foreach($this->categories as $category){?>
+			<?php $bg=(!empty($category->images[0])) ? $category->images[0]['url'] : '';?>
 			<li class="<?=$category->slug;?>">
 
 				<a href="<?=$this->request->getUri().'/'.$category->slug;?>"><span><?=$category->name;?></span></a>
 			</li>
-		<? } ?>
+		<?php } ?>
 	</ul>
 </div>

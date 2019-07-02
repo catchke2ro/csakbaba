@@ -4,10 +4,10 @@
 	<div class="productList">
 		<ul class="products">
 
-			<? foreach($this->products as $product){?>
-				<? if(empty($product->images)) continue;?>
+			<?php foreach($this->products as $product){?>
+				<?php if(empty($product->images)) continue;?>
 				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
-			<? } ?>
+			<?php } ?>
 
 		</ul>
 	</div>

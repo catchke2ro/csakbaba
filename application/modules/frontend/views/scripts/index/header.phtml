@@ -9,9 +9,9 @@
 <div class="categorySelector">
 	<div class="borzeIcons">
 		<p>Kategóriák:</p>
-		<? foreach($this->catMultiArray as $mainCat){?>
+		<?php foreach($this->catMultiArray as $mainCat){?>
 			<a href="javascript:void(0)" class="catSelMain <?=$mainCat->id;?>" data-id="<?=$mainCat->id;?>"></a>
-		<? } ?>
+		<?php } ?>
 	</div>
 	<div class="loading"><div></div></div>
 	<div class="dropdown">
@@ -24,7 +24,7 @@
 
 
 <div class="usermenu">
-	<? if($this->user){?>
+	<?php if($this->user){?>
 		<!--<a href="javascript:void(0)" class="feedIndicator" title="Értesítések"></a>
 		<div class="feeds">
 			<div class="feedsLoading"><div></div><div></div><div></div><div></div><div></div></div>
@@ -32,7 +32,7 @@
 		</div>-->
 		<a href="<?=$this->url('profil').'/'.urlencode($this->user->username);?>" class="account" title="Profil"><?=$this->user->username;?></a>
 	  <a href="<?=$this->url('kijelentkezes');?>" class="logout" title="Kijelentkezés"></a>
-	<? } else { ?>
+	<?php } else { ?>
 		<div class="loginLink"><a href="javascript:void(0)" class="login">Bejelentkezés</a></div>
 		<div class="loginreg">
             <p class="infoText highlighted"></p>
@@ -44,7 +44,7 @@
 			<a href="<?=$this->url('regisztracio');?>" class="registration">Regisztráció</a>
 			<a href="<?=$this->url('elfelejtett');?>" class="forgotten">Elfelejtett jelszó</a>
 		</div>
-	<? } ?>
+	<?php } ?>
 </div>
 
 <div class="search">

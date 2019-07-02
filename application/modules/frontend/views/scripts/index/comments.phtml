@@ -1,20 +1,20 @@
 <div class="commentContainer">
   <div class="comments">
 	  <ul>
-		  <? foreach($this->comments as $comment){?>
+		  <?php foreach($this->comments as $comment){?>
 				  <?=$this->partial('market/comment.phtml', array_merge($this->getVars(), array('comment'=>$comment)));?>
-		  <? } ?>
+		  <?php } ?>
 	  </ul>
   </div>
 	<div class="commentForm">
-		<? if($this->user){?>
+		<?php if($this->user){?>
 			<!--<ul>
 				<li class="field checkbox commentSubscribe">
-					<input type="checkbox" id="commentsubscribe" <?/*=(in_array($this->product->id, ($this->user->subscribed ?: array())) ? 'checked="checked"' : "");*/?> />
+					<input type="checkbox" id="commentsubscribe" <?php /*=(in_array($this->product->id, ($this->user->subscribed ?: array())) ? 'checked="checked"' : "");*/?> />
 					<label for="commentsubscribe">Értesítést kérek ha hozzászólás érkezik</label>
 				</li>
 			</ul>-->
-		<? } ?>
+		<?php } ?>
 		<?=$this->commentForm;?>
 	</div>
 </div>

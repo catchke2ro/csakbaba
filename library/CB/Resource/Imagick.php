@@ -1,6 +1,6 @@
 <?php
 
-class CB_Resource_Imagick extends Zend_Image_Driver_Imagick{
+class CB_Resource_Imagick extends CB_Image_Driver_Imagick{
 
 	public function watermark(){
 		$wm=APPLICATION_PATH.'/../public/img/elements/watermark.png';

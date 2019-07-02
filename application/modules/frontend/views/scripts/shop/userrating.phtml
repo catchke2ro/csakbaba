@@ -1,16 +1,16 @@
 <div class="rating">
-	<?
+	<?php
 		$firstProp=($this->seller ? 'shop_user_rating' : 'user_rating');
 		$secondProp=($this->seller ? 'user_rating' : 'shop_user_rating');
 		$username=($this->seller ? $this->o->user->username : $this->o->shop_user->username);
 	?>
-	<? $hideOwn=isset($this->hideOwn) && $this->hideOwn;?>
-	<? $showBoth=isset($this->showBoth) && $this->showBoth;?>
+	<?php $hideOwn=isset($this->hideOwn) && $this->hideOwn;?>
+	<?php $showBoth=isset($this->showBoth) && $this->showBoth;?>
 
-	<? if($showBoth || (!$this->seller && $hideOwn)){?>
+	<?php if($showBoth || (!$this->seller && $hideOwn)){?>
         <div class="userRating">
             <h4>Te értékelésed</h4>
-            <? if($this->o->$firstProp){?>
+            <?php if($this->o->$firstProp){?>
                 <div class="table">
                     <div class="row">
                         <strong>Értékelés dátuma:</strong>
@@ -29,16 +29,16 @@
                         <p><?=$this->o->$firstProp->text;?></p>
                     </div>
                 </div>
-            <? } else { ?>
+            <?php } else { ?>
                 <div class="table n_a"><div class="row"><p>Még nem adott le értékelést.</p></div></div>
-            <? } ?>
+            <?php } ?>
         </div>
-	<? } ?>
+	<?php } ?>
 
-	<? if($showBoth || ($this->seller && $hideOwn)){?>
+	<?php if($showBoth || ($this->seller && $hideOwn)){?>
         <div class="shopUserRating">
             <h4><?=$username;?> értékelése</h4>
-            <? if($this->o->$secondProp){?>
+            <?php if($this->o->$secondProp){?>
                 <div class="table">
                     <div class="row">
                         <strong>Értékelés dátuma:</strong>
@@ -57,10 +57,10 @@
                         <p><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?><?=$this->o->$secondProp->text;?></p>
                     </div>
                 </div>
-            <? } else { ?>
+            <?php } else { ?>
                 <div class="table n_a"><div class="row"><p>Még nem adott le értékelést.</p></div></div>
-            <? } ?>
+            <?php } ?>
         </div>
-	<? } ?>
+	<?php } ?>
 
 </div>

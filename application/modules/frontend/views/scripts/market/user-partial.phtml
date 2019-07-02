@@ -1,4 +1,4 @@
-<? $tag=isset($this->tag) ? $this->tag : 'li';?>
+<?php $tag=isset($this->tag) ? $this->tag : 'li';?>
 <<?=$tag;?>
 	class="product <?=(isset($this->back) && $this->back==false)?'noflip':'';?> <?=(!empty($this->extraClass)?$this->extraClass:'');?>"
 	data-id="<?=$this->user->id;?>"
@@ -8,10 +8,10 @@
 		<div class="flipper">
 
 
-			<? if(!isset($this->front) || $this->front==true){?>
+			<?php if(!isset($this->front) || $this->front==true){?>
 				<div class="front">
 					<div class="productImages">
-                        <? $img=(is_array($this->user->avatar) && !empty($this->user->avatar)) ? $img=reset($this->user->avatar) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
+                        <?php $img=(is_array($this->user->avatar) && !empty($this->user->avatar)) ? $img=reset($this->user->avatar) : array('small'=>'/img/elements/defaultproduct.png', 'mid'=>'/img/elements/defaultproduct.png'); ?>
                         <div class="productImages <?=!empty($this->previewImg) ? 'previewImg' : '';?>" style="background-image: url(<?=$img['mid'];?>);" data-preview="<?=$img['mid'];?>">
                         </div>
 					</div>
@@ -19,7 +19,7 @@
 						<a href="<?=$this->url('profil').'/'.urlencode($this->user->username);?>" class="jump"><?=$this->user->username;?></a>
 					</h3>
 				</div>
-			<? } ?>
+			<?php } ?>
 
 		</div>
 	</div>

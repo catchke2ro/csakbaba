@@ -14,32 +14,32 @@ class Rating extends \CB_Resource_ModelItem {
 	public $id;
 
 	/**
-	 * @ODM\Date
+	 * @ODM\Field(type="date")
 	 */
 	public $date;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $seller;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $success;
 
 	/**
-	 * @ODM\Boolean
+	 * @ODM\Field(type="boolean")
 	 */
 	public $positive;
 
 	/**
-	 * @ODM\String
+	 * @ODM\Field(type="string")
 	 */
 	public $text;
 
 	/**
-	 * @ODM\EmbedOne(targetDocument="Product")
+	 * @ODM\EmbedOne(targetDocument="CB\Product")
 	 */
 	public $product;
 

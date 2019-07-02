@@ -4,11 +4,11 @@
 		<br />
 		<p><strong>Aktuális gyenleged</strong>: <span><?=$this->user->balance;?></span> Ft</p>
 	</div>
-	<? if($this->user->balance < Zend_Registry::get('uploadPrice')){?>
+	<?php if($this->user->balance < Zend_Registry::get('uploadPrice')){?>
 		<p class="noBalance">Nincs elég pénz az egyenlegeden a megújításhoz. <a href="<?=$this->url('egyenleg');?>">Töltsd fel az egyenleged.</a></p>
-	<? } else { ?>
+	<?php } else { ?>
 		<a href="javascript:void(0);" class="renewButton">Feltöltöm újra</a>
-	<? } ?>
+	<?php } ?>
 
 </div>
 

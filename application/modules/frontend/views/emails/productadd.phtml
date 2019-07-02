@@ -8,11 +8,11 @@
 	<li>Termék linkje: <br /><a href="<?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?>"><?='https://'.$_SERVER['HTTP_HOST'];?><?=$this->url('piac');?><?=$this->data['productlink'];?></a></li>
 </ul>
 
-<? if(!empty($this->data['free'])){?>
+<?php if(!empty($this->data['free'])){?>
     <p>Ne felejtsd el, hogy nálunk egyszerre összesen 10 terméket tölthetsz fel ingyenesen, továbbá, hogy terméked eladása esetén sem számítunk fel jutalékot!</p>
-<? } else { ?>
+<?php } else { ?>
     <p>A termékfeltöltés díja az egyenlegedből levonásra került. Kérjük, hogy egyenlegedet folyamatosan kísérd figyelemmel, hogy a következő termékfeltöltésed is akadálytalan legyen. Ne felejtsd el, hogy terméked eladása esetén sem számítunk fel jutalékot!</p>
-<? } ?>
+<?php } ?>
 <p>Az eladás feltételeiről, a termékfeltöltés szabályairól, díjairól és egyéb díjtételeinkről az alábbi linken keresztül tájékozódhatsz:
 <a href="<?='https://'.$_SERVER['HTTP_HOST'];?>/<?=$this->url('rolunk');?>">Mi az a csakbaba?</a></p>
 

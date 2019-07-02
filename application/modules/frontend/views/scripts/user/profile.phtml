@@ -2,15 +2,15 @@
 
 <div class="profile">
 	<div class="profilMenu">
-	<? if(($this->user) && $this->user->id==$this->profilUser->id){?>
-		<? $pages=Zend_Registry::get('nav')->findBy('resource', 'felhasznalo')->getPages(); ?>
+	<?php if(($this->user) && $this->user->id==$this->profilUser->id){?>
+		<?php $pages=Zend_Registry::get('nav')->findBy('resource', 'felhasznalo')->getPages(); ?>
 			<ul>
-				<? foreach($pages as $page){?>
-						<? if($page->get('profileVisible') === false) continue; ?>
+				<?php foreach($pages as $page){?>
+						<?php if($page->get('profileVisible') === false) continue; ?>
 					<li><a href="<?=$page->getUri();?>"><span><?=$page->getLabel();?></span></a></li>
-				<? } ?>
+				<?php } ?>
 			</ul>
-	<? } ?>
+	<?php } ?>
 	</div>
 
 
@@ -18,7 +18,7 @@
 
 		<div class="avatarInfo">
 			<div class="avatar">
-				<? $img=(is_array($this->profilUser->avatar) && !empty($this->profilUser->avatar)) ? $img=reset($this->profilUser->avatar) : array('url'=>'/img/elements/defaultproduct.png'); ?>
+				<?php $img=(is_array($this->profilUser->avatar) && !empty($this->profilUser->avatar)) ? $img=reset($this->profilUser->avatar) : array('url'=>'/img/elements/defaultproduct.png'); ?>
 				<img src="<?=$img['url'];?>" alt="<?=$this->profilUser->username;?>"/>
 			</div>
 			<div class="info">
@@ -47,9 +47,9 @@
 		<div class="productList">
 			<ul class="products">
 
-				<? foreach($this->userProducts as $product){?>
+				<?php foreach($this->userProducts as $product){?>
 					<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
-				<? } ?>
+				<?php } ?>
 
 			</ul>
 		</div>

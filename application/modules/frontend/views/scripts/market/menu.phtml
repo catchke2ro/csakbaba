@@ -1,53 +1,53 @@
 
-<? if(isset($this->categoryOptions)) {?>
+<?php if(isset($this->categoryOptions)) {?>
 <form method="get" class="filter">
 	<!--<div class="filterSubmit"><a href="javascript:void(0)" class="filterSubmitLink">Szűrés</a></div>-->
 
 	<div class="categoryOptions">
 		<input type="hidden" value="<?=$this->category->id;?>" name="category_id"/>
-		<? $props=Zend_Registry::get('categories')->_props; ?>
-		<? foreach($this->categoryOptions as $oid=>$option){ ?>
-			<? $id=$option; $option=$props[$option]; ?>
+		<?php $props=Zend_Registry::get('categories')->_props; ?>
+		<?php foreach($this->categoryOptions as $oid=>$option){ ?>
+			<?php $id=$option; $option=$props[$option]; ?>
 			<div class="optionWrapper">
 				<div class="option">
 					<a href="javascript:void(0)" class="<?=(in_array($option['slug'], $_GET)) ? 'set' : '';?>"><?=$option['name'];?></a>
-					<? if($option['type']=='select'){?>
+					<?php if($option['type']=='select'){?>
 						<ul>
-							<? foreach($option['options'] as $o){?>
+							<?php foreach($option['options'] as $o){?>
 								<li class="checkbox">
-									<input type="checkbox" name="<?=$option['slug'];?>[]" value="<?=$o['value'];?>" id="<?=$id.$o['value'];?>" <? if(!empty($_GET[$option['slug']]) && in_array($o['value'], $_GET[$option['slug']])) echo 'checked="checked"'; ?>/>
+									<input type="checkbox" name="<?=$option['slug'];?>[]" value="<?=$o['value'];?>" id="<?=$id.$o['value'];?>" <?php if(!empty($_GET[$option['slug']]) && in_array($o['value'], $_GET[$option['slug']])) echo 'checked="checked"'; ?>/>
 									<label for="<?=$id.$o['value'];?>"><?=$o['name'];?></label>
 								</li>
-							<? } ?>
+							<?php } ?>
 						</ul>
-					<? } ?>
-					<? if($option['type']=='number'){?>
-						<? $value=!empty($_GET[$option['slug']]) ? $_GET[$option['slug']] : $option['min'].'-'.$option['max'];?>
+					<?php } ?>
+					<?php if($option['type']=='number'){?>
+						<?php $value=!empty($_GET[$option['slug']]) ? $_GET[$option['slug']] : $option['min'].'-'.$option['max'];?>
 						<ul>
 							<li><input class="range" type="text" name="<?=$option['slug'];?>" id="<?=$id;?>" data-min="<?=$option['min'];?>" data-range="true" data-step="<?=isset($option['step']) ? $option['step'] : 1;?>" data-max="<?=$option['max'];?>" value="<?=$value;?>" /></li>
 						</ul>
-					<? } ?>
+					<?php } ?>
 
 				</div>
 			</div>
-		<? } ?>
+		<?php } ?>
 
-		<? if($this->category->sex==true){?>
+		<?php if($this->category->sex==true){?>
 			<div class="optionWrapper">
 				<div class="option">
 					<a href="javascript:void(0)">Nem</a>
 					<ul>
-						<? foreach(Zend_Registry::get('genreTypes') as $slug=>$type){?>
+						<?php foreach(Zend_Registry::get('genreTypes') as $slug=>$type){?>
 							<li class="checkbox">
-								<input type="checkbox" name="<?=$slug;?>" value="1" id="<?=$slug;?>" <? if(array_key_exists($slug, $_GET)) echo 'checked="checked"'; ?>/>
+								<input type="checkbox" name="<?=$slug;?>" value="1" id="<?=$slug;?>" <?php if(array_key_exists($slug, $_GET)) echo 'checked="checked"'; ?>/>
 								<label for="<?=$slug;?>"><?=$type;?></label>
 							</li>
-						<? } ?>
+						<?php } ?>
 					</ul>
 
 				</div>
 			</div>
-		<? } ?>
+		<?php } ?>
 
 
 		<div class="optionWrapper">
@@ -92,5 +92,5 @@
 		</div>
 	</div>
 </form>
-<? } ?>
+<?php } ?>
 

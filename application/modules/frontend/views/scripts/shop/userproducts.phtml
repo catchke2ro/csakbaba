@@ -1,35 +1,35 @@
 <!--<div class="promoteAll">
 	<a href="javascript:void(0)" class="userPromoteAll hasTooltip">Asztalom kiemelése</a>
-	<?/* if(!empty($this->user->promotes)){*/?>
+	<?php /* if(!empty($this->user->promotes)){*/?>
 		<div class="tooltip">
-			<?/* $promoteAllOptions=Zend_Registry::get('promoteAllOptions');*/?>
-			<?/* foreach((is_array($this->user->promotes) ? $this->user->promotes : array()) as $type=>$date){*/?>
-				<?/* if($date < time()) continue;*/?>
-				<p><strong><?/*=$promoteAllOptions[$type];*/?></strong>: <?/*=date('Y.m.d H:i', $date);*/?>-ig</p>
-			<?/* } */?>
+			<?php /* $promoteAllOptions=Zend_Registry::get('promoteAllOptions');*/?>
+			<?php /* foreach((is_array($this->user->promotes) ? $this->user->promotes : array()) as $type=>$date){*/?>
+				<?php /* if($date < time()) continue;*/?>
+				<p><strong><?php /*=$promoteAllOptions[$type];*/?></strong>: <?php /*=date('Y.m.d H:i', $date);*/?>-ig</p>
+			<?php /* } */?>
 		</div>
-	<?/* } */?>
+	<?php /* } */?>
 </div>-->
 
 <div class="addNewProductWrapper">
-    <? if(!$this->user->isValid()){ ?>
+    <?php if(!$this->user->isValid()){ ?>
         <p class="infoText error">Termékek feltöltéséhez minden szükséges adatot meg kell adnod!</p>
         <a href="<?=$this->url('adatmodositas');?>" class="missingDataLink">A hiányzó adatokat <span class="bigger">itt megadhatod</span></a>
-	<? } else { ?>
+	<?php } else { ?>
         <div><a href="javascript:void(0)" class="userAddProduct">Új termék hozzáadása</a></div>
-		<? if($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit')){ ?>
+		<?php if($this->user->balance<Zend_Registry::get('uploadPrice') && count($this->activeProducts)>=Zend_Registry::get('freeUploadLimit')){ ?>
             <div class="hidden"><a href="<?=$this->url('egyenleg');?>" class="nobalance">Új áru hozzáadásához töltsd fel az egyenleged</a></div>
-		<? } ?>
-    <? } ?>
+		<?php } ?>
+    <?php } ?>
     
 
 </div>
 
 <div class="productFilter">
-	<? foreach($this->statusCodes as $status=>$text){?>
-		<? if($status==0) continue;?>
+	<?php foreach($this->statusCodes as $status=>$text){?>
+		<?php if($status==0) continue;?>
 		<a href="javascript:void(0)" class="statusButton s<?=$status;?> active" data-status="<?=$status;?>"><?=$text;?> (<span></span>)</a>
-	<? } ?>
+	<?php } ?>
 	<div class="textFilter"><input type="text" placeholder="szűrés név, leírás és ár alapján" /></div>
 </div>
 <div class="categorySelect" style="display:none;">
@@ -43,9 +43,9 @@
 
 	<ul class="products user">
 
-		<? foreach($this->products as $product){?>
+		<?php foreach($this->products as $product){?>
 			<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'userfunctions'=>true, 'extraClass'=>'status'.$product->status, 'fixText'=>'Termék oldala', 'frontDesc'=>true)));?>
-		<? } ?>
+		<?php } ?>
 
 	</ul>
 </div>

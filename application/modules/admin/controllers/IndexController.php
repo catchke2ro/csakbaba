@@ -86,7 +86,7 @@ class Admin_IndexController extends CB_Controller_AdminAction {
 
 
 
-		$image=new Zend_Image_Transform(APPLICATION_PATH.'/../public/upload/'.$fileData['name'], new Zend_Image_Driver_Gd());
+		$image=new CB_Image_Transform(APPLICATION_PATH.'/../public/upload/'.$fileData['name'], new CB_Image_Driver_Gd());
 
 		$newPath=APPLICATION_PATH.'/../public/upload/'.$targetdir;
 		$publicPath='/upload/'.$targetdir;

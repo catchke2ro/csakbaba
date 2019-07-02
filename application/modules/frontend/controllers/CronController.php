@@ -156,7 +156,7 @@ class CronController extends CB_Controller_Action {
 		foreach($productImages as $productImage){
 			if(strpos($productImage, 'small.')!==false || strpos($productImage, 'mid.')!==false) continue;
 
-			$image=new Zend_Image_Transform(APPLICATION_PATH.'/../public/upload/product/'.$productImage, new CB_Resource_Imagick());
+			$image=new CB_Image_Transform(APPLICATION_PATH.'/../public/upload/product/'.$productImage, new CB_Resource_Imagick());
 
 
 			$newPath=APPLICATION_PATH.'/../public/upload/product/new/';
@@ -184,7 +184,7 @@ class CronController extends CB_Controller_Action {
 		foreach($userImages as $userImage){
 			if(strpos($userImage, 'small.')!==false || strpos($userImage, 'mid.')!==false) continue;
 
-			$image=new Zend_Image_Transform(APPLICATION_PATH.'/../public/upload/avatar/'.$userImage, new CB_Resource_Imagick());
+			$image=new CB_Image_Transform(APPLICATION_PATH.'/../public/upload/avatar/'.$userImage, new CB_Resource_Imagick());
 
 
 			$newPath=APPLICATION_PATH.'/../public/upload/avatar/new/';
@@ -253,9 +253,18 @@ class CronController extends CB_Controller_Action {
 		foreach($products as $product){
 			if(is_array($product->images)){
 				foreach($product->images as $image){
-					if(!empty($image['url'])) $usedFiles[]=end(explode('/', $image['url']));
-					if(!empty($image['mid'])) $usedFiles[]=end(explode('/', $image['mid']));
-					if(!empty($image['small'])) $usedFiles[]=end(explode('/', $image['small']));
+					if(!empty($image['url'])){
+						$exploded = explode('/', $image['url']);
+						$usedFiles[]=end($exploded);
+					}
+					if(!empty($image['mid'])) {
+						$exploded = explode('/', $image['mid']);
+						$usedFiles[]=end($exploded);
+					}
+					if(!empty($image['small'])){
+						$exploded = explode('/', $image['small']);
+						$usedFiles[]=end($exploded);
+					}
 				}
 			}
 		}
@@ -278,9 +287,18 @@ class CronController extends CB_Controller_Action {
 		foreach($users as $user){
 			if(is_array($user->avatar)){
 				foreach($user->avatar as $image){
-					if(!empty($image['url'])) $usedFiles[]=end(explode('/', $image['url']));
-					if(!empty($image['mid'])) $usedFiles[]=end(explode('/', $image['mid']));
-					if(!empty($image['small'])) $usedFiles[]=end(explode('/', $image['small']));
+					if(!empty($image['url'])){
+						$exploded = explode('/', $image['url']);
+						$usedFiles[]=end($exploded);
+					}
+					if(!empty($image['mid'])) {
+						$exploded = explode('/', $image['mid']);
+						$usedFiles[]=end($exploded);
+					}
+					if(!empty($image['small'])){
+						$exploded = explode('/', $image['small']);
+						$usedFiles[]=end($exploded);
+					}
 				}
 			}
 		}

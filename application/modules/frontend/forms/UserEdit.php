@@ -20,9 +20,9 @@ class Frontend_Form_UserEdit extends CB_Form_Form {
         $username->setDescription(self::infoDescription('Csak számok, betűk, és a .- karakterek megadása lehetséges'));
 		$gender=new Zend_Form_Element_Radio('gender');
 		$gender->setLabel('Nem')->setMultiOptions(array('male'=>'Férfi', 'female'=>'Nő'));
-		$birth=new Zend_Form_Element_Date('birth_date');
+		$birth=new CB_Resource_Form_Element_Date('birth_date');
 		$birth->setLabel('Születési idő')->setAttrib('class', 'maskBirth');
-		$email=new Zend_Form_Element_Email('email');
+		$email=new CB_Resource_Form_Element_Email('email');
 		$email->setLabel('E-mail cím')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('EmailAddress',true), array($emailCb,true)))->setAttrib('autocomplete', 'off');
 		$phone=new Zend_Form_Element_Text('phone');
 		$phone->setLabel('Telefonszám')->addValidators(array(array('NotEmpty',true)))->setAttrib('autocomplete', 'off')->setAttrib('class', 'maskPhone');

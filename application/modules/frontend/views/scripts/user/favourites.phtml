@@ -3,17 +3,17 @@
 	<div class="productList">
 		<ul class="products">
 
-			<? foreach($this->favourites as $product){?>
+			<?php foreach($this->favourites as $product){?>
 				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'delFav'=>true)));?>
-			<? } ?>
+			<?php } ?>
 
-            <? if(empty($this->favourites)){?>
+            <?php if(empty($this->favourites)){?>
                 <div class="noFavs">
                     <p class="infoText">Még nincsenek kedvenceid</p>
                     <a class="favouritesMarket" href="<?=$this->url('piac');?>">Irány a börze</a>
                 </div>
                 
-            <? } ?>
+            <?php } ?>
 
 		</ul>
 	</div>

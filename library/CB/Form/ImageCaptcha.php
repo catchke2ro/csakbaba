@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CB_Form_ImageCaptcha extends Zend_Captcha_Image{
 

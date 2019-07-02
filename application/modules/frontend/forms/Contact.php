@@ -10,7 +10,7 @@ class Frontend_Form_Contact extends CB_Form_Form {
 		$name=new Zend_Form_Element_Text('name');
 		$name->setLabel('név')->setAttribs(array('placeholder'=>$name->getLabel(), 'required'=>'required'))->setRequired(true);
 		$name->addValidator(new Zend_Validate_NotEmpty());
-		$email=new Zend_Form_Element_Email('email');
+		$email=new CB_Resource_Form_Element_Email('email');
 		$email->setLabel('e-mail cím')->setAttribs(array('placeholder'=>$email->getLabel(), 'required'=>'required'))->setRequired(true);
 		$email->addValidators(array(new Zend_Validate_NotEmpty(), new Zend_Validate_EmailAddress()));
 		$text=new Zend_Form_Element_Textarea('text');

@@ -1,9 +1,9 @@
-<? if($this->product->status!=1){?>
+<?php if($this->product->status!=1){?>
 	<h3 class="productIsNotActive">
 		A termék már nem aktív (eladták, vagy lejárt)! <br />
 		<a href="<?=$this->url('piac').$this->categoryTree->getUri($this->product->category);?>">Nézz hasonló termékeket az oldalon</a>
 	</h3>
-<? } ?>
+<?php } ?>
 <div class="productDetails" data-id="<?=$this->product->id;?>" data-categoryid="<?=$this->product->category;?>"
     data-href="<?=$this->request->getUri().'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>" itemscope itemtype="http://schema.org/Product">
     
@@ -12,52 +12,52 @@
     
 	<div class="productImagesWrapper">
 		<div class="productImages magnificParent">
-			<? $images=(is_array($this->product->images) && !empty($this->product->images)) ? $this->product->images : array(array('url'=>'/img/elements/defaultproduct.png'));?>
-			<? foreach($images as $image){?>
+			<?php $images=(is_array($this->product->images) && !empty($this->product->images)) ? $this->product->images : array(array('url'=>'/img/elements/defaultproduct.png'));?>
+			<?php foreach($images as $image){?>
 				<div class="imageWrapper"><img itemprop="image" src="<?=$image['url'];?>" alt="<?=htmlentities($this->product->name);?>" data-mfp-src="<?=$image['url'];?>" class="magnificImage"/></div>
-			<? } ?>
+			<?php } ?>
 		</div>
 	</div>
   <div class="productDetailsWrapper">
 		<h1 class="productName" itemprop="name"><?=htmlentities($this->product->name);?></h1>
 	    <div class="productOptions">
-	      <? $catoptions=$this->categoryTree->getOptions($this->product->category);?>
-		    <? $genreTypes=Zend_Registry::get('genreTypes');?>
+	      <?php $catoptions=$this->categoryTree->getOptions($this->product->category);?>
+		    <?php $genreTypes=Zend_Registry::get('genreTypes');?>
 		    <span class="option">
 			    <link itemprop="itemCondition" href="http://schema.org/<?=$this->product->new ? 'New' : 'Used';?>Condition"/>
-			    <strong><?=$this->product->new ? 'Új' : 'Használt';?><? ($this->product->type ? ', '.$genreTypes[$this->product->type] : '');?></strong>
+			    <strong><?=$this->product->new ? 'Új' : 'Használt';?><?php ($this->product->type ? ', '.$genreTypes[$this->product->type] : '');?></strong>
 		    </span>
 		    <span class="option">
 			    <strong>Feltöltve</strong>: <?=$this->product->date_added->format('Y.m.d H:i');?>
 		    </span>
-		    <? if(is_array($this->product->options)){ foreach($this->product->options as $id=>$option){?>
-			    <?
+		    <?php if(is_array($this->product->options)){ foreach($this->product->options as $id=>$option){?>
+			    <?php
                 $c=$this->categoryTree->_props[$id];
                 $value = empty($c['options'][$option]) ? $option : $c['options'][$option]['name'];
                 if(empty($value)) continue;
                 ?>
 			    <span class="option"><strong><?=$c['name'];?></strong>: <?=$value;?></span>
-		    <? }} ?>
-		    <? if(!empty($this->product->deliveries)){?>
+		    <?php }} ?>
+		    <?php if(!empty($this->product->deliveries)){?>
 		      <span class="option"><strong>Átvételi módok:</strong> <?=implode(', ', array_intersect_key($this->deliveryOptions, array_flip($this->product->deliveries)));?></span>
-	      <? } ?>
+	      <?php } ?>
 
 	    </div>
 		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="productPrice"><span itemprop="price"><?=number_format($this->product->price, 0, ',', ' ');?></span> Ft.<meta itemprop="pricecurrency" content="HUF" /></div>
-	  <? if($this->product->status==1){?>
+	  <?php if($this->product->status==1){?>
 		  <div class="productUser"><a href="<?=$this->url('profil');?>/<?=$this->product->user->get()->username;?>"><?=$this->product->user->get()->username;?></a>, <span><?=!empty($this->product->user->postaddress['city']) ? $this->product->user->postaddress['city'] : '';?></span></div>
-		  <? if(!$this->user || ($this->user && $this->product->user->get()->id!=$this->user->id)){?>
-              <? if(!$this->user){ ?>
+		  <?php if(!$this->user || ($this->user && $this->product->user->get()->id!=$this->user->id)){?>
+              <?php if(!$this->user){ ?>
                   <div class="addToCart haveToLogin" data-info="A vásárláshoz be kell jelentkezned!"><a href="javascript:void(0)">Megveszem</a></div>
-              <? } else { ?>
+              <?php } else { ?>
                   <div class="addToCart"><a href="javascript:void(0)">Megveszem</a></div>
-              <? } ?>
-		  <? } ?>
+              <?php } ?>
+		  <?php } ?>
 
 		  <div class="cassa">
-			  <? if($this->user &&!$this->user->isValidToBuy()){?>
+			  <?php if($this->user &&!$this->user->isValidToBuy()){?>
 				  <p class="infoText">A vásárláshoz meg kell adnod címedet, és minden kötelező adatot az <a href="<?=$this->url('adatmodositas');?>">adatmódosítás oldalon.</a></p>
-			  <? } else if($this->user) { ?>
+			  <?php } else if($this->user) { ?>
 				  <p class="infoText">Ne felejtsd, a megveszem gomb megnyomásával szerződés jön létre közted és az eladó között, ennek értelmében a megvásárolt árut kötelességed átvenni!</p>
 				  <div class="cassaSubmit">
 					  <form method="POST" action="<?=$this->url('vasarlas');?>">
@@ -69,12 +69,12 @@
 						  <div class="cassaSubmitButton"><input type="submit" value="Megerősítés" /></div>
 					  </form>
 				  </div>
-			  <? } ?>
+			  <?php } ?>
 		  </div>
 
-          <? if($this->user) {?><div class="addToFavourites"><a href="<?=$this->url('kedvencek');?>?id=<?=$this->product->id;?>">Kedvencekhez adom</a></div><? } ?>
+          <?php if($this->user) {?><div class="addToFavourites"><a href="<?=$this->url('kedvencek');?>?id=<?=$this->product->id;?>">Kedvencekhez adom</a></div><?php } ?>
 
-      <? } ?>
+      <?php } ?>
 
 
   </div>
@@ -96,20 +96,20 @@
 	<h2 class="commentHeader">Kérdések az eladóhoz</h2>
 	<?=$this->partial('common/comments.phtml', $this->getVars());?>
 
-	<? if(!(empty($this->userOrdersBuy) && empty($this->userOrdersSell))){?>
+	<?php if(!(empty($this->userOrdersBuy) && empty($this->userOrdersSell))){?>
 		<h2 class="commentHeader"><?=$this->product->user->username;?> legfrissebb értékelései</h2>
 		<?=$this->partial('user/ratings.phtml', $this->getVars());?>
-	<? } ?>
+	<?php } ?>
 
 
 	<h2 class="userProductsHeader"><?=$this->product->user->username;?> asztaláról</h2>
 
 	<div class="productList">
 		<ul class="products">
-			<? foreach($this->userProducts as $product){?>
-				<? if(!($product->status==2 || $product->status==1)) continue;?>
+			<?php foreach($this->userProducts as $product){?>
+				<?php if(!($product->status==2 || $product->status==1)) continue;?>
 				<?=$this->partial('market/product-partial.phtml', array_merge($this->getVars(), array('product'=>$product, 'back'=>false, 'fix'=>false)));?>
-			<? } ?>
+			<?php } ?>
 		</ul>
 	</div>
 

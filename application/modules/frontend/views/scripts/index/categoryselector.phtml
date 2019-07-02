@@ -1,4 +1,4 @@
-<?
+<?php
 function recursiveUlLi($array, $uri='', $category){
 	$output="<ul>\n";
 	foreach($array as $item){
@@ -14,7 +14,7 @@ function recursiveUlLi($array, $uri='', $category){
 
 <!--<div class="categorySelector">
 -->	<!--<div class="title">
-		<div href="javascript:void(0)" class="link title activeCategory"><span><span><?/*=(!empty($this->category) ? $this->category->name : 'Kategóriák');*/?></span></span></div>
+		<div href="javascript:void(0)" class="link title activeCategory"><span><span><?php /*=(!empty($this->category) ? $this->category->name : 'Kategóriák');*/?></span></span></div>
 		<div href="javascript:void(0)" class="link title"><span><span>Kategóriák</span></span></div>
 	</div>-->
 	<?=recursiveUlLi($this->catMultiArray[$_GET['main']]->children, '/'.$this->catMultiArray[$_GET['main']]->slug, (!empty($this->category) ? $this->category : false));?>

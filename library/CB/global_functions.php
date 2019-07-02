@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Global functions for easier developement
  * @author SRG Group

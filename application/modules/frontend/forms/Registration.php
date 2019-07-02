@@ -17,7 +17,7 @@ class Frontend_Form_Registration extends CB_Form_Form {
 		$username->setLabel('Felhasználónév')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Regex',true,'options'=>array('pattern'=>\CB\User::$usernameRegex)),array('StringLength',true,'options'=>array('min'=>5,'max'=>16)), array($usernameCb,true)))->setAttrib('autocomplete', 'off')->setAttrib('required', 'required');
         $username->setDescription(self::infoDescription('Csak számok, betűk, és a .- karakterek megadása lehetséges'));
 
-        $email=new Zend_Form_Element_Email('email');
+        $email=new CB_Resource_Form_Element_Email('email');
 		$email->setLabel('E-mail cím')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('EmailAddress',true), array($emailCb,true)))->setAttrib('autocomplete', 'off')->setAttrib('required', 'required');
 		$password=new Zend_Form_Element_Password('password');
 		$password->setLabel('Jelszó')->setRequired(true)->addValidators(array(array('NotEmpty',true),array('Alnum',true),array('StringLength',true,'options'=>array('min'=>5,'max'=>16)),array($passwordCb,true)))->setAttrib('autocomplete', 'off')->setAttrib('required', 'required');

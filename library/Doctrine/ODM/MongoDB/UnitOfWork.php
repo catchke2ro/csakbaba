@@ -799,7 +799,7 @@ class UnitOfWork implements PropertyChangedListener
                     $dbOrgValue = $dateType->convertToDatabaseValue($orgValue);
                     $dbActualValue = $dateType->convertToDatabaseValue($actualValue);
 
-                    if ($dbOrgValue instanceof \MongoDate && $dbActualValue instanceof \MongoDate && $dbOrgValue == $dbActualValue) {
+                    if ($dbOrgValue instanceof \MongoDB\BSON\UTCDateTime && $dbActualValue instanceof \MongoDB\BSON\UTCDateTime && $dbOrgValue == $dbActualValue) {
                         continue;
                     }
                 }
@@ -1075,9 +1075,9 @@ class UnitOfWork implements PropertyChangedListener
                 ));
             }
 
-            if ($class->generatorType === ClassMetadata::GENERATOR_TYPE_AUTO && $idValue !== null && ! \MongoId::isValid($idValue)) {
+            if ($class->generatorType === ClassMetadata::GENERATOR_TYPE_AUTO && $idValue !== null && ! \MongoDB\BSON\ObjectId::isValid($idValue)) {
                 throw new \InvalidArgumentException(sprintf(
-                    '%s uses AUTO identifier generation strategy but provided identifier is not valid MongoId.',
+                    '%s uses AUTO identifier generation strategy but provided identifier is not valid MongoDB\BSON\ObjectId.',
                     get_class($document)
                 ));
             }
@@ -2810,7 +2810,7 @@ class UnitOfWork implements PropertyChangedListener
      *
      * TODO: This method assumes that $id is a valid PHP identifier for the
      * document class. If the class expects its database identifier to be a
-     * MongoId, and an incompatible $id is registered (e.g. an integer), the
+     * MongoDB\BSON\ObjectId, and an incompatible $id is registered (e.g. an integer), the
      * document identifiers map will become inconsistent with the identity map.
      * In the future, we may want to round-trip $id through a PHP and database
      * conversion and throw an exception if it's inconsistent.

@@ -1,23 +1,23 @@
 <div class="userproductfunctions">
 	<div class="productStatus s<?=$this->product->status;?>">
 		<div class="status s<?=$this->product->status;?>" title="<?=$this->statusCodes[$this->product->status];?>"></div>
-        <? if($this->product->getActivePromotes()){?>
+        <?php if($this->product->getActivePromotes()){?>
             <div class="promoted" title="Kiemelve"></div>
-        <? } ?>
+        <?php } ?>
         <div class="menu"></div>
 	</div>
 </div>
 
-<? $freeUpload = count($this->activeProducts) < Zend_Registry::get('freeUploadLimit'); ?>
-<? $canUpload = $this->user->balance >= Zend_Registry::get('uploadPrice') || $freeUpload;?>
+<?php $freeUpload = count($this->activeProducts) < Zend_Registry::get('freeUploadLimit'); ?>
+<?php $canUpload = $this->user->balance >= Zend_Registry::get('uploadPrice') || $freeUpload;?>
 <div class="productMenu">
     <ul>
         <li><a href="javascript:void(0)" class="userEditProduct action">Szerkesztés</a></li>
         <li><a href="javascript:void(0)" class="userDeleteProduct action">Törlés</a></li>
         <li><a href="javascript:void(0)" class="userCopyProduct action <?=$canUpload ? '' : 'disabled';?>">Másolás</a></li>
-        <? if($this->product->status == 3){ ?>
+        <?php if($this->product->status == 3){ ?>
             <li><a href="javascript:void(0)" class="userRenewProduct action <?=$canUpload ? '' : 'disabled';?>">Megújítás (<?=$freeUpload ? 'ingyenes' : Zend_Registry::get('uploadPrice').' Ft.';?>)</a></li>
-        <? } ?>
+        <?php } ?>
     </ul>
 </div>
 

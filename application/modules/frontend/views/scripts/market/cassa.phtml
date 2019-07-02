@@ -3,10 +3,10 @@
 	<div class="productDetails" data-id="<?=$this->product->id;?>" data-categoryid="<?=$this->product->category;?>"
 	     data-href="<?=$this->request->getUri().'/'.$this->product->id.'/'.$this->cb()->slug($this->product->name);?>">
 		<div class="productImages">
-			<? if(is_array($this->product->images)) {?>
-				<? $image=$this->product->images[0];?>
+			<?php if(is_array($this->product->images)) {?>
+				<?php $image=$this->product->images[0];?>
 				<img src="<?=$image['small'];?>" />
-			<? } ?>
+			<?php } ?>
 		</div>
 
 		<h3 class="productName"><?=htmlentities($this->product->name);?></h3>

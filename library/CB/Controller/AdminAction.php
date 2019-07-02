@@ -1,4 +1,4 @@
-<?
+<?php
 
 abstract class CB_Controller_AdminAction extends Zend_Controller_Action {
 

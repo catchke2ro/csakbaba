@@ -1,6 +1,6 @@
-<? $uri='/';?>
+<?php $uri='/';?>
 
-<?
+<?php
 $class = '';
 if(count($this->bc) > 1 && $this->bc[0] instanceof Zend_Navigation_Page_Uri && $this->bc[0]->get('uri') == $this->url('piac')){
     $class.=' longBC';
@@ -11,15 +11,15 @@ if(count($this->bc) > 1 && $this->bc[0] instanceof Zend_Navigation_Page_Uri && $
 		<a class="fbshare" href="http://www.facebook.com/share.php?u=">tetszik</a>
 		<a class="gpshare" href="https://plus.google.com/share?url=">+1</a>
 	</div>
-	<? if(count($this->bc)==1 && $this->bc[0]->getUri()=='/'){?>
+	<?php if(count($this->bc)==1 && $this->bc[0]->getUri()=='/'){?>
 		<h1>Használt és új baba és gyerek ruházat, online bababörze</h1>
-	<? } ?>
+	<?php } ?>
 <ul>
 <li class="link"><a href="/">csakbaba.hu</a></li>
 <li class="separator">&nbsp;»&nbsp;</li>
-<? foreach($this->bc as $key=>$bc){?>
-	<? if(!$bc) continue;?>
-	<?
+<?php foreach($this->bc as $key=>$bc){?>
+	<?php if(!$bc) continue;?>
+	<?php
 	if($bc instanceof Zend_Navigation_Page_Uri) {
 		$uri=$bc->get('uri');
 		$name=$bc->get('label');
@@ -30,16 +30,16 @@ if(count($this->bc) > 1 && $this->bc[0] instanceof Zend_Navigation_Page_Uri && $
 		$name=property_exists($bc, 'title') && !empty($bc->title) ? $bc->title : $bc->name;
 	}
 	?>
-	<? if($key+1!=count($this->bc)){?>
+	<?php if($key+1!=count($this->bc)){?>
 		<li class="link"><a href="<?=$uri;?>"><?=$name;?></a></li>
-	<? } else {?>
+	<?php } else {?>
 		<li class="link last"><h2><?=$name;?></h2></li>
-	<? } ?>
+	<?php } ?>
 
-	<? if($key+1!=count($this->bc)) { ?>
+	<?php if($key+1!=count($this->bc)) { ?>
 		<li class="separator">&nbsp;»&nbsp;</li>
-	<? } ?>
-<? } ?>
+	<?php } ?>
+<?php } ?>
 </ul>
 
 

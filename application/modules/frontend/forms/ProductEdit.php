@@ -18,7 +18,8 @@ class Frontend_Form_ProductEdit extends CB_Form_Form {
         $this->deliveryOptions = $deliveryOptions;
         $this->setAttrib('data-amount', 0);
 
-		$this->setAttrib('class', reset(explode('-', $this->category->id)));
+        $categoryIdExploded = explode('-', $this->category->id);
+		$this->setAttrib('class', reset($categoryIdExploded));
 
 		$id=new Zend_Form_Element_Hidden('id');
 		$id->removeDecorator('label');
